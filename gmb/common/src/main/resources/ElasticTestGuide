@@ -1,0 +1,65 @@
+
+
+0. setup japanese tokenizer
+check this out , http://qiita.com/nakamura-tsuyoshi/items/993a4f87bcef2be59db5
+
+
+1. define doc
+curl -XPUT localhost:9200/_template/engineer -d '
+
+{
+  "order": 0,
+  "template": "engineer-*",
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings": {
+    "engineer": {
+      "_source": {
+        "enabled": true
+      },
+      "_all": {
+        "analyzer": "ja",
+        "enabled": true
+      },
+      "properties": {
+        "update_time": {
+          "format": "YYYY-MM-dd HH:mm:ss",
+          "type": "date"
+        },
+        "id": {
+          "index": "not_analyzed",
+          "type": "string"
+        },
+        "detail": {
+          "analyzer": "ja_ngram",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "aliases": {
+
+  }
+}'
+
+2. add engineer
+curl -X POST http://localhost:9200/engineer/engineer/1  -d '
+{
+    "id": 1,
+    "detail" : "java, Scala"
+}
+'
+
+3. search
+
+curl -XGET 'localhost:9200/engineer/engineer/_search?pretty' -d'
+  {
+    "query":{"match":{"detail":"sc"}}
+  }'
+
+4.  delete all indexes
+curl -XDELETE 'http://localhost:9200/*'
