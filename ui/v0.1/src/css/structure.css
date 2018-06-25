@@ -1,0 +1,401 @@
+.header{
+  display:block;
+  background-color:#000088;
+  margin: 0 auto;
+  margin-bottom:25px;
+  padding-bottom:5px;
+  border-bottom: medium solid #000088;
+  width:100%;
+  height:60px;
+
+}
+.body{
+   display:block;
+   margin: 0 auto;
+   height:100%;
+}
+.footer{
+   display:block;
+   font-size:10px;
+   text-align:center;
+   margin: 0 auto;
+   margin-top:50px;
+   padding-top:10px;
+   border-top: medium solid #000088;
+   background-color:#000088;
+   height:50px;
+   color:white;
+   width:100%;
+}
+.title{
+  font-size:20px;
+}
+
+.menuHeader{
+  height:60px;
+}
+
+.menuItemLogo{
+    float:left;
+    margin-top:4px;
+    margin-left:4px;
+    width:60px;
+    height:60px;
+}
+
+.menu{
+  float:right;
+
+  margin-top:20px;
+  margin-right:5px;
+  font-size:10px;
+  height:50px;
+  width: 700px;
+}
+a {
+   text-decoration: none;
+}
+
+a:active {
+    text-decoration:none;
+}
+
+.companyIcon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:60%;
+}
+
+.menuItem {
+  float:right;
+  margin-left:10px;
+  border:solid 1px #C0C0C0;;
+  padding: 5px 5px 5px 5px;
+  font-color:black;
+  background-color:#ffffff;
+}
+
+.menuItemSearch{
+  float:right;
+  margin-left:10px;
+  margin-top:4px;
+}
+.menuItemSearchInput{
+  float:right;
+}
+
+.menuItemSearchIcon{
+  float:right;
+  margin-left:1px;
+  border:solid 1px #C0C0C0;
+    background: #C0C0C0;
+}
+.menuItemSearchIconImg{
+    float:right;
+    margin-left:10px;
+    margin-right:5px;
+    margin-top:6px;
+    zoom:60%;
+}
+.menuItem:hover {
+    background:#808080;
+    border-color:#808080;
+}
+
+.loginBox{
+    width:400px;
+    margin: 0 auto;
+}
+.loginTitle{
+    text-align:center;
+    width:400px;
+    margin-bottom:30px;
+}
+
+.loginInput{
+    text-align:center;
+    margin-bottom:30px;
+    width:401px;
+    height:20px;
+    font-size:20px;
+}
+
+.loginInput:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.loginButton{
+    background-color:#E0F2F7;
+    text-align:center;
+    width:400px;
+    border:solid 1px #C0C0C0;
+}
+.loginButton:hover{
+    background-color:#808080;
+}
+
+.loginRegistration{
+    margin-top:20px;
+    text-align:right;
+}
+
+.loginRegistrationTitle{
+    color: #ff0000;
+}
+.loginMessage{
+    margin-top:20px;
+}
+
+.closeButton{
+}
+.closeButtonCareerSheetCenter{
+    width:1500px;
+    padding-left:1485px;
+}
+
+.icon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+}
+
+.loading {
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+  z-index:20;
+}
+
+.searchResult{
+    display: block;
+    margin: 0 auto;
+    width:600px;
+}
+.searchResultElement{
+    margin-bottom:10px;
+    margin: 0 auto;
+    margin-bottom:10px;
+    width:600px;
+}
+
+.searchSelecteHover:hover{
+    background-color:#E0F2F7;
+}
+
+.loading{
+    position:absolute;
+
+    z-index:10px;
+
+    height:100%;
+    width:100%;
+
+    background-color:black;
+}
+
+.accountRoleChange{
+    clear:both;
+    display: block;
+    margin: 0 auto;
+    border:solid 1px #C0C0C0;
+    padding-top:10px;
+    width: 800px;
+    border-radius: 10px;        /* CSS3草案 */
+    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */
+    -moz-border-radius: 10px;   /* Firefox用 */
+}
+
+.accountRoleChangeButton{
+    clear:both;
+    display: block;
+    margin: 0 auto;
+    padding-top:10px;
+    width: 800px;
+}
+.accountRoleChangeButtonBox{
+    padding:0 auto;
+    display:block;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom:10px;
+}
+.accountRoleChangeItemBox{
+    padding:0 auto;
+    display:block;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom:10px;
+    border-bottom:solid 1px #C0C0C0;;
+}
+.accountRoleChangeItemName{
+    font-size:12px;
+    width: 800px;
+}
+.addProjectIconTitle{
+    font-size:10px;
+}
+
+.loginFederationBox{
+    width:400px;
+}
+.loginFederationGoogle{
+    width:60%;
+    height:60%;
+    padding-left:70px;
+    margin-top:30px;
+}
+.loginFederationFacebook{
+    width:59%;
+    height:60%;
+    padding-left:73px;
+    margin-top:5px;
+}
+
+.loginLogoDiv{
+    width:400px;
+}
+
+.loginLogo{
+    margin-left:130px;
+    margin-bottom:15px;
+    width:30%;
+    height:30%;
+}
+
+.statement{
+    width:100%;
+    height:100%;
+}
+
+.csvDropzone {
+  width : 300px;
+  height : 20px;
+  border-style: dotted;
+  float: left;
+}
+
+.analyzingDropzone {
+  margin-left:10px;
+  width : 400px;
+  height : 20px;
+  border-style: dotted;
+  float: left;
+}
+
+.moveUpper{
+    background-color:red;
+    min-height: 10px;
+    min-width: 10px;
+}
+.moveLeft{
+    background-color:black;
+    display: inline-block;
+    min-height: 1000px;
+    min-width: 10px;
+}
+
+.svgPane{
+    background: #eaeaea;
+}
+.moveRight{
+    background-color: blue;
+    width:10;
+    height: 100%;
+    min-height: 10px;
+    min-width: 10px;
+}
+.moveBottom{
+    background-color: yellow;
+    min-height: 10px;
+    min-width: 10px;
+}
+
+.nodePropertySetting{
+  width : 160px;
+  height : 25px;
+  float: left;
+  background-color: #CED8F6;
+}
+
+.graphLabMenu{
+    display: block;
+    width: 100%;
+}
+
+.modalTitle{
+    margin-right: 10px;
+    width: 270px;
+    float:left;
+}
+
+.nodeProp{
+   display: block;
+}
+
+.nodePropName{
+   float:left;
+   width: 100px;
+}
+
+.nodePropValue{
+   float:left;
+   width: 100px;
+}
+
+.nodePropNameHeader{
+   float:left;
+   width: 100px;
+  text-align: center;
+}
+
+.nodePropValueHeader{
+   float:left;
+   width: 100px;
+  text-align: center;
+}
+.graphLabMenuCalculationModelItem{
+  font-size: 8px;
+  color: white;
+  width : 150px;
+  height : 60px;
+  float: left;
+  background-color: #000088;
+  margin-right: 2px;
+
+  text-align: center;
+}
+.graphLabMenuItem{
+  font-size: 8px;
+  color: white;
+  width : 60px;
+  height : 60px;
+  float: left;
+  background-color: #000088;
+  margin-right: 2px;
+
+  text-align: center;
+}
+
+.graphLabMenuItemCalculationSelect{
+    max-width:90%;
+}
+
+.nodePropertyViewTitle{
+    display:block;
+    width: 300px;
+    width: 300px;
+}
+
+.nodePropertyViewContent{
+    margin-top: 20px;
+    display:block;
+}
+
+
+.nodePropertyViewFooter{
+    display:block;
+}
