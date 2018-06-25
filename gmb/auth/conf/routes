@@ -1,0 +1,12 @@
+
+
+
+POST                /auth/:companyId/login                    controllers.AuthController.login(companyId:String)
+POST                /auth/:companyId/register                    controllers.AuthController.register(companyId:String)
+POST                /auth/:companyId/validation                    controllers.AuthController.validation(companyId:String)
+POST                /auth/:companyId/changeRole                    controllers.AuthController.changeRole(companyId:String)
+POST                /auth/:companyId/changePassword                    controllers.AuthController.changePassword(companyId:String)
+POST                /auth/:companyId/removeAccount                    controllers.AuthController.removeAccount(companyId:String)
+POST                /auth/:companyId/googleApps/authenticate                    controllers.AuthController.googleAppsAuthenticate(companyId:String)
+POST                /auth/:companyId/facebookApps/authenticate                    controllers.AuthController.facebookAppsAuthenticate(companyId:String)
+POST                /auth/:companyId/registerCompany                    controllers.AuthController.registerCompany(companyId:String)

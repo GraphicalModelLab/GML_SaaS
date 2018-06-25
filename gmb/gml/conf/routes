@@ -1,0 +1,5 @@
+
+
+
+GET                /helloworld                    controllers.GraphicalModelLabServiceController.helloworld()
+POST                /gml/:companyId/training                    controllers.GraphicalModelLabServiceController.training(companyId:String)
