@@ -1,0 +1,8 @@
+.autocompleteItem{
+    cursor: default;
+}
+
+.autocompleteHighlitedItem{
+    background: #C0C0C0;
+    cursor: default;
+}

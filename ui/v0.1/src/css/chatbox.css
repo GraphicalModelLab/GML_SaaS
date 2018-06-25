@@ -1,0 +1,121 @@
+.chatboxOpen{
+ position: fixed;
+ bottom: 5px;
+ right: 0;
+ margin-right:30px;
+ margin-left: auto;
+ width:200px;
+ height:400px;
+ z-index:100;
+}
+.chatboxClosed{
+ position: fixed;
+ bottom: 0px;
+ right: 0;
+ margin-right:30px;
+ margin-left: auto;
+ width:200px;
+ height:20px;
+ z-index:100;
+}
+.chatboxTitle{
+ font-size:10px;
+ color: #FFFFFF;
+ text-align:center;
+ width:200p;
+ height:20px;
+ background-color:#2E9AFE;
+ border-radius: 5px 5px 0px 0px;
+}
+
+.chatElement{
+ display: block;
+ clear:both;
+ margin-top:5px;
+
+}
+
+.chatCommentRightElement{
+ color:#000000;
+ font-size:10px;
+ border-radius: 2px 2px 2px 2px;
+ background-color:#EFFBFB;
+ float:right;
+ margin-right:5px;
+ margin-bottom:5px;
+ width:100px;
+}
+
+.chatCommentLeftElement{
+ color:#000000;
+ font-size:10px;
+ border-radius: 2px 2px 2px 2px;
+ background-color:#EFFBFB;
+ float:left;
+ margin-left:5px;
+ margin-bottom:5px;
+ width:100px;
+}
+
+.chatboxDisp{
+ border: thin solid #ddd;
+ width:200p;
+ height:360px;
+ background-color:white;
+ overflow-y: scroll;
+}
+.chatboxInput{
+ border: thin solid #ddd;
+ width:195px;
+ height:20px;
+}
+
+.loader {
+    text-align: center;
+}
+.loader span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 5px;
+    height: 5px;
+    background: black;
+    border-radius: 10px;
+    -webkit-animation: loader 0.9s infinite alternate;
+    -moz-animation: loader 0.9s infinite alternate;
+}
+.loader span:nth-of-type(2) {
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+}
+.loader span:nth-of-type(3) {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+}
+@-webkit-keyframes loader {
+  0% {
+    width: 5px;
+    height: 5px;
+    opacity: 0.9;
+    -webkit-transform: translateY(0);
+  }
+  100% {
+    width: 10px;
+    height: 10px;
+    opacity: 0.1;
+    -webkit-transform: translateY(-10px);
+  }
+}
+@-moz-keyframes loader {
+  0% {
+    width: 5px;
+    height: 5px;
+    opacity: 0.9;
+    -moz-transform: translateY(0);
+  }
+  100% {
+    width: 10px;
+    height: 10px;
+    opacity: 0.1;
+    -moz-transform: translateY(-10px);
+  }
+}
