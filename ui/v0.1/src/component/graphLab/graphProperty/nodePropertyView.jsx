@@ -59,6 +59,7 @@ export default class NodePropertyView extends React.Component<Props, {}> {
     render() {
         return <div>
                     <Modal
+                        contentLabel="Property View"
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles} ref="modal">
