@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Draggable from 'react-draggable';
 import * as styles from './../../../css/structure.css';
 
 

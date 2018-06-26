@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {ReactSVGPanZoom} from 'react-svg-pan-zoom';
 import * as styles from './../../css/structure.css';
 import auth from "./../auth/auth";
 import $ from 'jquery';
