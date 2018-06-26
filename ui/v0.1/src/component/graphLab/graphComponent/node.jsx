@@ -116,8 +116,7 @@ export default class Node extends React.Component<Props, {}> {
 
                     <text
                         x={this.state.x-20}
-                        y={this.state.y+40}
-                     font_size="8" lengthAdjust="spacingAndGlyphs">{this.props.label}</text>
+                        y={this.state.y+40} lengthAdjust="spacingAndGlyphs">{this.props.label}</text>
                </g>
            )
    }

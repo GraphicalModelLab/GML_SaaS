@@ -49,6 +49,7 @@ export default class Loading extends React.Component {
     render() {
         return <div>
                     <Modal
+                        contentLabel="Loading"
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles} >

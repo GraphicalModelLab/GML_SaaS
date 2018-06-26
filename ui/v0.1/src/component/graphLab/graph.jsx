@@ -52,16 +52,12 @@ export default class Graph extends React.Component<Props, {}> {
         window.addEventListener("resize", this.updateDimensions);
 
         ReactDOM.findDOMNode(this.refs.leftArrow).setAttribute('marker-start', "url(#left_ar)");
-        ReactDOM.findDOMNode(this.refs.leftArrow).setAttribute('stroke-width', "4px");
 
         ReactDOM.findDOMNode(this.refs.upperArrow).setAttribute('marker-end', "url(#upper_ar)");
-        ReactDOM.findDOMNode(this.refs.upperArrow).setAttribute('stroke-width', "4px");
 
         ReactDOM.findDOMNode(this.refs.rightArrow).setAttribute('marker-end', "url(#right_ar)");
-        ReactDOM.findDOMNode(this.refs.rightArrow).setAttribute('stroke-width', "4px");
 
         ReactDOM.findDOMNode(this.refs.bottomArrow).setAttribute('marker-end', "url(#bottom_ar)");
-        ReactDOM.findDOMNode(this.refs.bottomArrow).setAttribute('stroke-width', "4px");
     }
 
     updateDimensions(){
@@ -286,31 +282,31 @@ export default class Graph extends React.Component<Props, {}> {
                         </defs>
 
                         <g onClick={this.panLeft}>
-                            <circle class="button" cx="16.5" cy={this.state.svg_height/2} r="10" fill="#eaeaea"/>
-                            <line ref="leftArrow" stroke="#000088" x1={13} y1={this.state.svg_height/2} x2={20} y2={this.state.svg_height/2} />
+                            <circle cx="16.5" cy={this.state.svg_height/2} r="10" fill="#eaeaea"/>
+                            <line ref="leftArrow" strokeWidth="4px" stroke="#000088" x1={13} y1={this.state.svg_height/2} x2={20} y2={this.state.svg_height/2} />
                         </g>
 
                         <g onClick={this.panTop}>
-                            <circle class="button" cx={this.state.svg_width/2} cy={16.5} r="10" fill="#eaeaea"/>
-                            <line ref="upperArrow" stroke="#000088"  x1={this.state.svg_width/2} y1={20} x2={this.state.svg_width/2} y2={13}/>
+                            <circle cx={this.state.svg_width/2} cy={16.5} r="10" fill="#eaeaea"/>
+                            <line ref="upperArrow" strokeWidth="4px" stroke="#000088"  x1={this.state.svg_width/2} y1={20} x2={this.state.svg_width/2} y2={13}/>
                         </g>
 
                         <g onClick={this.panRight}>
-                            <circle class="button" cx={this.state.svg_width - 16.5} cy={this.state.svg_height/2} r="10" fill="#eaeaea"/>
-                            <line ref="rightArrow" stroke="#000088" x1={this.state.svg_width - 20} y1={this.state.svg_height/2} x2={this.state.svg_width - 13} y2={this.state.svg_height/2} />
+                            <circle cx={this.state.svg_width - 16.5} cy={this.state.svg_height/2} r="10" fill="#eaeaea"/>
+                            <line ref="rightArrow" strokeWidth="4px" stroke="#000088" x1={this.state.svg_width - 20} y1={this.state.svg_height/2} x2={this.state.svg_width - 13} y2={this.state.svg_height/2} />
                         </g>
 
                         <g onClick={this.panBottom}>
-                            <circle class="button" cx={this.state.svg_width/2} cy={this.state.svg_height - 16.5} r="10" fill="#eaeaea"/>
-                            <line ref="bottomArrow" stroke="#000088" x1={this.state.svg_width/2} y1={this.state.svg_height - 20} x2={this.state.svg_width/2} y2={this.state.svg_height - 13} />
+                            <circle cx={this.state.svg_width/2} cy={this.state.svg_height - 16.5} r="10" fill="#eaeaea"/>
+                            <line ref="bottomArrow" strokeWidth="4px" stroke="#000088" x1={this.state.svg_width/2} y1={this.state.svg_height - 20} x2={this.state.svg_width/2} y2={this.state.svg_height - 13} />
                         </g>
 
                         <g onClick={this.zoomIn} >
-                            <circle class="button" cx="25" cy="20.5" r="8" fill="white"/>
-                            <line stroke="#000088" stroke-width="20" x1={21.5} y1={20.5} x2={28.5} y2={20.5} />
+                            <circle cx="25" cy="20.5" r="8" fill="white"/>
+                            <line stroke="#000088" x1={21.5} y1={20.5} x2={28.5} y2={20.5} />
                         </g>
                         <g onClick={this.zoomOut} >
-                            <circle class="button" cx="25" cy="39.5" r="8" fill="white"/>
+                            <circle cx="25" cy="39.5" r="8" fill="white"/>
                             <line stroke="#000088" x1={21.5} y1={39.5} x2={28.5} y2={39.5} />
                             <line stroke="#000088" x1={25} y1={35.5} x2={25} y2={43.5} />
                         </g>
@@ -318,18 +314,18 @@ export default class Graph extends React.Component<Props, {}> {
 
                     <g ref="canvas">
                         { this.state.nodes.map((d, idx) => {
-                            return <Node zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={idx*100+20} y={100} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
+                            return <Node key={d.label} zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={idx*100+20} y={100} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
                         }) }
 
                         { this.state.edges.map((d, idx) => {
                             if(!d.disable){
-                                return <Edge ref={"edge"+idx} x1={d.x1} y1={d.y1} x2={d.x2} y2={d.y2} label1={d.label1} label2={d.label2}/>
+                                return <Edge key={"edge"+idx} ref={"edge"+idx} x1={d.x1} y1={d.y1} x2={d.x2} y2={d.y2} label1={d.label1} label2={d.label2}/>
                             }
                         })}
 
                         { this.state.edgesDeletion.map((d, idx) => {
                             if(!d.disable){
-                                return <EdgeDeletion ref={"edgeDeletion"+idx} x={d.x} y={d.y} label1={d.label1} label2={d.label2} deleteEdgeCallBack={this.deleteEdgeCallBack}/>
+                                return <EdgeDeletion key={"edgeDeletion"+idx} ref={"edgeDeletion"+idx} x={d.x} y={d.y} label1={d.label1} label2={d.label2} deleteEdgeCallBack={this.deleteEdgeCallBack}/>
                             }
                         })}
                     </g>
