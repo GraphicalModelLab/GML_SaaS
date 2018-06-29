@@ -153,7 +153,7 @@ export default class Circle extends React.Component<Props, {}> {
                        <path d='M0,0 V16 L8,8 Z' />
                      </marker>
                    </defs>
-                   <line ref={this.state.label1+":"+this.state.label2} stroke="black" stroke-width="20" x1={this.state.fixed_x1} y1={this.state.fixed_y1} x2={this.state.fixed_x2} y2={this.state.fixed_y2}>
+                   <line ref={this.state.label1+":"+this.state.label2} stroke="black" x1={this.state.fixed_x1} y1={this.state.fixed_y1} x2={this.state.fixed_x2} y2={this.state.fixed_y2}>
                    </line>
                </g>
            )

@@ -110,7 +110,7 @@ export default class App extends React.Component<Props, {}> {
                 <Sticky className={styles.header}>
                     <div className={styles.menuHeader}>
                         <img className={styles.menuItemLogo} src='../icon/infographic/ccs_logo.png'/>
-
+                        <div className={styles.menuItemUserId}>Hello, {auth.getUserid()}</div>
                         {this.state.loggedIn ? (
                             (auth.getRole() == 'sysadmin' ? (
                                 <div className={styles.menu}>

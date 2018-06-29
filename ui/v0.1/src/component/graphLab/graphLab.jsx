@@ -13,13 +13,21 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
     constructor(props) {
         super(props);
 
+       // downloadLink
+        this.state = {
+            downloadLink: "",
+            downloadContent: ""
+        };
+
         this.onDropAttributeImport = this.onDropAttributeImport.bind(this);
         this.onDropAnalyzing = this.onDropAnalyzing.bind(this);
         this.showNodePropertyView = this.showNodePropertyView.bind(this);
+        this.save = this.save.bind(this);
     }
     onDropAttributeImport(acceptedFiles, rejectedFiles){
         var reader = new FileReader();
         var graph = this.refs.graph;
+        graph.clearSvgPane();
         reader.onload = function(e) {
             var text = reader.result;                 // the entire file
 
@@ -105,12 +113,74 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
        this.refs.nodePropertyView.openModal();
     }
 
+    save(){
+        var nodeArray = [];
+        for(let index in this.refs.graph.state.nodes){
+            nodeArray.push({
+                label: this.refs.graph.state.nodes[index].label,
+                disable: false,
+                x: this.refs.graph.refs[this.refs.graph.state.nodes[index].label].state.x,
+                y: this.refs.graph.refs[this.refs.graph.state.nodes[index].label].state.y
+            });
+        }
+
+        var graph = {
+            algorithm: this.refs.algorithm.value,
+            nodes: nodeArray,
+            edges: this.refs.graph.state.edges
+        };
+
+        var data = {
+                    companyid: auth.getCompanyid(),
+                    userid:auth.getUserid(),
+                    token: auth.getToken(),
+                    modelid: "test",
+                    graph: JSON.stringify(graph),
+                    code:10
+        };
+
+        this.setState({
+            downloadLink: "ダウンロードリンク",
+            downloadContent: "data:text/csv;charset=utf-8,"+JSON.stringify(graph)
+        });
+
+        console.log("graphicalb to save model");
+        console.log(JSON.stringify(data));
+        $.ajax({
+            url  : "../commonModules/php/modules/GML.php/gml/model/save",
+            type : "post",
+            data : JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function(response) {
+                alert("succeed to save");
+                console.log("success for save");
+                console.log(response);
+            },
+            error: function(request, status, error) {
+                alert("error");
+                console.log(request);
+                console.log(status);
+                console.log(error);
+            }
+        });
+
+
+        var self = this;
+        setTimeout(function(){
+            self.setState({
+                    downloadLink: "",
+                    downloadContent: ""
+            });
+        }, 5000);
+    }
+
     render() {
         return (
             <div>
                 <div>
                     <div className={styles.graphLabMenu}>
-                        <div className={styles.graphLabMenuCalculationModelItem}><br/>計算モデル<br/><br/><select className={styles.graphLabMenuItemCalculationSelect}>
+                        <div className={styles.graphLabMenuCalculationModelItem}><br/>計算モデル<br/><br/><select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect}>
                                                                                                                       <option value="" disabled selected>Select your model</option>
                                                                                                                       <option value="model1">Freq(Mul & Norm)</option>
                                                                                                                       <option value="model2">Only Multinomial</option>
@@ -141,6 +211,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                 <br/>解析データ<br/>ファイル<br/>ドロップ
                             </div>
                         </Dropzone>
+                        <div onClick={this.save} className={styles.graphLabMenuItem}><br/><br/>モデル保存<br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
                     </div>
                     <Graph ref="graph" items={[]}/>
                 </div>

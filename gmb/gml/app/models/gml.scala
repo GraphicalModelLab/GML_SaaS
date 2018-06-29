@@ -40,4 +40,46 @@ package object gml {
     ).filter(_._2 != JsNull))
   }
 
+  // 2. Save models
+  case class saveRequest(code: Int, userid:String, token: String, companyid: String, modelid: String, graph: String)
+  case class saveResponse(code: Int, saveSuccessCode: Int)
+
+  implicit lazy val saveRequestReads: Reads[saveRequest] = Reads[saveRequest] {
+    json => JsSuccess(saveRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "token").as[String],
+      (json \ "companyid").as[String],
+      (json \ "modelid").as[String],
+      (json \ "graph").as[String]
+    ))
+  }
+
+  implicit lazy val saveRequestWrites: Writes[saveResponse] = Writes[saveResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "saveSuccessCode" -> Json.toJson(o.saveSuccessCode)
+    ).filter(_._2 != JsNull))
+  }
+
+  // 3. list models
+  case class listRequest(code: Int, userid:String, token: String, companyid: String)
+  case class listResponse(code: Int, listSuccessCode: Int, models: List[String])
+
+  implicit lazy val listRequestReads: Reads[listRequest] = Reads[listRequest] {
+    json => JsSuccess(listRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "token").as[String],
+      (json \ "companyid").as[String]
+    ))
+  }
+
+  implicit lazy val listRequestWrites: Writes[listResponse] = Writes[listResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "listSuccessCode" -> Json.toJson(o.listSuccessCode),
+      "models" -> Json.toJson(o.models)
+    ).filter(_._2 != JsNull))
+  }
 }

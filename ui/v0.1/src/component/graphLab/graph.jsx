@@ -29,7 +29,7 @@ export default class Graph extends React.Component<Props, {}> {
             zoom    : 1.0,
             svg_width: window.innerWidth - 17,
             svg_height: window.innerHeight - 100
-        }
+        };
         this.entryPointCallBack = this.entryPointCallBack.bind(this);
         this.moveCircleCallBack = this.moveCircleCallBack.bind(this);
         this.updateMatrix = this.updateMatrix.bind(this);
@@ -45,6 +45,9 @@ export default class Graph extends React.Component<Props, {}> {
         this.updateDimensions = this.updateDimensions.bind(this);
         this.deleteEdgeCallBack = this.deleteEdgeCallBack.bind(this);
         this.deleteNodeCallBack = this.deleteNodeCallBack.bind(this);
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+        this.onScroll = this.onScroll.bind(this);
     }
 
     componentDidMount() {
@@ -58,6 +61,8 @@ export default class Graph extends React.Component<Props, {}> {
         ReactDOM.findDOMNode(this.refs.rightArrow).setAttribute('marker-end', "url(#right_ar)");
 
         ReactDOM.findDOMNode(this.refs.bottomArrow).setAttribute('marker-end', "url(#bottom_ar)");
+
+        this.zoomIn();
     }
 
     updateDimensions(){
@@ -250,13 +255,57 @@ export default class Graph extends React.Component<Props, {}> {
         this.setState({
             edges: this.state.edges,
             edgesDeletion: this.state.edgesDeletion,
-            nodes: this.state.nodes
+            nodes: this.state.nodes,
+            currentChosenNode: null,
+            prevLabel: null,
+            newEdge: false
         });
+    }
+
+    handleMouseDown(e){
+      e.stopPropagation();
+
+      this.coords = {
+            x: e.pageX,
+            y: e.pageY
+      }
+    }
+
+    handleMouseUp(e) {
+      e.stopPropagation();
+
+      // Move Coordinate
+      const xDiff = e.pageX - this.coords.x;
+      const yDiff = e.pageY - this.coords.y;
+
+      if(xDiff > 0) this.pan(xDiff,0);
+      else          this.pan(xDiff, 0);
+
+      if(yDiff > 0) this.pan(0,yDiff);
+      else          this.pan(0,yDiff);
+    }
+
+    onScroll(e){
+      e.stopPropagation();
+        console.log(e);
+    }
+
+    clearSvgPane(){
+         this.setState({
+            nodes : [],
+            currentChosenNode: null,
+            edges: [],
+            edgesDeletion: []
+         });
     }
 
     render() {
         return (
-                <svg className={styles.svgPane}　id="svg-graph" width={this.state.svg_width} height={this.state.svg_height} xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <svg className={styles.svgPane}　id="svg-graph" width={this.state.svg_width} height={this.state.svg_height} xmlns="http://www.w3.org/2000/svg" version="1.1"
+                            onMouseDown={this.handleMouseDown}
+                            onMouseUp={this.handleMouseUp}
+                            onScroll={this.onScroll}
+                >
                     <g>
                         <defs>
                           <marker id="left_ar" orient="180"
