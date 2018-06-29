@@ -19,12 +19,42 @@ class GraphicalModelLabService {
 
     request match {
       case Some(request)=>
-        val model: ModelSimpleCSV = new ModelSimpleCSV(request);
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          val model: ModelSimpleCSV = new ModelSimpleCSV(request);
+          model.training()
+        }
 
-        model.training()
       case None =>
         println("No request")
     }
     return trainingResponse(Status.INTERNAL_SERVER_ERROR, 1,"")
+  }
+
+  def save(companyId:String,request: Option[saveRequest]): saveResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          GmlDBClient.save(request)
+        }
+
+        return saveResponse(Status.OK, 1)
+      case None =>
+        println("No request")
+    }
+    return saveResponse(Status.INTERNAL_SERVER_ERROR, 1)
+  }
+
+  def list(companyId:String,request: Option[listRequest]): listResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          return GmlDBClient.list(request)
+        }
+      case None =>
+        println("No request")
+    }
+    return listResponse(Status.INTERNAL_SERVER_ERROR, 1, List[String]())
   }
 }

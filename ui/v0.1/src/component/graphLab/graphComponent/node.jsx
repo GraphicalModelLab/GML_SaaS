@@ -23,6 +23,7 @@ export default class Node extends React.Component<Props, {}> {
    }
 
    handleMouseMove(e) {
+      e.stopPropagation();
       const xDiff = this.coords.x - e.pageX;
       const yDiff = this.coords.y - e.pageY;
 
@@ -39,6 +40,7 @@ export default class Node extends React.Component<Props, {}> {
    }
 
    handleMouseDown(e){
+      e.stopPropagation();
       this.coords = {
             x: e.pageX,
             y: e.pageY
@@ -54,6 +56,8 @@ export default class Node extends React.Component<Props, {}> {
    }
 
    handleMouseUp(e) {
+      e.stopPropagation();
+
       // Check if this event is click
       if(e.pageX == this.mouseDownCoords.x && e.pageY == this.mouseDownCoords.y){
          this.refs["nodePropertyView"+this.props.label].openModal();

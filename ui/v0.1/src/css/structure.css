@@ -42,6 +42,16 @@
     width:60px;
     height:60px;
 }
+.menuItemUserId{
+    float:left;
+    margin-top:4px;
+    margin-left:4px;
+    width:80px;
+    height:60px;
+    padding-top: 20px;
+    color: white;
+    font-size: 8px;
+}
 
 .menu{
   float:right;
@@ -378,6 +388,12 @@ a:active {
   margin-right: 2px;
 
   text-align: center;
+}
+
+.graphLabMenuItemDownloadLink{
+  color: white;
+  text-decoration: underline;
+  font-size: 10px;
 }
 
 .graphLabMenuItemCalculationSelect{
