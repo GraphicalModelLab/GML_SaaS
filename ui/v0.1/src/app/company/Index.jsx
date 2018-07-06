@@ -5,6 +5,7 @@ import Login from "./../../component/auth/login";
 import Register from "./../../component/auth/register";
 import Logout from "./../../component/auth/logout";
 import GraphLab from "./../../component/graphLab/graphLab";
+import GraphLabLocalRepository from "./../../component/graphLabLocalRepository/graphLabLocalRepository";
 import WebExploration from "./../../component/webExploration/webExploration";
 import SocialConnect from "./../../component/socialConnect/socialConnect";
 import AccountManagementIndividual from "./../../component/accountManagementIndividual/accountManagementIndividual";
@@ -22,6 +23,7 @@ ReactDOM.render(<Router history={hashHistory}>
                       <Route path="login" component={Login} type="ses"/>
                       <Route path="logout" component={Logout} />
                       <Route path="graphLab" component={GraphLab} editable="true"/>
+                      <Route path="graphLabLocalRepository" component={GraphLabLocalRepository} editable="true"/>
                       <Route path="webExploration" component={WebExploration} editable="true"/>
                       <Route path="socialConnect" component={SocialConnect} editable="true"/>
                       <Route path="accountManagementIndividual" component={AccountManagementIndividual} />
