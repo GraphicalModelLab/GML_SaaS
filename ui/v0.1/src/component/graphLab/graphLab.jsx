@@ -169,7 +169,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     companyid: auth.getCompanyid(),
                     userid:auth.getUserid(),
                     token: auth.getToken(),
-                    modelid: "test",
+                    modelid: modelName,
                     graph: JSON.stringify(graph),
                     code:10
         };
