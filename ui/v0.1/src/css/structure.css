@@ -60,7 +60,7 @@
   margin-right:5px;
   font-size:10px;
   height:50px;
-  width: 700px;
+  width: 800px;
 }
 a {
    text-decoration: none;
@@ -344,27 +344,26 @@ a:active {
 
 .nodeProp{
    display: block;
+   width: 300px;
 }
 
 .nodePropName{
-   float:left;
+   float: left;
    width: 100px;
 }
 
 .nodePropValue{
-   float:left;
-   width: 100px;
+   width: 180px;
 }
 
 .nodePropNameHeader{
-   float:left;
+   float: left;
    width: 100px;
   text-align: center;
 }
 
 .nodePropValueHeader{
-   float:left;
-   width: 100px;
+   width: 180px;
   text-align: center;
 }
 .graphLabMenuCalculationModelItem{
@@ -411,7 +410,78 @@ a:active {
     display:block;
 }
 
-
 .nodePropertyViewFooter{
     display:block;
+}
+
+.saveButtonBox {
+    margin-top: 20px;
+    margin-left:130px;
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #fd9535;/*背景色*/
+    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
+    border-radius: 4px;/*角の丸み*/
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+}
+
+.saveButtonBox:active {
+    border-bottom: solid 2px #fd9535;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+.saveProp{
+   display: block;
+   width: 300px;
+}
+
+.savePropName{
+   width: 100px;
+}
+
+.savePropValue{
+   width: 180px;
+}
+
+.savePropNameHeader{
+    float:left;
+   width: 100px;
+  text-align: center;
+}
+
+.savePropValueHeader{
+   width: 180px;
+  text-align: center;
+}
+
+.graphLabRecordLine{
+
+    margin-left: auto;
+    margin-right: auto;
+}
+.graphLabRecordUserid{
+    float: left;
+}
+.graphLabRecordModelName{
+    float: left;
+
+}
+.graphLabRecordModelTag{
+    float: left;
+}
+.graphLabRecordModelDescription{
+
+}
+
+.graphRepositoryTree{
+}
+
+.graphLabRecordTree{
+display: block;
+                        margin: 0 auto;
+
 }

@@ -42,12 +42,16 @@ export default class Graph extends React.Component<Props, {}> {
         this.zoomIn = this.zoomIn.bind(this);
         this.zoomOut = this.zoomOut.bind(this);
         this.addNode = this.addNode.bind(this);
+        this.addEdge = this.addEdge.bind(this);
         this.updateDimensions = this.updateDimensions.bind(this);
         this.deleteEdgeCallBack = this.deleteEdgeCallBack.bind(this);
         this.deleteNodeCallBack = this.deleteNodeCallBack.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.onScroll = this.onScroll.bind(this);
+    }
+    componentWillUnmount(){
+        window.removeEventListener("resize", this.updateDimensions);
     }
 
     componentDidMount() {
@@ -104,7 +108,7 @@ export default class Graph extends React.Component<Props, {}> {
             edges: this.state.edges,
             edgesDeletion: this.state.edgesDeletion,
             newEdge: false,
-            prevLabel: this.state.prevLabel,
+            prevLabel: null,
             currentChosenNode: null
           });
 
@@ -212,10 +216,48 @@ export default class Graph extends React.Component<Props, {}> {
         this.zoom(1.25);
     }
 
-    addNode(label){
+
+
+    addEdge(label1, label2, x1, y1, x2, y2){
+          var newEdge = {
+              x1: x1,
+              y1: y1,
+              x2: x2,
+              y2: y2,
+              label1: label1,
+              label2: label2,
+              disable: false
+          };
+
+          var newEdgeDeletion = {
+              x: (x1 + x2)/2,
+              y: (y1 + y2)/2,
+              label1: label1,
+              label2: label2,
+              disable: false
+          };
+
+          this.state.edges.push(newEdge);
+          this.state.edgesDeletion.push(newEdgeDeletion);
+
+
+          this.setState({
+            nodes: this.state.nodes,
+            edges: this.state.edges,
+            edgesDeletion: this.state.edgesDeletion,
+            newEdge: false,
+            prevLabel: null,
+            currentChosenNode: null
+          });
+    }
+
+    addNode(label,x,y){
        var nodes = this.state.nodes;
+
        nodes.push({
             label: label,
+            x: x,
+            y: y,
             disable: false
        });
 
@@ -295,7 +337,8 @@ export default class Graph extends React.Component<Props, {}> {
             nodes : [],
             currentChosenNode: null,
             edges: [],
-            edgesDeletion: []
+            edgesDeletion: [],
+            prevLabel: null
          });
     }
 
@@ -363,7 +406,7 @@ export default class Graph extends React.Component<Props, {}> {
 
                     <g ref="canvas">
                         { this.state.nodes.map((d, idx) => {
-                            return <Node key={d.label} zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={idx*100+20} y={100} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
+                            return <Node key={d.label} zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={d.x} y={d.y} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
                         }) }
 
                         { this.state.edges.map((d, idx) => {

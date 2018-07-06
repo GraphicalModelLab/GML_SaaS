@@ -17,27 +17,8 @@ export default class App extends React.Component<Props, {}> {
          loggedIn: auth.loggedIn()
         };
 
-        this.searchEngineer = this.searchEngineer.bind(this);
+        this.searchTag = this.searchTag.bind(this);
 
-        $.ajax({
-                type:"get",
-                url:"../commonData/autocomplete/list.json",
-                dataType: "json",
-                success: function(json_data) {
-                    autocompleteLanguage = json_data.language;
-                    autocompleteServeros = json_data.serveros;
-                    autocompleteOs = json_data.os;
-                    autocompleteFrameworkmiddleware = json_data.frameworkmiddleware;
-                    autocompleteDatabase = json_data.database;
-                    autocompleteNetwork = json_data.network;
-                    autocompleteDesignerSoftware = json_data.designersoftware;
-                    autocompleteContractForm = json_data.contractform;
-                },
-                error: function (request, status, error) {
-                },
-                complete: function() {
-                }
-            });
       }
 
       updateAuth(loggedIn) {
@@ -60,47 +41,11 @@ export default class App extends React.Component<Props, {}> {
       }
 
       onOpenChange(openKeys) {
-
             console.log('onOpenChange', openKeys);
       }
 
-      searchEngineer(e) {
+      searchTag(e) {
             e.preventDefault();
-
-            this.refs.loading.openModal();
-
-            var data = {
-                         companyid: auth.getCompanyid(),
-                         userid:auth.getUserid(),
-                         token: auth.getToken(),
-                         code:10,
-                         keyword: this.refs.search.value
-            };
-
-            var parent = this;
-            $.ajax({
-                type:"post",
-                url:"php/modules/Company.php/engineer/search",
-                data:JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: "json",
-                success: function(json_data) {
-                   // React query convert an array with only one element to an string type data so that push one dummy data to keep it as an array
-
-                   parent.refs.loading.closeModal();
-                   json_data.body.userids.unshift("");
-                   parent.context.router.push(
-                   {
-                     pathname: '/searchresult',
-                     query: { ids:  json_data.body.userids }
-                   })
-
-                },
-                error: function (request, status, error) {
-                },
-                complete: function() {
-                }
-            });
       }
 
       render() {
@@ -126,7 +71,8 @@ export default class App extends React.Component<Props, {}> {
                                         <div className={styles.menuItem}><Link to={'/socialConnect'}>ソーシャルコネクト</Link></div>
                                         <div className={styles.menuItem}><Link to={'/webExploration'}>Web探索</Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLab'}>グラフ ラボ</Link></div>
-                                        <div className={styles.menuItemSearchIcon}><span onClick={this.searchEngineer.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>グラフ ローカルレポジトリ</Link></div>
+                                        <div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
                                         <div className={styles.menuItemSearch}><input type="text" placeholder="タグ検索キーワード" ref="search" className={styles.menuItemSearchInput}/> </div>
                                     </div>
                                 ):(
@@ -136,6 +82,7 @@ export default class App extends React.Component<Props, {}> {
                                         <div className={styles.menuItem}><Link to={'/socialConnect'}>ソーシャルコネクト</Link></div>
                                         <div className={styles.menuItem}><Link to={'/webExploration'}>Web探索</Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLab'}>グラフ ラボ</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>グラフ ローカルレポジトリ</Link></div>
                                     </div>
                                 ))
                                 )
@@ -160,5 +107,5 @@ export default class App extends React.Component<Props, {}> {
 }
 
 App.contextTypes = {
-            router: React.PropTypes.object
+    router: React.PropTypes.object
 };
