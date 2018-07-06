@@ -30,7 +30,7 @@ object GmlDBClient {
       .`with`(QueryBuilder.set("model",request.graph))
       .where(QueryBuilder.eq("companyid",request.companyid))
       .and(QueryBuilder.eq("userid",request.userid))
-      .and(QueryBuilder.eq("modelid",request.companyid))
+      .and(QueryBuilder.eq("modelid",request.modelid))
 
     client.executeStatement(query)
 
