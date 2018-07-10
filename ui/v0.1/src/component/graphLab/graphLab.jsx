@@ -69,7 +69,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             }
 
             graphInfo.nodes.forEach(function(entry) { graph.addNode(entry.label, entry.x, entry.y); });
-            graphInfo.edges.forEach(function(entry) { graph.addEdge(entry.label1,entry.label2, entry.x1, entry.y1, entry.x2, entry.y2); });
+            graphInfo.edges.forEach(function(entry) { graph.addEdge(entry.label1,entry.label2, entry.x1, entry.y1, entry.x2, entry.y2, false); });
         }
     }
 
@@ -145,15 +145,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
     }
 
     saveCallBack(modelName,modelTag,modelDescription){
-        var nodeArray = [];
-        for(let index in this.refs.graph.state.nodes){
-            nodeArray.push({
-                label: this.refs.graph.state.nodes[index].label,
-                disable: false,
-                x: this.refs.graph.refs[this.refs.graph.state.nodes[index].label].state.x,
-                y: this.refs.graph.refs[this.refs.graph.state.nodes[index].label].state.y
-            });
-        }
 
         var graph = {
             modelname: modelName,
@@ -161,8 +152,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             modeldescription: modelDescription,
             userid: auth.getUserid(),
             algorithm: this.refs.algorithm.value,
-            nodes: nodeArray,
-            edges: this.refs.graph.state.edges
+            nodes: this.refs.graph.getNodes(),
+            edges: this.refs.graph.getEdges()
         };
 
         var data = {

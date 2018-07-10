@@ -12,9 +12,13 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
         super(props);
 
         this.recordEnterCallBack = this.recordEnterCallBack.bind(this);
+        this.clickCallBack = this.clickCallBack.bind(this);
 
     }
 
+    clickCallBack(){
+        this.props.clickCallBack();
+    }
 
     recordEnterCallBack(){
         this.props.recordEnterCallBack(this.props.recordInfo);
@@ -22,7 +26,7 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
 
     render() {
         return (
-            <g onMouseEnter={this.recordEnterCallBack}>
+            <g onClick={this.clickCallBack} onMouseEnter={this.recordEnterCallBack}>
             <image href="../icon/apple.gif" width="8%" height="8%" x={this.props.coordinate_x + this.props.x} y={this.props.coordinate_y + this.props.y} />
             </g>
            )

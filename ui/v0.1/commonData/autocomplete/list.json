@@ -1,0 +1,77 @@
+{
+  "language": [
+    {
+      "abbr": "C++",
+      "name": "C++"
+    },
+    {
+      "abbr": "Scala",
+      "name": "Scala"
+    }
+  ],
+  "database":[
+    {
+      "abbr": "MariaDB",
+      "name": "MariaDB"
+    },
+
+    {
+      "abbr": "MySQL",
+      "name": "MySQL"
+    }
+  ],
+  "serveros":[
+    {
+      "abbr": "Linux",
+      "name": "Linux"
+    },
+
+    {
+      "abbr": "OSX",
+      "name": "OSX"
+    }
+  ],
+  "os":[
+    {
+      "abbr": "Linux",
+      "name": "Linux"
+    },
+
+    {
+      "abbr": "OSX",
+      "name": "OSX"
+    }
+  ],
+  "frameworkmiddleware":[
+    {
+      "abbr": "Spring",
+      "name": "Spring"
+    }
+  ],
+  "network": [
+    {
+      "abbr": "Cisco Switch",
+      "name": "Cisco Switch"
+    }
+  ],
+  "designersoftware":[
+    {
+      "abbr": "Photoshop",
+      "name": "Photoshop"
+    },
+    {
+      "abbr": "Illustrator",
+      "name": "Illustrator"
+    }
+  ],
+  "contractform":[
+    {
+      "abbr": "業務委託",
+      "name": "業務委託"
+    },
+    {
+      "abbr": "請負",
+      "name": "請負"
+    }
+  ]
+}

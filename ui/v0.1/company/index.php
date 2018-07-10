@@ -23,11 +23,11 @@ echo '
 <head>
     <meta charset="UTF-8"/>
 	<meta name="description" content=""/>
-	<meta name="keywords" content="Graphical Model Lab"/>
+	<meta name="keywords" content="Graphical Model, Machine Learning, AI"/>
 	<meta name="DC.Creator" content="伊藤真央, Mao Ito"/>
 	<meta name="DC.Language" content="ja"/>
-	<meta name="DC.Title" content="Cloud Career Sheet"/>
-	<title>Cloud Career Sheet Inc.</title>
+	<meta name="DC.Title" content="Graphical Model Lab"/>
+	<title>Graphical Model Lab</title>
 </head>
 <body>
 <div id="app">
@@ -37,7 +37,7 @@ echo '
 .$initialization.
 '
 </script>
-<script src="./../dist/bundleCompanyProd.js"></script>
+<script src="./../dist/bundleCompanyDev.js"></script>
 </body>
 </html>
 ';

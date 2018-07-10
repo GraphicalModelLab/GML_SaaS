@@ -5,6 +5,7 @@ import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.auth.AuthDBClient
 import org.graphicalmodellab.auth.facebookapps.FacebookAppsOpenIDConnector
 import org.graphicalmodellab.auth.googleapps.GoogleAppsOpenIDConnector
+import org.graphicalmodellab.elastic.ElasticSearchClient
 import org.graphicalmodellab.encryption.Encryption
 import play.Play
 import play.api.http.Status
@@ -36,6 +37,7 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           GmlDBClient.save(request)
+          GmlElasticSearchClient.addDocument(request)
         }
 
         return saveResponse(Status.OK, 1)
@@ -56,5 +58,32 @@ class GraphicalModelLabService {
         println("No request")
     }
     return listResponse(Status.INTERNAL_SERVER_ERROR, 1, List[String]())
+  }
+
+  def get(companyId:String,request: Option[getRequest]): getResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          return GmlDBClient.get(request)
+        }
+      case None =>
+        println("No request")
+    }
+    return getResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
+  }
+
+  def search(companyId:String,request: Option[searchRequest]): searchResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          val result = GmlElasticSearchClient.searchDocument(request.query)
+          return searchResponse(Status.OK, 1, result)
+        }
+      case None =>
+        println("No request")
+    }
+    return searchResponse(Status.INTERNAL_SERVER_ERROR, 1, "[]")
   }
 }
