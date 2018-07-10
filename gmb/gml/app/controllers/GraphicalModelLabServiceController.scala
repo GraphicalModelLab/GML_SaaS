@@ -5,9 +5,10 @@ import java.io.{PrintWriter, StringWriter}
 import play.api.mvc.{Action, Controller}
 import gml._
 import org.graphicalmodellab.auth.AuthDBClient
+import org.graphicalmodellab.elastic.ElasticSearchClient
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
-import services.{GmlDBClient, GraphicalModelLabService}
+import services.{GmlDBClient, GmlElasticSearchClient, GraphicalModelLabService}
 
 
 /**
@@ -19,6 +20,7 @@ object GraphicalModelLabServiceController extends Controller {
 
   GmlDBClient.init(List[String]("localhost"));
   AuthDBClient.init(List[String]("localhost"))
+  GmlElasticSearchClient.init("localhost");
 
   def helloworld() = {
     Action(request =>
@@ -64,6 +66,40 @@ object GraphicalModelLabServiceController extends Controller {
     Action(request =>
       try
         Ok(Json.toJson[listResponse](gmlService.list(companyId,Json.fromJson[listRequest](request.body.asJson.get).asOpt)))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def get(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getResponse](gmlService.get(companyId,Json.fromJson[getRequest](request.body.asJson.get).asOpt)))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def search(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[searchResponse](gmlService.search(companyId,Json.fromJson[searchRequest](request.body.asJson.get).asOpt)))
       catch {
         case (err: Throwable) => {
 

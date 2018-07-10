@@ -1,3 +1,4 @@
+import org.graphicalmodellab.elastic.ElasticSearchClient
 import org.graphicalmodellab.encryption.Encryption
 
 /**
@@ -5,6 +6,9 @@ import org.graphicalmodellab.encryption.Encryption
   */
 object TestPdf {
   def main(args: Array[String]): Unit = {
+
+//    ElasticSearchClient.addDocument()
+//    ElasticSearchClient.searchDocument("test");
 //    println(Encryption.toEncryptedString("Ljt5n6jm"))
 //    println(Encryption.toEncryptedString("Ljt5n6jm"))
   }

@@ -43,6 +43,8 @@ export default class Graph extends React.Component<Props, {}> {
         this.zoomOut = this.zoomOut.bind(this);
         this.addNode = this.addNode.bind(this);
         this.addEdge = this.addEdge.bind(this);
+        this.getEdges = this.getEdges.bind(this);
+        this.getNodes = this.getNodes.bind(this);
         this.updateDimensions = this.updateDimensions.bind(this);
         this.deleteEdgeCallBack = this.deleteEdgeCallBack.bind(this);
         this.deleteNodeCallBack = this.deleteNodeCallBack.bind(this);
@@ -82,6 +84,8 @@ export default class Graph extends React.Component<Props, {}> {
           var prevPosition = this.refs[this.state.prevLabel].getCurrentPosition();
           var currPosition = this.refs[label].getCurrentPosition();
 
+          this.addEdge(label, this.state.prevLabel, currPosition.x, currPosition.y, prevPosition.x, prevPosition.y, false);
+/*
           var newEdge = {
               x1: currPosition.x,
               y1: currPosition.y,
@@ -111,6 +115,7 @@ export default class Graph extends React.Component<Props, {}> {
             prevLabel: null,
             currentChosenNode: null
           });
+          */
 
         }else if(this.state.prevLabel == label){
           this.state.prevLabel = null;
@@ -216,9 +221,32 @@ export default class Graph extends React.Component<Props, {}> {
         this.zoom(1.25);
     }
 
+    getEdges(){
+        var edges = [];
+        for(let index in this.state.edges){
+            if(!this.state.edges[index].disable){
+                edges.push(this.state.edges[index]);
+            }
+        }
 
+        return edges;
+    }
 
-    addEdge(label1, label2, x1, y1, x2, y2){
+    getNodes(){
+        var nodes = [];
+        for(let index in this.state.nodes){
+            nodes.push({
+                label: this.state.nodes[index].label,
+                disable: this.state.nodes[index].disable,
+                x: this.refs[this.state.nodes[index].label].state.x,
+                y: this.refs[this.state.nodes[index].label].state.y
+            });
+        }
+
+        return nodes;
+    }
+
+    addEdge(label1, label2, x1, y1, x2, y2, disable){
           var newEdge = {
               x1: x1,
               y1: y1,
@@ -226,7 +254,7 @@ export default class Graph extends React.Component<Props, {}> {
               y2: y2,
               label1: label1,
               label2: label2,
-              disable: false
+              disable: disable
           };
 
           var newEdgeDeletion = {
@@ -234,7 +262,7 @@ export default class Graph extends React.Component<Props, {}> {
               y: (y1 + y2)/2,
               label1: label1,
               label2: label2,
-              disable: false
+              disable: disable
           };
 
           this.state.edges.push(newEdge);

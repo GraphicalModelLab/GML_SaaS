@@ -71,6 +71,15 @@ object Dependencies {
   val spark_sql = "org.apache.spark" %% "spark-sql"  % "2.2.0"
   val spark_mllib = "org.apache.spark" %% "spark-mllib"  % "2.2.0"
 
+  // Elastic
+  val elasticsearch = "org.elasticsearch" % "elasticsearch" % "6.3.1"
+  val elasticsearch_transport = "org.elasticsearch.client" % "transport" % "6.3.1"
+
+  val elasticSearchDependencies = Seq(
+    elasticsearch,
+    elasticsearch_transport
+  )
+
   val googleApiDependencies = Seq(
     google_api_client,
     google_oauth_client,

@@ -82,4 +82,48 @@ package object gml {
       "models" -> Json.toJson(o.models)
     ).filter(_._2 != JsNull))
   }
+
+  // 3. get models
+  case class getRequest(code: Int, userid:String, token: String, companyid: String, modelid: String)
+  case class getResponse(code: Int, listSuccessCode: Int, model: String)
+
+  implicit lazy val getRequestReads: Reads[getRequest] = Reads[getRequest] {
+    json => JsSuccess(getRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "token").as[String],
+      (json \ "companyid").as[String],
+      (json \ "modelid").as[String]
+    ))
+  }
+
+  implicit lazy val getRequestWrites: Writes[getResponse] = Writes[getResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "listSuccessCode" -> Json.toJson(o.listSuccessCode),
+      "model" -> Json.toJson(o.model)
+    ).filter(_._2 != JsNull))
+  }
+
+  // 3. search models
+  case class searchRequest(code: Int, userid:String, token: String, companyid: String, query: String)
+  case class searchResponse(code: Int, listSuccessCode: Int, result: String)
+
+  implicit lazy val searchRequestReads: Reads[searchRequest] = Reads[searchRequest] {
+    json => JsSuccess(searchRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "token").as[String],
+      (json \ "companyid").as[String],
+      (json \ "query").as[String]
+    ))
+  }
+
+  implicit lazy val searchRequestWrites: Writes[searchResponse] = Writes[searchResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "listSuccessCode" -> Json.toJson(o.listSuccessCode),
+      "result" -> Json.toJson(o.result)
+    ).filter(_._2 != JsNull))
+  }
 }

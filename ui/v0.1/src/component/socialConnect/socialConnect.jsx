@@ -16,11 +16,12 @@ export default class SocialConnect extends React.Component<Props, {}> {
             <div>
                 <div>
                     <div className={styles.accountRoleChangeTitle}> ソーシャルコネクトの接続 </div>
-                    <div className={styles.accountRoleChangeItemBox}>
-                    <div className={styles.accountRoleChangeItemName}>
 
-                    </div>
-                    </div>
+
+                    <img src="../icon/social_icons/facebook.jpg" className={styles.iconConnect}/>
+                    <img src="../icon/social_icons/google.jpg" className={styles.iconConnect}/>
+                    <img src="../icon/social_icons/twitter.png" className={styles.iconConnect}/>
+
                 </div>
                  <Loading ref="loading"/>
             </div>

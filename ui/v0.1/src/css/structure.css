@@ -481,7 +481,14 @@ a:active {
 }
 
 .graphLabRecordTree{
-display: block;
-                        margin: 0 auto;
-
+    display: block;
+    margin: 0 auto;
 }
+
+.iconConnect{
+    zoom: 50%;
+}
+
+.iconConnect:hover {
+			opacity: 0.5 ;
+			}

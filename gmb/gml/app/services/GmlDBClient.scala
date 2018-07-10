@@ -1,7 +1,7 @@
 package services
 
 import com.datastax.driver.core.querybuilder.QueryBuilder
-import gml.{listRequest, listResponse, saveRequest}
+import gml.{getRequest, getResponse, listRequest, listResponse, saveRequest}
 import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.cassandra.CassandraClient
 import play.api.http.Status
@@ -38,10 +38,6 @@ object GmlDBClient {
 
   def list(request: listRequest):listResponse ={
 
-    // 1. Validate the token at first
-
-    // 2. Update the engineer profile
-
     val query = QueryBuilder.select()
             .all()
               .from("master","model")
@@ -61,5 +57,30 @@ object GmlDBClient {
                 Status.OK,
                 models.toList
       )
+  }
+
+  def get(request: getRequest):getResponse ={
+
+    val query = QueryBuilder.select()
+      .all()
+      .from("master","model")
+      .where(QueryBuilder.eq("companyid",request.companyid))
+      .and(QueryBuilder.eq("userid",request.userid))
+      .and(QueryBuilder.eq("modelid",request.modelid))
+
+    client.executeStatement(query)
+
+    var model:String = null
+
+    val iterator = client.executeStatement(query).iterator()
+    if (iterator.hasNext) {
+      model = iterator.next().getString("model")
+    }
+
+    return new getResponse(
+      Status.OK,
+      Status.OK,
+      model
+    )
   }
 }
