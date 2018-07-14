@@ -25,8 +25,10 @@ export default class EdgeDeletion extends React.Component<Props, {}> {
         });
    }
 
-   deleteEdge(){
-        this.props.deleteEdgeCallBack(this.props.label1, this.props.label2);
+   deleteEdge(e){
+
+      e.stopPropagation();
+      this.props.deleteEdgeCallBack(this.props.label1, this.props.label2);
    }
 
    render() {

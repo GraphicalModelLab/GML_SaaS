@@ -20,6 +20,8 @@ export default class Node extends React.Component<Props, {}> {
         this.handleMouseEnterConnectedPoint = this.handleMouseEnterConnectedPoint.bind(this);
         this.clickNode = this.clickNode.bind(this);
         this.setDisable = this.setDisable.bind(this);
+        this.getProperties = this.getProperties.bind(this);
+        this.addProperties = this.addProperties.bind(this);
    }
 
    handleMouseMove(e) {
@@ -38,6 +40,11 @@ export default class Node extends React.Component<Props, {}> {
 
       this.props.moveCircleCallBack(this.props.label,this.state.x,this.state.y);
    }
+    componentDidMount() {
+        if(this.props.properties){
+            this.addProperties(this.props.properties);
+        }
+    }
 
    handleMouseDown(e){
       e.stopPropagation();
@@ -92,10 +99,18 @@ export default class Node extends React.Component<Props, {}> {
         });
    }
 
+    getProperties(){
+        return this.refs["nodePropertyView"+this.props.label].getProperties();
+    }
+
+    addProperties(properties){
+            return this.refs["nodePropertyView"+this.props.label].addProperties(properties);
+    }
+
    render() {
         return (
                <g>
-                    <NodePropertyView label={this.props.label} ref={"nodePropertyView" + this.props.label} />
+                    <NodePropertyView label={this.props.label} properties={this.props.properties} ref={"nodePropertyView" + this.props.label} />
                     <circle
                             r={30}
                             cx={this.state.x}

@@ -1,6 +1,8 @@
 package services
 
 import gml._
+import org.apache.spark.SparkConf
+import org.apache.spark.sql.SparkSession
 import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.auth.AuthDBClient
 import org.graphicalmodellab.auth.facebookapps.FacebookAppsOpenIDConnector
@@ -10,11 +12,19 @@ import org.graphicalmodellab.encryption.Encryption
 import play.Play
 import play.api.http.Status
 
+import scala.collection.mutable
+
 /**
  * Created by ito_m on 9/11/16.
  */
 class GraphicalModelLabService {
   val config = Play.application().configuration()
+
+  val TrainedModelMap: mutable.Map[String,ModelSimpleCSV] = mutable.Map[String,ModelSimpleCSV]()
+
+//  val sparkConf = new SparkConf().setAppName("Model").setMaster("local")
+//  //  val sparkContext = new SparkContext(sparkConf)
+//  val sparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
 
   def training(companyId:String,request: Option[trainingRequest]): trainingResponse = {
 
@@ -22,13 +32,29 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           val model: ModelSimpleCSV = new ModelSimpleCSV(request);
-          model.training()
+          model.training(request.datasource)
+          TrainedModelMap.put("test",model)
         }
 
       case None =>
         println("No request")
     }
     return trainingResponse(Status.INTERNAL_SERVER_ERROR, 1,"")
+  }
+
+  def test(companyId:String,request: Option[testRequest]): testResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          val model:ModelSimpleCSV = TrainedModelMap.get("test").get
+          model.test(request.testsource)
+        }
+
+      case None =>
+        println("No request")
+    }
+    return testResponse(Status.INTERNAL_SERVER_ERROR, 1,"")
   }
 
   def save(companyId:String,request: Option[saveRequest]): saveResponse = {

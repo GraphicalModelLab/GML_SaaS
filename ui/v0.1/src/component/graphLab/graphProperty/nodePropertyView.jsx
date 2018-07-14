@@ -30,6 +30,8 @@ export default class NodePropertyView extends React.Component<Props, {}> {
         this.closeModal = this.closeModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.addProperty = this.addProperty.bind(this);
+        this.getProperties = this.getProperties.bind(this);
+        this.addProperties = this.addProperties.bind(this);
    }
 
     openModal() {
@@ -54,6 +56,14 @@ export default class NodePropertyView extends React.Component<Props, {}> {
         this.state.properties.push({name:"", value:""});
 
         this.setState({properties: this.state.properties});
+    }
+
+    getProperties(){
+             return this.state.properties;
+    }
+
+    addProperties(properties){
+        this.setState({properties: properties});
     }
 
     render() {
