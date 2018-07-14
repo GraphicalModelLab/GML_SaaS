@@ -45,6 +45,23 @@ object GraphicalModelLabServiceController extends Controller {
     )
   }
 
+  def test(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[testResponse](gmlService.test(companyId,Json.fromJson[testRequest](request.body.asJson.get).asOpt)))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
   def save(companyId:String) = {
     Action(request =>
       try

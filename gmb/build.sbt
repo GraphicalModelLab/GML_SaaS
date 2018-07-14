@@ -5,7 +5,7 @@ lazy val common = project.in(file("common"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= backendDependencies)
   .settings(libraryDependencies ++= googleApiDependencies)
-  .settings(libraryDependencies ++= elasticSearchDependencies)
+//  .settings(libraryDependencies ++= elasticSearchDependencies)
 
 lazy val auth = project.in(file("auth"))
   .settings(commonSettings: _*)
@@ -39,7 +39,7 @@ lazy val gml = project.in(file("gml"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= playDependencies)
   .settings(libraryDependencies ++= backendDependencies)
-  .settings(libraryDependencies ++= dl4jDependencies)
+//  .settings(libraryDependencies ++= dl4jDependencies)
   .settings(libraryDependencies ++= sparkDependencies)
   .settings(assemblyMergeStrategy in assembly := {
           case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first

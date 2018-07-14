@@ -76,39 +76,39 @@
 	
 	var _graphLabLocalRepository2 = _interopRequireDefault(_graphLabLocalRepository);
 	
-	var _searchResult = __webpack_require__(302);
+	var _searchResult = __webpack_require__(285);
 	
 	var _searchResult2 = _interopRequireDefault(_searchResult);
 	
-	var _webExploration = __webpack_require__(285);
+	var _webExploration = __webpack_require__(286);
 	
 	var _webExploration2 = _interopRequireDefault(_webExploration);
 	
-	var _socialConnect = __webpack_require__(286);
+	var _socialConnect = __webpack_require__(287);
 	
 	var _socialConnect2 = _interopRequireDefault(_socialConnect);
 	
-	var _accountManagementIndividual = __webpack_require__(287);
+	var _accountManagementIndividual = __webpack_require__(288);
 	
 	var _accountManagementIndividual2 = _interopRequireDefault(_accountManagementIndividual);
 	
-	var _accountManagement = __webpack_require__(288);
+	var _accountManagement = __webpack_require__(289);
 	
 	var _accountManagement2 = _interopRequireDefault(_accountManagement);
 	
-	var _companyRegistration = __webpack_require__(289);
+	var _companyRegistration = __webpack_require__(290);
 	
 	var _companyRegistration2 = _interopRequireDefault(_companyRegistration);
 	
-	var _top = __webpack_require__(290);
+	var _top = __webpack_require__(291);
 	
 	var _top2 = _interopRequireDefault(_top);
 	
-	var _topNoLogin = __webpack_require__(296);
+	var _topNoLogin = __webpack_require__(297);
 	
 	var _topNoLogin2 = _interopRequireDefault(_topNoLogin);
 	
-	var _app = __webpack_require__(297);
+	var _app = __webpack_require__(298);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
@@ -41234,6 +41234,7 @@
 	
 	        _this.onDropAttributeImport = _this.onDropAttributeImport.bind(_this);
 	        _this.onDropAnalyzing = _this.onDropAnalyzing.bind(_this);
+	        _this.onDropTraining = _this.onDropTraining.bind(_this);
 	        _this.showNodePropertyView = _this.showNodePropertyView.bind(_this);
 	        _this.save = _this.save.bind(_this);
 	        _this.saveCallBack = _this.saveCallBack.bind(_this);
@@ -41256,7 +41257,7 @@
 	                console.log("add attributes:" + firstLine[0]);
 	                var index = 0;
 	                firstLine[0].split(',').forEach(function (entry) {
-	                    graph.addNode(entry, index * 100 + 20, 100);
+	                    graph.addNode(entry, index * 100 + 20, 100, false, []);
 	
 	                    index += 1;
 	                });
@@ -41287,16 +41288,18 @@
 	                }
 	
 	                graphInfo.nodes.forEach(function (entry) {
-	                    graph.addNode(entry.label, entry.x, entry.y);
+	                    graph.addNode(entry.label, entry.x, entry.y, entry.disable, entry.properties);
 	                });
 	                graphInfo.edges.forEach(function (entry) {
 	                    graph.addEdge(entry.label1, entry.label2, entry.x1, entry.y1, entry.x2, entry.y2, false);
 	                });
+	
+	                this.refs.nodePropertyView.addProperties(graphInfo.commonProperties);
 	            }
 	        }
 	    }, {
-	        key: 'onDropAnalyzing',
-	        value: function onDropAnalyzing(acceptedFiles, rejectedFiles) {
+	        key: 'onDropTraining',
+	        value: function onDropTraining(acceptedFiles, rejectedFiles) {
 	            var _this2 = this;
 	
 	            var formData = new FormData();
@@ -41326,7 +41329,7 @@
 	                    companyid: _auth2.default.getCompanyid(),
 	                    userid: _auth2.default.getUserid(),
 	                    token: _auth2.default.getToken()
-	                }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'algorithm', "test"), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'nodes', _this2.refs.graph.state.nodes), _defineProperty(_data, 'edges', _this2.refs.graph.state.edges), _defineProperty(_data, 'code', 10), _data);
+	                }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'algorithm', "test"), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'nodes', _this2.refs.graph.getNodes()), _defineProperty(_data, 'edges', _this2.refs.graph.getEdges()), _defineProperty(_data, 'commonProperties', _this2.refs.nodePropertyView.getProperties()), _defineProperty(_data, 'code', 10), _data);
 	
 	                alert("POST to training");
 	                _jquery2.default.ajax({
@@ -41344,6 +41347,63 @@
 	                        alert("error");
 	                        console.log(status);
 	                        console.log(_error2);
+	                    }
+	                }).done(function (data, textStatus, jqXHR) {
+	
+	                    alert("done");
+	                    console.log(data);
+	                    console.log(textStatus);
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'onDropAnalyzing',
+	        value: function onDropAnalyzing(acceptedFiles, rejectedFiles) {
+	            var formData = new FormData();
+	            formData.append('file_1', acceptedFiles[0]);
+	
+	            _jquery2.default.ajax({
+	                url: "../commonModules/php/modules/Uploader.php",
+	                type: "POST",
+	                data: formData,
+	                cache: false,
+	                contentType: false,
+	                processData: false,
+	                dataType: "text",
+	                success: function success() {
+	                    alert("Success!");
+	                },
+	                error: function error(request, status, _error3) {
+	                    alert("error");
+	                    console.log(status);
+	                    console.log(_error3);
+	                }
+	            }).done(function (data, textStatus, jqXHR) {
+	                var _data2;
+	
+	                alert(data);
+	                var data = (_data2 = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken()
+	                }, _defineProperty(_data2, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data2, 'algorithm', "test"), _defineProperty(_data2, 'testsource', data), _defineProperty(_data2, 'gmlId', "ttt"), _defineProperty(_data2, 'code', 10), _data2);
+	
+	                alert("POST to test");
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/test",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
+	                        alert("succeed to training");
+	                        console.log("success for traininig");
+	                        console.log(response);
+	                    },
+	                    error: function error(request, status, _error4) {
+	                        alert("error");
+	                        console.log(status);
+	                        console.log(_error4);
 	                    }
 	                }).done(function (data, textStatus, jqXHR) {
 	
@@ -41374,7 +41434,8 @@
 	                userid: _auth2.default.getUserid(),
 	                algorithm: this.refs.algorithm.value,
 	                nodes: this.refs.graph.getNodes(),
-	                edges: this.refs.graph.getEdges()
+	                edges: this.refs.graph.getEdges(),
+	                commonProperties: this.refs.nodePropertyView.getProperties()
 	            };
 	
 	            var data = {
@@ -41401,11 +41462,11 @@
 	                    console.log("success for save");
 	                    console.log(response);
 	                },
-	                error: function error(request, status, _error3) {
+	                error: function error(request, status, _error5) {
 	                    alert("error");
 	                    console.log(request);
 	                    console.log(status);
-	                    console.log(_error3);
+	                    console.log(_error5);
 	                }
 	            });
 	
@@ -41488,7 +41549,7 @@
 	                            _reactDropzone2.default,
 	                            {
 	                                className: styles.graphLabMenuItem,
-	                                onDrop: this.onDropAnalyzing,
+	                                onDrop: this.onDropTraining,
 	                                accept: 'text/csv' },
 	                            React.createElement(
 	                                'div',
@@ -41697,37 +41758,6 @@
 	                var currPosition = this.refs[label].getCurrentPosition();
 	
 	                this.addEdge(label, this.state.prevLabel, currPosition.x, currPosition.y, prevPosition.x, prevPosition.y, false);
-	                /*
-	                          var newEdge = {
-	                              x1: currPosition.x,
-	                              y1: currPosition.y,
-	                              x2: prevPosition.x,
-	                              y2: prevPosition.y,
-	                              label1: label,
-	                              label2: this.state.prevLabel,
-	                              disable: false
-	                          };
-	                
-	                          var newEdgeDeletion = {
-	                              x: (currPosition.x + prevPosition.x)/2,
-	                              y: (currPosition.y + prevPosition.y)/2,
-	                              label1: label,
-	                              label2: this.state.prevLabel,
-	                              disable: false
-	                          };
-	                
-	                          this.state.edges.push(newEdge);
-	                          this.state.edgesDeletion.push(newEdgeDeletion);
-	                
-	                          this.setState({
-	                            nodes: this.state.nodes,
-	                            edges: this.state.edges,
-	                            edgesDeletion: this.state.edgesDeletion,
-	                            newEdge: false,
-	                            prevLabel: null,
-	                            currentChosenNode: null
-	                          });
-	                          */
 	            } else if (this.state.prevLabel == label) {
 	                this.state.prevLabel = null;
 	                this.state.newEdge = false;
@@ -41862,7 +41892,8 @@
 	                    label: this.state.nodes[index].label,
 	                    disable: this.state.nodes[index].disable,
 	                    x: this.refs[this.state.nodes[index].label].state.x,
-	                    y: this.refs[this.state.nodes[index].label].state.y
+	                    y: this.refs[this.state.nodes[index].label].state.y,
+	                    properties: this.refs[this.state.nodes[index].label].getProperties()
 	                });
 	            }
 	
@@ -41903,14 +41934,17 @@
 	        }
 	    }, {
 	        key: 'addNode',
-	        value: function addNode(label, x, y) {
+	        value: function addNode(label, x, y, disable, properties) {
 	            var nodes = this.state.nodes;
 	
+	            console.log("add label : " + label);
+	            console.log(properties);
 	            nodes.push({
 	                label: label,
 	                x: x,
 	                y: y,
-	                disable: false
+	                disable: disable,
+	                properties: properties
 	            });
 	
 	            this.setState({
@@ -42092,7 +42126,7 @@
 	                    'g',
 	                    { ref: 'canvas' },
 	                    this.state.nodes.map(function (d, idx) {
-	                        return React.createElement(_node2.default, { key: d.label, zoom: _this2.state.zoom, ref: d.label, disable: d.disable, label: d.label, x: d.x, y: d.y, entryPointCallBack: _this2.entryPointCallBack, moveCircleCallBack: _this2.moveCircleCallBack, currentChosenNode: _this2.state.currentChosenNode, deleteNodeCallBack: _this2.deleteNodeCallBack });
+	                        return React.createElement(_node2.default, { key: d.label, zoom: _this2.state.zoom, ref: d.label, disable: d.disable, label: d.label, x: d.x, y: d.y, properties: d.properties, entryPointCallBack: _this2.entryPointCallBack, moveCircleCallBack: _this2.moveCircleCallBack, currentChosenNode: _this2.state.currentChosenNode, deleteNodeCallBack: _this2.deleteNodeCallBack });
 	                    }),
 	                    this.state.edges.map(function (d, idx) {
 	                        if (!d.disable) {
@@ -42168,6 +42202,8 @@
 	        _this.handleMouseEnterConnectedPoint = _this.handleMouseEnterConnectedPoint.bind(_this);
 	        _this.clickNode = _this.clickNode.bind(_this);
 	        _this.setDisable = _this.setDisable.bind(_this);
+	        _this.getProperties = _this.getProperties.bind(_this);
+	        _this.addProperties = _this.addProperties.bind(_this);
 	        return _this;
 	    }
 	
@@ -42188,6 +42224,13 @@
 	            });
 	
 	            this.props.moveCircleCallBack(this.props.label, this.state.x, this.state.y);
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            if (this.props.properties) {
+	                this.addProperties(this.props.properties);
+	            }
 	        }
 	    }, {
 	        key: 'handleMouseDown',
@@ -42248,12 +42291,22 @@
 	            });
 	        }
 	    }, {
+	        key: 'getProperties',
+	        value: function getProperties() {
+	            return this.refs["nodePropertyView" + this.props.label].getProperties();
+	        }
+	    }, {
+	        key: 'addProperties',
+	        value: function addProperties(properties) {
+	            return this.refs["nodePropertyView" + this.props.label].addProperties(properties);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement(
 	                'g',
 	                null,
-	                React.createElement(_nodePropertyView2.default, { label: this.props.label, ref: "nodePropertyView" + this.props.label }),
+	                React.createElement(_nodePropertyView2.default, { label: this.props.label, properties: this.props.properties, ref: "nodePropertyView" + this.props.label }),
 	                React.createElement('circle', {
 	                    r: 30,
 	                    cx: this.state.x,
@@ -42363,6 +42416,8 @@
 	        _this.closeModal = _this.closeModal.bind(_this);
 	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
 	        _this.addProperty = _this.addProperty.bind(_this);
+	        _this.getProperties = _this.getProperties.bind(_this);
+	        _this.addProperties = _this.addProperties.bind(_this);
 	        return _this;
 	    }
 	
@@ -42393,6 +42448,16 @@
 	            this.state.properties.push({ name: "", value: "" });
 	
 	            this.setState({ properties: this.state.properties });
+	        }
+	    }, {
+	        key: 'getProperties',
+	        value: function getProperties() {
+	            return this.state.properties;
+	        }
+	    }, {
+	        key: 'addProperties',
+	        value: function addProperties(properties) {
+	            this.setState({ properties: properties });
 	        }
 	    }, {
 	        key: 'render',
@@ -42804,7 +42869,9 @@
 	          }
 	     }, {
 	          key: 'deleteEdge',
-	          value: function deleteEdge() {
+	          value: function deleteEdge(e) {
+	
+	               e.stopPropagation();
 	               this.props.deleteEdgeCallBack(this.props.label1, this.props.label2);
 	          }
 	     }, {
@@ -43449,6 +43516,296 @@
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
+	var _reactDropzone = __webpack_require__(275);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _loading = __webpack_require__(270);
+	
+	var _loading2 = _interopRequireDefault(_loading);
+	
+	var _graphLabRecord = __webpack_require__(284);
+	
+	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
+	
+	var _reactRouter = __webpack_require__(184);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
+	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
+	var SearchResult = function (_React$Component) {
+	    _inherits(SearchResult, _React$Component);
+	
+	    function SearchResult(props) {
+	        _classCallCheck(this, SearchResult);
+	
+	        var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props));
+	
+	        _this.state = {
+	            records: [],
+	            svg_width: window.innerWidth - 17,
+	            svg_height: window.innerHeight - 100,
+	
+	            tree_width: 640,
+	            tree_height: 599,
+	
+	            selectedModelName: "",
+	            selectedModelTag: "",
+	            selectedModelDescription: "",
+	            selectedRecordInfo: null
+	        };
+	        _this.updateDimensions = _this.updateDimensions.bind(_this);
+	        _this.recordEnterCallBack = _this.recordEnterCallBack.bind(_this);
+	        _this.openGraph = _this.openGraph.bind(_this);
+	        _this.setup = _this.setup.bind(_this);
+	        _this.clear = _this.clear.bind(_this);
+	        _this.showResult = _this.showResult.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(SearchResult, [{
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            window.removeEventListener("resize", this.updateDimensions);
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
+	            this.clear();
+	            this.showResult();
+	        }
+	    }, {
+	        key: 'clear',
+	        value: function clear() {
+	            this.setState({
+	                records: [],
+	                selectedModelName: "",
+	                selectedModelTag: "",
+	                selectedModelDescription: "",
+	                selectedRecordInfo: null
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            window.addEventListener("resize", this.updateDimensions);
+	            this.clear();
+	            this.showResult();
+	        }
+	    }, {
+	        key: 'showResult',
+	        value: function showResult() {
+	            if (this.props.location.state.modelInfo) {
+	                var modelInfo = JSON.parse(this.props.location.state.modelInfo);
+	
+	                this.setup(modelInfo);
+	            }
+	        }
+	    }, {
+	        key: 'setup',
+	        value: function setup(models) {
+	            var modelRecords = [];
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+	
+	            try {
+	                for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var modelInfo = _step.value;
+	
+	                    modelInfo["x"] = this.state.tree_width / 2 - Math.random() * this.state.tree_width;
+	                    modelInfo["y"] = this.state.tree_height / 4 - Math.random() * this.state.tree_height / 2;
+	
+	                    modelRecords.push(modelInfo);
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+	
+	            this.setState({
+	                records: modelRecords
+	            });
+	        }
+	    }, {
+	        key: 'updateDimensions',
+	        value: function updateDimensions() {
+	            this.setState({
+	                svg_width: window.innerWidth - 17,
+	                svg_height: window.innerHeight - 100
+	            });
+	        }
+	    }, {
+	        key: 'recordEnterCallBack',
+	        value: function recordEnterCallBack(recordInfo) {
+	            this.setState({
+	                selectedModelName: recordInfo.modelname,
+	                selectedModelTag: recordInfo.modeltag,
+	                selectedModelDescription: recordInfo.modeldescription,
+	                selectedRecordInfo: recordInfo
+	            });
+	        }
+	    }, {
+	        key: 'openGraph',
+	        value: function openGraph() {
+	            var self = this;
+	
+	            if (this.state.selectedRecordInfo.modelid) {
+	                console.log(this.state.selectedRecordInfo);
+	                var data = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken(),
+	                    code: 10,
+	                    modelid: this.state.selectedRecordInfo.modelid
+	                };
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
+	                        self.context.router.push({
+	                            pathname: '/graphLab',
+	                            state: {
+	                                graphInfo: JSON.parse(response.body.model)
+	                            }
+	                        });
+	                    },
+	                    error: function error(request, status, _error) {
+	                        alert("error");
+	                        console.log(request);
+	                        console.log(status);
+	                        console.log(_error);
+	                    }
+	                });
+	            } else {
+	                this.context.router.push({
+	                    pathname: '/graphLab',
+	                    state: {
+	                        graphInfo: this.state.selectedRecordInfo
+	                    }
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+	
+	            return React.createElement(
+	                'svg',
+	                { className: styles.graphRepositoryTree, id: 'svg-graphLabLocalRepository', width: this.state.svg_width, height: this.state.svg_height, xmlns: 'http://www.w3.org/2000/svg', version: '1.1'
+	                },
+	                React.createElement(
+	                    'g',
+	                    null,
+	                    React.createElement(
+	                        'text',
+	                        { x: 10, y: 50 },
+	                        '\u30E2\u30C7\u30EB\u540D : ',
+	                        this.state.selectedModelName
+	                    ),
+	                    React.createElement(
+	                        'text',
+	                        { x: 10, y: 100 },
+	                        '\u30BF\u30B0 : ',
+	                        this.state.selectedModelTag
+	                    ),
+	                    React.createElement(
+	                        'text',
+	                        { x: 10, y: 150, width: 100, height: 200 },
+	                        '\u8A73\u7D30 : ',
+	                        this.state.selectedModelDescription
+	                    )
+	                ),
+	                React.createElement(
+	                    'g',
+	                    { onClick: this.openGraph },
+	                    React.createElement('rect', { x: '10', y: '200', width: '70', height: '30', stroke: 'black', fill: 'transparent' }),
+	                    React.createElement(
+	                        'text',
+	                        { x: '30', y: '220' },
+	                        '\u958B\u304F'
+	                    )
+	                ),
+	                React.createElement(
+	                    'g',
+	                    null,
+	                    React.createElement('image', { href: '../icon/Tree.png',
+	                        x: this.state.svg_width - this.state.tree_width > 0 ? (this.state.svg_width - this.state.tree_width) / 2 : 0,
+	                        y: 0
+	                    }),
+	                    this.state.records.map(function (d, idx) {
+	                        return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, recordEnterCallBack: _this2.recordEnterCallBack, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
+	                    })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return SearchResult;
+	}(React.Component);
+	
+	exports.default = SearchResult;
+	
+	
+	SearchResult.contextTypes = {
+	    router: React.PropTypes.object
+	};
+
+/***/ }),
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
 	var _structure = __webpack_require__(248);
 	
 	var styles = _interopRequireWildcard(_structure);
@@ -43519,7 +43876,7 @@
 	exports.default = WebExploration;
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43602,7 +43959,7 @@
 	exports.default = SocialConnect;
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43925,7 +44282,7 @@
 	exports.default = AccountManagementIndividual;
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44083,7 +44440,7 @@
 	exports.default = AccountManagement;
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44237,7 +44594,7 @@
 	exports.default = CompanyRegistration;
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44264,7 +44621,7 @@
 	
 	var _reactModal2 = _interopRequireDefault(_reactModal);
 	
-	var _chatBox = __webpack_require__(291);
+	var _chatBox = __webpack_require__(292);
 	
 	var _chatBox2 = _interopRequireDefault(_chatBox);
 	
@@ -44320,7 +44677,7 @@
 	exports.default = Top;
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44335,15 +44692,15 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _chatbox = __webpack_require__(292);
+	var _chatbox = __webpack_require__(293);
 	
 	var styles = _interopRequireWildcard(_chatbox);
 	
-	var _chatElement = __webpack_require__(294);
+	var _chatElement = __webpack_require__(295);
 	
 	var _chatElement2 = _interopRequireDefault(_chatElement);
 	
-	var _chatWritingElement = __webpack_require__(295);
+	var _chatWritingElement = __webpack_require__(296);
 	
 	var _chatWritingElement2 = _interopRequireDefault(_chatWritingElement);
 	
@@ -44439,13 +44796,13 @@
 	exports.default = ChatBox;
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(293);
+	var content = __webpack_require__(294);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(251)(content, {});
@@ -44465,7 +44822,7 @@
 	}
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(250)();
@@ -44489,7 +44846,7 @@
 	};
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44504,11 +44861,11 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _chatbox = __webpack_require__(292);
+	var _chatbox = __webpack_require__(293);
 	
 	var styles = _interopRequireWildcard(_chatbox);
 	
-	var _chatWritingElement = __webpack_require__(295);
+	var _chatWritingElement = __webpack_require__(296);
 	
 	var _chatWritingElement2 = _interopRequireDefault(_chatWritingElement);
 	
@@ -44565,7 +44922,7 @@
 	exports.default = ChatElement;
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44580,7 +44937,7 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _chatbox = __webpack_require__(292);
+	var _chatbox = __webpack_require__(293);
 	
 	var styles = _interopRequireWildcard(_chatbox);
 	
@@ -44620,7 +44977,7 @@
 	exports.default = ChatWritingElement;
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44697,7 +45054,7 @@
 	};
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44716,13 +45073,13 @@
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _top = __webpack_require__(290);
+	var _top = __webpack_require__(291);
 	
 	var _top2 = _interopRequireDefault(_top);
 	
 	var _reactRouter = __webpack_require__(184);
 	
-	var _reactSticky = __webpack_require__(298);
+	var _reactSticky = __webpack_require__(299);
 	
 	var _structure = __webpack_require__(248);
 	
@@ -45082,7 +45439,7 @@
 	};
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45092,15 +45449,15 @@
 	});
 	exports.Channel = exports.StickyContainer = exports.Sticky = undefined;
 	
-	var _sticky = __webpack_require__(299);
+	var _sticky = __webpack_require__(300);
 	
 	var _sticky2 = _interopRequireDefault(_sticky);
 	
-	var _container = __webpack_require__(300);
+	var _container = __webpack_require__(301);
 	
 	var _container2 = _interopRequireDefault(_container);
 	
-	var _channel = __webpack_require__(301);
+	var _channel = __webpack_require__(302);
 	
 	var _channel2 = _interopRequireDefault(_channel);
 	
@@ -45112,7 +45469,7 @@
 	exports.default = _sticky2.default;
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45385,7 +45742,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45408,7 +45765,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _channel = __webpack_require__(301);
+	var _channel = __webpack_require__(302);
 	
 	var _channel2 = _interopRequireDefault(_channel);
 	
@@ -45494,7 +45851,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -45530,296 +45887,6 @@
 	
 	exports.default = Channel;
 	module.exports = exports['default'];
-
-/***/ }),
-/* 302 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var React = _interopRequireWildcard(_react);
-	
-	var _reactDom = __webpack_require__(37);
-	
-	var ReactDOM = _interopRequireWildcard(_reactDom);
-	
-	var _reactDropzone = __webpack_require__(275);
-	
-	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-	
-	var _structure = __webpack_require__(248);
-	
-	var styles = _interopRequireWildcard(_structure);
-	
-	var _auth = __webpack_require__(268);
-	
-	var _auth2 = _interopRequireDefault(_auth);
-	
-	var _jquery = __webpack_require__(269);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _loading = __webpack_require__(270);
-	
-	var _loading2 = _interopRequireDefault(_loading);
-	
-	var _graphLabRecord = __webpack_require__(284);
-	
-	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
-	
-	var _reactRouter = __webpack_require__(184);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
-	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
-	var SearchResult = function (_React$Component) {
-	    _inherits(SearchResult, _React$Component);
-	
-	    function SearchResult(props) {
-	        _classCallCheck(this, SearchResult);
-	
-	        var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props));
-	
-	        _this.state = {
-	            records: [],
-	            svg_width: window.innerWidth - 17,
-	            svg_height: window.innerHeight - 100,
-	
-	            tree_width: 640,
-	            tree_height: 599,
-	
-	            selectedModelName: "",
-	            selectedModelTag: "",
-	            selectedModelDescription: "",
-	            selectedRecordInfo: null
-	        };
-	        _this.updateDimensions = _this.updateDimensions.bind(_this);
-	        _this.recordEnterCallBack = _this.recordEnterCallBack.bind(_this);
-	        _this.openGraph = _this.openGraph.bind(_this);
-	        _this.setup = _this.setup.bind(_this);
-	        _this.clear = _this.clear.bind(_this);
-	        _this.showResult = _this.showResult.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(SearchResult, [{
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("resize", this.updateDimensions);
-	        }
-	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps() {
-	            this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            this.setState({
-	                records: [],
-	                selectedModelName: "",
-	                selectedModelTag: "",
-	                selectedModelDescription: "",
-	                selectedRecordInfo: null
-	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            window.addEventListener("resize", this.updateDimensions);
-	            this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'showResult',
-	        value: function showResult() {
-	            if (this.props.location.state.modelInfo) {
-	                var modelInfo = JSON.parse(this.props.location.state.modelInfo);
-	
-	                this.setup(modelInfo);
-	            }
-	        }
-	    }, {
-	        key: 'setup',
-	        value: function setup(models) {
-	            var modelRecords = [];
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
-	
-	            try {
-	                for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var modelInfo = _step.value;
-	
-	                    modelInfo["x"] = this.state.tree_width / 2 - Math.random() * this.state.tree_width;
-	                    modelInfo["y"] = this.state.tree_height / 4 - Math.random() * this.state.tree_height / 2;
-	
-	                    modelRecords.push(modelInfo);
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
-	            }
-	
-	            this.setState({
-	                records: modelRecords
-	            });
-	        }
-	    }, {
-	        key: 'updateDimensions',
-	        value: function updateDimensions() {
-	            this.setState({
-	                svg_width: window.innerWidth - 17,
-	                svg_height: window.innerHeight - 100
-	            });
-	        }
-	    }, {
-	        key: 'recordEnterCallBack',
-	        value: function recordEnterCallBack(recordInfo) {
-	            this.setState({
-	                selectedModelName: recordInfo.modelname,
-	                selectedModelTag: recordInfo.modeltag,
-	                selectedModelDescription: recordInfo.modeldescription,
-	                selectedRecordInfo: recordInfo
-	            });
-	        }
-	    }, {
-	        key: 'openGraph',
-	        value: function openGraph() {
-	            var self = this;
-	
-	            if (this.state.selectedRecordInfo.modelid) {
-	                console.log(this.state.selectedRecordInfo);
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    code: 10,
-	                    modelid: this.state.selectedRecordInfo.modelid
-	                };
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
-	                    success: function success(response) {
-	                        self.context.router.push({
-	                            pathname: '/graphLab',
-	                            state: {
-	                                graphInfo: JSON.parse(response.body.model)
-	                            }
-	                        });
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("error");
-	                        console.log(request);
-	                        console.log(status);
-	                        console.log(_error);
-	                    }
-	                });
-	            } else {
-	                this.context.router.push({
-	                    pathname: '/graphLab',
-	                    state: {
-	                        graphInfo: this.state.selectedRecordInfo
-	                    }
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-	
-	            return React.createElement(
-	                'svg',
-	                { className: styles.graphRepositoryTree, id: 'svg-graphLabLocalRepository', width: this.state.svg_width, height: this.state.svg_height, xmlns: 'http://www.w3.org/2000/svg', version: '1.1'
-	                },
-	                React.createElement(
-	                    'g',
-	                    null,
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 50 },
-	                        '\u30E2\u30C7\u30EB\u540D : ',
-	                        this.state.selectedModelName
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 100 },
-	                        '\u30BF\u30B0 : ',
-	                        this.state.selectedModelTag
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 150, width: 100, height: 200 },
-	                        '\u8A73\u7D30 : ',
-	                        this.state.selectedModelDescription
-	                    )
-	                ),
-	                React.createElement(
-	                    'g',
-	                    { onClick: this.openGraph },
-	                    React.createElement('rect', { x: '10', y: '200', width: '70', height: '30', stroke: 'black', fill: 'transparent' }),
-	                    React.createElement(
-	                        'text',
-	                        { x: '30', y: '220' },
-	                        '\u958B\u304F'
-	                    )
-	                ),
-	                React.createElement(
-	                    'g',
-	                    null,
-	                    React.createElement('image', { href: '../icon/Tree.png',
-	                        x: this.state.svg_width - this.state.tree_width > 0 ? (this.state.svg_width - this.state.tree_width) / 2 : 0,
-	                        y: 0
-	                    }),
-	                    this.state.records.map(function (d, idx) {
-	                        return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, recordEnterCallBack: _this2.recordEnterCallBack, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
-	                    })
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return SearchResult;
-	}(React.Component);
-	
-	exports.default = SearchResult;
-	
-	
-	SearchResult.contextTypes = {
-	    router: React.PropTypes.object
-	};
 
 /***/ })
 /******/ ]);

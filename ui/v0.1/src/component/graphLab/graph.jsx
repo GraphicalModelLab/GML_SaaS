@@ -85,37 +85,6 @@ export default class Graph extends React.Component<Props, {}> {
           var currPosition = this.refs[label].getCurrentPosition();
 
           this.addEdge(label, this.state.prevLabel, currPosition.x, currPosition.y, prevPosition.x, prevPosition.y, false);
-/*
-          var newEdge = {
-              x1: currPosition.x,
-              y1: currPosition.y,
-              x2: prevPosition.x,
-              y2: prevPosition.y,
-              label1: label,
-              label2: this.state.prevLabel,
-              disable: false
-          };
-
-          var newEdgeDeletion = {
-              x: (currPosition.x + prevPosition.x)/2,
-              y: (currPosition.y + prevPosition.y)/2,
-              label1: label,
-              label2: this.state.prevLabel,
-              disable: false
-          };
-
-          this.state.edges.push(newEdge);
-          this.state.edgesDeletion.push(newEdgeDeletion);
-
-          this.setState({
-            nodes: this.state.nodes,
-            edges: this.state.edges,
-            edgesDeletion: this.state.edgesDeletion,
-            newEdge: false,
-            prevLabel: null,
-            currentChosenNode: null
-          });
-          */
 
         }else if(this.state.prevLabel == label){
           this.state.prevLabel = null;
@@ -239,7 +208,8 @@ export default class Graph extends React.Component<Props, {}> {
                 label: this.state.nodes[index].label,
                 disable: this.state.nodes[index].disable,
                 x: this.refs[this.state.nodes[index].label].state.x,
-                y: this.refs[this.state.nodes[index].label].state.y
+                y: this.refs[this.state.nodes[index].label].state.y,
+                properties: this.refs[this.state.nodes[index].label].getProperties()
             });
         }
 
@@ -279,14 +249,17 @@ export default class Graph extends React.Component<Props, {}> {
           });
     }
 
-    addNode(label,x,y){
+    addNode(label,x,y,disable,properties){
        var nodes = this.state.nodes;
 
+       console.log("add label : "+label)
+       console.log(properties);
        nodes.push({
             label: label,
             x: x,
             y: y,
-            disable: false
+            disable: disable,
+            properties: properties
        });
 
        this.setState({
@@ -434,7 +407,7 @@ export default class Graph extends React.Component<Props, {}> {
 
                     <g ref="canvas">
                         { this.state.nodes.map((d, idx) => {
-                            return <Node key={d.label} zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={d.x} y={d.y} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
+                            return <Node key={d.label} zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={d.x} y={d.y} properties={d.properties} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
                         }) }
 
                         { this.state.edges.map((d, idx) => {

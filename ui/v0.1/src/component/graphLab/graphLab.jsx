@@ -22,6 +22,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
 
         this.onDropAttributeImport = this.onDropAttributeImport.bind(this);
         this.onDropAnalyzing = this.onDropAnalyzing.bind(this);
+        this.onDropTraining = this.onDropTraining.bind(this);
         this.showNodePropertyView = this.showNodePropertyView.bind(this);
         this.save = this.save.bind(this);
         this.saveCallBack = this.saveCallBack.bind(this);
@@ -40,7 +41,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             console.log("add attributes:"+firstLine[0]);
             var index = 0;
             firstLine[0].split(',').forEach(function(entry) {
-                graph.addNode(entry, index * 100 + 20, 100);
+                graph.addNode(entry, index * 100 + 20, 100, false, []);
 
                 index += 1;
             });
@@ -68,12 +69,14 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 this.refs.algorithm.value = graphInfo.algorithm;
             }
 
-            graphInfo.nodes.forEach(function(entry) { graph.addNode(entry.label, entry.x, entry.y); });
+            graphInfo.nodes.forEach(function(entry) { graph.addNode(entry.label, entry.x, entry.y, entry.disable, entry.properties); });
             graphInfo.edges.forEach(function(entry) { graph.addEdge(entry.label1,entry.label2, entry.x1, entry.y1, entry.x2, entry.y2, false); });
+
+            this.refs.nodePropertyView.addProperties(graphInfo.commonProperties);
         }
     }
 
-    onDropAnalyzing(acceptedFiles, rejectedFiles){
+    onDropTraining(acceptedFiles, rejectedFiles){
         var formData = new FormData();
         formData.append('file_1', acceptedFiles[0]);
 
@@ -103,8 +106,11 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     companyid: auth.getCompanyid(),
                     algorithm: "test",
                     datasource: data,
-                    nodes: this.refs.graph.state.nodes,
-                    edges: this.refs.graph.state.edges,
+                    //nodes: this.refs.graph.state.nodes,
+                    //edges: this.refs.graph.state.edges,
+                    nodes: this.refs.graph.getNodes(),
+                    edges: this.refs.graph.getEdges(),
+                    commonProperties: this.refs.nodePropertyView.getProperties(),
                     code:10
             };
 
@@ -136,6 +142,68 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         })
     }
 
+    onDropAnalyzing(acceptedFiles, rejectedFiles){
+            var formData = new FormData();
+            formData.append('file_1', acceptedFiles[0]);
+
+            $.ajax({
+                    url  : "../commonModules/php/modules/Uploader.php",
+                    type : "POST",
+                    data : formData,
+                    cache       : false,
+                    contentType : false,
+                    processData : false,
+                    dataType    : "text",
+                    success: function() {
+                                                    alert("Success!");
+                    },
+                    error: function (request, status, error) {
+                                             alert("error");
+                                             console.log(status);
+                                             console.log(error);
+
+                    },
+            }).done((data, textStatus, jqXHR) => {
+                alert(data);
+                var data = {
+                        companyid: auth.getCompanyid(),
+                        userid:auth.getUserid(),
+                        token: auth.getToken(),
+                        companyid: auth.getCompanyid(),
+                        algorithm: "test",
+                        testsource: data,
+                        gmlId: "ttt",
+                        code:10
+                };
+
+                alert("POST to test");
+                 $.ajax({
+                    url  : "../commonModules/php/modules/GML.php/gml/test",
+                    type : "post",
+                    data : JSON.stringify(data),
+                    contentType: 'application/json',
+                    dataType: "json",
+                    success: function(response) {
+                        alert("succeed to training");
+                        console.log("success for traininig");
+                        console.log(response);
+
+                    },
+                    error: function (request, status, error) {
+                                                                         alert("error");
+                                                                         console.log(status);
+                                                                         console.log(error);
+
+                    },
+                 }).done((data, textStatus, jqXHR) => {
+
+                                                                         alert("done");
+                                                                         console.log(data);
+                                                                         console.log(textStatus);
+                 })
+            })
+        }
+
     showNodePropertyView(){
        this.refs.nodePropertyView.openModal();
     }
@@ -153,7 +221,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             userid: auth.getUserid(),
             algorithm: this.refs.algorithm.value,
             nodes: this.refs.graph.getNodes(),
-            edges: this.refs.graph.getEdges()
+            edges: this.refs.graph.getEdges(),
+            commonProperties: this.refs.nodePropertyView.getProperties()
         };
 
         var data = {
@@ -220,7 +289,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         </Dropzone>
                         <Dropzone
                             className={styles.graphLabMenuItem}
-                            onDrop={this.onDropAnalyzing}
+                            onDrop={this.onDropTraining}
                             accept="text/csv" >
                             <div>
                                 <br/>学習データ<br/>ファイル<br/>ドロップ

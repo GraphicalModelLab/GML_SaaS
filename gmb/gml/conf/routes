@@ -2,7 +2,8 @@
 
 
 GET                /helloworld                    controllers.GraphicalModelLabServiceController.helloworld()
-POST               /gml/:companyId/training       controllers.GraphicalModelLabServiceController.training(companyId:String)
+POST               /gml/:companyId/model/training       controllers.GraphicalModelLabServiceController.training(companyId:String)
+POST               /gml/:companyId/model/test       controllers.GraphicalModelLabServiceController.test(companyId:String)
 POST               /gml/:companyId/model/save     controllers.GraphicalModelLabServiceController.save(companyId:String)
 POST               /gml/:companyId/model/list     controllers.GraphicalModelLabServiceController.list(companyId:String)
 POST               /gml/:companyId/model/get     controllers.GraphicalModelLabServiceController.get(companyId:String)
