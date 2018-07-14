@@ -23,6 +23,8 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
             tree_height: 599,
 
             selectedModelName: "",
+            selectedModelVersion: "",
+            selectedModelTimestamp: "",
             selectedModelTag: "",
             selectedModelDescription: "",
             selectedRecordInfo: null
@@ -42,6 +44,8 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
        this.setState({
             records: [],
             selectedModelName: "",
+            selectedModelVersion: "",
+            selectedModelTimestamp: "",
             selectedModelTag: "",
             selectedModelDescription: "",
             selectedRecordInfo: null
@@ -117,6 +121,8 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
     recordEnterCallBack(recordInfo){
             this.setState({
                 selectedModelName: recordInfo.modelname,
+                selectedModelVersion: recordInfo.modelversion,
+                selectedModelTimestamp: recordInfo.timestamp,
                 selectedModelTag: recordInfo.modeltag,
                 selectedModelDescription: recordInfo.modeldescription,
                 selectedRecordInfo: recordInfo
@@ -134,7 +140,8 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
                 userid:auth.getUserid(),
                 token: auth.getToken(),
                 code:10,
-                modelid: this.state.selectedRecordInfo.modelid
+                modelid: this.state.selectedRecordInfo.modelid,
+                datetime: this.state.selectedRecordInfo.timestamp
             };
             $.ajax({
                     url  : "../commonModules/php/modules/GML.php/gml/model/get",
@@ -174,13 +181,15 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
 
                 <g>
                     <text x={10} y={50} >モデル名 : {this.state.selectedModelName}</text>
-                    <text x={10} y={100} >タグ : {this.state.selectedModelTag}</text>
-                    <text x={10} y={150}  width={100} height={200} >詳細 : {this.state.selectedModelDescription}</text>
+                    <text x={10} y={100} >モデル バージョン : {this.state.selectedModelVersion}</text>
+                    <text x={10} y={150} >タイムスタンプ : {this.state.selectedModelTimestamp}</text>
+                    <text x={10} y={200} >タグ : {this.state.selectedModelTag}</text>
+                    <text x={10} y={250}  width={100} height={200} >詳細 : {this.state.selectedModelDescription}</text>
                 </g>
 
                 <g onClick={this.openGraph}>
-                <rect x="10" y="200" width="70" height="30" stroke="black" fill="transparent"/>
-                <text x="30" y="220" >開く</text>
+                <rect x="10" y="300" width="180" height="30" stroke="black" fill="transparent"/>
+                <text x="30" y="320" >開く (Click Apple!)</text>
                 </g>
 
                 <g>
