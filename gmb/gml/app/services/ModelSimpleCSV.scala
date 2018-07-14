@@ -280,20 +280,4 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
       return 1;
     }
   }
-
-//  /**
-//    * return the joint probability over nodes
-//    *
-//    * @param nodesIndex
-//    * @return P( nodes )
-//    */
-//  def jointProbabilityByGuassian(nodesIndex: List[Int], predictedValues: DenseVector) : Double = {
-//    return guassianHyperParam(getJointId(nodesIndex)).pdf(predictedValues)
-//  }
-
-
-//  def conditionalProbabilityByGuassian(targetNodeId: Int, dependingNodes: List[Int], predictedValues: DenseVector): Double = {
-//    return jointProbabilityByGuassian(targetNodeId :: dependingNodes) / jointProbabilityByGuassian(dependingNodes);
-////    return 0.0.toDouble;
-//  }
 }

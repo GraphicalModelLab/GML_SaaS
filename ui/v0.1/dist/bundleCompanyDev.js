@@ -42516,7 +42516,7 @@
 	                            )
 	                        ),
 	                        this.state.properties.map(function (d, idx) {
-	                            return React.createElement(_nodeProperty2.default, { ref: "prop" + idx, name: d.name, value: d.value });
+	                            return React.createElement(_nodeProperty2.default, { key: "nodeprop" + idx, ref: "prop" + idx, name: d.name, value: d.value });
 	                        })
 	                    )
 	                )
@@ -43144,6 +43144,8 @@
 	            tree_height: 599,
 	
 	            selectedModelName: "",
+	            selectedModelVersion: "",
+	            selectedModelTimestamp: "",
 	            selectedModelTag: "",
 	            selectedModelDescription: "",
 	            selectedRecordInfo: null
@@ -43168,6 +43170,8 @@
 	            this.setState({
 	                records: [],
 	                selectedModelName: "",
+	                selectedModelVersion: "",
+	                selectedModelTimestamp: "",
 	                selectedModelTag: "",
 	                selectedModelDescription: "",
 	                selectedRecordInfo: null
@@ -43290,6 +43294,8 @@
 	        value: function recordEnterCallBack(recordInfo) {
 	            this.setState({
 	                selectedModelName: recordInfo.modelname,
+	                selectedModelVersion: recordInfo.modelversion,
+	                selectedModelTimestamp: recordInfo.timestamp,
 	                selectedModelTag: recordInfo.modeltag,
 	                selectedModelDescription: recordInfo.modeldescription,
 	                selectedRecordInfo: recordInfo
@@ -43308,7 +43314,8 @@
 	                    userid: _auth2.default.getUserid(),
 	                    token: _auth2.default.getToken(),
 	                    code: 10,
-	                    modelid: this.state.selectedRecordInfo.modelid
+	                    modelid: this.state.selectedRecordInfo.modelid,
+	                    datetime: this.state.selectedRecordInfo.timestamp
 	                };
 	                _jquery2.default.ajax({
 	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
@@ -43361,12 +43368,24 @@
 	                    React.createElement(
 	                        'text',
 	                        { x: 10, y: 100 },
+	                        '\u30E2\u30C7\u30EB \u30D0\u30FC\u30B8\u30E7\u30F3 : ',
+	                        this.state.selectedModelVersion
+	                    ),
+	                    React.createElement(
+	                        'text',
+	                        { x: 10, y: 150 },
+	                        '\u30BF\u30A4\u30E0\u30B9\u30BF\u30F3\u30D7 : ',
+	                        this.state.selectedModelTimestamp
+	                    ),
+	                    React.createElement(
+	                        'text',
+	                        { x: 10, y: 200 },
 	                        '\u30BF\u30B0 : ',
 	                        this.state.selectedModelTag
 	                    ),
 	                    React.createElement(
 	                        'text',
-	                        { x: 10, y: 150, width: 100, height: 200 },
+	                        { x: 10, y: 250, width: 100, height: 200 },
 	                        '\u8A73\u7D30 : ',
 	                        this.state.selectedModelDescription
 	                    )
@@ -43374,11 +43393,11 @@
 	                React.createElement(
 	                    'g',
 	                    { onClick: this.openGraph },
-	                    React.createElement('rect', { x: '10', y: '200', width: '70', height: '30', stroke: 'black', fill: 'transparent' }),
+	                    React.createElement('rect', { x: '10', y: '300', width: '180', height: '30', stroke: 'black', fill: 'transparent' }),
 	                    React.createElement(
 	                        'text',
-	                        { x: '30', y: '220' },
-	                        '\u958B\u304F'
+	                        { x: '30', y: '320' },
+	                        '\u958B\u304F (Click Apple!)'
 	                    )
 	                ),
 	                React.createElement(

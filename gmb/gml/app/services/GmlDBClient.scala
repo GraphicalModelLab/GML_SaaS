@@ -1,5 +1,7 @@
 package services
 
+import java.util.Date
+
 import com.datastax.driver.core.querybuilder.QueryBuilder
 import gml.{getRequest, getResponse, listRequest, listResponse, saveRequest}
 import org.codehaus.jettison.json.JSONObject
@@ -21,16 +23,14 @@ object GmlDBClient {
   }
 
   def save(request: saveRequest):Unit ={
-
-    // 1. Validate the token at first
-
-    // 2. Update the engineer profile
+    val timestamp = new Date();
 
     val query = QueryBuilder.update("master","model")
-      .`with`(QueryBuilder.set("model",request.graph))
+      .`with`(QueryBuilder.set("model","{\"modelversion\":\""+timestamp.getTime+"\","+"\"timestamp\":\""+timestamp.toString+"\","+request.graph.substring(1)))
       .where(QueryBuilder.eq("companyid",request.companyid))
       .and(QueryBuilder.eq("userid",request.userid))
       .and(QueryBuilder.eq("modelid",request.modelid))
+      .and(QueryBuilder.eq("datetime",timestamp.getTime))
 
     client.executeStatement(query)
 
@@ -67,6 +67,7 @@ object GmlDBClient {
       .where(QueryBuilder.eq("companyid",request.companyid))
       .and(QueryBuilder.eq("userid",request.userid))
       .and(QueryBuilder.eq("modelid",request.modelid))
+      .and(QueryBuilder.eq("datetime",request.datetime))
 
     client.executeStatement(query)
 

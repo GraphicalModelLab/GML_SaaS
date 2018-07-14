@@ -86,7 +86,7 @@ export default class NodePropertyView extends React.Component<Props, {}> {
                                 <span className={styles.nodePropValueHeader}>value</span>
                             </div>
                             { this.state.properties.map((d, idx) => {
-                                return <NodeProperty ref={"prop"+idx} name={d.name} value={d.value}/>
+                                return <NodeProperty key={"nodeprop"+idx} ref={"prop"+idx} name={d.name} value={d.value}/>
                             }) }
                         </div>
                     </Modal>
