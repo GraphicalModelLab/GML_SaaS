@@ -35,15 +35,31 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
     distributionMap.put(node.label,distribution)
   }
 
-  val categoricalPossibleValues : Map[String, Set[String]] = Map[String,Set[String]]("sex" -> Set[String]("I","F","M"))
+  val categoricalPossibleValues : collection.mutable.Map[String, Set[String]] = collection.mutable.Map[String,Set[String]]()
+//    collection.mutable.Map[String,collection.mutable.Set[String]]("category" -> collection.mutable.Set[String]("red","white"))
 
   val guassianHyperParam = mutable.Map[String, MultivariateGaussian]()
 
   def getJointId(nodesLabel: List[String]): String=nodesLabel.sorted.mkString(".")
 
-
   val sparkConf: SparkConf = new SparkConf().setAppName("Model").setMaster("local")
   val sparkSession: SparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
+
+  def initCategoryMap(csvData: DataFrame): Unit ={
+    var categoricalKeySet = distributionMap.filter(f => f._2 == "categorical").keySet
+    println("find category Map for :"+categoricalKeySet+","+distributionMap)
+
+    for(key <- categoricalKeySet) {
+      val index = invertedIndex.get(key).get
+      val possibleValue = collection.mutable.Set[String]()
+      val final_rdd_dense = csvData.rdd.map(_.getString(index)).distinct().collect()
+
+      categoricalPossibleValues.put(key, final_rdd_dense.toSet)
+    }
+    println("Initialized Category Map");
+    println(categoricalPossibleValues)
+  }
+
   /**
     * Calculate hyper parameters for joint probability,
     * i.e. P(all nodes) = P(A |..)P(B |..)...
@@ -54,6 +70,8 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
 //    val csvData = sparkSession.read.csv("/Users/itomao/Documents/GMB/DemoDataSet/abalone_test_answer.csv")
     println("Load "+datasource+" ...")
     val csvData = sparkSession.read.csv(datasource)
+
+    initCategoryMap(csvData)
 
     (0 until allNodes.length).foreach {
       nodeIndex => print(nodeIndex)
@@ -98,16 +116,16 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
       println("    Covariance : "+parameter._2.sigma.toArray.mkString(","))
     }
 
-    println("Test outputs ---- ")
-    predict(Map[String,String](
-      "sex" -> "M"
-    ),List[String]("length"),List[String]("M","0.585"))
-    predict(Map[String,String](
-      "sex" -> "F"
-    ),List[String]("length"),List[String]("F","0.585"))
-    predict(Map[String,String](
-      "sex" -> "I"
-    ),List[String]("length"),List[String]("I","0.585"))
+//    println("Test outputs ---- ")
+//    predict(Map[String,String](
+//      "sex" -> "M"
+//    ),List[String]("length"),List[String]("M","0.585"))
+//    predict(Map[String,String](
+//      "sex" -> "F"
+//    ),List[String]("length"),List[String]("F","0.585"))
+//    predict(Map[String,String](
+//      "sex" -> "I"
+//    ),List[String]("length"),List[String]("I","0.585"))
   }
 
   def training_helper(categoryLabelList: List[String], categoryValues: Map[String, String], currentIndex: Int, realLabelIndices: List[String], data:DataFrame) : Unit={
@@ -155,14 +173,15 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
   }
 
 
-  def test(testsource : String): Unit ={
+  def test(testsource : String, targetLabel: String): Unit ={
 
 //    val csvData = "/Users/itomao/Documents/GMB/DemoDataSet/abalone_test_answer.csv"
     var csvData = testsource
 
     println("test "+csvData)
 
-    val target = "sex"
+//    val target = "category"
+    val target = targetLabel;
     val targetIndex = invertedIndex.get(target).get
 
     var count = 0;

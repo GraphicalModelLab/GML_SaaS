@@ -48,7 +48,7 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           val model:ModelSimpleCSV = TrainedModelMap.get("test").get
-          model.test(request.testsource)
+          model.test(request.testsource,request.targetLabel)
         }
 
       case None =>
