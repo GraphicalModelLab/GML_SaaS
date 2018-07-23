@@ -41386,7 +41386,7 @@
 	                    companyid: _auth2.default.getCompanyid(),
 	                    userid: _auth2.default.getUserid(),
 	                    token: _auth2.default.getToken()
-	                }, _defineProperty(_data2, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data2, 'algorithm', "test"), _defineProperty(_data2, 'testsource', data), _defineProperty(_data2, 'gmlId', "ttt"), _defineProperty(_data2, 'code', 10), _data2);
+	                }, _defineProperty(_data2, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data2, 'algorithm', "test"), _defineProperty(_data2, 'testsource', data), _defineProperty(_data2, 'gmlId', "ttt"), _defineProperty(_data2, 'targetLabel', "category"), _defineProperty(_data2, 'code', 10), _data2);
 	
 	                alert("POST to test");
 	                _jquery2.default.ajax({

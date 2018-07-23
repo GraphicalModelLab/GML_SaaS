@@ -20,7 +20,8 @@ object TestModelSimpleCSV {
     val sparkConf = new SparkConf().setAppName("Model").setMaster("local")
     //  val sparkContext = new SparkContext(sparkConf)
     val sparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
-    val csvData = sparkSession.read.csv("/Users/itomao/Documents/GMB/DemoDataSet/abalone_test.csv")
+//    val csvData = sparkSession.read.csv("/Users/itomao/Documents/GMB/DemoDataSet/abalone_test.csv")
+    val csvData = sparkSession.read.csv("/Users/itomao/Documents/GMB/DemoDataSet/bank/bank-full.csv")
 
     val final_rdd_dense = csvData.rdd.map {
       x =>

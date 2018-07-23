@@ -65,7 +65,7 @@ package object gml {
   }
 
   // 2. test request
-  case class testRequest(code: Int, userid:String, token: String, companyid: String, testsource: String, algorithm: String, gmlId: String)
+  case class testRequest(code: Int, userid:String, token: String, companyid: String, testsource: String, algorithm: String, gmlId: String, targetLabel:String)
   case class testResponse(code: Int, testSuccessCode: Int, gmlId: String)
 
   implicit lazy val testRequestReads: Reads[testRequest] = Reads[testRequest] {
@@ -76,7 +76,8 @@ package object gml {
       (json \ "companyid").as[String],
       (json \ "testsource").as[String],
       (json \ "algorithm").as[String],
-      (json \ "gmlId").as[String]
+      (json \ "gmlId").as[String],
+      (json \ "targetLabel").as[String]
     ))
   }
 

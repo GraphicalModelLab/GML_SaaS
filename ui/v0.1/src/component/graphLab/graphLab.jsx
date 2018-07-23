@@ -173,6 +173,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         algorithm: "test",
                         testsource: data,
                         gmlId: "ttt",
+                        targetLabel: "category",
                         code:10
                 };
 
