@@ -27,7 +27,7 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
     render() {
         return (
             <g onClick={this.clickCallBack} onMouseEnter={this.recordEnterCallBack}>
-            <image href="../icon/apple.gif" width="8%" height="8%" x={this.props.coordinate_x + this.props.x} y={this.props.coordinate_y + this.props.y} />
+            <image href="../icon/apple.gif" width="20%" height="20%" x={this.props.coordinate_x + this.props.x} y={this.props.coordinate_y + this.props.y} />
             </g>
            )
     }
