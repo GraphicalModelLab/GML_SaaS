@@ -19,6 +19,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.state = {
             downloadLink: "",
             downloadContent: "",
+            evaluationMethod: ["simple", "cross-validation", "precision-recall", "ROC"],
             analyzingTarget: []
         };
 
@@ -297,7 +298,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             onDrop={this.onDropAttributeImport}
                             accept="text/csv" >
                             <div>
-                                <br/>属性情報<br/>ファイル<br/>ドロップ
+                                <br/>属性情報<br/>ファイル<br/>クリック<br/>(ドロップ)
                             </div>
                         </Dropzone>
                         <Dropzone
@@ -305,7 +306,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             onDrop={this.onDropTraining}
                             accept="text/csv" >
                             <div>
-                                <br/>学習データ<br/>ファイル<br/>ドロップ
+                                <br/>学習データ<br/>ファイル<br/>クリック<br/>(ドロップ)
                             </div>
                         </Dropzone>
                         <div className={styles.graphLabMenuItemDropAnalyzingBox}>
@@ -314,9 +315,15 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                 onDrop={this.onDropAnalyzing}
                                 accept="text/csv" >
                                 <div>
-                                    <br/>解析データ<br/>ファイル<br/>
+                                   <br/> 解析データ
                                 </div>
                             </Dropzone>
+                            <select ref="analyzingTarget" className={styles.graphLabMenuItemAnalyzingTarget}>
+                                <option value="" disabled selected>Select Evaluation Method</option>
+                                { this.state.evaluationMethod.map((d, idx) => {
+                                    return <option value={d} key={"evaluation"+d}>{d}</option>
+                                })}
+                            </select>
                             <select ref="analyzingTarget" className={styles.graphLabMenuItemAnalyzingTarget}>
                                 <option value="" disabled selected>Select Target</option>
                                 { this.state.analyzingTarget.map((d, idx) => {
