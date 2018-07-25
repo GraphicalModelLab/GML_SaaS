@@ -5,6 +5,7 @@ import * as styles from './../../css/structure.css';
 import auth from "./../auth/auth";
 import $ from 'jquery';
 import Loading from './../loader/loading';
+import PopupMessage from './../popupMessage/popupMessage';
 import Graph from './graph';
 import NodePropertyView from './graphProperty/nodePropertyView'
 import GraphSaveView from './graphSave/graphSaveView'
@@ -17,7 +18,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
        // downloadLink
         this.state = {
             downloadLink: "",
-            downloadContent: ""
+            downloadContent: "",
+            analyzingTarget: []
         };
 
         this.onDropAttributeImport = this.onDropAttributeImport.bind(this);
@@ -28,11 +30,30 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.saveCallBack = this.saveCallBack.bind(this);
         this.setup = this.setup.bind(this);
 
+        this.addNode = this.addNode.bind(this);
+        this.addEdge = this.addEdge.bind(this);
+
     }
+
+    addNode(label,x,y,disable,properties){
+        this.refs.graph.addNode(label, x, y, disable, properties);
+
+        console.log("analyzing add node : "+label);
+        this.state.analyzingTarget.push(label);
+        this.setState({
+            analyzingTarget : this.state.analyzingTarget
+         });
+    }
+
+    addEdge(label1, label2, x1, y1, x2, y2, disable){
+        this.refs.graph.addEdge(label1, label2, x1, y1, x2, y2, disable);
+    }
+
     onDropAttributeImport(acceptedFiles, rejectedFiles){
         var reader = new FileReader();
         var graph = this.refs.graph;
         graph.clearSvgPane();
+        var self = this;
         reader.onload = function(e) {
             var text = reader.result;                 // the entire file
 
@@ -41,7 +62,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             console.log("add attributes:"+firstLine[0]);
             var index = 0;
             firstLine[0].split(',').forEach(function(entry) {
-                graph.addNode(entry, index * 100 + 20, 100, false, []);
+                self.addNode(entry, index * 100 + 20, 100, false, []);
 
                 index += 1;
             });
@@ -68,9 +89,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             if(graphInfo.algorithm){
                 this.refs.algorithm.value = graphInfo.algorithm;
             }
-
-            graphInfo.nodes.forEach(function(entry) { graph.addNode(entry.label, entry.x, entry.y, entry.disable, entry.properties); });
-            graphInfo.edges.forEach(function(entry) { graph.addEdge(entry.label1,entry.label2, entry.x1, entry.y1, entry.x2, entry.y2, false); });
+            var self = this;
+            graphInfo.nodes.forEach(function(entry) { self.addNode(entry.label, entry.x, entry.y, entry.disable, entry.properties); });
+            graphInfo.edges.forEach(function(entry) { self.addEdge(entry.label1,entry.label2, entry.x1, entry.y1, entry.x2, entry.y2, false); });
 
             this.refs.nodePropertyView.addProperties(graphInfo.commonProperties);
         }
@@ -80,6 +101,11 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         var formData = new FormData();
         formData.append('file_1', acceptedFiles[0]);
 
+
+        var self = this;
+
+        self.refs.loading.openModal();
+        self.refs.popupMessage.showMessage("now training...");
         $.ajax({
                 url  : "../commonModules/php/modules/Uploader.php",
                 type : "POST",
@@ -89,16 +115,14 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 processData : false,
                 dataType    : "text",
                 success: function() {
-                                                alert("Success!");
-                },
-                error: function (request, status, error) {
-                                         alert("error");
-                                         console.log(status);
-                                         console.log(error);
 
                 },
+                error: function (request, status, error) {
+                    alert("failed to upload csv file to server. Contact Administrator");
+                    console.log(status);
+                    console.log(error);
+                },
         }).done((data, textStatus, jqXHR) => {
-            alert(data);
             var data = {
                     companyid: auth.getCompanyid(),
                     userid:auth.getUserid(),
@@ -114,7 +138,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     code:10
             };
 
-            alert("POST to training");
              $.ajax({
                 url  : "../commonModules/php/modules/GML.php/gml/training",
                 type : "post",
@@ -122,30 +145,29 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 contentType: 'application/json',
                 dataType: "json",
                 success: function(response) {
-                    alert("succeed to training");
-                    console.log("success for traininig");
-                    console.log(response);
 
                 },
                 error: function (request, status, error) {
-                                                                     alert("error");
-                                                                     console.log(status);
-                                                                     console.log(error);
-
+                    alert("Failed to train the model. Contact Administrator");
+                    console.log(status);
+                    console.log(error);
                 },
              }).done((data, textStatus, jqXHR) => {
-
-                                                                     alert("done");
-                                                                     console.log(data);
-                                                                     console.log(textStatus);
-             })
+                self.refs.loading.closeModal();
+                self.refs.popupMessage.closeMessage("finished training !");
+             });
         })
     }
 
     onDropAnalyzing(acceptedFiles, rejectedFiles){
+            var self = this;
+
+            self.refs.loading.openModal();
+            self.refs.popupMessage.showMessage("now testing...");
+
             var formData = new FormData();
             formData.append('file_1', acceptedFiles[0]);
-
+            var targetLabel = this.refs.analyzingTarget.value;
             $.ajax({
                     url  : "../commonModules/php/modules/Uploader.php",
                     type : "POST",
@@ -155,16 +177,13 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     processData : false,
                     dataType    : "text",
                     success: function() {
-                                                    alert("Success!");
                     },
                     error: function (request, status, error) {
-                                             alert("error");
-                                             console.log(status);
-                                             console.log(error);
-
+                        alert("failed to upload files for testing");
+                        console.log(status);
+                        console.log(error);
                     },
             }).done((data, textStatus, jqXHR) => {
-                alert(data);
                 var data = {
                         companyid: auth.getCompanyid(),
                         userid:auth.getUserid(),
@@ -173,11 +192,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         algorithm: "test",
                         testsource: data,
                         gmlId: "ttt",
-                        targetLabel: "category",
+                        targetLabel: targetLabel,
                         code:10
                 };
 
-                alert("POST to test");
                  $.ajax({
                     url  : "../commonModules/php/modules/GML.php/gml/test",
                     type : "post",
@@ -185,22 +203,16 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     contentType: 'application/json',
                     dataType: "json",
                     success: function(response) {
-                        alert("succeed to training");
-                        console.log("success for traininig");
-                        console.log(response);
 
                     },
                     error: function (request, status, error) {
-                                                                         alert("error");
-                                                                         console.log(status);
-                                                                         console.log(error);
-
+                        alert("failed to do testing. Contact Administrator");
+                        console.log(status);
+                        console.log(error);
                     },
                  }).done((data, textStatus, jqXHR) => {
-
-                                                                         alert("done");
-                                                                         console.log(data);
-                                                                         console.log(textStatus);
+                    self.refs.loading.closeModal();
+                    self.refs.popupMessage.closeMessage("finished testing !");
                  })
             })
         }
@@ -296,20 +308,30 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                 <br/>学習データ<br/>ファイル<br/>ドロップ
                             </div>
                         </Dropzone>
-                        <Dropzone
-                            className={styles.graphLabMenuItem}
-                            onDrop={this.onDropAnalyzing}
-                            accept="text/csv" >
-                            <div>
-                                <br/>解析データ<br/>ファイル<br/>ドロップ
-                            </div>
-                        </Dropzone>
-                         <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
+                        <div className={styles.graphLabMenuItemDropAnalyzingBox}>
+                            <Dropzone
+                                className={styles.graphLabMenuItemDropAnalyzing}
+                                onDrop={this.onDropAnalyzing}
+                                accept="text/csv" >
+                                <div>
+                                    <br/>解析データ<br/>ファイル<br/>
+                                </div>
+                            </Dropzone>
+                            <select ref="analyzingTarget" className={styles.graphLabMenuItemAnalyzingTarget}>
+                                <option value="" disabled selected>Select Target</option>
+                                { this.state.analyzingTarget.map((d, idx) => {
+                                    return <option value={d} key={"option"+d}>{d}</option>
+                                })}
+                            </select>
+                        </div>
+                        <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
 
                         <div onClick={this.save} className={styles.graphLabMenuItem}><br/><br/>モデル保存<br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
                     </div>
                     <Graph ref="graph" items={[]}/>
                 </div>
+                <Loading ref="loading"/>
+                <PopupMessage ref="popupMessage"/>
             </div>
            )
     }

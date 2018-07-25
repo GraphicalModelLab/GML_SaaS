@@ -388,6 +388,29 @@ a:active {
 
   text-align: center;
 }
+.graphLabMenuItemDropAnalyzingBox{
+  font-size: 8px;
+  color: white;
+  width : 100px;
+  height : 60px;
+  float: left;
+  background-color: #000088;
+  margin-right: 2px;
+
+  text-align: center;
+}
+
+.graphLabMenuItemDropAnalyzing{
+  font-size: 8px;
+  color: white;
+  width : 100px;
+  height : 40px;
+  float: left;
+  background-color: #000088;
+  margin-right: 2px;
+
+  text-align: center;
+}
 
 .graphLabMenuItemDownloadLink{
   color: white;
@@ -397,6 +420,11 @@ a:active {
 
 .graphLabMenuItemCalculationSelect{
     max-width:90%;
+}
+.graphLabMenuItemAnalyzingTarget{
+    margin-left: 2px;
+    max-width:95%;
+    float: left;
 }
 
 .nodePropertyViewTitle{
@@ -492,3 +520,39 @@ a:active {
 .iconConnect:hover {
 			opacity: 0.5 ;
 			}
+
+.popupMessage{
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index:20;
+  margin: auto;
+
+  background-color: #ffffff;
+
+  padding: 2 2 2 2;
+  font-size: 30px;
+  text-align: center;
+  height: 35px;
+}
+
+.popupMessageClose{
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index:20;
+  margin: auto;
+
+  background-color: yellow;
+
+  padding: 2 2 2 2;
+  font-size: 30px;
+  text-align: center;
+  height: 35px;
+}
