@@ -22,11 +22,11 @@ object GmlDBClient {
     ))
   }
 
-  def save(request: saveRequest):Unit ={
+  def save(request: saveRequest): Date ={
     val timestamp = new Date();
 
     val query = QueryBuilder.update("master","model")
-      .`with`(QueryBuilder.set("model","{\"modelversion\":\""+timestamp.getTime+"\","+"\"timestamp\":\""+timestamp.toString+"\","+request.graph.substring(1)))
+      .`with`(QueryBuilder.set("model","{\"modelversion\":\""+timestamp.getTime+"\","+"\"timestamp\":\""+timestamp.toString+"\","+"\"datetime\":"+timestamp.getTime+","+request.graph.substring(1)))
       .where(QueryBuilder.eq("companyid",request.companyid))
       .and(QueryBuilder.eq("userid",request.userid))
       .and(QueryBuilder.eq("modelid",request.modelid))
@@ -34,6 +34,7 @@ object GmlDBClient {
 
     client.executeStatement(query)
 
+    return timestamp
   }
 
   def list(request: listRequest):listResponse ={

@@ -76,9 +76,13 @@
 	
 	var _graphLabLocalRepository2 = _interopRequireDefault(_graphLabLocalRepository);
 	
-	var _searchResult = __webpack_require__(286);
+	var _searchResult = __webpack_require__(304);
 	
 	var _searchResult2 = _interopRequireDefault(_searchResult);
+	
+	var _searchResult3 = __webpack_require__(305);
+	
+	var _searchResult4 = _interopRequireDefault(_searchResult3);
 	
 	var _webExploration = __webpack_require__(287);
 	
@@ -129,7 +133,8 @@
 	    React.createElement(_reactRouter.Route, { path: 'logout', component: _logout2.default }),
 	    React.createElement(_reactRouter.Route, { path: 'graphLab', component: _graphLab2.default, editable: 'true' }),
 	    React.createElement(_reactRouter.Route, { path: 'graphLabLocalRepository', component: _graphLabLocalRepository2.default, editable: 'true' }),
-	    React.createElement(_reactRouter.Route, { path: 'searchResult', component: _searchResult2.default, editable: 'true' }),
+	    React.createElement(_reactRouter.Route, { path: 'searchResult1', component: _searchResult2.default, editable: 'true' }),
+	    React.createElement(_reactRouter.Route, { path: 'searchResult2', component: _searchResult4.default, editable: 'true' }),
 	    React.createElement(_reactRouter.Route, { path: 'webExploration', component: _webExploration2.default, editable: 'true' }),
 	    React.createElement(_reactRouter.Route, { path: 'socialConnect', component: _socialConnect2.default, editable: 'true' }),
 	    React.createElement(_reactRouter.Route, { path: 'accountManagementIndividual', component: _accountManagementIndividual2.default }),
@@ -27810,7 +27815,7 @@
 	
 	
 	// module
-	exports.push([module.id, "._21IlS4cigU1jp3URI1qdEI{\r\n  display:block;\r\n  background-color:#000088;\r\n  margin: 0 auto;\r\n  margin-bottom:25px;\r\n  padding-bottom:5px;\r\n  border-bottom: medium solid #000088;\r\n  width:100%;\r\n  height:60px;\r\n\r\n}\r\n._39lGWu0C-owsCVe_ao0I1O{\r\n   display:block;\r\n   margin: 0 auto;\r\n   height:100%;\r\n}\r\n.Mkcf_FrN7x3CB21zr5onA{\r\n   display:block;\r\n   font-size:10px;\r\n   text-align:center;\r\n   margin: 0 auto;\r\n   margin-top:50px;\r\n   padding-top:10px;\r\n   border-top: medium solid #000088;\r\n   background-color:#000088;\r\n   height:50px;\r\n   color:white;\r\n   width:100%;\r\n}\r\n.Rx6jc5zsF2JOssZB9cbBG{\r\n  font-size:20px;\r\n}\r\n\r\n._1ymn_JM6VAPhJiCBE43b0Z{\r\n  height:60px;\r\n}\r\n\r\n.ZV7UOwMK-zpqQdgK3w0uj{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:60px;\r\n    height:60px;\r\n}\r\n._3Xl_zuhVONV6Oa54l6ujMu{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:80px;\r\n    height:60px;\r\n    padding-top: 20px;\r\n    color: white;\r\n    font-size: 8px;\r\n}\r\n\r\n._3tMeNULEtH4UE9lkTLIWR1{\r\n  float:right;\r\n\r\n  margin-top:20px;\r\n  margin-right:5px;\r\n  font-size:10px;\r\n  height:50px;\r\n  width: 800px;\r\n}\r\na {\r\n   text-decoration: none;\r\n}\r\n\r\na:active {\r\n    text-decoration:none;\r\n}\r\n\r\n.VhfzMFgtiDeytcikj8r28{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:60%;\r\n}\r\n\r\n._1RzYgKr7UvluOrir40jLOs {\r\n  float:right;\r\n  margin-left:10px;\r\n  border:solid 1px #C0C0C0;;\r\n  padding: 5px 5px 5px 5px;\r\n  font-color:black;\r\n  background-color:#ffffff;\r\n}\r\n\r\n._2FIIxzQHLNlgcCfO-DxVJo{\r\n  float:right;\r\n  margin-left:10px;\r\n  margin-top:4px;\r\n}\r\n._1iJKfh2DQs5q2KZnr6H0FG{\r\n  float:right;\r\n}\r\n\r\n._3IPWpvFNSTwN3yFrdpc400{\r\n  float:right;\r\n  margin-left:1px;\r\n  border:solid 1px #C0C0C0;\r\n    background: #C0C0C0;\r\n}\r\n.OYtAsBD1pHnipY9J2OdDw{\r\n    float:right;\r\n    margin-left:10px;\r\n    margin-right:5px;\r\n    margin-top:6px;\r\n    zoom:60%;\r\n}\r\n._1RzYgKr7UvluOrir40jLOs:hover {\r\n    background:#808080;\r\n    border-color:#808080;\r\n}\r\n\r\n._6uth5HE0kdJEWKMKp9chp{\r\n    width:400px;\r\n    margin: 0 auto;\r\n}\r\n._2xdtauEEKDUCZ7egnAcnjl{\r\n    text-align:center;\r\n    width:400px;\r\n    margin-bottom:30px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x{\r\n    text-align:center;\r\n    margin-bottom:30px;\r\n    width:401px;\r\n    height:20px;\r\n    font-size:20px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x:-webkit-autofill{\r\n    -webkit-box-shadow: 0 0 0px 1000px white inset;\r\n}\r\n\r\n._2CrAYKqxG4yMY1TZFIl0Kt{\r\n    background-color:#E0F2F7;\r\n    text-align:center;\r\n    width:400px;\r\n    border:solid 1px #C0C0C0;\r\n}\r\n._2CrAYKqxG4yMY1TZFIl0Kt:hover{\r\n    background-color:#808080;\r\n}\r\n\r\n._1AJxF0j-z9p2VbNjzte0P-{\r\n    margin-top:20px;\r\n    text-align:right;\r\n}\r\n\r\n.G2msH2J9HYmQaOZLQtXqm{\r\n    color: #ff0000;\r\n}\r\n._1EX5qd1Q_Ma2vBic6LZi1D{\r\n    margin-top:20px;\r\n}\r\n\r\n._2qZa5LHHWXB2zdjjK5A0TF{\r\n}\r\n._-iPVMXyGTb1t597MkH6Sx{\r\n    width:1500px;\r\n    padding-left:1485px;\r\n}\r\n\r\n._3wSWab8jd-NCnH0Lc9JKyR{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:50%;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF {\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  margin: auto;\r\n\r\n  z-index:20;\r\n}\r\n\r\n.GRDAGXTygk4MB-lPHt3oy{\r\n    display: block;\r\n    margin: 0 auto;\r\n    width:600px;\r\n}\r\n._3sGfRBvUwkFzQe8AFgz2iQ{\r\n    margin-bottom:10px;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    width:600px;\r\n}\r\n\r\n._2c8EKTA8wPxWzSYaK13W8D:hover{\r\n    background-color:#E0F2F7;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF{\r\n    position:absolute;\r\n\r\n    z-index:10px;\r\n\r\n    height:100%;\r\n    width:100%;\r\n\r\n    background-color:black;\r\n}\r\n\r\n._1OJTFKoMOYJKUbluCzoq_x{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    border:solid 1px #C0C0C0;\r\n    padding-top:10px;\r\n    width: 800px;\r\n    border-radius: 10px;        /* CSS3草案 */\r\n    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */\r\n    -moz-border-radius: 10px;   /* Firefox用 */\r\n}\r\n\r\n._1tGcysSkVX3P8fZepj9lXh{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding-top:10px;\r\n    width: 800px;\r\n}\r\n._22OBOc5j9yt82rrLlamcG{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n}\r\n._1s0xtDoRlEgtxfiT7E7kzm{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    border-bottom:solid 1px #C0C0C0;;\r\n}\r\n._2dvKc1mcRnLfIpgx1-EtIv{\r\n    font-size:12px;\r\n    width: 800px;\r\n}\r\n._2Z6cNVbGVHHKU089-VXO3S{\r\n    font-size:10px;\r\n}\r\n\r\n.EiBNqPpkHeQEYmB2LnuTk{\r\n    width:400px;\r\n}\r\n._3QyPxrGwm_9dd2gXx7Aca0{\r\n    width:60%;\r\n    height:60%;\r\n    padding-left:70px;\r\n    margin-top:30px;\r\n}\r\n._2820e232rGWlpnLkGm3xd8{\r\n    width:59%;\r\n    height:60%;\r\n    padding-left:73px;\r\n    margin-top:5px;\r\n}\r\n\r\n.A25vvGxnamwA_1-jxJDFw{\r\n    width:400px;\r\n}\r\n\r\n._2NFpzgTtQffD_D2flkl0Yd{\r\n    margin-left:130px;\r\n    margin-bottom:15px;\r\n    width:30%;\r\n    height:30%;\r\n}\r\n\r\n._3sn4LmzhoNJImhJozT2CbJ{\r\n    width:100%;\r\n    height:100%;\r\n}\r\n\r\n._3C9eRpVrocQMq1eVa-5AeP {\r\n  width : 300px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3YpqWUpiYdWziTD-LaQBMt {\r\n  margin-left:10px;\r\n  width : 400px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3uCgp1xQccu1Ls1v8On4ub{\r\n    background-color:red;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._2vPLW3O634mH-zb4ap8HOw{\r\n    background-color:black;\r\n    display: inline-block;\r\n    min-height: 1000px;\r\n    min-width: 10px;\r\n}\r\n\r\n._2kOLoHM1EjEcFN0DXCDEP8{\r\n    background: #eaeaea;\r\n}\r\n._1o6OTEcANV4DsY4wOKnxUA{\r\n    background-color: blue;\r\n    width:10;\r\n    height: 100%;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._3ZgVDhmRLmbwFurHAa80fY{\r\n    background-color: yellow;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n\r\n._3zr9cD0Xg1PFRaNOWYvJec{\r\n  width : 160px;\r\n  height : 25px;\r\n  float: left;\r\n  background-color: #CED8F6;\r\n}\r\n\r\n._1v2QEd_xxFLbdWO-43JF1y{\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n._3Oh_ppFtB70E1WaRVVngI3{\r\n    margin-right: 10px;\r\n    width: 270px;\r\n    float:left;\r\n}\r\n\r\n._3pZunEapYtxb_yhRw5c_vo{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._2SwhuFZEWu1oYzCMeTndxU{\r\n   float: left;\r\n   width: 100px;\r\n}\r\n\r\n._2Iehh8JIgqkXm-YB4rh74N{\r\n   width: 180px;\r\n}\r\n\r\n._3vjclEY51AQwq4nzr7IsYx{\r\n   float: left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._2lvtl3VkOHea6sxXHhWmzs{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n.rBU-smzcehI-fVuWMTxOJ{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 150px;\r\n  height : 60px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1jbbmcfcXHhh9Oh5FO59I6{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 60px;\r\n  height : 60px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1UIdy8ocS8kJ3tXWEJGKc0{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 100px;\r\n  height : 60px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._15_I19Ep29e_USI2oX3_c4{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 100px;\r\n  height : 40px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._2n226EmCv8P0yFoTuIH8ZX{\r\n  color: white;\r\n  text-decoration: underline;\r\n  font-size: 10px;\r\n}\r\n\r\n._2L0mXa7_EzhSospqoyphbB{\r\n    max-width:90%;\r\n}\r\n._3ndPMP-fQ0l445pF-up9eO{\r\n    margin-left: 2px;\r\n    max-width:95%;\r\n    float: left;\r\n}\r\n\r\n._1e8JEH9Y-Bxej2s2Ak-SwU{\r\n    display:block;\r\n    width: 300px;\r\n    width: 300px;\r\n}\r\n\r\n.Vvla0RGP8dEu400vL7NKf{\r\n    margin-top: 20px;\r\n    display:block;\r\n}\r\n\r\n._2PUP-R1t1EJnstBN4JkrrB{\r\n    display:block;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz {\r\n    margin-top: 20px;\r\n    margin-left:130px;\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.5em;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    background: #fd9535;/*背景色*/\r\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\r\n    border-radius: 4px;/*角の丸み*/\r\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\r\n    font-weight: bold;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz:active {\r\n    border-bottom: solid 2px #fd9535;\r\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\r\n}\r\n\r\n._2KXawChEyiT_LvDznW62ne{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._32apsN4U2ZLtmU6E83iyv3{\r\n   width: 100px;\r\n}\r\n\r\n.mEN3dRNLU8bQ5nmD2uq1O{\r\n   width: 180px;\r\n}\r\n\r\n._1raG9542fWdnrUh0l9JHxV{\r\n    float:left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._3e_zzB02xPMOqzGv6I4WkH{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n\r\n._3gT7FIEAY6Cdop9gxqaJUE{\r\n\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n.GxYC7EtjEzu6lPMHkrZln{\r\n    float: left;\r\n}\r\n._1aDfbuNhv282xUrZ9GeQ_y{\r\n    float: left;\r\n\r\n}\r\n._3r43NZpUVPFDRg3G8RyNny{\r\n    float: left;\r\n}\r\n._3Gp6TXG3U3mTf4Ec1rSBM9{\r\n\r\n}\r\n\r\n._28bEV430au--RZaJ2xSY1N{\r\n}\r\n\r\n._3cmt0U3hlMd_HMd_nJ5qhp{\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4{\r\n    zoom: 50%;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4:hover {\r\n\t\t\topacity: 0.5 ;\r\n\t\t\t}\r\n\r\n._3aG70LPFzQ6gf8GTqMOBnA{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: #ffffff;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n\r\n.qjd7pqriQ2YEt1IYVUVD2{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: yellow;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n", ""]);
+	exports.push([module.id, "._21IlS4cigU1jp3URI1qdEI{\r\n  display:block;\r\n  background-color:#000088;\r\n  margin: 0 auto;\r\n  margin-bottom:25px;\r\n  padding-bottom:5px;\r\n  border-bottom: medium solid #000088;\r\n  width:100%;\r\n  height:60px;\r\n\r\n}\r\n._39lGWu0C-owsCVe_ao0I1O{\r\n   display:block;\r\n   margin: 0 auto;\r\n   height:100%;\r\n}\r\n.Mkcf_FrN7x3CB21zr5onA{\r\n   display:block;\r\n   font-size:10px;\r\n   text-align:center;\r\n   margin: 0 auto;\r\n   margin-top:50px;\r\n   padding-top:10px;\r\n   border-top: medium solid #000088;\r\n   background-color:#000088;\r\n   height:50px;\r\n   color:white;\r\n   width:100%;\r\n}\r\n.Rx6jc5zsF2JOssZB9cbBG{\r\n  font-size:20px;\r\n}\r\n\r\n._1ymn_JM6VAPhJiCBE43b0Z{\r\n  height:60px;\r\n}\r\n\r\n.ZV7UOwMK-zpqQdgK3w0uj{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:60px;\r\n    height:60px;\r\n}\r\n._3Xl_zuhVONV6Oa54l6ujMu{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:80px;\r\n    height:60px;\r\n    padding-top: 20px;\r\n    color: white;\r\n    font-size: 8px;\r\n}\r\n\r\n._3tMeNULEtH4UE9lkTLIWR1{\r\n  float:right;\r\n\r\n  margin-top:20px;\r\n  margin-right:5px;\r\n  font-size:10px;\r\n  height:50px;\r\n  width: 800px;\r\n}\r\na {\r\n   text-decoration: none;\r\n}\r\n\r\na:active {\r\n    text-decoration:none;\r\n}\r\n\r\n.VhfzMFgtiDeytcikj8r28{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:60%;\r\n}\r\n\r\n._1RzYgKr7UvluOrir40jLOs {\r\n  float:right;\r\n  margin-left:10px;\r\n  border:solid 1px #C0C0C0;;\r\n  padding: 5px 5px 5px 5px;\r\n  font-color:black;\r\n  background-color:#ffffff;\r\n}\r\n\r\n._2FIIxzQHLNlgcCfO-DxVJo{\r\n  float:right;\r\n  margin-left:10px;\r\n  margin-top:4px;\r\n}\r\n._1iJKfh2DQs5q2KZnr6H0FG{\r\n  float:right;\r\n}\r\n\r\n._3IPWpvFNSTwN3yFrdpc400{\r\n  float:right;\r\n  margin-left:1px;\r\n  border:solid 1px #C0C0C0;\r\n    background: #C0C0C0;\r\n}\r\n.OYtAsBD1pHnipY9J2OdDw{\r\n    float:right;\r\n    margin-left:10px;\r\n    margin-right:5px;\r\n    margin-top:6px;\r\n    zoom:60%;\r\n}\r\n._1RzYgKr7UvluOrir40jLOs:hover {\r\n    background:#808080;\r\n    border-color:#808080;\r\n}\r\n\r\n._6uth5HE0kdJEWKMKp9chp{\r\n    width:400px;\r\n    margin: 0 auto;\r\n}\r\n._2xdtauEEKDUCZ7egnAcnjl{\r\n    text-align:center;\r\n    width:400px;\r\n    margin-bottom:30px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x{\r\n    text-align:center;\r\n    margin-bottom:30px;\r\n    width:401px;\r\n    height:20px;\r\n    font-size:20px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x:-webkit-autofill{\r\n    -webkit-box-shadow: 0 0 0px 1000px white inset;\r\n}\r\n\r\n._2CrAYKqxG4yMY1TZFIl0Kt{\r\n    background-color:#E0F2F7;\r\n    text-align:center;\r\n    width:400px;\r\n    border:solid 1px #C0C0C0;\r\n}\r\n._2CrAYKqxG4yMY1TZFIl0Kt:hover{\r\n    background-color:#808080;\r\n}\r\n\r\n._1AJxF0j-z9p2VbNjzte0P-{\r\n    margin-top:20px;\r\n    text-align:right;\r\n}\r\n\r\n.G2msH2J9HYmQaOZLQtXqm{\r\n    color: #ff0000;\r\n}\r\n._1EX5qd1Q_Ma2vBic6LZi1D{\r\n    margin-top:20px;\r\n}\r\n\r\n._2qZa5LHHWXB2zdjjK5A0TF{\r\n}\r\n._-iPVMXyGTb1t597MkH6Sx{\r\n    width:1500px;\r\n    padding-left:1485px;\r\n}\r\n\r\n._3wSWab8jd-NCnH0Lc9JKyR{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:50%;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF {\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  margin: auto;\r\n\r\n  z-index:20;\r\n}\r\n\r\n.GRDAGXTygk4MB-lPHt3oy{\r\n    display: block;\r\n    margin: 0 auto;\r\n    width:600px;\r\n}\r\n._3sGfRBvUwkFzQe8AFgz2iQ{\r\n    margin-bottom:10px;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    width:600px;\r\n}\r\n\r\n._2c8EKTA8wPxWzSYaK13W8D:hover{\r\n    background-color:#E0F2F7;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF{\r\n    position:absolute;\r\n\r\n    z-index:10px;\r\n\r\n    height:100%;\r\n    width:100%;\r\n\r\n    background-color:black;\r\n}\r\n\r\n._1OJTFKoMOYJKUbluCzoq_x{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    border:solid 1px #C0C0C0;\r\n    padding-top:10px;\r\n    width: 800px;\r\n    border-radius: 10px;        /* CSS3草案 */\r\n    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */\r\n    -moz-border-radius: 10px;   /* Firefox用 */\r\n}\r\n\r\n._1tGcysSkVX3P8fZepj9lXh{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding-top:10px;\r\n    width: 800px;\r\n}\r\n._22OBOc5j9yt82rrLlamcG{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n}\r\n._1s0xtDoRlEgtxfiT7E7kzm{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    border-bottom:solid 1px #C0C0C0;;\r\n}\r\n._2dvKc1mcRnLfIpgx1-EtIv{\r\n    font-size:12px;\r\n    width: 800px;\r\n}\r\n._2Z6cNVbGVHHKU089-VXO3S{\r\n    font-size:10px;\r\n}\r\n\r\n.EiBNqPpkHeQEYmB2LnuTk{\r\n    width:400px;\r\n}\r\n._3QyPxrGwm_9dd2gXx7Aca0{\r\n    width:60%;\r\n    height:60%;\r\n    padding-left:70px;\r\n    margin-top:30px;\r\n}\r\n._2820e232rGWlpnLkGm3xd8{\r\n    width:59%;\r\n    height:60%;\r\n    padding-left:73px;\r\n    margin-top:5px;\r\n}\r\n\r\n.A25vvGxnamwA_1-jxJDFw{\r\n    width:400px;\r\n}\r\n\r\n._2NFpzgTtQffD_D2flkl0Yd{\r\n    margin-left:130px;\r\n    margin-bottom:15px;\r\n    width:30%;\r\n    height:30%;\r\n}\r\n\r\n._3sn4LmzhoNJImhJozT2CbJ{\r\n    width:100%;\r\n    height:100%;\r\n}\r\n\r\n._3C9eRpVrocQMq1eVa-5AeP {\r\n  width : 300px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3YpqWUpiYdWziTD-LaQBMt {\r\n  margin-left:10px;\r\n  width : 400px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3uCgp1xQccu1Ls1v8On4ub{\r\n    background-color:red;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._2vPLW3O634mH-zb4ap8HOw{\r\n    background-color:black;\r\n    display: inline-block;\r\n    min-height: 1000px;\r\n    min-width: 10px;\r\n}\r\n\r\n._2kOLoHM1EjEcFN0DXCDEP8{\r\n    background: #eaeaea;\r\n}\r\n._1o6OTEcANV4DsY4wOKnxUA{\r\n    background-color: blue;\r\n    width:10;\r\n    height: 100%;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._3ZgVDhmRLmbwFurHAa80fY{\r\n    background-color: yellow;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n\r\n._3zr9cD0Xg1PFRaNOWYvJec{\r\n  width : 160px;\r\n  height : 25px;\r\n  float: left;\r\n  background-color: #CED8F6;\r\n}\r\n\r\n._1v2QEd_xxFLbdWO-43JF1y{\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n._3Oh_ppFtB70E1WaRVVngI3{\r\n    margin-right: 10px;\r\n    width: 270px;\r\n    float:left;\r\n}\r\n\r\n._3pZunEapYtxb_yhRw5c_vo{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._2SwhuFZEWu1oYzCMeTndxU{\r\n   float: left;\r\n   width: 100px;\r\n}\r\n\r\n._2Iehh8JIgqkXm-YB4rh74N{\r\n   width: 180px;\r\n}\r\n\r\n._3vjclEY51AQwq4nzr7IsYx{\r\n   float: left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._2lvtl3VkOHea6sxXHhWmzs{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n.rBU-smzcehI-fVuWMTxOJ{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 150px;\r\n  height : 60px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1jbbmcfcXHhh9Oh5FO59I6{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 60px;\r\n  height : 60px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1UIdy8ocS8kJ3tXWEJGKc0{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 100px;\r\n  height : 60px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._15_I19Ep29e_USI2oX3_c4{\r\n  font-size: 8px;\r\n  color: white;\r\n  width : 100px;\r\n  height : 40px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._2n226EmCv8P0yFoTuIH8ZX{\r\n  color: white;\r\n  text-decoration: underline;\r\n  font-size: 10px;\r\n}\r\n\r\n._2L0mXa7_EzhSospqoyphbB{\r\n    max-width:90%;\r\n}\r\n._3ndPMP-fQ0l445pF-up9eO{\r\n    margin-left: 2px;\r\n    max-width:95%;\r\n    float: left;\r\n}\r\n\r\n._1e8JEH9Y-Bxej2s2Ak-SwU{\r\n    display:block;\r\n    width: 300px;\r\n    width: 300px;\r\n}\r\n\r\n.Vvla0RGP8dEu400vL7NKf{\r\n    margin-top: 20px;\r\n    display:block;\r\n}\r\n\r\n._2PUP-R1t1EJnstBN4JkrrB{\r\n    display:block;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz {\r\n    margin-top: 20px;\r\n    margin-left:130px;\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.5em;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    background: #fd9535;/*背景色*/\r\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\r\n    border-radius: 4px;/*角の丸み*/\r\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\r\n    font-weight: bold;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz:active {\r\n    border-bottom: solid 2px #fd9535;\r\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\r\n}\r\n\r\n._2KXawChEyiT_LvDznW62ne{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._32apsN4U2ZLtmU6E83iyv3{\r\n   width: 100px;\r\n}\r\n\r\n.mEN3dRNLU8bQ5nmD2uq1O{\r\n   width: 180px;\r\n}\r\n\r\n._1raG9542fWdnrUh0l9JHxV{\r\n    float:left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._3e_zzB02xPMOqzGv6I4WkH{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n\r\n._3gT7FIEAY6Cdop9gxqaJUE{\r\n\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n.GxYC7EtjEzu6lPMHkrZln{\r\n    float: left;\r\n}\r\n._1aDfbuNhv282xUrZ9GeQ_y{\r\n    float: left;\r\n\r\n}\r\n._3r43NZpUVPFDRg3G8RyNny{\r\n    float: left;\r\n}\r\n._3Gp6TXG3U3mTf4Ec1rSBM9{\r\n\r\n}\r\n\r\n._28bEV430au--RZaJ2xSY1N{\r\n}\r\n\r\n._3cmt0U3hlMd_HMd_nJ5qhp{\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4{\r\n    zoom: 50%;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4:hover {\r\n\t\t\topacity: 0.5 ;\r\n\t\t\t}\r\n\r\n._3aG70LPFzQ6gf8GTqMOBnA{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: #ffffff;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n\r\n.qjd7pqriQ2YEt1IYVUVD2{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: yellow;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx{\r\n  border-radius: 20px;\r\n  background: radial-gradient(#fff, #555);\r\n  margin-right: 5px;\r\n  margin-bottom:5px;\r\n\r\n  width: 200px;\r\n  height: 200px;\r\n\r\n  float: left;\r\n}\r\n\r\n\r\n._31O5JM9952ondVvGam_qef{\r\n\r\n  border-radius: 20px;\r\n  margin-left: 10px;\r\n  margin-top: 10px;\r\n  width: 180px;\r\n  height: 180px;\r\n\r\n  background-color: white;\r\n}\r\n\r\n._31O5JM9952ondVvGam_qef:hover{\r\n  background: none;\r\n}\r\n\r\n._30t_hxo2VrZRoL_JzSoZdV{\r\n\r\n  padding-top: 45px;\r\n  text-align: center;\r\n}\r\n\r\n._3bxkJB3OwNSzMBLftSenZU{\r\n  font-size: 12px;\r\n  text-align: center;\r\n\r\n}\r\n\r\n._3VG2LQ5aNDXYKGEC0bf3I4{\r\nfont-size: 12px;\r\n  text-align: center;\r\n}\r\n\r\n.u1qg79XiSQJFhMQl2j6vS{\r\nfont-size: 12px;\r\n  text-align: center;\r\n\r\n}\r\n\r\n._2GSJHwrtgEqlyv78OQefcv{\r\nfont-size: 12px;\r\n  text-align: center;\r\n}", ""]);
 	
 	// exports
 	exports.locals = {
@@ -27894,7 +27899,14 @@
 		"graphLabRecordTree": "_3cmt0U3hlMd_HMd_nJ5qhp",
 		"iconConnect": "whEXNGoOXTHlU_ru4_TG4",
 		"popupMessage": "_3aG70LPFzQ6gf8GTqMOBnA",
-		"popupMessageClose": "qjd7pqriQ2YEt1IYVUVD2"
+		"popupMessageClose": "qjd7pqriQ2YEt1IYVUVD2",
+		"searchResultBox": "_2Xeim6bvo34U_F_xxQaupx",
+		"searchResultBoxInner": "_31O5JM9952ondVvGam_qef",
+		"searchResultBoxInfo": "_30t_hxo2VrZRoL_JzSoZdV",
+		"searchResultBoxModelName": "_3bxkJB3OwNSzMBLftSenZU",
+		"searchResultBoxModelTag": "_3VG2LQ5aNDXYKGEC0bf3I4",
+		"searchResultBoxTimeStamp": "u1qg79XiSQJFhMQl2j6vS",
+		"searchResultBoxAlgorithm": "_2GSJHwrtgEqlyv78OQefcv"
 	};
 
 /***/ }),
@@ -43269,22 +43281,9 @@
 	        var _this = _possibleConstructorReturn(this, (GraphicalLabLocalRepository.__proto__ || Object.getPrototypeOf(GraphicalLabLocalRepository)).call(this, props));
 	
 	        _this.state = {
-	            records: [],
-	            svg_width: window.innerWidth - 17,
-	            svg_height: window.innerHeight - 100,
-	
-	            tree_width: 640,
-	            tree_height: 599,
-	
-	            selectedModelName: "",
-	            selectedModelVersion: "",
-	            selectedModelTimestamp: "",
-	            selectedModelTag: "",
-	            selectedModelDescription: "",
-	            selectedRecordInfo: null
+	            records: []
 	        };
-	        _this.updateDimensions = _this.updateDimensions.bind(_this);
-	        _this.recordEnterCallBack = _this.recordEnterCallBack.bind(_this);
+	
 	        _this.openGraph = _this.openGraph.bind(_this);
 	        _this.setup = _this.setup.bind(_this);
 	        _this.clear = _this.clear.bind(_this);
@@ -43301,19 +43300,12 @@
 	        key: 'clear',
 	        value: function clear() {
 	            this.setState({
-	                records: [],
-	                selectedModelName: "",
-	                selectedModelVersion: "",
-	                selectedModelTimestamp: "",
-	                selectedModelTag: "",
-	                selectedModelDescription: "",
-	                selectedRecordInfo: null
+	                records: []
 	            });
 	        }
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            window.addEventListener("resize", this.updateDimensions);
 	            this.clear();
 	            this.showResult();
 	        }
@@ -43346,9 +43338,6 @@
 	                            var model = _step.value;
 	
 	                            var modelInfo = JSON.parse(model);
-	                            modelInfo["x"] = Math.random() * self.state.tree_width - self.state.tree_width / 2;
-	                            modelInfo["y"] = Math.random() * self.state.tree_height - self.state.tree_height / 2;
-	
 	                            modelRecords.push(modelInfo);
 	                        }
 	                    } catch (err) {
@@ -43390,9 +43379,6 @@
 	                for (var _iterator2 = models[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 	                    var modelInfo = _step2.value;
 	
-	                    modelInfo["x"] = this.state.tree_width / 2 - Math.random() * this.state.tree_width;
-	                    modelInfo["y"] = this.state.tree_height / 4 - Math.random() * this.state.tree_height / 2;
-	
 	                    modelRecords.push(modelInfo);
 	                }
 	            } catch (err) {
@@ -43415,40 +43401,20 @@
 	            });
 	        }
 	    }, {
-	        key: 'updateDimensions',
-	        value: function updateDimensions() {
-	            this.setState({
-	                svg_width: window.innerWidth - 17,
-	                svg_height: window.innerHeight - 100
-	            });
-	        }
-	    }, {
-	        key: 'recordEnterCallBack',
-	        value: function recordEnterCallBack(recordInfo) {
-	            this.setState({
-	                selectedModelName: recordInfo.modelname,
-	                selectedModelVersion: recordInfo.modelversion,
-	                selectedModelTimestamp: recordInfo.timestamp,
-	                selectedModelTag: recordInfo.modeltag,
-	                selectedModelDescription: recordInfo.modeldescription,
-	                selectedRecordInfo: recordInfo
-	            });
-	        }
-	    }, {
 	        key: 'openGraph',
-	        value: function openGraph() {
+	        value: function openGraph(recordInfo) {
 	            var self = this;
 	
-	            if (this.state.selectedRecordInfo.modelid) {
-	                alert("open : " + this.state.selectedRecordInfo.modelid);
-	                console.log(this.state.selectedRecordInfo);
+	            if (recordInfo.modelid) {
+	                alert("open : " + recordInfo.modelid);
+	                console.log(recordInfo);
 	                var data = {
 	                    companyid: _auth2.default.getCompanyid(),
 	                    userid: _auth2.default.getUserid(),
 	                    token: _auth2.default.getToken(),
 	                    code: 10,
-	                    modelid: this.state.selectedRecordInfo.modelid,
-	                    datetime: this.state.selectedRecordInfo.timestamp
+	                    modelid: recordInfo.modelid,
+	                    datetime: recordInfo.datetime
 	                };
 	                _jquery2.default.ajax({
 	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
@@ -43475,7 +43441,7 @@
 	                this.context.router.push({
 	                    pathname: '/graphLab',
 	                    state: {
-	                        graphInfo: this.state.selectedRecordInfo
+	                        graphInfo: recordInfo
 	                    }
 	                });
 	            }
@@ -43486,64 +43452,11 @@
 	            var _this2 = this;
 	
 	            return React.createElement(
-	                'svg',
-	                { className: styles.graphRepositoryTree, id: 'svg-graphLabLocalRepository', width: this.state.svg_width, height: this.state.svg_height, xmlns: 'http://www.w3.org/2000/svg', version: '1.1'
-	                },
-	                React.createElement(
-	                    'g',
-	                    null,
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 50 },
-	                        '\u30E2\u30C7\u30EB\u540D : ',
-	                        this.state.selectedModelName
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 100 },
-	                        '\u30E2\u30C7\u30EB \u30D0\u30FC\u30B8\u30E7\u30F3 : ',
-	                        this.state.selectedModelVersion
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 150 },
-	                        '\u30BF\u30A4\u30E0\u30B9\u30BF\u30F3\u30D7 : ',
-	                        this.state.selectedModelTimestamp
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 200 },
-	                        '\u30BF\u30B0 : ',
-	                        this.state.selectedModelTag
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 250, width: 100, height: 200 },
-	                        '\u8A73\u7D30 : ',
-	                        this.state.selectedModelDescription
-	                    )
-	                ),
-	                React.createElement(
-	                    'g',
-	                    { onClick: this.openGraph },
-	                    React.createElement('rect', { x: '10', y: '300', width: '180', height: '30', stroke: 'black', fill: 'transparent' }),
-	                    React.createElement(
-	                        'text',
-	                        { x: '30', y: '320' },
-	                        '\u958B\u304F (Click Apple!)'
-	                    )
-	                ),
-	                React.createElement(
-	                    'g',
-	                    null,
-	                    React.createElement('image', { href: '../icon/Tree.png',
-	                        x: this.state.svg_width - this.state.tree_width > 0 ? (this.state.svg_width - this.state.tree_width) / 2 : 0,
-	                        y: 0
-	                    }),
-	                    this.state.records.map(function (d, idx) {
-	                        return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, recordEnterCallBack: _this2.recordEnterCallBack, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
-	                    })
-	                )
+	                'div',
+	                null,
+	                this.state.records.map(function (d, idx) {
+	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
+	                })
 	            );
 	        }
 	    }]);
@@ -43616,29 +43529,38 @@
 	
 	        var _this = _possibleConstructorReturn(this, (GraphLabRecord.__proto__ || Object.getPrototypeOf(GraphLabRecord)).call(this, props));
 	
-	        _this.recordEnterCallBack = _this.recordEnterCallBack.bind(_this);
 	        _this.clickCallBack = _this.clickCallBack.bind(_this);
 	
+	        console.log(_this.props.recordInfo);
 	        return _this;
 	    }
 	
 	    _createClass(GraphLabRecord, [{
 	        key: 'clickCallBack',
 	        value: function clickCallBack() {
-	            this.props.clickCallBack();
-	        }
-	    }, {
-	        key: 'recordEnterCallBack',
-	        value: function recordEnterCallBack() {
-	            this.props.recordEnterCallBack(this.props.recordInfo);
+	            this.props.clickCallBack(this.props.recordInfo);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement(
-	                'g',
-	                { onClick: this.clickCallBack, onMouseEnter: this.recordEnterCallBack },
-	                React.createElement('image', { href: '../icon/apple.gif', width: '20%', height: '20%', x: this.props.coordinate_x + this.props.x, y: this.props.coordinate_y + this.props.y })
+	                'div',
+	                { className: styles.searchResultBox, onClick: this.clickCallBack },
+	                React.createElement(
+	                    'div',
+	                    { className: styles.searchResultBoxInner },
+	                    React.createElement(
+	                        'div',
+	                        { className: styles.searchResultBoxInfo },
+	                        this.props.recordInfo.modelname,
+	                        React.createElement('br', null),
+	                        this.props.recordInfo.modeltag,
+	                        React.createElement('br', null),
+	                        this.props.recordInfo.timestamp,
+	                        React.createElement('br', null),
+	                        this.props.recordInfo.algorithm
+	                    )
+	                )
 	            );
 	        }
 	    }]);
@@ -43649,296 +43571,7 @@
 	exports.default = GraphLabRecord;
 
 /***/ }),
-/* 286 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var React = _interopRequireWildcard(_react);
-	
-	var _reactDom = __webpack_require__(37);
-	
-	var ReactDOM = _interopRequireWildcard(_reactDom);
-	
-	var _reactDropzone = __webpack_require__(275);
-	
-	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-	
-	var _structure = __webpack_require__(248);
-	
-	var styles = _interopRequireWildcard(_structure);
-	
-	var _auth = __webpack_require__(268);
-	
-	var _auth2 = _interopRequireDefault(_auth);
-	
-	var _jquery = __webpack_require__(269);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _loading = __webpack_require__(270);
-	
-	var _loading2 = _interopRequireDefault(_loading);
-	
-	var _graphLabRecord = __webpack_require__(285);
-	
-	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
-	
-	var _reactRouter = __webpack_require__(184);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
-	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
-	var SearchResult = function (_React$Component) {
-	    _inherits(SearchResult, _React$Component);
-	
-	    function SearchResult(props) {
-	        _classCallCheck(this, SearchResult);
-	
-	        var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props));
-	
-	        _this.state = {
-	            records: [],
-	            svg_width: window.innerWidth - 17,
-	            svg_height: window.innerHeight - 100,
-	
-	            tree_width: 640,
-	            tree_height: 599,
-	
-	            selectedModelName: "",
-	            selectedModelTag: "",
-	            selectedModelDescription: "",
-	            selectedRecordInfo: null
-	        };
-	        _this.updateDimensions = _this.updateDimensions.bind(_this);
-	        _this.recordEnterCallBack = _this.recordEnterCallBack.bind(_this);
-	        _this.openGraph = _this.openGraph.bind(_this);
-	        _this.setup = _this.setup.bind(_this);
-	        _this.clear = _this.clear.bind(_this);
-	        _this.showResult = _this.showResult.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(SearchResult, [{
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("resize", this.updateDimensions);
-	        }
-	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps() {
-	            this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            this.setState({
-	                records: [],
-	                selectedModelName: "",
-	                selectedModelTag: "",
-	                selectedModelDescription: "",
-	                selectedRecordInfo: null
-	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            window.addEventListener("resize", this.updateDimensions);
-	            this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'showResult',
-	        value: function showResult() {
-	            if (this.props.location.state.modelInfo) {
-	                var modelInfo = JSON.parse(this.props.location.state.modelInfo);
-	
-	                this.setup(modelInfo);
-	            }
-	        }
-	    }, {
-	        key: 'setup',
-	        value: function setup(models) {
-	            var modelRecords = [];
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
-	
-	            try {
-	                for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var modelInfo = _step.value;
-	
-	                    modelInfo["x"] = this.state.tree_width / 2 - Math.random() * this.state.tree_width;
-	                    modelInfo["y"] = this.state.tree_height / 4 - Math.random() * this.state.tree_height / 2;
-	
-	                    modelRecords.push(modelInfo);
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
-	            }
-	
-	            this.setState({
-	                records: modelRecords
-	            });
-	        }
-	    }, {
-	        key: 'updateDimensions',
-	        value: function updateDimensions() {
-	            this.setState({
-	                svg_width: window.innerWidth - 17,
-	                svg_height: window.innerHeight - 100
-	            });
-	        }
-	    }, {
-	        key: 'recordEnterCallBack',
-	        value: function recordEnterCallBack(recordInfo) {
-	            this.setState({
-	                selectedModelName: recordInfo.modelname,
-	                selectedModelTag: recordInfo.modeltag,
-	                selectedModelDescription: recordInfo.modeldescription,
-	                selectedRecordInfo: recordInfo
-	            });
-	        }
-	    }, {
-	        key: 'openGraph',
-	        value: function openGraph() {
-	            var self = this;
-	
-	            if (this.state.selectedRecordInfo.modelid) {
-	                console.log(this.state.selectedRecordInfo);
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    code: 10,
-	                    modelid: this.state.selectedRecordInfo.modelid
-	                };
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
-	                    success: function success(response) {
-	                        self.context.router.push({
-	                            pathname: '/graphLab',
-	                            state: {
-	                                graphInfo: JSON.parse(response.body.model)
-	                            }
-	                        });
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("error");
-	                        console.log(request);
-	                        console.log(status);
-	                        console.log(_error);
-	                    }
-	                });
-	            } else {
-	                this.context.router.push({
-	                    pathname: '/graphLab',
-	                    state: {
-	                        graphInfo: this.state.selectedRecordInfo
-	                    }
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-	
-	            return React.createElement(
-	                'svg',
-	                { className: styles.graphRepositoryTree, id: 'svg-graphLabLocalRepository', width: this.state.svg_width, height: this.state.svg_height, xmlns: 'http://www.w3.org/2000/svg', version: '1.1'
-	                },
-	                React.createElement(
-	                    'g',
-	                    null,
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 50 },
-	                        '\u30E2\u30C7\u30EB\u540D : ',
-	                        this.state.selectedModelName
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 100 },
-	                        '\u30BF\u30B0 : ',
-	                        this.state.selectedModelTag
-	                    ),
-	                    React.createElement(
-	                        'text',
-	                        { x: 10, y: 150, width: 100, height: 200 },
-	                        '\u8A73\u7D30 : ',
-	                        this.state.selectedModelDescription
-	                    )
-	                ),
-	                React.createElement(
-	                    'g',
-	                    { onClick: this.openGraph },
-	                    React.createElement('rect', { x: '10', y: '200', width: '70', height: '30', stroke: 'black', fill: 'transparent' }),
-	                    React.createElement(
-	                        'text',
-	                        { x: '30', y: '220' },
-	                        '\u958B\u304F'
-	                    )
-	                ),
-	                React.createElement(
-	                    'g',
-	                    null,
-	                    React.createElement('image', { href: '../icon/Tree.png',
-	                        x: this.state.svg_width - this.state.tree_width > 0 ? (this.state.svg_width - this.state.tree_width) / 2 : 0,
-	                        y: 0
-	                    }),
-	                    this.state.records.map(function (d, idx) {
-	                        return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, recordEnterCallBack: _this2.recordEnterCallBack, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
-	                    })
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return SearchResult;
-	}(React.Component);
-	
-	exports.default = SearchResult;
-	
-	
-	SearchResult.contextTypes = {
-	    router: React.PropTypes.object
-	};
-
-/***/ }),
+/* 286 */,
 /* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45245,6 +44878,10 @@
 	
 	var _loading2 = _interopRequireDefault(_loading);
 	
+	var _popupMessage = __webpack_require__(276);
+	
+	var _popupMessage2 = _interopRequireDefault(_popupMessage);
+	
 	var _jquery = __webpack_require__(269);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -45308,7 +44945,9 @@
 	        value: function searchTag(e) {
 	            e.preventDefault();
 	
-	            this.refs.loading.openModal();
+	            var self = this;
+	            self.refs.loading.openModal();
+	            self.refs.popupMessage.showMessage("now searching...");
 	
 	            var data = {
 	                companyid: _auth2.default.getCompanyid(),
@@ -45318,7 +44957,6 @@
 	                query: this.refs.search.value
 	            };
 	
-	            var parent = this;
 	            _jquery2.default.ajax({
 	                type: "post",
 	                url: "../commonModules/php/modules/GML.php/gml/model/search",
@@ -45327,14 +44965,28 @@
 	                dataType: "json",
 	                success: function success(json_data) {
 	                    // React query convert an array with only one element to an string type data so that push one dummy data to keep it as an array
-	                    alert("Success");
-	                    console.log(json_data);
-	                    parent.refs.loading.closeModal();
+	                    self.refs.loading.closeModal();
+	                    self.refs.popupMessage.closeMessage("finished searching !");
 	
-	                    parent.context.router.push({
-	                        pathname: "/searchResult",
-	                        state: { modelInfo: json_data.body.result }
-	                    });
+	                    // This logic is actually ugly. I have not found a way to catch an event if the clicked link is the current page.
+	                    // If the current page is the link we click, React just renders the same UI. So, it cannot show the new search result
+	                    if (self.props.location.pathname == "/searchResult1") {
+	                        self.context.router.push({
+	                            pathname: "/searchResult2",
+	                            state: { modelInfo: json_data.body.result }
+	                        });
+	                    } else if (self.props.location.pathname == "/searchResult2") {
+	
+	                        self.context.router.push({
+	                            pathname: "/searchResult1",
+	                            state: { modelInfo: json_data.body.result }
+	                        });
+	                    } else {
+	                        self.context.router.push({
+	                            pathname: "/searchResult1",
+	                            state: { modelInfo: json_data.body.result }
+	                        });
+	                    }
 	                },
 	                error: function error(request, status, _error) {},
 	                complete: function complete() {}
@@ -45447,15 +45099,6 @@
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLabLocalRepository' },
 	                                        '\u30B0\u30E9\u30D5 \u30ED\u30FC\u30AB\u30EB\u30EC\u30DD\u30B8\u30C8\u30EA'
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItemSearchIcon },
-	                                    React.createElement(
-	                                        'span',
-	                                        { onClick: this.searchTag.bind(this) },
-	                                        React.createElement('img', { src: '../icon/mono_icons/search32.png', className: styles.menuItemSearchIconImg })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -45575,7 +45218,8 @@
 	                    { className: styles.body },
 	                    this.props.children
 	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' })
+	                React.createElement(_loading2.default, { ref: 'loading' }),
+	                React.createElement(_popupMessage2.default, { ref: 'popupMessage' })
 	            );
 	        }
 	    }]);
@@ -46039,6 +45683,408 @@
 	
 	exports.default = Channel;
 	module.exports = exports['default'];
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _reactDropzone = __webpack_require__(275);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _loading = __webpack_require__(270);
+	
+	var _loading2 = _interopRequireDefault(_loading);
+	
+	var _graphLabRecord = __webpack_require__(285);
+	
+	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
+	
+	var _reactRouter = __webpack_require__(184);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
+	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
+	var SearchResult1 = function (_React$Component) {
+	    _inherits(SearchResult1, _React$Component);
+	
+	    function SearchResult1(props) {
+	        _classCallCheck(this, SearchResult1);
+	
+	        var _this = _possibleConstructorReturn(this, (SearchResult1.__proto__ || Object.getPrototypeOf(SearchResult1)).call(this, props));
+	
+	        _this.state = {
+	            records: []
+	        };
+	
+	        _this.openGraph = _this.openGraph.bind(_this);
+	        _this.setup = _this.setup.bind(_this);
+	        _this.clear = _this.clear.bind(_this);
+	        _this.showResult = _this.showResult.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(SearchResult1, [{
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'clear',
+	        value: function clear() {
+	            this.setState({
+	                records: []
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.clear();
+	            this.showResult();
+	        }
+	    }, {
+	        key: 'showResult',
+	        value: function showResult() {
+	            if (this.props.location.state.modelInfo) {
+	                var modelInfo = JSON.parse(this.props.location.state.modelInfo);
+	
+	                this.setup(modelInfo);
+	            }
+	        }
+	    }, {
+	        key: 'setup',
+	        value: function setup(models) {
+	            var modelRecords = [];
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+	
+	            try {
+	                for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var modelInfo = _step.value;
+	
+	                    modelRecords.push(modelInfo);
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+	
+	            this.setState({
+	                records: modelRecords
+	            });
+	        }
+	    }, {
+	        key: 'openGraph',
+	        value: function openGraph(recordInfo) {
+	            var self = this;
+	
+	            if (recordInfo.modelid) {
+	                var data = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken(),
+	                    code: 10,
+	                    modelid: recordInfo.modelid,
+	                    datetime: recordInfo.datetime
+	                };
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
+	                        self.context.router.push({
+	                            pathname: '/graphLab',
+	                            state: {
+	                                graphInfo: JSON.parse(response.body.model)
+	                            }
+	                        });
+	                    },
+	                    error: function error(request, status, _error) {
+	                        alert("Failed to get Model Data. Contact Administrator");
+	                    }
+	                });
+	            } else {
+	                this.context.router.push({
+	                    pathname: '/graphLab',
+	                    state: {
+	                        graphInfo: recordInfo
+	                    }
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+	
+	            return React.createElement(
+	                'div',
+	                null,
+	                this.state.records.map(function (d, idx) {
+	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
+	                })
+	            );
+	        }
+	    }]);
+	
+	    return SearchResult1;
+	}(React.Component);
+	
+	exports.default = SearchResult1;
+	
+	
+	SearchResult1.contextTypes = {
+	    router: React.PropTypes.object
+	};
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _reactDropzone = __webpack_require__(275);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _loading = __webpack_require__(270);
+	
+	var _loading2 = _interopRequireDefault(_loading);
+	
+	var _graphLabRecord = __webpack_require__(285);
+	
+	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
+	
+	var _reactRouter = __webpack_require__(184);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
+	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
+	var SearchResult2 = function (_React$Component) {
+	    _inherits(SearchResult2, _React$Component);
+	
+	    function SearchResult2(props) {
+	        _classCallCheck(this, SearchResult2);
+	
+	        var _this = _possibleConstructorReturn(this, (SearchResult2.__proto__ || Object.getPrototypeOf(SearchResult2)).call(this, props));
+	
+	        _this.state = {
+	            records: []
+	        };
+	
+	        _this.openGraph = _this.openGraph.bind(_this);
+	        _this.setup = _this.setup.bind(_this);
+	        _this.clear = _this.clear.bind(_this);
+	        _this.showResult = _this.showResult.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(SearchResult2, [{
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'clear',
+	        value: function clear() {
+	            this.setState({
+	                records: []
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.clear();
+	            this.showResult();
+	        }
+	    }, {
+	        key: 'showResult',
+	        value: function showResult() {
+	            if (this.props.location.state.modelInfo) {
+	                var modelInfo = JSON.parse(this.props.location.state.modelInfo);
+	
+	                this.setup(modelInfo);
+	            }
+	        }
+	    }, {
+	        key: 'setup',
+	        value: function setup(models) {
+	            var modelRecords = [];
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+	
+	            try {
+	                for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var modelInfo = _step.value;
+	
+	                    modelRecords.push(modelInfo);
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+	
+	            this.setState({
+	                records: modelRecords
+	            });
+	        }
+	    }, {
+	        key: 'openGraph',
+	        value: function openGraph(recordInfo) {
+	            var self = this;
+	
+	            if (recordInfo.modelid) {
+	                var data = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken(),
+	                    code: 10,
+	                    modelid: recordInfo.modelid,
+	                    datetime: recordInfo.datetime
+	                };
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
+	                        self.context.router.push({
+	                            pathname: '/graphLab',
+	                            state: {
+	                                graphInfo: JSON.parse(response.body.model)
+	                            }
+	                        });
+	                    },
+	                    error: function error(request, status, _error) {
+	                        alert("Failed to get Model Data. Contact Administrator");
+	                    }
+	                });
+	            } else {
+	                this.context.router.push({
+	                    pathname: '/graphLab',
+	                    state: {
+	                        graphInfo: recordInfo
+	                    }
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+	
+	            return React.createElement(
+	                'div',
+	                null,
+	                this.state.records.map(function (d, idx) {
+	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
+	                })
+	            );
+	        }
+	    }]);
+	
+	    return SearchResult2;
+	}(React.Component);
+	
+	exports.default = SearchResult2;
+	
+	
+	SearchResult2.contextTypes = {
+	    router: React.PropTypes.object
+	};
 
 /***/ })
 /******/ ]);

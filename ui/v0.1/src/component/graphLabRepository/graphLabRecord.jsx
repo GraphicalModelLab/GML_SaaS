@@ -11,24 +11,30 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
     constructor(props) {
         super(props);
 
-        this.recordEnterCallBack = this.recordEnterCallBack.bind(this);
         this.clickCallBack = this.clickCallBack.bind(this);
 
+        console.log(this.props.recordInfo);
     }
 
     clickCallBack(){
-        this.props.clickCallBack();
-    }
-
-    recordEnterCallBack(){
-        this.props.recordEnterCallBack(this.props.recordInfo);
+        this.props.clickCallBack(this.props.recordInfo);
     }
 
     render() {
         return (
-            <g onClick={this.clickCallBack} onMouseEnter={this.recordEnterCallBack}>
-            <image href="../icon/apple.gif" width="20%" height="20%" x={this.props.coordinate_x + this.props.x} y={this.props.coordinate_y + this.props.y} />
-            </g>
+            <div className={styles.searchResultBox} onClick={this.clickCallBack}>
+                <div className={styles.searchResultBoxInner} >
+                    <div className={styles.searchResultBoxInfo}>
+                    {this.props.recordInfo.modelname}
+                    <br/>
+                    {this.props.recordInfo.modeltag}
+                    <br/>
+                    {this.props.recordInfo.timestamp}
+                    <br/>
+                    {this.props.recordInfo.algorithm}
+                    </div>
+                </div>
+            </div>
            )
     }
 }

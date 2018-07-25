@@ -22,6 +22,7 @@ class GraphicalModelLabService {
 
   val TrainedModelMap: mutable.Map[String,ModelSimpleCSV] = mutable.Map[String,ModelSimpleCSV]()
 
+  // If we define spark conf here, I get some error
 //  val sparkConf = new SparkConf().setAppName("Model").setMaster("local")
 //  //  val sparkContext = new SparkContext(sparkConf)
 //  val sparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
@@ -62,8 +63,8 @@ class GraphicalModelLabService {
     request match {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
-          GmlDBClient.save(request)
-          GmlElasticSearchClient.addDocument(request)
+          val timestamp = GmlDBClient.save(request)
+          GmlElasticSearchClient.addDocument(request,timestamp)
         }
 
         return saveResponse(Status.OK, 1)

@@ -5,7 +5,7 @@ lazy val common = project.in(file("common"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= backendDependencies)
   .settings(libraryDependencies ++= googleApiDependencies)
-//  .settings(libraryDependencies ++= elasticSearchDependencies)
+  .settings(libraryDependencies ++= elasticSearchDependencies)
 
 lazy val auth = project.in(file("auth"))
   .settings(commonSettings: _*)
