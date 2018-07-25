@@ -556,3 +556,59 @@ a:active {
   text-align: center;
   height: 35px;
 }
+
+.searchResultBox{
+  border-radius: 20px;
+  background: radial-gradient(#fff, #555);
+  margin-right: 5px;
+  margin-bottom:5px;
+
+  width: 200px;
+  height: 200px;
+
+  float: left;
+}
+
+
+.searchResultBoxInner{
+
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 180px;
+  height: 180px;
+
+  background-color: white;
+}
+
+.searchResultBoxInner:hover{
+  background: none;
+}
+
+.searchResultBoxInfo{
+
+  padding-top: 45px;
+  text-align: center;
+}
+
+.searchResultBoxModelName{
+  font-size: 12px;
+  text-align: center;
+
+}
+
+.searchResultBoxModelTag{
+font-size: 12px;
+  text-align: center;
+}
+
+.searchResultBoxTimeStamp{
+font-size: 12px;
+  text-align: center;
+
+}
+
+.searchResultBoxAlgorithm{
+font-size: 12px;
+  text-align: center;
+}
