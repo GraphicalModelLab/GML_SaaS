@@ -367,10 +367,10 @@ a:active {
   text-align: center;
 }
 .graphLabMenuCalculationModelItem{
-  font-size: 8px;
+  font-size: 10px;
   color: white;
   width : 150px;
-  height : 60px;
+  height : 80px;
   float: left;
   background-color: #000088;
   margin-right: 2px;
@@ -378,10 +378,10 @@ a:active {
   text-align: center;
 }
 .graphLabMenuItem{
-  font-size: 8px;
+  font-size: 10px;
   color: white;
   width : 60px;
-  height : 60px;
+  height : 80px;
   float: left;
   background-color: #000088;
   margin-right: 2px;
@@ -389,10 +389,10 @@ a:active {
   text-align: center;
 }
 .graphLabMenuItemDropAnalyzingBox{
-  font-size: 8px;
+  font-size: 10px;
   color: white;
-  width : 100px;
-  height : 60px;
+  width : 120px;
+  height : 80px;
   float: left;
   background-color: #000088;
   margin-right: 2px;
@@ -401,9 +401,9 @@ a:active {
 }
 
 .graphLabMenuItemDropAnalyzing{
-  font-size: 8px;
+  font-size: 10px;
   color: white;
-  width : 100px;
+  width : 120px;
   height : 40px;
   float: left;
   background-color: #000088;
@@ -556,59 +556,57 @@ a:active {
   text-align: center;
   height: 35px;
 }
+.searchResults{
+    clear: both;
+    display: block;
+}
 
 .searchResultBox{
-  border-radius: 20px;
-  background: radial-gradient(#fff, #555);
-  margin-right: 5px;
-  margin-bottom:5px;
 
-  width: 200px;
-  height: 200px;
+  font-size: 20px;
 
-  float: left;
+  clear: both;
+  width: 800px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  height: 30px;
+  background: linear-gradient(transparent 70%, #ff99ab 70%);
 }
 
-
-.searchResultBoxInner{
-
-  border-radius: 20px;
-  margin-left: 10px;
-  margin-top: 10px;
-  width: 180px;
-  height: 180px;
-
-  background-color: white;
+.searchResultBox:hover{
+  background: linear-gradient(transparent 70%, #3399FF 70%);
 }
 
-.searchResultBoxInner:hover{
-  background: none;
+.searchResultBoxFlaskIcon{
+    float:left;
+    zoom:10%;
+    margin-right: 40px;
 }
-
-.searchResultBoxInfo{
-
-  padding-top: 45px;
-  text-align: center;
+.searchResultBoxRightArrowIcon{
+    float:right;
+    zoom:40%;
 }
 
 .searchResultBoxModelName{
-  font-size: 12px;
-  text-align: center;
-
+  width: 100px;
+  float: left;
 }
 
 .searchResultBoxModelTag{
-font-size: 12px;
-  text-align: center;
+
+  width: 100px;
+  float: left;
 }
 
 .searchResultBoxTimeStamp{
-font-size: 12px;
-  text-align: center;
+
+  width: 300px;
+  float: left;
 
 }
 
 .searchResultBoxAlgorithm{
-font-size: 12px;
-  text-align: center;
+
+  width: 100px;
+  float: left;
 }

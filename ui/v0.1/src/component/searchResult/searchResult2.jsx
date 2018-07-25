@@ -98,7 +98,7 @@ constructor(props) {
 
     render() {
         return (
-              <div>
+              <div className={styles.searchResults}>
                { this.state.records.map((d, idx) => {
                    return <GraphLabRecord clickCallBack={this.openGraph} key={"record:"+idx} recordInfo={d} x={d.x} y={d.y} coordinate_x={(this.state.svg_width - this.state.tree_width) > 0 ? (this.state.svg_width - this.state.tree_width)/2 + this.state.tree_width/2 : this.state.tree_width/2}  coordinate_y={this.state.tree_height/2} />
                }) }

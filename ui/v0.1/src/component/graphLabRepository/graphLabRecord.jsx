@@ -22,18 +22,24 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
 
     render() {
         return (
-            <div className={styles.searchResultBox} onClick={this.clickCallBack}>
-                <div className={styles.searchResultBoxInner} >
-                    <div className={styles.searchResultBoxInfo}>
+            <div className={styles.searchResultBox}>
+                <img src="../icon/flask.png" className={styles.searchResultBoxFlaskIcon}/>
+                    <span className={styles.searchResultBoxModelName}>
                     {this.props.recordInfo.modelname}
-                    <br/>
-                    {this.props.recordInfo.modeltag}
-                    <br/>
+                    </span>
+                    <span className={styles.searchResultBoxModelTag}>
+                      {this.props.recordInfo.modeltag}
+                    </span>
+                    <span className={styles.searchResultBoxTimeStamp}>
                     {this.props.recordInfo.timestamp}
-                    <br/>
+                    </span>
+
+                    <span className={styles.searchResultBoxAlgorithm}>
+
                     {this.props.recordInfo.algorithm}
-                    </div>
-                </div>
+                    </span>
+
+                   <img onClick={this.clickCallBack} src="../icon/Right-Arrow-02.png" className={styles.searchResultBoxRightArrowIcon}/>
             </div>
            )
     }
