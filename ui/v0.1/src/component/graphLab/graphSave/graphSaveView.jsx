@@ -12,7 +12,7 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     height                : '400px',
-    width                 : '280px;'
+    width                 : '280px'
   }
 };
 
@@ -22,6 +22,7 @@ export default class GraphSaveView extends React.Component<Props, {}> {
         super(props);
         this.state = {
                 modalIsOpen: false,
+                message: "",
                 properties: []
         };
 
@@ -31,9 +32,9 @@ export default class GraphSaveView extends React.Component<Props, {}> {
         this.save = this.save.bind(this);
    }
 
-    openModal() {
+    openModal(message) {
         // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-        this.setState({modalIsOpen: true});
+        this.setState({modalIsOpen: true, message: message});
     }
 
     afterOpenModal() {
@@ -58,6 +59,7 @@ export default class GraphSaveView extends React.Component<Props, {}> {
                         style={customStyles} ref="modal">
 
                         <div className={styles.nodePropertyViewTitle}>
+                            {this.state.message}
                             <h2 ref="subtitle"><div className={styles.modalTitle}>モデル　プロパティ</div><div onClick={this.closeModal} className={styles.closeButton}><img src="../icon/mono_icons/stop32.png" className={styles.icon}/></div></h2>
                         </div>
                         <div className={styles.nodePropertyViewContent} ref="content">

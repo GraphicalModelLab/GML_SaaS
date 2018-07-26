@@ -15,7 +15,8 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
     constructor(props) {
         super(props);
         this.state = {
-            records: []
+            records: [],
+            notFound: false
         };
 
         this.openGraph = this.openGraph.bind(this);
@@ -34,7 +35,7 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
     }
 
     componentDidMount() {
-        this.clear();
+        //this.clear();
         this.showResult();
     }
 
@@ -56,14 +57,24 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
                 success: function(response) {
                     var modelRecords = [];
 
+                    console.log("local repository");
+                    console.log(response);
                     for(let model of response.body.models) {
                         var modelInfo = JSON.parse(model);
                         modelRecords.push(modelInfo);
                     }
 
-                    self.setState({
-                            records: modelRecords
-                    });
+                    console.log("recodes length ? "+modelRecords.length + ",,"+modelRecords.size);
+                    if(modelRecords.length > 0){
+                        self.setState({
+                                records: modelRecords
+                        });
+                    }else{
+                        self.context.router.push({
+                            pathname: '/notFound',
+                            state: {}
+                        });
+                    }
                 },
                 error: function (request, status, error) {
                     alert("error");
@@ -89,7 +100,7 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
         var self = this;
 
         if(recordInfo.modelid){
-            alert("open : "+recordInfo.modelid);
+            console.log("open : "+recordInfo.modelid);
             console.log(recordInfo);
             var data = {
                 companyid: auth.getCompanyid(),

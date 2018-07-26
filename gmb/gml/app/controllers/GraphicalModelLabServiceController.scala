@@ -129,4 +129,21 @@ object GraphicalModelLabServiceController extends Controller {
       }
     )
   }
+
+  def history(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[historyResponse](gmlService.history(companyId,Json.fromJson[historyRequest](request.body.asJson.get).asOpt)))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
 }

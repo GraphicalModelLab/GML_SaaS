@@ -7,9 +7,7 @@
         "modelname" : { "type" : "string", "store" : "yes" },
         "modeltag" : { "type" : "string", "store" : "yes", "index" : "analyzed" },
         "modeldescription" : { "type" : "string", "store" : "yes", "index" : "analyzed" },
-        "userid" : { "type" : "string", "store" : "yes", "index" : "analyzed" },
-        "timestamp" : { "type" : "string", "store" : "yes", "index" : "analyzed" },
-        "datetime" : { "type" : "long", "store" : "yes" }
+        "userid" : { "type" : "string", "store" : "yes", "index" : "analyzed" }
       }
     }
   }

@@ -566,7 +566,7 @@ a:active {
   font-size: 20px;
 
   clear: both;
-  width: 800px;
+  width: 900px;
   margin-left: 20px;
   margin-bottom: 30px;
   height: 30px;
@@ -586,9 +586,13 @@ a:active {
     float:right;
     zoom:40%;
 }
+.searchResultBoxHistoryIcon{
+    float:left;
+    zoom:10%;
+}
 
 .searchResultBoxModelName{
-  width: 100px;
+  width: 200px;
   float: left;
 }
 
@@ -609,4 +613,10 @@ a:active {
 
   width: 100px;
   float: left;
+}
+
+.notFound{
+  font-size: 30px;
+
+  text-align: center;
 }
