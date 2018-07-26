@@ -25,20 +25,18 @@ object GmlElasticSearchClient {
     )
   }
 
-  def addDocument(request: saveRequest, timestamp: Date): Unit={
-    val graphInfo = new JSONObject(request.graph);
+  def addDocument(request: saveRequest): Unit={
+    val graphInfo = request.graph;
 
     client.getClient().prepareIndex("model_index3","model_type")
       .setSource(jsonBuilder()
         .startObject()
-        .field("modelname",graphInfo.getString("modelname"))
-        .field("modeltag",graphInfo.getString("modeltag"))
-        .field("modeldescription",graphInfo.getString("modeldescription"))
-        .field("userid",graphInfo.getString("userid"))
-        .field("algorithm",graphInfo.getString("algorithm"))
-        .field("timestamp",timestamp.toString)
-        .field("datetime",timestamp.getTime)
-        .field("modelid",request.modelid)
+        .field("modelid",graphInfo.modelid)
+        .field("modelname",graphInfo.modelname)
+        .field("modeltag",graphInfo.modeltag)
+        .field("modeldescription",graphInfo.modeldescription)
+        .field("userid",graphInfo.userid)
+        .field("algorithm",graphInfo.algorithm)
         .endObject()).get()
 //    return "";
   }

@@ -4,6 +4,7 @@ import { browserHistory, Router, Route, Link, withRouter,hashHistory } from 'rea
 import Login from "./../../component/auth/login";
 import Register from "./../../component/auth/register";
 import Logout from "./../../component/auth/logout";
+import NotFound from "./../../component/notFound/notFound";
 import GraphLab from "./../../component/graphLab/graphLab";
 import GraphLabLocalRepository from "./../../component/graphLabLocalRepository/graphLabLocalRepository";
 import SearchResult1 from  "./../../component/searchResult/searchResult1";
@@ -33,5 +34,6 @@ ReactDOM.render(<Router history={hashHistory}>
                       <Route path="accountManagementIndividual" component={AccountManagementIndividual} />
                       <Route path="accountManagement" component={AccountManagement} />
                       <Route path="companyRegistration" component={CompanyRegistration} />
+                      <Route path="notFound" component={NotFound} />
                     </Route>
                   </Router>, document.getElementById('app'));

@@ -1,5 +1,5 @@
 CREATE KEYSPACE master WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE TABLE master.company (companyid varchar, companyname varchar, PRIMARY KEY(companyid));
-CREATE TABLE master.account (companyid varchar, supervisorid varchar, id varchar,password varchar,accesstoken varchar, role varchar, validationToken varchar, validated varchar,googleapps varchar, facebookapps varchar, PRIMARY KEY(companyid, id));
-CREATE TABLE master.model (companyid varchar,userid varchar, modelid varchar, datetime timestamp, model varchar,PRIMARY KEY(companyid,userid,modelid, datetime));
+CREATE TABLE master.model (companyid varchar,userid varchar, modelid varchar, datetime timestamp, model varchar, PRIMARY KEY(companyid,userid,modelid, datetime));
+CREATE TABLE master.model_training_history (companyid varchar,userid varchar, modelid varchar, datetime timestamp, model varchar, training_data varchar, PRIMARY KEY(companyid,userid,modelid, datetime));
+CREATE TABLE master.model_test_history (companyid varchar,userid varchar, modelid varchar, datetime timestamp, model varchar, test_data varchar, accuracy varchar, PRIMARY KEY(companyid,userid,modelid, datetime));
 CREATE TABLE master.social_account (companyid varchar, supervisorid varchar, id varchar,password varchar,accesstoken varchar, role varchar, validationToken varchar, validated varchar,googleapps varchar, facebookapps varchar, PRIMARY KEY(companyid, id));

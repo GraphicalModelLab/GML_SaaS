@@ -35,6 +35,8 @@ class GraphicalModelLabService {
           val model: ModelSimpleCSV = new ModelSimpleCSV(request);
           model.training(request.datasource)
           TrainedModelMap.put("test",model)
+
+          GmlDBClient.saveTrainingHistory(request)
         }
 
       case None =>
@@ -49,13 +51,16 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           val model:ModelSimpleCSV = TrainedModelMap.get("test").get
-          model.test(request.testsource,request.targetLabel)
+          val accuracy = model.testSimple(request.testsource,request.targetLabel)
+          val accuracySummary = GmlDBClient.saveTestHistory(request,accuracy)
+
+          return testResponse(Status.INTERNAL_SERVER_ERROR, 1,"",accuracySummary.toString)
         }
 
       case None =>
         println("No request")
     }
-    return testResponse(Status.INTERNAL_SERVER_ERROR, 1,"")
+    return testResponse(Status.INTERNAL_SERVER_ERROR, 1,"","")
   }
 
   def save(companyId:String,request: Option[saveRequest]): saveResponse = {
@@ -64,7 +69,7 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           val timestamp = GmlDBClient.save(request)
-          GmlElasticSearchClient.addDocument(request,timestamp)
+          GmlElasticSearchClient.addDocument(request)
         }
 
         return saveResponse(Status.OK, 1)
@@ -112,5 +117,24 @@ class GraphicalModelLabService {
         println("No request")
     }
     return searchResponse(Status.INTERNAL_SERVER_ERROR, 1, "[]")
+  }
+
+  def history(companyId:String,request: Option[historyRequest]): historyResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          val testHistory = GmlDBClient.getTestHistory(request)
+
+          return new historyResponse(
+            Status.OK,
+            Status.OK,
+            testHistory.toList
+          )
+        }
+      case None =>
+        println("No request")
+    }
+    return historyResponse(Status.INTERNAL_SERVER_ERROR, 1, List[String]())
   }
 }

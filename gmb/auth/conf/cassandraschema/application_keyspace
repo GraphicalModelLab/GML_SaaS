@@ -1,6 +1,0 @@
-CREATE KEYSPACE master WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-CREATE TABLE master.company (companyid varchar, companyname varchar, PRIMARY KEY(companyid));
-CREATE TABLE master.account (companyid varchar, supervisorid varchar, id varchar,password varchar,accesstoken varchar, role varchar, validationToken varchar, validated varchar,googleapps varchar, facebookapps varchar, PRIMARY KEY(companyid, id));
-CREATE TABLE master.engineerInfo (id varchar,profile varchar,PRIMARY KEY(id));
-CREATE TABLE master.project (companyid varchar, userid varchar, id varchar, projectinfo varchar, status varchar, PRIMARY KEY(companyid, userid, id));
-CREATE TABLE master.projectassignment (companyid varchar, id varchar, assigneeid varchar, members set<varchar>, status varchar, PRIMARY KEY(id,companyid,assigneeid));

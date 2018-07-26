@@ -21,13 +21,13 @@ import scala.io.Source
 class ModelSimpleCSV(request: trainingRequest) extends Model{
 
   val dataSource: String = request.datasource
-  val allEdges: List[edge] = request.edges
-  val allNodes: List[node] = request.nodes
+  val allEdges: List[edge] = request.graph.edges
+  val allNodes: List[node] = request.graph.nodes
   val allNodesMap: Map[String, node] = allNodes.zipWithIndex.map { case (v, i) => v.label -> v }.toMap
 
   val invertedIndex = allNodes.zipWithIndex.map { case (v, i) => v.label -> i }.toMap
 
-  val commonProperties: List[property] = request.commonProperties
+  val commonProperties: List[property] = request.graph.commonProperties
   val commonDistribution = commonProperties.filter(_.name == "distribution")(0).value
   val distributionMap: mutable.Map[String, String] = mutable.Map[String,String]()
   for(node <- allNodes){
@@ -173,7 +173,7 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
   }
 
 
-  def test(testsource : String, targetLabel: String): Unit ={
+  def testSimple(testsource : String, targetLabel: String): Double ={
 
 //    val csvData = "/Users/itomao/Documents/GMB/DemoDataSet/abalone_test_answer.csv"
     var csvData = testsource
@@ -211,6 +211,8 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
 
 
     println("accuracy ("+count+"/"+total+") = "+(count.toDouble/total.toDouble))
+
+    return (count.toDouble/total.toDouble)
   }
 
   def test(targetLabel: String, targetValue: String, attr_values: List[String]): Double={

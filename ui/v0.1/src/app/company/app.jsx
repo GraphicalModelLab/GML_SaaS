@@ -71,27 +71,38 @@ export default class App extends React.Component<Props, {}> {
                     self.refs.loading.closeModal();
                     self.refs.popupMessage.closeMessage("finished searching !");
 
-                    // This logic is actually ugly. I have not found a way to catch an event if the clicked link is the current page.
-                    // If the current page is the link we click, React just renders the same UI. So, it cannot show the new search result
-                    if(self.props.location.pathname == "/searchResult1"){
-                        self.context.router.push(
-                        {
-                            pathname: "/searchResult2",
-                            state: { modelInfo:  json_data.body.result }
-                        });
-                    }else if(self.props.location.pathname == "/searchResult2"){
+                    console.log("result : "+json_data.body.result.size);
+                    console.log(json_data.body.result);
+                    if(json_data.body.result.size > 0){
+                        // This logic is actually ugly. I have not found a way to catch an event if the clicked link is the current page.
+                        // If the current page is the link we click, React just renders the same UI. So, it cannot show the new search result
+                        if(self.props.location.pathname == "/searchResult1"){
+                            self.context.router.push(
+                            {
+                                pathname: "/searchResult2",
+                                state: { modelInfo:  json_data.body.result }
+                            });
+                        }else if(self.props.location.pathname == "/searchResult2"){
 
-                        self.context.router.push(
-                        {
-                            pathname: "/searchResult1",
-                            state: { modelInfo:  json_data.body.result }
-                        });
+                            self.context.router.push(
+                            {
+                                pathname: "/searchResult1",
+                                state: { modelInfo:  json_data.body.result }
+                            });
+                        }else{
+                            self.context.router.push(
+                            {
+                                pathname: "/searchResult1",
+                                state: { modelInfo:  json_data.body.result }
+                            });
+                        }
                     }else{
                         self.context.router.push(
                         {
-                            pathname: "/searchResult1",
-                            state: { modelInfo:  json_data.body.result }
+                            pathname: "/notFound",
+                            state: { }
                         });
+
                     }
                 },
                 error: function (request, status, error) {
