@@ -27820,7 +27820,7 @@
 	
 	
 	// module
-	exports.push([module.id, "._21IlS4cigU1jp3URI1qdEI{\r\n  display:block;\r\n  background-color:#000088;\r\n  margin: 0 auto;\r\n  margin-bottom:25px;\r\n  padding-bottom:5px;\r\n  border-bottom: medium solid #000088;\r\n  width:100%;\r\n  height:60px;\r\n\r\n}\r\n._39lGWu0C-owsCVe_ao0I1O{\r\n   display:block;\r\n   margin: 0 auto;\r\n   height:100%;\r\n}\r\n.Mkcf_FrN7x3CB21zr5onA{\r\n   display:block;\r\n   font-size:10px;\r\n   text-align:center;\r\n   margin: 0 auto;\r\n   margin-top:50px;\r\n   padding-top:10px;\r\n   border-top: medium solid #000088;\r\n   background-color:#000088;\r\n   height:50px;\r\n   color:white;\r\n   width:100%;\r\n}\r\n.Rx6jc5zsF2JOssZB9cbBG{\r\n  font-size:20px;\r\n}\r\n\r\n._1ymn_JM6VAPhJiCBE43b0Z{\r\n  height:60px;\r\n}\r\n\r\n.ZV7UOwMK-zpqQdgK3w0uj{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:60px;\r\n    height:60px;\r\n}\r\n._3Xl_zuhVONV6Oa54l6ujMu{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:80px;\r\n    height:60px;\r\n    padding-top: 20px;\r\n    color: white;\r\n    font-size: 8px;\r\n}\r\n\r\n._3tMeNULEtH4UE9lkTLIWR1{\r\n  float:right;\r\n\r\n  margin-top:20px;\r\n  margin-right:5px;\r\n  font-size:10px;\r\n  height:50px;\r\n  width: 800px;\r\n}\r\na {\r\n   text-decoration: none;\r\n}\r\n\r\na:active {\r\n    text-decoration:none;\r\n}\r\n\r\n.VhfzMFgtiDeytcikj8r28{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:60%;\r\n}\r\n\r\n._1RzYgKr7UvluOrir40jLOs {\r\n  float:right;\r\n  margin-left:10px;\r\n  border:solid 1px #C0C0C0;;\r\n  padding: 5px 5px 5px 5px;\r\n  font-color:black;\r\n  background-color:#ffffff;\r\n}\r\n\r\n._2FIIxzQHLNlgcCfO-DxVJo{\r\n  float:right;\r\n  margin-left:10px;\r\n  margin-top:4px;\r\n}\r\n._1iJKfh2DQs5q2KZnr6H0FG{\r\n  float:right;\r\n}\r\n\r\n._3IPWpvFNSTwN3yFrdpc400{\r\n  float:right;\r\n  margin-left:1px;\r\n  border:solid 1px #C0C0C0;\r\n    background: #C0C0C0;\r\n}\r\n.OYtAsBD1pHnipY9J2OdDw{\r\n    float:right;\r\n    margin-left:10px;\r\n    margin-right:5px;\r\n    margin-top:6px;\r\n    zoom:60%;\r\n}\r\n._1RzYgKr7UvluOrir40jLOs:hover {\r\n    background:#808080;\r\n    border-color:#808080;\r\n}\r\n\r\n._6uth5HE0kdJEWKMKp9chp{\r\n    width:400px;\r\n    margin: 0 auto;\r\n}\r\n._2xdtauEEKDUCZ7egnAcnjl{\r\n    text-align:center;\r\n    width:400px;\r\n    margin-bottom:30px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x{\r\n    text-align:center;\r\n    margin-bottom:30px;\r\n    width:401px;\r\n    height:20px;\r\n    font-size:20px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x:-webkit-autofill{\r\n    -webkit-box-shadow: 0 0 0px 1000px white inset;\r\n}\r\n\r\n._2CrAYKqxG4yMY1TZFIl0Kt{\r\n    background-color:#E0F2F7;\r\n    text-align:center;\r\n    width:400px;\r\n    border:solid 1px #C0C0C0;\r\n}\r\n._2CrAYKqxG4yMY1TZFIl0Kt:hover{\r\n    background-color:#808080;\r\n}\r\n\r\n._1AJxF0j-z9p2VbNjzte0P-{\r\n    margin-top:20px;\r\n    text-align:right;\r\n}\r\n\r\n.G2msH2J9HYmQaOZLQtXqm{\r\n    color: #ff0000;\r\n}\r\n._1EX5qd1Q_Ma2vBic6LZi1D{\r\n    margin-top:20px;\r\n}\r\n\r\n._2qZa5LHHWXB2zdjjK5A0TF{\r\n}\r\n._-iPVMXyGTb1t597MkH6Sx{\r\n    width:1500px;\r\n    padding-left:1485px;\r\n}\r\n\r\n._3wSWab8jd-NCnH0Lc9JKyR{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:50%;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF {\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  margin: auto;\r\n\r\n  z-index:20;\r\n}\r\n\r\n.GRDAGXTygk4MB-lPHt3oy{\r\n    display: block;\r\n    margin: 0 auto;\r\n    width:600px;\r\n}\r\n._3sGfRBvUwkFzQe8AFgz2iQ{\r\n    margin-bottom:10px;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    width:600px;\r\n}\r\n\r\n._2c8EKTA8wPxWzSYaK13W8D:hover{\r\n    background-color:#E0F2F7;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF{\r\n    position:absolute;\r\n\r\n    z-index:10px;\r\n\r\n    height:100%;\r\n    width:100%;\r\n\r\n    background-color:black;\r\n}\r\n\r\n._1OJTFKoMOYJKUbluCzoq_x{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    border:solid 1px #C0C0C0;\r\n    padding-top:10px;\r\n    width: 800px;\r\n    border-radius: 10px;        /* CSS3草案 */\r\n    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */\r\n    -moz-border-radius: 10px;   /* Firefox用 */\r\n}\r\n\r\n._1tGcysSkVX3P8fZepj9lXh{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding-top:10px;\r\n    width: 800px;\r\n}\r\n._22OBOc5j9yt82rrLlamcG{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n}\r\n._1s0xtDoRlEgtxfiT7E7kzm{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    border-bottom:solid 1px #C0C0C0;;\r\n}\r\n._2dvKc1mcRnLfIpgx1-EtIv{\r\n    font-size:12px;\r\n    width: 800px;\r\n}\r\n._2Z6cNVbGVHHKU089-VXO3S{\r\n    font-size:10px;\r\n}\r\n\r\n.EiBNqPpkHeQEYmB2LnuTk{\r\n    width:400px;\r\n}\r\n._3QyPxrGwm_9dd2gXx7Aca0{\r\n    width:60%;\r\n    height:60%;\r\n    padding-left:70px;\r\n    margin-top:30px;\r\n}\r\n._2820e232rGWlpnLkGm3xd8{\r\n    width:59%;\r\n    height:60%;\r\n    padding-left:73px;\r\n    margin-top:5px;\r\n}\r\n\r\n.A25vvGxnamwA_1-jxJDFw{\r\n    width:400px;\r\n}\r\n\r\n._2NFpzgTtQffD_D2flkl0Yd{\r\n    margin-left:130px;\r\n    margin-bottom:15px;\r\n    width:30%;\r\n    height:30%;\r\n}\r\n\r\n._3sn4LmzhoNJImhJozT2CbJ{\r\n    width:100%;\r\n    height:100%;\r\n}\r\n\r\n._3C9eRpVrocQMq1eVa-5AeP {\r\n  width : 300px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3YpqWUpiYdWziTD-LaQBMt {\r\n  margin-left:10px;\r\n  width : 400px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3uCgp1xQccu1Ls1v8On4ub{\r\n    background-color:red;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._2vPLW3O634mH-zb4ap8HOw{\r\n    background-color:black;\r\n    display: inline-block;\r\n    min-height: 1000px;\r\n    min-width: 10px;\r\n}\r\n\r\n._2kOLoHM1EjEcFN0DXCDEP8{\r\n    background: #eaeaea;\r\n}\r\n._1o6OTEcANV4DsY4wOKnxUA{\r\n    background-color: blue;\r\n    width:10;\r\n    height: 100%;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._3ZgVDhmRLmbwFurHAa80fY{\r\n    background-color: yellow;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n\r\n._3zr9cD0Xg1PFRaNOWYvJec{\r\n  width : 160px;\r\n  height : 25px;\r\n  float: left;\r\n  background-color: #CED8F6;\r\n}\r\n\r\n._1v2QEd_xxFLbdWO-43JF1y{\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n._3Oh_ppFtB70E1WaRVVngI3{\r\n    margin-right: 10px;\r\n    width: 270px;\r\n    float:left;\r\n}\r\n\r\n._3pZunEapYtxb_yhRw5c_vo{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._2SwhuFZEWu1oYzCMeTndxU{\r\n   float: left;\r\n   width: 100px;\r\n}\r\n\r\n._2Iehh8JIgqkXm-YB4rh74N{\r\n   width: 180px;\r\n}\r\n\r\n._3vjclEY51AQwq4nzr7IsYx{\r\n   float: left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._2lvtl3VkOHea6sxXHhWmzs{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n.rBU-smzcehI-fVuWMTxOJ{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 150px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1jbbmcfcXHhh9Oh5FO59I6{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 60px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1UIdy8ocS8kJ3tXWEJGKc0{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._15_I19Ep29e_USI2oX3_c4{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 40px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._2n226EmCv8P0yFoTuIH8ZX{\r\n  color: white;\r\n  text-decoration: underline;\r\n  font-size: 10px;\r\n}\r\n\r\n._2L0mXa7_EzhSospqoyphbB{\r\n    max-width:90%;\r\n}\r\n._3ndPMP-fQ0l445pF-up9eO{\r\n    margin-left: 2px;\r\n    max-width:95%;\r\n    float: left;\r\n}\r\n\r\n._1e8JEH9Y-Bxej2s2Ak-SwU{\r\n    display:block;\r\n    width: 300px;\r\n    width: 300px;\r\n}\r\n\r\n.Vvla0RGP8dEu400vL7NKf{\r\n    margin-top: 20px;\r\n    display:block;\r\n}\r\n\r\n._2PUP-R1t1EJnstBN4JkrrB{\r\n    display:block;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz {\r\n    margin-top: 20px;\r\n    margin-left:130px;\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.5em;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    background: #fd9535;/*背景色*/\r\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\r\n    border-radius: 4px;/*角の丸み*/\r\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\r\n    font-weight: bold;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz:active {\r\n    border-bottom: solid 2px #fd9535;\r\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\r\n}\r\n\r\n._2KXawChEyiT_LvDznW62ne{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._32apsN4U2ZLtmU6E83iyv3{\r\n   width: 100px;\r\n}\r\n\r\n.mEN3dRNLU8bQ5nmD2uq1O{\r\n   width: 180px;\r\n}\r\n\r\n._1raG9542fWdnrUh0l9JHxV{\r\n    float:left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._3e_zzB02xPMOqzGv6I4WkH{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n\r\n._3gT7FIEAY6Cdop9gxqaJUE{\r\n\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n.GxYC7EtjEzu6lPMHkrZln{\r\n    float: left;\r\n}\r\n._1aDfbuNhv282xUrZ9GeQ_y{\r\n    float: left;\r\n\r\n}\r\n._3r43NZpUVPFDRg3G8RyNny{\r\n    float: left;\r\n}\r\n._3Gp6TXG3U3mTf4Ec1rSBM9{\r\n\r\n}\r\n\r\n._28bEV430au--RZaJ2xSY1N{\r\n}\r\n\r\n._3cmt0U3hlMd_HMd_nJ5qhp{\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4{\r\n    zoom: 50%;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4:hover {\r\n\t\t\topacity: 0.5 ;\r\n\t\t\t}\r\n\r\n._3aG70LPFzQ6gf8GTqMOBnA{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: #ffffff;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n\r\n.qjd7pqriQ2YEt1IYVUVD2{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: yellow;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n._2KKqHTaHHvDB_zZMSQVVj1{\r\n    clear: both;\r\n    display: block;\r\n}\r\n\r\n._3LHLurNUY-3Z_HBlGO9X9L{\r\n\r\n  font-size: 20px;\r\n\r\n  clear: both;\r\n  width: 800px;\r\n  margin-left: 20px;\r\n  margin-bottom: 30px;\r\n  height: 30px;\r\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\r\n}\r\n\r\n._3LHLurNUY-3Z_HBlGO9X9L:hover{\r\n  background: linear-gradient(transparent 70%, #3399FF 70%);\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx{\r\n\r\n  font-size: 20px;\r\n\r\n  clear: both;\r\n  width: 900px;\r\n  margin-left: 20px;\r\n  margin-bottom: 30px;\r\n  height: 30px;\r\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx:hover{\r\n  background: linear-gradient(transparent 70%, #3399FF 70%);\r\n}\r\n\r\n._1_OCKufZ9iw3Nr_cirIxya{\r\n    float:left;\r\n    zoom:10%;\r\n    margin-right: 40px;\r\n}\r\n._1QngIjT4jlVy0UiLe0EYWL{\r\n    float:right;\r\n    zoom:40%;\r\n}\r\n._1kfNriLJEYfnTMV7uUXYYN{\r\n    float:left;\r\n    zoom:10%;\r\n}\r\n\r\n._3bxkJB3OwNSzMBLftSenZU{\r\n  width: 200px;\r\n  float: left;\r\n}\r\n\r\n._3VG2LQ5aNDXYKGEC0bf3I4{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n.u1qg79XiSQJFhMQl2j6vS{\r\n\r\n  width: 300px;\r\n  float: left;\r\n\r\n}\r\n\r\n._2GSJHwrtgEqlyv78OQefcv{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n._342IUSYDWQFWnD_qbQ3Ax3{\r\n  font-size: 30px;\r\n\r\n  text-align: center;\r\n}", ""]);
+	exports.push([module.id, "._21IlS4cigU1jp3URI1qdEI{\r\n  display:block;\r\n  background-color:#000088;\r\n  margin: 0 auto;\r\n  margin-bottom:25px;\r\n  padding-bottom:5px;\r\n  border-bottom: medium solid #000088;\r\n  width:100%;\r\n  height:60px;\r\n\r\n}\r\n._39lGWu0C-owsCVe_ao0I1O{\r\n   display:block;\r\n   margin: 0 auto;\r\n   height:100%;\r\n}\r\n.Mkcf_FrN7x3CB21zr5onA{\r\n   display:block;\r\n   font-size:10px;\r\n   text-align:center;\r\n   margin: 0 auto;\r\n   margin-top:50px;\r\n   padding-top:10px;\r\n   border-top: medium solid #000088;\r\n   background-color:#000088;\r\n   height:50px;\r\n   color:white;\r\n   width:100%;\r\n}\r\n.Rx6jc5zsF2JOssZB9cbBG{\r\n  font-size:20px;\r\n}\r\n\r\n._1ymn_JM6VAPhJiCBE43b0Z{\r\n  height:60px;\r\n}\r\n\r\n.ZV7UOwMK-zpqQdgK3w0uj{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:60px;\r\n    height:60px;\r\n}\r\n._3Xl_zuhVONV6Oa54l6ujMu{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:80px;\r\n    height:60px;\r\n    padding-top: 20px;\r\n    color: white;\r\n    font-size: 8px;\r\n}\r\n\r\n._3tMeNULEtH4UE9lkTLIWR1{\r\n  float:right;\r\n\r\n  margin-top:20px;\r\n  margin-right:5px;\r\n  font-size:10px;\r\n  height:50px;\r\n  width: 800px;\r\n}\r\na {\r\n   text-decoration: none;\r\n}\r\n\r\na:active {\r\n    text-decoration:none;\r\n}\r\n\r\n.VhfzMFgtiDeytcikj8r28{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:60%;\r\n}\r\n\r\n._1RzYgKr7UvluOrir40jLOs {\r\n  float:right;\r\n  margin-left:10px;\r\n  border:solid 1px #C0C0C0;;\r\n  padding: 5px 5px 5px 5px;\r\n  font-color:black;\r\n  background-color:#ffffff;\r\n}\r\n\r\n._2FIIxzQHLNlgcCfO-DxVJo{\r\n  float:right;\r\n  margin-left:10px;\r\n  margin-top:4px;\r\n}\r\n._1iJKfh2DQs5q2KZnr6H0FG{\r\n  float:right;\r\n}\r\n\r\n._3IPWpvFNSTwN3yFrdpc400{\r\n  float:right;\r\n  margin-left:1px;\r\n  border:solid 1px #C0C0C0;\r\n    background: #C0C0C0;\r\n}\r\n.OYtAsBD1pHnipY9J2OdDw{\r\n    float:right;\r\n    margin-left:10px;\r\n    margin-right:5px;\r\n    margin-top:6px;\r\n    zoom:60%;\r\n}\r\n._1RzYgKr7UvluOrir40jLOs:hover {\r\n    background:#808080;\r\n    border-color:#808080;\r\n}\r\n\r\n._6uth5HE0kdJEWKMKp9chp{\r\n    width:400px;\r\n    margin: 0 auto;\r\n}\r\n._2xdtauEEKDUCZ7egnAcnjl{\r\n    text-align:center;\r\n    width:400px;\r\n    margin-bottom:30px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x{\r\n    text-align:center;\r\n    margin-bottom:30px;\r\n    width:401px;\r\n    height:20px;\r\n    font-size:20px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x:-webkit-autofill{\r\n    -webkit-box-shadow: 0 0 0px 1000px white inset;\r\n}\r\n\r\n._2CrAYKqxG4yMY1TZFIl0Kt{\r\n    background-color:#E0F2F7;\r\n    text-align:center;\r\n    width:400px;\r\n    border:solid 1px #C0C0C0;\r\n}\r\n._2CrAYKqxG4yMY1TZFIl0Kt:hover{\r\n    background-color:#808080;\r\n}\r\n\r\n._1AJxF0j-z9p2VbNjzte0P-{\r\n    margin-top:20px;\r\n    text-align:right;\r\n}\r\n\r\n.G2msH2J9HYmQaOZLQtXqm{\r\n    color: #ff0000;\r\n}\r\n._1EX5qd1Q_Ma2vBic6LZi1D{\r\n    margin-top:20px;\r\n}\r\n\r\n._2qZa5LHHWXB2zdjjK5A0TF{\r\n}\r\n._3YiKUVFlbsZX7_faTvlkyd{\r\n    float: right;\r\n}\r\n._-iPVMXyGTb1t597MkH6Sx{\r\n    width:1500px;\r\n    padding-left:1485px;\r\n}\r\n\r\n._3wSWab8jd-NCnH0Lc9JKyR{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:50%;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF {\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  margin: auto;\r\n\r\n  z-index:20;\r\n}\r\n\r\n.GRDAGXTygk4MB-lPHt3oy{\r\n    display: block;\r\n    margin: 0 auto;\r\n    width:600px;\r\n}\r\n._3sGfRBvUwkFzQe8AFgz2iQ{\r\n    margin-bottom:10px;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    width:600px;\r\n}\r\n\r\n._2c8EKTA8wPxWzSYaK13W8D:hover{\r\n    background-color:#E0F2F7;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF{\r\n    position:absolute;\r\n\r\n    z-index:10px;\r\n\r\n    height:100%;\r\n    width:100%;\r\n\r\n    background-color:black;\r\n}\r\n\r\n._1OJTFKoMOYJKUbluCzoq_x{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding-top:10px;\r\n    width: 800px;\r\n}\r\n\r\n._1tGcysSkVX3P8fZepj9lXh{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding-top:10px;\r\n    width: 800px;\r\n}\r\n._22OBOc5j9yt82rrLlamcG{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n}\r\n._1s0xtDoRlEgtxfiT7E7kzm{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    border-bottom:solid 1px #C0C0C0;;\r\n}\r\n._2dvKc1mcRnLfIpgx1-EtIv{\r\n    font-size:12px;\r\n    width: 800px;\r\n}\r\n._2Z6cNVbGVHHKU089-VXO3S{\r\n    font-size:10px;\r\n}\r\n\r\n.EiBNqPpkHeQEYmB2LnuTk{\r\n    width:400px;\r\n}\r\n._3QyPxrGwm_9dd2gXx7Aca0{\r\n    width:60%;\r\n    height:60%;\r\n    padding-left:70px;\r\n    margin-top:30px;\r\n}\r\n._2820e232rGWlpnLkGm3xd8{\r\n    width:59%;\r\n    height:60%;\r\n    padding-left:73px;\r\n    margin-top:5px;\r\n}\r\n\r\n.A25vvGxnamwA_1-jxJDFw{\r\n    width:400px;\r\n}\r\n\r\n._2NFpzgTtQffD_D2flkl0Yd{\r\n    margin-left:130px;\r\n    margin-bottom:15px;\r\n    width:30%;\r\n    height:30%;\r\n}\r\n\r\n._3sn4LmzhoNJImhJozT2CbJ{\r\n    width:100%;\r\n    height:100%;\r\n}\r\n\r\n._3C9eRpVrocQMq1eVa-5AeP {\r\n  width : 300px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3YpqWUpiYdWziTD-LaQBMt {\r\n  margin-left:10px;\r\n  width : 400px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3uCgp1xQccu1Ls1v8On4ub{\r\n    background-color:red;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._2vPLW3O634mH-zb4ap8HOw{\r\n    background-color:black;\r\n    display: inline-block;\r\n    min-height: 1000px;\r\n    min-width: 10px;\r\n}\r\n\r\n._2kOLoHM1EjEcFN0DXCDEP8{\r\n    background: #eaeaea;\r\n}\r\n._1o6OTEcANV4DsY4wOKnxUA{\r\n    background-color: blue;\r\n    width:10;\r\n    height: 100%;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._3ZgVDhmRLmbwFurHAa80fY{\r\n    background-color: yellow;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n\r\n._3zr9cD0Xg1PFRaNOWYvJec{\r\n  width : 160px;\r\n  height : 25px;\r\n  float: left;\r\n  background-color: #CED8F6;\r\n}\r\n\r\n._1v2QEd_xxFLbdWO-43JF1y{\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n._3Oh_ppFtB70E1WaRVVngI3{\r\n    margin-right: 10px;\r\n    width: 270px;\r\n    float:left;\r\n}\r\n\r\n._3pZunEapYtxb_yhRw5c_vo{\r\n   clear: both;\r\n   display: block;\r\n   width: 340px;\r\n}\r\n\r\n._2SwhuFZEWu1oYzCMeTndxU{\r\n   float: left;\r\n   width: 100px;\r\n}\r\n\r\n._2Iehh8JIgqkXm-YB4rh74N{\r\n   float: left;\r\n   width: 150px;\r\n}\r\n._2zTfFWwuy46v2ISkdCgS1E{\r\n    float: left;\r\n}\r\n._1568_UlBnlx6cD8_cIcNLT{\r\n    float: left;\r\n}\r\n._3vjclEY51AQwq4nzr7IsYx{\r\n   float: left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._2lvtl3VkOHea6sxXHhWmzs{\r\n   float: left;\r\n   width: 150px;\r\n   text-align: center;\r\n}\r\n.rBU-smzcehI-fVuWMTxOJ{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 150px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1jbbmcfcXHhh9Oh5FO59I6{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 60px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1UIdy8ocS8kJ3tXWEJGKc0{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._15_I19Ep29e_USI2oX3_c4{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 40px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._2n226EmCv8P0yFoTuIH8ZX{\r\n  color: white;\r\n  text-decoration: underline;\r\n  font-size: 10px;\r\n}\r\n\r\n._2L0mXa7_EzhSospqoyphbB{\r\n    max-width:90%;\r\n}\r\n._3ndPMP-fQ0l445pF-up9eO{\r\n    margin-left: 2px;\r\n    max-width:95%;\r\n    float: left;\r\n}\r\n\r\n._1pPz5ifznNQd9CD5lx2vf0{\r\n    display:block;\r\n    clear: both;\r\n    width: 300px;\r\n    height: 30px;\r\n}\r\n\r\n._1e8JEH9Y-Bxej2s2Ak-SwU{\r\n    display:block;\r\n    width: 300px;\r\n}\r\n\r\n.Vvla0RGP8dEu400vL7NKf{\r\n    margin-top: 30px;\r\n    display:block;\r\n}\r\n\r\n._2MNMUzl1IxicezXaca6nrg{\r\n    margin-top: 20px;\r\n    display:block;\r\n}\r\n\r\n._2PUP-R1t1EJnstBN4JkrrB{\r\n    display:block;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz {\r\n    margin-top: 10px;\r\n    margin-left:215px;\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.5em;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    background: #fd9535;/*背景色*/\r\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\r\n    border-radius: 4px;/*角の丸み*/\r\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\r\n    font-weight: bold;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz:active {\r\n    border-bottom: solid 2px #fd9535;\r\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\r\n}\r\n\r\n._2KXawChEyiT_LvDznW62ne{\r\n   display: block;\r\n   width: 300px;\r\n   margin-bottom: 10px;\r\n}\r\n\r\n._32apsN4U2ZLtmU6E83iyv3{\r\n   width: 260px;\r\n}\r\n\r\n.mEN3dRNLU8bQ5nmD2uq1O{\r\n   width: 260px;\r\n}\r\n\r\n._1raG9542fWdnrUh0l9JHxV{\r\n    float:left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._3e_zzB02xPMOqzGv6I4WkH{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n\r\n._3gT7FIEAY6Cdop9gxqaJUE{\r\n\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n.GxYC7EtjEzu6lPMHkrZln{\r\n    float: left;\r\n}\r\n._1aDfbuNhv282xUrZ9GeQ_y{\r\n    float: left;\r\n\r\n}\r\n._3r43NZpUVPFDRg3G8RyNny{\r\n    float: left;\r\n}\r\n._3Gp6TXG3U3mTf4Ec1rSBM9{\r\n\r\n}\r\n\r\n._28bEV430au--RZaJ2xSY1N{\r\n}\r\n\r\n._3cmt0U3hlMd_HMd_nJ5qhp{\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4{\r\n    zoom: 50%;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4:hover {\r\n\t\t\topacity: 0.5 ;\r\n\t\t\t}\r\n\r\n._3aG70LPFzQ6gf8GTqMOBnA{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: #ffffff;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n\r\n.qjd7pqriQ2YEt1IYVUVD2{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: yellow;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n._2KKqHTaHHvDB_zZMSQVVj1{\r\n    clear: both;\r\n    display: block;\r\n}\r\n\r\n._3LHLurNUY-3Z_HBlGO9X9L{\r\n\r\n  font-size: 20px;\r\n\r\n  clear: both;\r\n  width: 800px;\r\n  margin-left: 20px;\r\n  margin-bottom: 30px;\r\n  height: 30px;\r\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\r\n}\r\n\r\n._3LHLurNUY-3Z_HBlGO9X9L:hover{\r\n  background: linear-gradient(transparent 70%, #3399FF 70%);\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx{\r\n\r\n  font-size: 20px;\r\n\r\n  clear: both;\r\n  width: 900px;\r\n  margin-left: 20px;\r\n  margin-bottom: 30px;\r\n  height: 30px;\r\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx:hover{\r\n  background: linear-gradient(transparent 70%, #3399FF 70%);\r\n}\r\n\r\n._1_OCKufZ9iw3Nr_cirIxya{\r\n    float:left;\r\n    zoom:10%;\r\n    margin-right: 40px;\r\n}\r\n._1QngIjT4jlVy0UiLe0EYWL{\r\n    float:right;\r\n    zoom:40%;\r\n}\r\n._1kfNriLJEYfnTMV7uUXYYN{\r\n    float:left;\r\n    zoom:10%;\r\n}\r\n\r\n._3bxkJB3OwNSzMBLftSenZU{\r\n  width: 200px;\r\n  float: left;\r\n}\r\n\r\n._3VG2LQ5aNDXYKGEC0bf3I4{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n.u1qg79XiSQJFhMQl2j6vS{\r\n\r\n  width: 300px;\r\n  float: left;\r\n\r\n}\r\n\r\n._2GSJHwrtgEqlyv78OQefcv{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n._342IUSYDWQFWnD_qbQ3Ax3{\r\n  font-size: 30px;\r\n\r\n  text-align: center;\r\n}", ""]);
 	
 	// exports
 	exports.locals = {
@@ -27846,6 +27846,7 @@
 		"loginRegistrationTitle": "G2msH2J9HYmQaOZLQtXqm",
 		"loginMessage": "_1EX5qd1Q_Ma2vBic6LZi1D",
 		"closeButton": "_2qZa5LHHWXB2zdjjK5A0TF",
+		"closeButtonGraphSaveView": "_3YiKUVFlbsZX7_faTvlkyd",
 		"closeButtonCareerSheetCenter": "_-iPVMXyGTb1t597MkH6Sx",
 		"icon": "_3wSWab8jd-NCnH0Lc9JKyR",
 		"loading": "_3tjac6GaorzVbD9W_7IfvF",
@@ -27877,6 +27878,8 @@
 		"nodeProp": "_3pZunEapYtxb_yhRw5c_vo",
 		"nodePropName": "_2SwhuFZEWu1oYzCMeTndxU",
 		"nodePropValue": "_2Iehh8JIgqkXm-YB4rh74N",
+		"nodePropAdd": "_2zTfFWwuy46v2ISkdCgS1E",
+		"nodePropDelete": "_1568_UlBnlx6cD8_cIcNLT",
 		"nodePropNameHeader": "_3vjclEY51AQwq4nzr7IsYx",
 		"nodePropValueHeader": "_2lvtl3VkOHea6sxXHhWmzs",
 		"graphLabMenuCalculationModelItem": "rBU-smzcehI-fVuWMTxOJ",
@@ -27886,8 +27889,10 @@
 		"graphLabMenuItemDownloadLink": "_2n226EmCv8P0yFoTuIH8ZX",
 		"graphLabMenuItemCalculationSelect": "_2L0mXa7_EzhSospqoyphbB",
 		"graphLabMenuItemAnalyzingTarget": "_3ndPMP-fQ0l445pF-up9eO",
+		"saveModelViewTitle": "_1pPz5ifznNQd9CD5lx2vf0",
 		"nodePropertyViewTitle": "_1e8JEH9Y-Bxej2s2Ak-SwU",
 		"nodePropertyViewContent": "Vvla0RGP8dEu400vL7NKf",
+		"saveModelViewContent": "_2MNMUzl1IxicezXaca6nrg",
 		"nodePropertyViewFooter": "_2PUP-R1t1EJnstBN4JkrrB",
 		"saveButtonBox": "_1Z7bMkMuXHFB6fR77hYlhz",
 		"saveProp": "_2KXawChEyiT_LvDznW62ne",
@@ -28345,13 +28350,13 @@
 	
 	            _auth2.default.login(email, password, function (response) {
 	                if (response.code == 900) {
-	                    parent.refs.message.innerText = email + "は、まだご登録されていません。ご登録をお願い致します。";
+	                    parent.refs.message.innerText = email + " has not been registered yet. Plrease register your account at first.";
 	                } else if (response.code == 901) {
-	                    parent.refs.message.innerText = email + "は、まだご登録が完了していません。ご登録時に、メールが送られているはずですので、ご確認お願い致します。メールが届けられていない場合は、お手数ですが、再度、登録して、完了メールをご確認お願い致します。";
+	                    parent.refs.message.innerText = email + " has not completed being registered yet. When you tried registering, you should have had an confirmation e-mail from us. If the e-mail has not been sent to you, please try registering from the beginning again.";
 	                } else if (response.code == 902) {
-	                    parent.refs.message.innerText = "パスワードがご登録されているものと異なっています。再度、正しいパスワードの入力をお願い致します。";
+	                    parent.refs.message.innerText = "The give password is different from the registered password. Please give the correct password";
 	                } else if (response.code == -1) {
-	                    parent.refs.message.innerText = "認証サービスが起動されていない恐れがあります。○○○まで、ご連絡いただくか。時間を待って、再度アクセスをお願い致します。";
+	                    parent.refs.message.innerText = "Unfortunately, the authentication system has not been up/running. Please contact the system administrator.";
 	                }
 	
 	                if (parent.refs.loading) {
@@ -28405,26 +28410,26 @@
 	                        React.createElement(
 	                            'div',
 	                            null,
-	                            React.createElement('input', { type: 'text', placeholder: '\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9', ref: 'email', className: styles.loginInput })
+	                            React.createElement('input', { type: 'text', placeholder: 'e-mail address', ref: 'email', className: styles.loginInput })
 	                        ),
 	                        React.createElement(
 	                            'div',
 	                            null,
-	                            React.createElement('input', { type: 'password', placeholder: '\u30D1\u30B9\u30EF\u30FC\u30C9', ref: 'password', className: styles.loginInput })
+	                            React.createElement('input', { type: 'password', placeholder: 'password', ref: 'password', className: styles.loginInput })
 	                        ),
 	                        React.createElement(
 	                            'div',
 	                            { onClick: this.handleSubmit.bind(this), className: styles.loginButton },
-	                            '\u30B5\u30A4\u30F3\u30A4\u30F3'
+	                            'Sign in'
 	                        ),
 	                        React.createElement(
 	                            'div',
 	                            { className: styles.loginRegistration },
-	                            '\u30E1\u30F3\u30D0\u30FC\u3067\u306A\u3044\u65B9\u306F\u3001',
+	                            'If you are not a member, ',
 	                            React.createElement(
 	                                'span',
 	                                { onClick: this.goToRegistration.bind(this), className: styles.loginRegistrationTitle },
-	                                '\u3053\u3061\u3089\u304B\u3089\u767B\u9332'
+	                                'Register from here'
 	                            )
 	                        ),
 	                        React.createElement(
@@ -41028,7 +41033,7 @@
 	            var parent = this;
 	
 	            _auth2.default.register(email, password, this.props.type, function (response) {
-	                parent.refs.message.innerText = email + "に、登録完了のためのメッセージを送りました。ご確認お願い致します。";
+	                parent.refs.message.innerText = "A confirmation e-mail has been sent to " + email + ". Please check the e-mail";
 	            });
 	        }
 	    }, {
@@ -41070,17 +41075,17 @@
 	                        React.createElement(
 	                            'div',
 	                            null,
-	                            React.createElement('input', { type: 'text', placeholder: '\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9', ref: 'email', className: styles.loginInput })
+	                            React.createElement('input', { type: 'text', placeholder: 'e-mail address', ref: 'email', className: styles.loginInput })
 	                        ),
 	                        React.createElement(
 	                            'div',
 	                            null,
-	                            React.createElement('input', { type: 'password', placeholder: '\u30D1\u30B9\u30EF\u30FC\u30C9', ref: 'password', className: styles.loginInput })
+	                            React.createElement('input', { type: 'password', placeholder: 'password', ref: 'password', className: styles.loginInput })
 	                        ),
 	                        React.createElement(
 	                            'div',
 	                            { onClick: this.handleSubmit.bind(this), className: styles.loginButton },
-	                            '\u767B\u9332'
+	                            'Register'
 	                        ),
 	                        React.createElement('div', { className: styles.loginMessage, ref: 'message' })
 	                    )
@@ -41674,7 +41679,7 @@
 	                            'div',
 	                            { className: styles.graphLabMenuCalculationModelItem },
 	                            React.createElement('br', null),
-	                            '\u8A08\u7B97\u30E2\u30C7\u30EB',
+	                            'Calculation Model',
 	                            React.createElement('br', null),
 	                            React.createElement('br', null),
 	                            React.createElement(
@@ -41701,13 +41706,13 @@
 	                            'div',
 	                            { onClick: this.showNodePropertyView, className: styles.graphLabMenuItem },
 	                            React.createElement('br', null),
-	                            '\u5171\u901ANode',
+	                            'Common Node',
 	                            React.createElement('br', null),
-	                            '\u30D7\u30ED\u30D1\u30C6\u30A3',
+	                            'Property',
 	                            React.createElement('br', null),
-	                            '\u8A2D\u5B9A '
+	                            'Setup'
 	                        ),
-	                        React.createElement(_nodePropertyView2.default, { label: '\u5168\u30CE\u30FC\u30C9', ref: 'nodePropertyView' }),
+	                        React.createElement(_nodePropertyView2.default, { label: 'All Nodes', ref: 'nodePropertyView' }),
 	                        React.createElement(
 	                            _reactDropzone2.default,
 	                            {
@@ -41718,13 +41723,9 @@
 	                                'div',
 	                                null,
 	                                React.createElement('br', null),
-	                                '\u5C5E\u6027\u60C5\u5831',
+	                                'Import Attributes',
 	                                React.createElement('br', null),
-	                                '\u30D5\u30A1\u30A4\u30EB',
-	                                React.createElement('br', null),
-	                                '\u30AF\u30EA\u30C3\u30AF',
-	                                React.createElement('br', null),
-	                                '(\u30C9\u30ED\u30C3\u30D7)'
+	                                '(Drop file or Click)'
 	                            )
 	                        ),
 	                        React.createElement(
@@ -41737,13 +41738,9 @@
 	                                'div',
 	                                null,
 	                                React.createElement('br', null),
-	                                '\u5B66\u7FD2\u30C7\u30FC\u30BF',
+	                                'Training Model',
 	                                React.createElement('br', null),
-	                                '\u30D5\u30A1\u30A4\u30EB',
-	                                React.createElement('br', null),
-	                                '\u30AF\u30EA\u30C3\u30AF',
-	                                React.createElement('br', null),
-	                                '(\u30C9\u30ED\u30C3\u30D7)'
+	                                '(Drop file or Click)'
 	                            )
 	                        ),
 	                        React.createElement(
@@ -41759,7 +41756,9 @@
 	                                    'div',
 	                                    null,
 	                                    React.createElement('br', null),
-	                                    ' \u89E3\u6790\u30C7\u30FC\u30BF'
+	                                    ' Test Model ',
+	                                    React.createElement('br', null),
+	                                    ' (Drop file or Click)'
 	                                )
 	                            ),
 	                            React.createElement(
@@ -41801,7 +41800,7 @@
 	                            { onClick: this.save, className: styles.graphLabMenuItem },
 	                            React.createElement('br', null),
 	                            React.createElement('br', null),
-	                            '\u30E2\u30C7\u30EB\u4FDD\u5B58',
+	                            'Save Model',
 	                            React.createElement('br', null),
 	                            React.createElement(
 	                                'a',
@@ -41813,11 +41812,10 @@
 	                            'div',
 	                            { onClick: this.openPreviousTestedGraph, className: styles.graphLabMenuItem },
 	                            React.createElement('br', null),
-	                            'Open ',
 	                            React.createElement('br', null),
-	                            'Previous Tested ',
+	                            'Test',
 	                            React.createElement('br', null),
-	                            'Graph '
+	                            'History'
 	                        )
 	                    ),
 	                    React.createElement(_graph2.default, { ref: 'graph', items: [] })
@@ -42735,15 +42733,18 @@
 	
 	        _this.state = {
 	            modalIsOpen: false,
-	            properties: []
+	            properties: [],
+	            count: 0
 	        };
 	
 	        _this.openModal = _this.openModal.bind(_this);
 	        _this.closeModal = _this.closeModal.bind(_this);
+	        _this.syncProperty = _this.syncProperty.bind(_this);
 	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
 	        _this.addProperty = _this.addProperty.bind(_this);
 	        _this.getProperties = _this.getProperties.bind(_this);
 	        _this.addProperties = _this.addProperties.bind(_this);
+	        _this.deleteCallBack = _this.deleteCallBack.bind(_this);
 	        return _this;
 	    }
 	
@@ -42759,21 +42760,26 @@
 	    }, {
 	        key: 'closeModal',
 	        value: function closeModal() {
+	            this.syncProperty();
+	
+	            this.setState({ modalIsOpen: false });
+	        }
+	    }, {
+	        key: 'syncProperty',
+	        value: function syncProperty() {
 	            var _this2 = this;
 	
 	            this.state.properties.map(function (d, idx) {
 	                _this2.state.properties[idx].name = _this2.refs["prop" + idx].refs.propName.value;
 	                _this2.state.properties[idx].value = _this2.refs["prop" + idx].refs.propValue.value;
 	            });
-	
-	            this.setState({ modalIsOpen: false });
 	        }
 	    }, {
 	        key: 'addProperty',
 	        value: function addProperty() {
-	            this.state.properties.push({ name: "", value: "" });
+	            this.state.properties.push({ name: "", value: "", key: this.state.count });
 	
-	            this.setState({ properties: this.state.properties });
+	            this.setState({ properties: this.state.properties, count: this.state.count + 1 });
 	        }
 	    }, {
 	        key: 'getProperties',
@@ -42786,8 +42792,31 @@
 	            this.setState({ properties: properties });
 	        }
 	    }, {
+	        key: 'deleteCallBack',
+	        value: function deleteCallBack(removedKey) {
+	            this.syncProperty();
+	
+	            var newProps = [];
+	            for (var index in this.state.properties) {
+	                if (this.state.properties[index].key != removedKey) {
+	                    newProps.push(this.state.properties[index]);
+	                }
+	            }
+	
+	            var self = this;
+	            this.setState({
+	                properties: []
+	            }, function () {
+	                self.setState({
+	                    properties: newProps
+	                });
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this3 = this;
+	
 	            return React.createElement(
 	                'div',
 	                null,
@@ -42810,12 +42839,12 @@
 	                                'Property - ',
 	                                this.props.label,
 	                                ' '
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.closeModal, className: styles.closeButton },
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
 	                            )
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { onClick: this.closeModal, className: styles.closeButton },
+	                            React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
 	                        )
 	                    ),
 	                    React.createElement(
@@ -42823,13 +42852,12 @@
 	                        { className: styles.nodePropertyViewContent, ref: 'content' },
 	                        React.createElement(
 	                            'div',
-	                            { onClick: this.addProperty, className: styles.nodePropertyViewFooter },
-	                            '\u30D7\u30ED\u30D1\u30C6\u30A3\u8FFD\u52A0',
-	                            React.createElement('img', { src: './../icon/mono_icons/plus32.png', className: styles.icon })
-	                        ),
-	                        React.createElement(
-	                            'div',
 	                            { className: styles.nodeProp },
+	                            React.createElement(
+	                                'span',
+	                                { className: styles.nodePropAdd, onClick: this.addProperty },
+	                                React.createElement('img', { src: './../icon/mono_icons/plus32.png', className: styles.icon })
+	                            ),
 	                            React.createElement(
 	                                'span',
 	                                { className: styles.nodePropNameHeader },
@@ -42842,7 +42870,7 @@
 	                            )
 	                        ),
 	                        this.state.properties.map(function (d, idx) {
-	                            return React.createElement(_nodeProperty2.default, { key: "nodeprop" + idx, ref: "prop" + idx, name: d.name, value: d.value });
+	                            return React.createElement(_nodeProperty2.default, { key: "nodeprop" + idx, ref: "prop" + idx, deleteCallBack: _this3.deleteCallBack, indexKey: d.key, name: d.name, value: d.value });
 	                        })
 	                    )
 	                )
@@ -42896,6 +42924,7 @@
 	          var _this = _possibleConstructorReturn(this, (NodeProperty.__proto__ || Object.getPrototypeOf(NodeProperty)).call(this, props));
 	
 	          _this.setInfo = _this.setInfo.bind(_this);
+	          _this.deleteProperty = _this.deleteProperty.bind(_this);
 	          return _this;
 	     }
 	
@@ -42912,11 +42941,21 @@
 	               this.refs.provValue.value = value;
 	          }
 	     }, {
+	          key: 'deleteProperty',
+	          value: function deleteProperty() {
+	               this.props.deleteCallBack(this.props.indexKey);
+	          }
+	     }, {
 	          key: 'render',
 	          value: function render() {
 	               return React.createElement(
 	                    'div',
 	                    { className: styles.nodeProp },
+	                    React.createElement(
+	                         'span',
+	                         { className: styles.nodePropDelete, onClick: this.deleteProperty },
+	                         React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.icon })
+	                    ),
 	                    React.createElement('input', { className: styles.nodePropName, ref: 'propName', type: 'text' }),
 	                    React.createElement('input', { className: styles.nodePropValue, ref: 'propValue', type: 'text' })
 	               );
@@ -43269,8 +43308,8 @@
 	        bottom: 'auto',
 	        marginRight: '-50%',
 	        transform: 'translate(-50%, -50%)',
-	        height: '400px',
-	        width: '280px'
+	        height: '250px',
+	        width: '300px'
 	    }
 	};
 	
@@ -43298,8 +43337,11 @@
 	    _createClass(GraphSaveView, [{
 	        key: 'openModal',
 	        value: function openModal(message) {
+	            var self = this;
 	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true, message: message });
+	            this.setState({ modalIsOpen: true, message: message }, function () {
+	                self.refs.modelName.focus();
+	            });
 	        }
 	    }, {
 	        key: 'afterOpenModal',
@@ -43331,7 +43373,7 @@
 	                        style: customStyles, ref: 'modal' },
 	                    React.createElement(
 	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
+	                        { className: styles.saveModelViewTitle },
 	                        this.state.message,
 	                        React.createElement(
 	                            'h2',
@@ -43339,25 +43381,26 @@
 	                            React.createElement(
 	                                'div',
 	                                { className: styles.modalTitle },
-	                                '\u30E2\u30C7\u30EB\u3000\u30D7\u30ED\u30D1\u30C6\u30A3'
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.closeModal, className: styles.closeButton },
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	                                'Model Information'
 	                            )
+	                        ),
+	                        ' ',
+	                        React.createElement(
+	                            'div',
+	                            { onClick: this.closeModal, className: styles.closeButtonGraphSaveView },
+	                            React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
 	                        )
 	                    ),
 	                    React.createElement(
 	                        'div',
-	                        { className: styles.nodePropertyViewContent, ref: 'content' },
+	                        { className: styles.saveModelViewContent, ref: 'content' },
 	                        React.createElement(
 	                            'div',
 	                            { className: styles.saveProp },
 	                            React.createElement(
 	                                'div',
 	                                { className: styles.savePropName },
-	                                '\u30E2\u30C7\u30EB\u540D'
+	                                'Model Name'
 	                            ),
 	                            React.createElement('input', { className: styles.savePropValue, ref: 'modelName', type: 'text' })
 	                        ),
@@ -43367,7 +43410,7 @@
 	                            React.createElement(
 	                                'div',
 	                                { className: styles.savePropName },
-	                                '\u30BF\u30B0'
+	                                'Model Tag'
 	                            ),
 	                            React.createElement('input', { className: styles.savePropValue, ref: 'modelTag', type: 'text' })
 	                        ),
@@ -43377,7 +43420,7 @@
 	                            React.createElement(
 	                                'div',
 	                                { className: styles.savePropName },
-	                                '\u8A73\u7D30'
+	                                'Model Description'
 	                            ),
 	                            React.createElement('input', { className: styles.savePropValue, ref: 'modelDescription', type: 'text' })
 	                        )
@@ -43385,7 +43428,7 @@
 	                    React.createElement(
 	                        'div',
 	                        { onClick: this.save, className: styles.saveButtonBox },
-	                        '\u4FDD\u5B58'
+	                        'Save'
 	                    )
 	                )
 	            );
@@ -57108,7 +57151,6 @@
 	            var self = this;
 	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
 	            this.setState({ modalIsOpen: true }, function () {
-	                alert("opened history modal : " + modelid);
 	                var data = {
 	                    companyid: _auth2.default.getCompanyid(),
 	                    userid: _auth2.default.getUserid(),
@@ -57795,7 +57837,7 @@
 	                    React.createElement(
 	                        'div',
 	                        { className: styles.accountRoleChangeTitle },
-	                        ' \u30BD\u30FC\u30B7\u30E3\u30EB\u30B3\u30CD\u30AF\u30C8\u306E\u63A5\u7D9A '
+	                        ' Connect to Social Data Source '
 	                    ),
 	                    React.createElement('img', { src: '../icon/social_icons/facebook.jpg', className: styles.iconConnect }),
 	                    React.createElement('img', { src: '../icon/social_icons/google.jpg', className: styles.iconConnect }),
@@ -58013,7 +58055,7 @@
 	                        React.createElement(
 	                            'div',
 	                            { className: styles.accountRoleChangeTitle },
-	                            ' \u30D1\u30B9\u30EF\u30FC\u30C9\u5909\u66F4 '
+	                            ' Change Password '
 	                        ),
 	                        React.createElement(
 	                            'div',
@@ -58021,20 +58063,17 @@
 	                            React.createElement(
 	                                'div',
 	                                { className: styles.accountRoleChangeItemName },
-	                                '\u53E4\u3044\u30D1\u30B9\u30EF\u30FC\u30C9 ',
-	                                React.createElement('input', { type: 'password', ref: 'oldPassword', placeholder: '\u53E4\u3044\u30D1\u30B9\u30EF\u30FC\u30C9' })
+	                                React.createElement('input', { type: 'password', ref: 'oldPassword', placeholder: 'old password' })
 	                            ),
 	                            React.createElement(
 	                                'div',
 	                                { className: styles.accountRoleChangeItemName },
-	                                '\u65B0\u3057\u3044\u30D1\u30B9\u30EF\u30FC\u30C9 ',
-	                                React.createElement('input', { type: 'password', ref: 'newPassword', placeholder: '\u65B0\u3057\u3044\u30D1\u30B9\u30EF\u30FC\u30C9' })
+	                                React.createElement('input', { type: 'password', ref: 'newPassword', placeholder: 'new password' })
 	                            ),
 	                            React.createElement(
 	                                'div',
 	                                { className: styles.accountRoleChangeItemName },
-	                                '\u65B0\u3057\u3044\u30D1\u30B9\u30EF\u30FC\u30C9\uFF08\u78BA\u8A8D\u7528\uFF09 ',
-	                                React.createElement('input', { type: 'password', ref: 'newPasswordConfirmation', placeholder: '\u65B0\u3057\u3044\u30D1\u30B9\u30EF\u30FC\u30C9' })
+	                                React.createElement('input', { type: 'password', ref: 'newPasswordConfirmation', placeholder: 'new password (confirmation)' })
 	                            )
 	                        )
 	                    ),
@@ -58048,7 +58087,7 @@
 	                                'div',
 	                                { onClick: this.accountPasswordChange.bind(this), width: '200' },
 	                                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
-	                                '\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5909\u66F4\u3059\u308B ',
+	                                'Change Password ',
 	                                React.createElement('span', { ref: 'messageChangePassword' })
 	                            )
 	                        )
@@ -58063,7 +58102,7 @@
 	                        React.createElement(
 	                            'div',
 	                            { className: styles.accountRoleChangeTitle },
-	                            ' \u9000\u4F1A\u51E6\u7406 '
+	                            ' Delete The Account '
 	                        ),
 	                        React.createElement(
 	                            'div',
@@ -58075,7 +58114,7 @@
 	                                    'div',
 	                                    { onClick: this.removeAccount.bind(this), width: '200' },
 	                                    React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
-	                                    '\u9000\u4F1A\u3059\u308B ',
+	                                    'Delete',
 	                                    React.createElement('span', { ref: 'messageRemoveAccount' })
 	                                )
 	                            )
@@ -59100,7 +59139,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/logout' },
-	                                        '\u30ED\u30B0\u30A2\u30A6\u30C8'
+	                                        'Logout'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59109,7 +59148,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/companyRegistration' },
-	                                        '\u4F1A\u793E\u767B\u9332'
+	                                        'Register Company'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59118,7 +59157,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/accountManagement' },
-	                                        '\u30A2\u30AB\u30A6\u30F3\u30C8\u7BA1\u7406'
+	                                        'Account Management'
 	                                    )
 	                                )
 	                            ) : _auth2.default.getRole() == 'administrator' ? React.createElement(
@@ -59130,7 +59169,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/logout' },
-	                                        '\u30ED\u30B0\u30A2\u30A6\u30C8'
+	                                        'Logout'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59139,7 +59178,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/accountManagementIndividual' },
-	                                        '\u30A2\u30AB\u30A6\u30F3\u30C8\u7BA1\u7406'
+	                                        'Account Management'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59148,7 +59187,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/socialConnect' },
-	                                        '\u30BD\u30FC\u30B7\u30E3\u30EB\u30B3\u30CD\u30AF\u30C8'
+	                                        'Social Connect'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59157,7 +59196,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/webExploration' },
-	                                        'Web\u63A2\u7D22'
+	                                        'Web Exploration'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59166,7 +59205,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLab' },
-	                                        '\u30B0\u30E9\u30D5 \u30E9\u30DC'
+	                                        'Graph Lab'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59175,13 +59214,13 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLabLocalRepository' },
-	                                        '\u30B0\u30E9\u30D5 \u30ED\u30FC\u30AB\u30EB\u30EC\u30DD\u30B8\u30C8\u30EA'
+	                                        'Graph Local Repository'
 	                                    )
 	                                ),
 	                                React.createElement(
 	                                    'div',
 	                                    { className: styles.menuItemSearch },
-	                                    React.createElement('input', { type: 'text', placeholder: '\u30BF\u30B0\u691C\u7D22\u30AD\u30FC\u30EF\u30FC\u30C9', ref: 'search', className: styles.menuItemSearchInput }),
+	                                    React.createElement('input', { type: 'text', placeholder: 'Tag Keyword', ref: 'search', className: styles.menuItemSearchInput }),
 	                                    ' '
 	                                ),
 	                                React.createElement(
@@ -59202,7 +59241,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/logout' },
-	                                        '\u30ED\u30B0\u30A2\u30A6\u30C8'
+	                                        'Logout'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59211,7 +59250,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/accountManagementIndividual' },
-	                                        '\u30A2\u30AB\u30A6\u30F3\u30C8\u7BA1\u7406'
+	                                        'Account Management'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59220,7 +59259,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/socialConnect' },
-	                                        '\u30BD\u30FC\u30B7\u30E3\u30EB\u30B3\u30CD\u30AF\u30C8'
+	                                        'Social Connect'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59229,7 +59268,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/webExploration' },
-	                                        'Web\u63A2\u7D22'
+	                                        'Web Exploration'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59238,7 +59277,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLab' },
-	                                        '\u30B0\u30E9\u30D5 \u30E9\u30DC'
+	                                        'Graph Lab'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59247,13 +59286,13 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLabLocalRepository' },
-	                                        '\u30B0\u30E9\u30D5 \u30ED\u30FC\u30AB\u30EB\u30EC\u30DD\u30B8\u30C8\u30EA'
+	                                        'Graph Local Repository'
 	                                    )
 	                                ),
 	                                React.createElement(
 	                                    'div',
 	                                    { className: styles.menuItemSearch },
-	                                    React.createElement('input', { type: 'text', placeholder: '\u30BF\u30B0\u691C\u7D22\u30AD\u30FC\u30EF\u30FC\u30C9', ref: 'search', className: styles.menuItemSearchInput }),
+	                                    React.createElement('input', { type: 'text', placeholder: 'Tag Keyword', ref: 'search', className: styles.menuItemSearchInput }),
 	                                    ' '
 	                                ),
 	                                React.createElement(
@@ -59274,7 +59313,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/register' },
-	                                        '\u767B\u9332'
+	                                        'Register'
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59283,7 +59322,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/login' },
-	                                        '\u30B5\u30A4\u30F3\u30A4\u30F3'
+	                                        'Sign in'
 	                                    )
 	                                )
 	                            )

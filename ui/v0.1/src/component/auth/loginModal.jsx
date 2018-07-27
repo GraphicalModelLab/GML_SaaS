@@ -70,13 +70,13 @@ export default class LoginModal extends React.Component {
 
         auth.login(email, password, (response) => {
             if(response.code == 900){
-                parent.refs.message.innerText = email+"は、まだご登録されていません。ご登録をお願い致します。";
+                parent.refs.message.innerText = email+" has not been registered yet. Plrease register your account at first.";
             }else if(response.code == 901){
-                parent.refs.message.innerText = email+"は、まだご登録が完了していません。ご登録時に、メールが送られているはずですので、ご確認お願い致します。メールが届けられていない場合は、お手数ですが、再度、登録して、完了メールをご確認お願い致します。";
+                parent.refs.message.innerText = email+" has not completed being registered yet. When you tried registering, you should have had an confirmation e-mail from us. If the e-mail has not been sent to you, please try registering from the beginning again.";
             }else if(response.code == 902){
-                parent.refs.message.innerText = "パスワードがご登録されているものと異なっています。再度、正しいパスワードの入力をお願い致します。";
+                parent.refs.message.innerText = "The give password is different from the registered password. Please give the correct password";
             }else if(response.code == -1){
-                parent.refs.message.innerText = "認証サービスが起動されていない恐れがあります。○○○まで、ご連絡いただくか。時間を待って、再度アクセスをお願い致します。";
+                parent.refs.message.innerText = "Unfortunately, the authentication system has not been up/running. Please contact the system administrator.";
             }
 
             if(parent.refs.loading){
@@ -120,11 +120,11 @@ export default class LoginModal extends React.Component {
                         <div className={styles.loginBox}>
                         <img className={styles.loginLogo} src='../icon/infographic/ccs_logo.png'/>
 
-                        <div><input type="text" placeholder="メールアドレス" ref="email" className={styles.loginInput}/></div>
-                        <div><input type="password" placeholder="パスワード" ref="password" className={styles.loginInput}/></div>
-                        <div onClick={this.handleSubmit.bind(this)} className={styles.loginButton}>サインイン</div>
+                        <div><input type="text" placeholder="e-mail address" ref="email" className={styles.loginInput}/></div>
+                        <div><input type="password" placeholder="password" ref="password" className={styles.loginInput}/></div>
+                        <div onClick={this.handleSubmit.bind(this)} className={styles.loginButton}>Sign in</div>
 
-                        <div className={styles.loginRegistration}>メンバーでない方は、<span onClick={this.goToRegistration.bind(this)} className={styles.loginRegistrationTitle} >こちらから登録</span></div>
+                        <div className={styles.loginRegistration}>If you are not a member, <span onClick={this.goToRegistration.bind(this)} className={styles.loginRegistrationTitle} >Register from here</span></div>
 
                         <div onClick={this.goToGoogleAppsLogin} className={styles.loginFederationBox}>
                             <img className={styles.loginFederationGoogle} src='../icon/openId_icons/googleapps/btn_google_signin_dark_pressed_web@2x.png'/>

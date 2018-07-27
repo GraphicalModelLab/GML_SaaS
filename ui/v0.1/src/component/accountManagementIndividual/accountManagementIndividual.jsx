@@ -148,29 +148,29 @@ export default class AccountManagementIndividual extends React.Component<Props, 
             <div>
                <div className={styles.accountRoleChange}>
                 <div>
-                    <div className={styles.accountRoleChangeTitle}> パスワード変更 </div>
+                    <div className={styles.accountRoleChangeTitle}> Change Password </div>
                     <div className={styles.accountRoleChangeItemBox}>
                         <div className={styles.accountRoleChangeItemName}>
-                            古いパスワード <input type="password" ref="oldPassword" placeholder="古いパスワード"/>
+                            <input type="password" ref="oldPassword" placeholder="old password"/>
                         </div>
                         <div className={styles.accountRoleChangeItemName}>
-                            新しいパスワード <input type="password" ref="newPassword" placeholder="新しいパスワード"/>
+                            <input type="password" ref="newPassword" placeholder="new password"/>
                         </div>
                         <div className={styles.accountRoleChangeItemName}>
-                            新しいパスワード（確認用） <input type="password" ref="newPasswordConfirmation" placeholder="新しいパスワード"/>
+                            <input type="password" ref="newPasswordConfirmation" placeholder="new password (confirmation)"/>
                         </div>
                     </div>
                 </div>
                 <div className={styles.accountRoleChangeButton}>
-                 <div className={styles.accountRoleChangeButtonBox}><div onClick={this.accountPasswordChange.bind(this)} width="200"><img src="../icon/mono_icons/exchange32.png" className={styles.icon}/>パスワードを変更する <span ref="messageChangePassword"></span></div></div>
+                 <div className={styles.accountRoleChangeButtonBox}><div onClick={this.accountPasswordChange.bind(this)} width="200"><img src="../icon/mono_icons/exchange32.png" className={styles.icon}/>Change Password <span ref="messageChangePassword"></span></div></div>
                 </div>
                </div>
 
                <div className={styles.accountRoleChange}>
                 <div>
-                    <div className={styles.accountRoleChangeTitle}> 退会処理 </div>
+                    <div className={styles.accountRoleChangeTitle}> Delete The Account </div>
                     <div className={styles.accountRoleChangeButton}>
-                        <div className={styles.accountRoleChangeButtonBox}><div onClick={this.removeAccount.bind(this)} width="200"><img src="../icon/mono_icons/exchange32.png" className={styles.icon}/>退会する <span ref="messageRemoveAccount"></span></div></div>
+                        <div className={styles.accountRoleChangeButtonBox}><div onClick={this.removeAccount.bind(this)} width="200"><img src="../icon/mono_icons/exchange32.png" className={styles.icon}/>Delete<span ref="messageRemoveAccount"></span></div></div>
                     </div>
                 </div>
                </div>

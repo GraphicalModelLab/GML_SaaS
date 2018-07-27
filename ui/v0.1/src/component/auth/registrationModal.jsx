@@ -64,7 +64,7 @@ export default class RegistrationModal extends React.Component {
         var parent=this;
 
         auth.register(email, password, this.props.type, (response) => {
-            parent.refs.message.innerText = email+"に、登録完了のためのメッセージを送りました。ご確認お願い致します。";
+            parent.refs.message.innerText = "A confirmation e-mail has been sent to "+email+". Please check the e-mail";
         })
       }
 
@@ -80,9 +80,9 @@ export default class RegistrationModal extends React.Component {
 
                         <div className={styles.loginBox}>
                         <div className={styles.loginTitle}>Graphical Model Lab</div>
-                        <div><input type="text" placeholder="メールアドレス" ref="email" className={styles.loginInput}/></div>
-                        <div><input type="password" placeholder="パスワード" ref="password" className={styles.loginInput}/></div>
-                        <div onClick={this.handleSubmit.bind(this)} className={styles.loginButton}>登録</div>
+                        <div><input type="text" placeholder="e-mail address" ref="email" className={styles.loginInput}/></div>
+                        <div><input type="password" placeholder="password" ref="password" className={styles.loginInput}/></div>
+                        <div onClick={this.handleSubmit.bind(this)} className={styles.loginButton}>Register</div>
                         <div className={styles.loginMessage} ref="message"></div>
                         </div>
 
