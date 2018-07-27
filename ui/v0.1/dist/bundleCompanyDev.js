@@ -43674,9 +43674,9 @@
 	
 	var _loading2 = _interopRequireDefault(_loading);
 	
-	var _modelHistory = __webpack_require__(287);
+	var _modelHistoryDialog = __webpack_require__(329);
 	
-	var _modelHistory2 = _interopRequireDefault(_modelHistory);
+	var _modelHistoryDialog2 = _interopRequireDefault(_modelHistoryDialog);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -43711,7 +43711,7 @@
 	    }, {
 	        key: 'showHistoryCallBack',
 	        value: function showHistoryCallBack() {
-	            this.refs.modelHistory.openModal(this.props.recordInfo.userid, this.props.recordInfo.modelid);
+	            this.refs.modelHistoryDialog.openModal(this.props.recordInfo.userid, this.props.recordInfo.modelid);
 	        }
 	    }, {
 	        key: 'render',
@@ -43742,7 +43742,7 @@
 	                ),
 	                React.createElement('img', { onClick: this.showHistoryCallBack, src: '../icon/history.png', className: styles.searchResultBoxHistoryIcon }),
 	                React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon }),
-	                React.createElement(_modelHistory2.default, { ref: 'modelHistory' })
+	                React.createElement(_modelHistoryDialog2.default, { ref: 'modelHistoryDialog' })
 	            );
 	        }
 	    }]);
@@ -43753,172 +43753,7 @@
 	exports.default = GraphLabRecord;
 
 /***/ }),
-/* 287 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var React = _interopRequireWildcard(_react);
-	
-	var _reactDom = __webpack_require__(37);
-	
-	var ReactDOM = _interopRequireWildcard(_reactDom);
-	
-	var _reactModal = __webpack_require__(253);
-	
-	var _reactModal2 = _interopRequireDefault(_reactModal);
-	
-	var _auth = __webpack_require__(268);
-	
-	var _auth2 = _interopRequireDefault(_auth);
-	
-	var _jquery = __webpack_require__(269);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _structure = __webpack_require__(248);
-	
-	var styles = _interopRequireWildcard(_structure);
-	
-	var _reactD3Components = __webpack_require__(288);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '400px',
-	        width: '600px'
-	    }
-	};
-	
-	var ModelHistory = function (_React$Component) {
-	    _inherits(ModelHistory, _React$Component);
-	
-	    function ModelHistory(props) {
-	        _classCallCheck(this, ModelHistory);
-	
-	        var _this = _possibleConstructorReturn(this, (ModelHistory.__proto__ || Object.getPrototypeOf(ModelHistory)).call(this, props));
-	
-	        _this.state = {
-	            modalIsOpen: false,
-	            data: { label: 'test accuracy history', values: [{ x: new Date(2015, 2, 5), y: 1 }, { x: new Date(2015, 2, 6), y: 2 }, { x: new Date(2015, 2, 7), y: 0 }, { x: new Date(2015, 2, 8), y: 3 }, { x: new Date(2015, 2, 9), y: 2 }] },
-	            xScale: d3.time.scale().domain([new Date(2015, 2, 5), new Date(2015, 2, 26)]).range([0, 400 - 70]),
-	            xScaleBrush: d3.time.scale().domain([new Date(2015, 2, 5), new Date(2015, 2, 26)]).range([0, 400 - 70])
-	
-	        };
-	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(ModelHistory, [{
-	        key: 'openModal',
-	        value: function openModal(model_userid, modelid) {
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true }, function () {
-	                alert("opened history modal : " + modelid);
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    model_userid: model_userid,
-	                    modelid: modelid,
-	                    code: 10
-	                };
-	
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/history",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
-	                    success: function success(response) {
-	                        console.log("success for save");
-	                        console.log(response);
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("error");
-	                        console.log(request);
-	                        console.log(status);
-	                        console.log(_error);
-	                    }
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Model Property',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement('div', { className: styles.modalTitle }),
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.closeModal, className: styles.closeButton },
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(_reactD3Components.LineChart, {
-	                        data: this.state.data,
-	                        width: 600,
-	                        height: 400,
-	                        margin: { top: 10, bottom: 50, left: 50, right: 20 },
-	                        xScale: this.state.xScale,
-	                        xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 5), tickFormat: d3.time.format("%m/%d") }
-	                    })
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return ModelHistory;
-	}(React.Component);
-	
-	exports.default = ModelHistory;
-
-/***/ }),
+/* 287 */,
 /* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -59316,6 +59151,245 @@
 	
 	exports.default = Channel;
 	module.exports = exports['default'];
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _reactModal = __webpack_require__(253);
+	
+	var _reactModal2 = _interopRequireDefault(_reactModal);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _reactD3Components = __webpack_require__(288);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var customStyles = {
+	    content: {
+	        top: '50%',
+	        left: '50%',
+	        right: 'auto',
+	        bottom: 'auto',
+	        marginRight: '-50%',
+	        transform: 'translate(-50%, -50%)',
+	        height: '400px',
+	        width: '600px'
+	    }
+	};
+	
+	var ModelHistoryDialog = function (_React$Component) {
+	    _inherits(ModelHistoryDialog, _React$Component);
+	
+	    function ModelHistoryDialog(props) {
+	        _classCallCheck(this, ModelHistoryDialog);
+	
+	        var _this = _possibleConstructorReturn(this, (ModelHistoryDialog.__proto__ || Object.getPrototypeOf(ModelHistoryDialog)).call(this, props));
+	
+	        _this.state = {
+	            modalIsOpen: false,
+	            plotTestHistory: false
+	
+	        };
+	
+	        _this.openModal = _this.openModal.bind(_this);
+	        _this.closeModal = _this.closeModal.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(ModelHistoryDialog, [{
+	        key: 'openModal',
+	        value: function openModal(model_userid, modelid) {
+	            var self = this;
+	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	            this.setState({ modalIsOpen: true }, function () {
+	                alert("opened history modal : " + modelid);
+	                var data = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken(),
+	                    model_userid: model_userid,
+	                    modelid: modelid,
+	                    code: 10
+	                };
+	
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/model/history",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
+	
+	                        var values = [];
+	                        var oldestDate = new Date();
+	
+	                        // JSON.parse(response.body.model)
+	                        console.log("success for save");
+	                        console.log(response);
+	
+	                        for (var index in response.body.history) {
+	                            var json = JSON.parse(response.body.history[index]);
+	                            var date = new Date(json.time);
+	                            values.push({
+	                                x: date, y: json.info.accuracy
+	                            });
+	
+	                            if (date < oldestDate) {
+	                                oldestDate = date;
+	                            }
+	                        }
+	
+	                        var earliestDate = oldestDate;
+	
+	                        for (var _index in values) {
+	                            if (values[_index].x > earliestDate) {
+	                                earliestDate = values[_index].x;
+	                            }
+	                        }
+	
+	                        console.log("values");
+	                        console.log(values);
+	
+	                        console.log(earliestDate);
+	                        console.log(oldestDate);
+	
+	                        var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
+	                        var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
+	
+	                        console.log(axisOldest);
+	                        console.log(axisEarliest);
+	
+	                        var newValues = [];
+	
+	                        while (axisOldest < oldestDate) {
+	                            console.log(axisOldest + " < " + oldestDate + "add oldest : " + axisOldest);
+	                            newValues.push({
+	                                x: new Date(axisOldest.getTime()), y: 0
+	                            });
+	                            axisOldest.setDate(axisOldest.getDate() + 1);
+	                        }
+	
+	                        for (var _index2 in values) {
+	                            newValues.push(values[_index2]);
+	                        }
+	
+	                        var axisEarliest2 = new Date(earliestDate.getTime());axisEarliest2.setDate(axisEarliest2.getDate() + 1);
+	                        while (axisEarliest >= axisEarliest2) {
+	                            console.log(axisEarliest + " > " + earliestDate + "add earliest : " + earliestDate);
+	                            newValues.push({
+	                                x: new Date(axisEarliest2.getTime()), y: 0
+	                            });
+	                            axisEarliest2.setDate(axisEarliest2.getDate() + 1);
+	                        }
+	
+	                        console.log(earliestDate);
+	                        console.log(oldestDate);
+	
+	                        axisOldest.setDate(oldestDate.getDate() - 2);
+	
+	                        self.setState({
+	                            plotTestHistory: true,
+	                            data: { label: 'test accuracy history', values: newValues },
+	                            xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                            xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
+	                        });
+	
+	                        console.log(self.state.data);
+	                    },
+	                    error: function error(request, status, _error) {
+	                        alert("error");
+	                        console.log(request);
+	                        console.log(status);
+	                        console.log(_error);
+	                    }
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'closeModal',
+	        value: function closeModal() {
+	            this.setState({ modalIsOpen: false });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                    _reactModal2.default,
+	                    {
+	                        contentLabel: 'Model Property',
+	                        isOpen: this.state.modalIsOpen,
+	                        onAfterOpen: this.afterOpenModal,
+	                        style: customStyles, ref: 'modal' },
+	                    React.createElement(
+	                        'div',
+	                        { className: styles.nodePropertyViewTitle },
+	                        React.createElement(
+	                            'h2',
+	                            { ref: 'subtitle' },
+	                            React.createElement('div', { className: styles.modalTitle }),
+	                            React.createElement(
+	                                'div',
+	                                { onClick: this.closeModal, className: styles.closeButton },
+	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	                            )
+	                        )
+	                    ),
+	                    this.state.plotTestHistory ? React.createElement(_reactD3Components.LineChart, {
+	                        data: this.state.data,
+	                        width: 1000,
+	                        height: 400,
+	                        margin: { top: 10, bottom: 50, left: 50, right: 20 },
+	                        xScale: this.state.xScale,
+	                        xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") }
+	                    }) : React.createElement('div', null)
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return ModelHistoryDialog;
+	}(React.Component);
+	
+	exports.default = ModelHistoryDialog;
 
 /***/ })
 /******/ ]);
