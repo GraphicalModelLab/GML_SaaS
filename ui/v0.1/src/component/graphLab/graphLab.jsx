@@ -349,19 +349,19 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             <div>
                 <div>
                     <div className={styles.graphLabMenu}>
-                        <div className={styles.graphLabMenuCalculationModelItem}><br/>計算モデル<br/><br/><select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect}>
+                        <div className={styles.graphLabMenuCalculationModelItem}><br/>Calculation Model<br/><br/><select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect}>
                                                                                                                       <option value="" disabled selected>Select your model</option>
                                                                                                                       <option value="model1">Freq(Mul & Norm)</option>
                                                                                                                       <option value="model2">Only Multinomial</option>
                                                                                                                     </select></div>
-                        <div onClick={this.showNodePropertyView} className={styles.graphLabMenuItem}><br/>共通Node<br/>プロパティ<br/>設定 </div>
-                        <NodePropertyView label="全ノード" ref="nodePropertyView" />
+                        <div onClick={this.showNodePropertyView} className={styles.graphLabMenuItem}><br/>Common Node<br/>Property<br/>Setup</div>
+                        <NodePropertyView label="All Nodes" ref="nodePropertyView" />
                         <Dropzone
                             className={styles.graphLabMenuItem}
                             onDrop={this.onDropAttributeImport}
                             accept="text/csv" >
                             <div>
-                                <br/>属性情報<br/>ファイル<br/>クリック<br/>(ドロップ)
+                                <br/>Import Attributes<br/>(Drop file or Click)
                             </div>
                         </Dropzone>
                         <Dropzone
@@ -369,7 +369,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             onDrop={this.onDropTraining}
                             accept="text/csv" >
                             <div>
-                                <br/>学習データ<br/>ファイル<br/>クリック<br/>(ドロップ)
+                                <br/>Training Model<br/>(Drop file or Click)
                             </div>
                         </Dropzone>
                         <div className={styles.graphLabMenuItemDropAnalyzingBox}>
@@ -378,7 +378,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                 onDrop={this.onDropAnalyzing}
                                 accept="text/csv" >
                                 <div>
-                                   <br/> 解析データ
+                                   <br/> Test Model <br/> (Drop file or Click)
                                 </div>
                             </Dropzone>
                             <select ref="evaluationMethod" className={styles.graphLabMenuItemAnalyzingTarget}>
@@ -396,8 +396,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         </div>
                         <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
 
-                        <div onClick={this.save} className={styles.graphLabMenuItem}><br/><br/>モデル保存<br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
-                        <div onClick={this.openPreviousTestedGraph} className={styles.graphLabMenuItem}><br/>Open <br/>Previous Tested <br/>Graph </div>
+                        <div onClick={this.save} className={styles.graphLabMenuItem}><br/><br/>Save Model<br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
+                        <div onClick={this.openPreviousTestedGraph} className={styles.graphLabMenuItem}><br/><br/>Test<br/>History</div>
                     </div>
                     <Graph ref="graph" items={[]}/>
                 </div>

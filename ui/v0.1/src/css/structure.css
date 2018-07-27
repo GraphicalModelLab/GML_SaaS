@@ -158,6 +158,9 @@ a:active {
 
 .closeButton{
 }
+.closeButtonGraphSaveView{
+    float: right;
+}
 .closeButtonCareerSheetCenter{
     width:1500px;
     padding-left:1485px;
@@ -211,12 +214,8 @@ a:active {
     clear:both;
     display: block;
     margin: 0 auto;
-    border:solid 1px #C0C0C0;
     padding-top:10px;
     width: 800px;
-    border-radius: 10px;        /* CSS3草案 */
-    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */
-    -moz-border-radius: 10px;   /* Firefox用 */
 }
 
 .accountRoleChangeButton{
@@ -343,8 +342,9 @@ a:active {
 }
 
 .nodeProp{
+   clear: both;
    display: block;
-   width: 300px;
+   width: 340px;
 }
 
 .nodePropName{
@@ -353,9 +353,15 @@ a:active {
 }
 
 .nodePropValue{
-   width: 180px;
+   float: left;
+   width: 150px;
 }
-
+.nodePropAdd{
+    float: left;
+}
+.nodePropDelete{
+    float: left;
+}
 .nodePropNameHeader{
    float: left;
    width: 100px;
@@ -363,8 +369,9 @@ a:active {
 }
 
 .nodePropValueHeader{
-   width: 180px;
-  text-align: center;
+   float: left;
+   width: 150px;
+   text-align: center;
 }
 .graphLabMenuCalculationModelItem{
   font-size: 10px;
@@ -427,13 +434,24 @@ a:active {
     float: left;
 }
 
+.saveModelViewTitle{
+    display:block;
+    clear: both;
+    width: 300px;
+    height: 30px;
+}
+
 .nodePropertyViewTitle{
     display:block;
-    width: 300px;
     width: 300px;
 }
 
 .nodePropertyViewContent{
+    margin-top: 30px;
+    display:block;
+}
+
+.saveModelViewContent{
     margin-top: 20px;
     display:block;
 }
@@ -443,8 +461,8 @@ a:active {
 }
 
 .saveButtonBox {
-    margin-top: 20px;
-    margin-left:130px;
+    margin-top: 10px;
+    margin-left:215px;
     position: relative;
     display: inline-block;
     padding: 0.25em 0.5em;
@@ -465,14 +483,15 @@ a:active {
 .saveProp{
    display: block;
    width: 300px;
+   margin-bottom: 10px;
 }
 
 .savePropName{
-   width: 100px;
+   width: 260px;
 }
 
 .savePropValue{
-   width: 180px;
+   width: 260px;
 }
 
 .savePropNameHeader{

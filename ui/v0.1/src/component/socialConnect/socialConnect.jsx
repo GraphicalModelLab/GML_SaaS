@@ -15,7 +15,7 @@ export default class SocialConnect extends React.Component<Props, {}> {
         return (
             <div>
                 <div>
-                    <div className={styles.accountRoleChangeTitle}> ソーシャルコネクトの接続 </div>
+                    <div className={styles.accountRoleChangeTitle}> Connect to Social Data Source </div>
 
 
                     <img src="../icon/social_icons/facebook.jpg" className={styles.iconConnect}/>

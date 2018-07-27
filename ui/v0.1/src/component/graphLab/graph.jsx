@@ -179,7 +179,7 @@ export default class Graph extends React.Component<Props, {}> {
 
         this.setState({
             zoom: this.state.zoom * scale
-        })
+        });
     }
 
     zoomIn(){

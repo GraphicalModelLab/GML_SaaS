@@ -123,38 +123,38 @@ export default class App extends React.Component<Props, {}> {
                         {this.state.loggedIn ? (
                             (auth.getRole() == 'sysadmin' ? (
                                 <div className={styles.menu}>
-                                    <div className={styles.menuItem}><Link to={'/logout'}>ログアウト</Link></div>
-                                    <div className={styles.menuItem}><Link to={'/companyRegistration'}>会社登録</Link></div>
-                                    <div className={styles.menuItem}><Link to={'/accountManagement'}>アカウント管理</Link></div>
+                                    <div className={styles.menuItem}><Link to={'/logout'}>Logout</Link></div>
+                                    <div className={styles.menuItem}><Link to={'/companyRegistration'}>Register Company</Link></div>
+                                    <div className={styles.menuItem}><Link to={'/accountManagement'}>Account Management</Link></div>
                                 </div>
                                 ):(
                                 (auth.getRole() == 'administrator' ? (
                                     <div className={styles.menu}>
-                                        <div className={styles.menuItem}><Link to={'/logout'}>ログアウト</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}>アカウント管理</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/socialConnect'}>ソーシャルコネクト</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/webExploration'}>Web探索</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLab'}>グラフ ラボ</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>グラフ ローカルレポジトリ</Link></div>
-                                        <div className={styles.menuItemSearch}><input type="text" placeholder="タグ検索キーワード" ref="search" className={styles.menuItemSearchInput}/> </div><div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
+                                        <div className={styles.menuItem}><Link to={'/logout'}>Logout</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}>Account Management</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/socialConnect'}>Social Connect</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/webExploration'}>Web Exploration</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLab'}>Graph Lab</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>Graph Local Repository</Link></div>
+                                        <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div><div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
                                     </div>
                                 ):(
                                     <div className={styles.menu}>
-                                        <div className={styles.menuItem}><Link to={'/logout'}>ログアウト</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}>アカウント管理</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/socialConnect'}>ソーシャルコネクト</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/webExploration'}>Web探索</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLab'}>グラフ ラボ</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>グラフ ローカルレポジトリ</Link></div>
-                                        <div className={styles.menuItemSearch}><input type="text" placeholder="タグ検索キーワード" ref="search" className={styles.menuItemSearchInput}/> </div><div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
+                                        <div className={styles.menuItem}><Link to={'/logout'}>Logout</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}>Account Management</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/socialConnect'}>Social Connect</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/webExploration'}>Web Exploration</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLab'}>Graph Lab</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>Graph Local Repository</Link></div>
+                                        <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div><div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
                                     </div>
                                 ))
                                 )
                             )
                         ) : (
                                 <div className={styles.menu}>
-                                    <div className={styles.menuItem}><Link to={'/register'}>登録</Link></div>
-                                    <div className={styles.menuItem}><Link to={'/login'}>サインイン</Link></div>
+                                    <div className={styles.menuItem}><Link to={'/register'}>Register</Link></div>
+                                    <div className={styles.menuItem}><Link to={'/login'}>Sign in</Link></div>
                                 </div>
                         )}
                     </div>

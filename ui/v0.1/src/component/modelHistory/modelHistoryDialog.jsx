@@ -38,7 +38,6 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
         var self = this;
         // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
         this.setState({modalIsOpen: true}, function(){
-            alert("opened history modal : "+modelid);
             var data = {
                         companyid: auth.getCompanyid(),
                         userid:auth.getUserid(),

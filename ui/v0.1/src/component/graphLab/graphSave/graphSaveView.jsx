@@ -11,8 +11,8 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    height                : '400px',
-    width                 : '280px'
+    height                : '250px',
+    width                 : '300px'
   }
 };
 
@@ -33,8 +33,11 @@ export default class GraphSaveView extends React.Component<Props, {}> {
    }
 
     openModal(message) {
+        var self = this;
         // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-        this.setState({modalIsOpen: true, message: message});
+        this.setState({modalIsOpen: true, message: message},function(){
+            self.refs.modelName.focus();
+        });
     }
 
     afterOpenModal() {
@@ -58,27 +61,28 @@ export default class GraphSaveView extends React.Component<Props, {}> {
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles} ref="modal">
 
-                        <div className={styles.nodePropertyViewTitle}>
+                        <div className={styles.saveModelViewTitle}>
                             {this.state.message}
-                            <h2 ref="subtitle"><div className={styles.modalTitle}>モデル　プロパティ</div><div onClick={this.closeModal} className={styles.closeButton}><img src="../icon/mono_icons/stop32.png" className={styles.icon}/></div></h2>
+                            <h2 ref="subtitle"><div className={styles.modalTitle}>Model Information</div></h2> <div onClick={this.closeModal} className={styles.closeButtonGraphSaveView}><img src="../icon/mono_icons/stop32.png" className={styles.icon}/></div>
                         </div>
-                        <div className={styles.nodePropertyViewContent} ref="content">
+                        <div className={styles.saveModelViewContent} ref="content">
                             <div className={styles.saveProp}>
-                                <div className={styles.savePropName}>モデル名</div>
+                                <div className={styles.savePropName}>Model Name</div>
                                 <input className={styles.savePropValue} ref="modelName" type="text" />
                             </div>
+
                             <div className={styles.saveProp}>
-                                <div className={styles.savePropName}>タグ</div>
+                                <div className={styles.savePropName}>Model Tag</div>
                                 <input className={styles.savePropValue} ref="modelTag" type="text" />
                             </div>
                             <div className={styles.saveProp}>
-                                <div className={styles.savePropName}>詳細</div>
+                                <div className={styles.savePropName}>Model Description</div>
                                 <input className={styles.savePropValue} ref="modelDescription" type="text" />
                             </div>
                         </div>
 
                         <div onClick={this.save} className={styles.saveButtonBox}>
-                            保存
+                            Save
                         </div>
                     </Modal>
               </div>
