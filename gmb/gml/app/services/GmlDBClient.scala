@@ -3,7 +3,7 @@ package services
 import java.util.Date
 
 import com.datastax.driver.core.querybuilder.QueryBuilder
-import gml.{getRequest, getResponse, graph, historyRequest, listRequest, listResponse, saveRequest, testRequest, trainingRequest}
+import gml.{getHistoryRequest, getHistoryResponse, getRequest, getResponse, graph, historyRequest, listRequest, listResponse, saveRequest, testRequest, trainingRequest}
 import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.cassandra.CassandraClient
 import play.api.http.Status
@@ -93,7 +93,7 @@ object GmlDBClient {
     while (iterator.hasNext) {
       val next = iterator.next()
 
-      history += "{ \"test_data\":\""+next.getString("test_data")+"\",\"info\":"+next.getString("accuracy")+",\"time\":"+next.getTimestamp("datetime").getTime+"}"
+      history += "{\"model\":"+next.getString("model")+",\"test_data\":\""+next.getString("test_data")+"\",\"info\":"+next.getString("accuracy")+",\"time\":"+next.getTimestamp("datetime").getTime+"}"
     }
 
     return history.toList
@@ -143,6 +143,32 @@ object GmlDBClient {
     }
 
     return new getResponse(
+      Status.OK,
+      Status.OK,
+      model
+    )
+  }
+
+  def getHistory(request: getHistoryRequest):getHistoryResponse ={
+
+    val query = QueryBuilder.select()
+      .all()
+      .from("master","model_test_history")
+      .where(QueryBuilder.eq("companyid",request.companyid))
+      .and(QueryBuilder.eq("userid",request.userid))
+      .and(QueryBuilder.eq("modelid",request.modelid))
+      .and(QueryBuilder.eq("datetime",request.datetime))
+
+    client.executeStatement(query)
+
+    var model:String = null
+
+    val iterator = client.executeStatement(query).iterator()
+    if (iterator.hasNext) {
+      model = iterator.next().getString("model")
+    }
+
+    return new getHistoryResponse(
       Status.OK,
       Status.OK,
       model

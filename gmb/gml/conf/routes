@@ -9,3 +9,4 @@ POST               /gml/:companyId/model/list     controllers.GraphicalModelLabS
 POST               /gml/:companyId/model/get     controllers.GraphicalModelLabServiceController.get(companyId:String)
 POST               /gml/:companyId/model/search     controllers.GraphicalModelLabServiceController.search(companyId:String)
 POST               /gml/:companyId/model/history     controllers.GraphicalModelLabServiceController.history(companyId:String)
+POST               /gml/:companyId/model/history/get     controllers.GraphicalModelLabServiceController.getHistory(companyId:String)

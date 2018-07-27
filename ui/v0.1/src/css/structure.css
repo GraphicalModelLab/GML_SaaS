@@ -561,6 +561,22 @@ a:active {
     display: block;
 }
 
+.searchResultBoxHistory{
+
+  font-size: 20px;
+
+  clear: both;
+  width: 800px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  height: 30px;
+  background: linear-gradient(transparent 70%, #ff99ab 70%);
+}
+
+.searchResultBoxHistory:hover{
+  background: linear-gradient(transparent 70%, #3399FF 70%);
+}
+
 .searchResultBox{
 
   font-size: 20px;

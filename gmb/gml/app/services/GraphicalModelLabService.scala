@@ -137,4 +137,16 @@ class GraphicalModelLabService {
     }
     return historyResponse(Status.INTERNAL_SERVER_ERROR, 1, List[String]())
   }
+  def getHistory(companyId:String,request: Option[getHistoryRequest]): getHistoryResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+          return GmlDBClient.getHistory(request)
+        }
+      case None =>
+        println("No request")
+    }
+    return getHistoryResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
+  }
 }

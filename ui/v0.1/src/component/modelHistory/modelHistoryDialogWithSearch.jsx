@@ -5,6 +5,7 @@ import auth from "./../auth/auth";
 import $ from 'jquery';
 import * as styles from './../../css/structure.css';
 import { ScatterPlot } from 'react-d3-components'
+import TestHistoryRecordLine from './testHistoryRecordLine';
 
 const customStyles = {
   content : {
@@ -19,26 +20,26 @@ const customStyles = {
   }
 };
 
-export default class ModelHistoryDialog extends React.Component<Props, {}> {
+export default class ModelHistoryDialogWithSearch extends React.Component<Props, {}> {
 
    constructor(props) {
         super(props);
         this.state = {
                 modalIsOpen: false,
-                plotTestHistory: false
-
+                plotTestHistory: false,
+                records: []
         };
 
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.tooltipScatter = this.tooltipScatter.bind(this);
+        this.openGraph = this.openGraph.bind(this);
    }
 
     openModal(model_userid,modelid) {
         var self = this;
         // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
         this.setState({modalIsOpen: true}, function(){
-            alert("opened history modal : "+modelid);
             var data = {
                         companyid: auth.getCompanyid(),
                         userid:auth.getUserid(),
@@ -57,6 +58,7 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
                 success: function(response) {
 
                     var values = [];
+                    var records = [];
                     var oldestDate = new Date();
 
                     // JSON.parse(response.body.model)
@@ -65,7 +67,9 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
 
                     for(let index in response.body.history){
                         var json = JSON.parse(response.body.history[index]);
+                        records.push(json);
                         var date = new Date(json.time);
+
                         values.push({
                             x: date, y: json.info.accuracy
                         });
@@ -83,12 +87,6 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
                         }
                     }
 
-                    console.log("values");
-                    console.log(values);
-
-                    console.log(earliestDate);
-                    console.log(oldestDate);
-
                     var axisOldest = new Date(oldestDate.getTime()); axisOldest.setDate(oldestDate.getDate() - 2);
                     var axisEarliest = new Date(earliestDate.getTime()); axisEarliest.setDate(earliestDate.getDate() + 2);
 
@@ -96,7 +94,8 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
                         plotTestHistory: true,
                         data: {label: 'test accuracy history', values: values},
                         xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-                        xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
+                        xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+                        records: records
                     });
 
                     console.log(self.state.data);
@@ -121,6 +120,45 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
         return (Math.floor( y * Math.pow( 10, n ) ) / Math.pow( 10, n ))+".., "+x.getFullYear() + "/" +  (x.getMonth() + 1) + "/"+ x.getDate()+" "+x.getHours()+":"+x.getMinutes();
     }
 
+    openGraph(recordInfo){
+        console.log(recordInfo);
+
+        var self = this;
+
+         if(recordInfo.model.modelid){
+             console.log("open : "+recordInfo.model.modelid);
+             console.log(recordInfo);
+             var data = {
+                 companyid: auth.getCompanyid(),
+                 userid:auth.getUserid(),
+                 token: auth.getToken(),
+                 code:10,
+                 modelid: recordInfo.model.modelid,
+                 datetime: recordInfo.model.datetime
+             };
+             $.ajax({
+                     url  : "../commonModules/php/modules/GML.php/gml/model/history/get",
+                     type : "post",
+                     data : JSON.stringify(data),
+                     contentType: 'application/json',
+                     dataType: "json",
+                     success: function(response) {
+                         console.log("got graph");
+                         console.log(response);
+                         self.props.clear();
+                         self.props.setup(JSON.parse(response.body.model));
+                         self.closeModal();
+                     },
+                     error: function (request, status, error) {
+                         alert("error");
+                         console.log(request);
+                         console.log(status);
+                         console.log(error);
+                     }
+             });
+         }
+    }
+
     render() {
         return <div>
                     <Modal
@@ -141,11 +179,16 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
                             margin={{top: 10, bottom: 50, left: 50, right: 20}}
                             xScale={this.state.xScale}
                             xAxis={{tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d")}}
-                        />):(
+                        />
+
+                        ):(
                             <div></div>
                         )}
 
 
+                        {this.state.records.map((d, idx) => {
+                            return <TestHistoryRecordLine clickCallBack={this.openGraph} key={"record:"+idx} recordInfo={d} />
+                        })}
                     </Modal>
               </div>
     }
