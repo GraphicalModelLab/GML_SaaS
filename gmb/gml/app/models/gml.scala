@@ -255,4 +255,27 @@ package object gml {
       "history" -> Json.toJson(o.history)
     ).filter(_._2 != JsNull))
   }
+
+  // 3. get models
+  case class getHistoryRequest(code: Int, userid:String, token: String, companyid: String, modelid: String, datetime: Long)
+  case class getHistoryResponse(code: Int, listSuccessCode: Int, model: String)
+
+  implicit lazy val getHistoryRequestReads: Reads[getHistoryRequest] = Reads[getHistoryRequest] {
+    json => JsSuccess(getHistoryRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "token").as[String],
+      (json \ "companyid").as[String],
+      (json \ "modelid").as[String],
+      (json \ "datetime").as[Long]
+    ))
+  }
+
+  implicit lazy val getHistoryRequestWrites: Writes[getHistoryResponse] = Writes[getHistoryResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "listSuccessCode" -> Json.toJson(o.listSuccessCode),
+      "model" -> Json.toJson(o.model)
+    ).filter(_._2 != JsNull))
+  }
 }

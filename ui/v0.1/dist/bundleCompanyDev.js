@@ -76,47 +76,47 @@
 	
 	var _graphLab2 = _interopRequireDefault(_graphLab);
 	
-	var _graphLabLocalRepository = __webpack_require__(285);
+	var _graphLabLocalRepository = __webpack_require__(309);
 	
 	var _graphLabLocalRepository2 = _interopRequireDefault(_graphLabLocalRepository);
 	
-	var _searchResult = __webpack_require__(310);
+	var _searchResult = __webpack_require__(312);
 	
 	var _searchResult2 = _interopRequireDefault(_searchResult);
 	
-	var _searchResult3 = __webpack_require__(311);
+	var _searchResult3 = __webpack_require__(313);
 	
 	var _searchResult4 = _interopRequireDefault(_searchResult3);
 	
-	var _webExploration = __webpack_require__(312);
+	var _webExploration = __webpack_require__(314);
 	
 	var _webExploration2 = _interopRequireDefault(_webExploration);
 	
-	var _socialConnect = __webpack_require__(313);
+	var _socialConnect = __webpack_require__(315);
 	
 	var _socialConnect2 = _interopRequireDefault(_socialConnect);
 	
-	var _accountManagementIndividual = __webpack_require__(314);
+	var _accountManagementIndividual = __webpack_require__(316);
 	
 	var _accountManagementIndividual2 = _interopRequireDefault(_accountManagementIndividual);
 	
-	var _accountManagement = __webpack_require__(315);
+	var _accountManagement = __webpack_require__(317);
 	
 	var _accountManagement2 = _interopRequireDefault(_accountManagement);
 	
-	var _companyRegistration = __webpack_require__(316);
+	var _companyRegistration = __webpack_require__(318);
 	
 	var _companyRegistration2 = _interopRequireDefault(_companyRegistration);
 	
-	var _top = __webpack_require__(317);
+	var _top = __webpack_require__(319);
 	
 	var _top2 = _interopRequireDefault(_top);
 	
-	var _topNoLogin = __webpack_require__(323);
+	var _topNoLogin = __webpack_require__(325);
 	
 	var _topNoLogin2 = _interopRequireDefault(_topNoLogin);
 	
-	var _app = __webpack_require__(324);
+	var _app = __webpack_require__(326);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
@@ -27820,7 +27820,7 @@
 	
 	
 	// module
-	exports.push([module.id, "._21IlS4cigU1jp3URI1qdEI{\r\n  display:block;\r\n  background-color:#000088;\r\n  margin: 0 auto;\r\n  margin-bottom:25px;\r\n  padding-bottom:5px;\r\n  border-bottom: medium solid #000088;\r\n  width:100%;\r\n  height:60px;\r\n\r\n}\r\n._39lGWu0C-owsCVe_ao0I1O{\r\n   display:block;\r\n   margin: 0 auto;\r\n   height:100%;\r\n}\r\n.Mkcf_FrN7x3CB21zr5onA{\r\n   display:block;\r\n   font-size:10px;\r\n   text-align:center;\r\n   margin: 0 auto;\r\n   margin-top:50px;\r\n   padding-top:10px;\r\n   border-top: medium solid #000088;\r\n   background-color:#000088;\r\n   height:50px;\r\n   color:white;\r\n   width:100%;\r\n}\r\n.Rx6jc5zsF2JOssZB9cbBG{\r\n  font-size:20px;\r\n}\r\n\r\n._1ymn_JM6VAPhJiCBE43b0Z{\r\n  height:60px;\r\n}\r\n\r\n.ZV7UOwMK-zpqQdgK3w0uj{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:60px;\r\n    height:60px;\r\n}\r\n._3Xl_zuhVONV6Oa54l6ujMu{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:80px;\r\n    height:60px;\r\n    padding-top: 20px;\r\n    color: white;\r\n    font-size: 8px;\r\n}\r\n\r\n._3tMeNULEtH4UE9lkTLIWR1{\r\n  float:right;\r\n\r\n  margin-top:20px;\r\n  margin-right:5px;\r\n  font-size:10px;\r\n  height:50px;\r\n  width: 800px;\r\n}\r\na {\r\n   text-decoration: none;\r\n}\r\n\r\na:active {\r\n    text-decoration:none;\r\n}\r\n\r\n.VhfzMFgtiDeytcikj8r28{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:60%;\r\n}\r\n\r\n._1RzYgKr7UvluOrir40jLOs {\r\n  float:right;\r\n  margin-left:10px;\r\n  border:solid 1px #C0C0C0;;\r\n  padding: 5px 5px 5px 5px;\r\n  font-color:black;\r\n  background-color:#ffffff;\r\n}\r\n\r\n._2FIIxzQHLNlgcCfO-DxVJo{\r\n  float:right;\r\n  margin-left:10px;\r\n  margin-top:4px;\r\n}\r\n._1iJKfh2DQs5q2KZnr6H0FG{\r\n  float:right;\r\n}\r\n\r\n._3IPWpvFNSTwN3yFrdpc400{\r\n  float:right;\r\n  margin-left:1px;\r\n  border:solid 1px #C0C0C0;\r\n    background: #C0C0C0;\r\n}\r\n.OYtAsBD1pHnipY9J2OdDw{\r\n    float:right;\r\n    margin-left:10px;\r\n    margin-right:5px;\r\n    margin-top:6px;\r\n    zoom:60%;\r\n}\r\n._1RzYgKr7UvluOrir40jLOs:hover {\r\n    background:#808080;\r\n    border-color:#808080;\r\n}\r\n\r\n._6uth5HE0kdJEWKMKp9chp{\r\n    width:400px;\r\n    margin: 0 auto;\r\n}\r\n._2xdtauEEKDUCZ7egnAcnjl{\r\n    text-align:center;\r\n    width:400px;\r\n    margin-bottom:30px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x{\r\n    text-align:center;\r\n    margin-bottom:30px;\r\n    width:401px;\r\n    height:20px;\r\n    font-size:20px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x:-webkit-autofill{\r\n    -webkit-box-shadow: 0 0 0px 1000px white inset;\r\n}\r\n\r\n._2CrAYKqxG4yMY1TZFIl0Kt{\r\n    background-color:#E0F2F7;\r\n    text-align:center;\r\n    width:400px;\r\n    border:solid 1px #C0C0C0;\r\n}\r\n._2CrAYKqxG4yMY1TZFIl0Kt:hover{\r\n    background-color:#808080;\r\n}\r\n\r\n._1AJxF0j-z9p2VbNjzte0P-{\r\n    margin-top:20px;\r\n    text-align:right;\r\n}\r\n\r\n.G2msH2J9HYmQaOZLQtXqm{\r\n    color: #ff0000;\r\n}\r\n._1EX5qd1Q_Ma2vBic6LZi1D{\r\n    margin-top:20px;\r\n}\r\n\r\n._2qZa5LHHWXB2zdjjK5A0TF{\r\n}\r\n._-iPVMXyGTb1t597MkH6Sx{\r\n    width:1500px;\r\n    padding-left:1485px;\r\n}\r\n\r\n._3wSWab8jd-NCnH0Lc9JKyR{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:50%;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF {\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  margin: auto;\r\n\r\n  z-index:20;\r\n}\r\n\r\n.GRDAGXTygk4MB-lPHt3oy{\r\n    display: block;\r\n    margin: 0 auto;\r\n    width:600px;\r\n}\r\n._3sGfRBvUwkFzQe8AFgz2iQ{\r\n    margin-bottom:10px;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    width:600px;\r\n}\r\n\r\n._2c8EKTA8wPxWzSYaK13W8D:hover{\r\n    background-color:#E0F2F7;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF{\r\n    position:absolute;\r\n\r\n    z-index:10px;\r\n\r\n    height:100%;\r\n    width:100%;\r\n\r\n    background-color:black;\r\n}\r\n\r\n._1OJTFKoMOYJKUbluCzoq_x{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    border:solid 1px #C0C0C0;\r\n    padding-top:10px;\r\n    width: 800px;\r\n    border-radius: 10px;        /* CSS3草案 */\r\n    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */\r\n    -moz-border-radius: 10px;   /* Firefox用 */\r\n}\r\n\r\n._1tGcysSkVX3P8fZepj9lXh{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding-top:10px;\r\n    width: 800px;\r\n}\r\n._22OBOc5j9yt82rrLlamcG{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n}\r\n._1s0xtDoRlEgtxfiT7E7kzm{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    border-bottom:solid 1px #C0C0C0;;\r\n}\r\n._2dvKc1mcRnLfIpgx1-EtIv{\r\n    font-size:12px;\r\n    width: 800px;\r\n}\r\n._2Z6cNVbGVHHKU089-VXO3S{\r\n    font-size:10px;\r\n}\r\n\r\n.EiBNqPpkHeQEYmB2LnuTk{\r\n    width:400px;\r\n}\r\n._3QyPxrGwm_9dd2gXx7Aca0{\r\n    width:60%;\r\n    height:60%;\r\n    padding-left:70px;\r\n    margin-top:30px;\r\n}\r\n._2820e232rGWlpnLkGm3xd8{\r\n    width:59%;\r\n    height:60%;\r\n    padding-left:73px;\r\n    margin-top:5px;\r\n}\r\n\r\n.A25vvGxnamwA_1-jxJDFw{\r\n    width:400px;\r\n}\r\n\r\n._2NFpzgTtQffD_D2flkl0Yd{\r\n    margin-left:130px;\r\n    margin-bottom:15px;\r\n    width:30%;\r\n    height:30%;\r\n}\r\n\r\n._3sn4LmzhoNJImhJozT2CbJ{\r\n    width:100%;\r\n    height:100%;\r\n}\r\n\r\n._3C9eRpVrocQMq1eVa-5AeP {\r\n  width : 300px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3YpqWUpiYdWziTD-LaQBMt {\r\n  margin-left:10px;\r\n  width : 400px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3uCgp1xQccu1Ls1v8On4ub{\r\n    background-color:red;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._2vPLW3O634mH-zb4ap8HOw{\r\n    background-color:black;\r\n    display: inline-block;\r\n    min-height: 1000px;\r\n    min-width: 10px;\r\n}\r\n\r\n._2kOLoHM1EjEcFN0DXCDEP8{\r\n    background: #eaeaea;\r\n}\r\n._1o6OTEcANV4DsY4wOKnxUA{\r\n    background-color: blue;\r\n    width:10;\r\n    height: 100%;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._3ZgVDhmRLmbwFurHAa80fY{\r\n    background-color: yellow;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n\r\n._3zr9cD0Xg1PFRaNOWYvJec{\r\n  width : 160px;\r\n  height : 25px;\r\n  float: left;\r\n  background-color: #CED8F6;\r\n}\r\n\r\n._1v2QEd_xxFLbdWO-43JF1y{\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n._3Oh_ppFtB70E1WaRVVngI3{\r\n    margin-right: 10px;\r\n    width: 270px;\r\n    float:left;\r\n}\r\n\r\n._3pZunEapYtxb_yhRw5c_vo{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._2SwhuFZEWu1oYzCMeTndxU{\r\n   float: left;\r\n   width: 100px;\r\n}\r\n\r\n._2Iehh8JIgqkXm-YB4rh74N{\r\n   width: 180px;\r\n}\r\n\r\n._3vjclEY51AQwq4nzr7IsYx{\r\n   float: left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._2lvtl3VkOHea6sxXHhWmzs{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n.rBU-smzcehI-fVuWMTxOJ{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 150px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1jbbmcfcXHhh9Oh5FO59I6{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 60px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1UIdy8ocS8kJ3tXWEJGKc0{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._15_I19Ep29e_USI2oX3_c4{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 40px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._2n226EmCv8P0yFoTuIH8ZX{\r\n  color: white;\r\n  text-decoration: underline;\r\n  font-size: 10px;\r\n}\r\n\r\n._2L0mXa7_EzhSospqoyphbB{\r\n    max-width:90%;\r\n}\r\n._3ndPMP-fQ0l445pF-up9eO{\r\n    margin-left: 2px;\r\n    max-width:95%;\r\n    float: left;\r\n}\r\n\r\n._1e8JEH9Y-Bxej2s2Ak-SwU{\r\n    display:block;\r\n    width: 300px;\r\n    width: 300px;\r\n}\r\n\r\n.Vvla0RGP8dEu400vL7NKf{\r\n    margin-top: 20px;\r\n    display:block;\r\n}\r\n\r\n._2PUP-R1t1EJnstBN4JkrrB{\r\n    display:block;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz {\r\n    margin-top: 20px;\r\n    margin-left:130px;\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.5em;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    background: #fd9535;/*背景色*/\r\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\r\n    border-radius: 4px;/*角の丸み*/\r\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\r\n    font-weight: bold;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz:active {\r\n    border-bottom: solid 2px #fd9535;\r\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\r\n}\r\n\r\n._2KXawChEyiT_LvDznW62ne{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._32apsN4U2ZLtmU6E83iyv3{\r\n   width: 100px;\r\n}\r\n\r\n.mEN3dRNLU8bQ5nmD2uq1O{\r\n   width: 180px;\r\n}\r\n\r\n._1raG9542fWdnrUh0l9JHxV{\r\n    float:left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._3e_zzB02xPMOqzGv6I4WkH{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n\r\n._3gT7FIEAY6Cdop9gxqaJUE{\r\n\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n.GxYC7EtjEzu6lPMHkrZln{\r\n    float: left;\r\n}\r\n._1aDfbuNhv282xUrZ9GeQ_y{\r\n    float: left;\r\n\r\n}\r\n._3r43NZpUVPFDRg3G8RyNny{\r\n    float: left;\r\n}\r\n._3Gp6TXG3U3mTf4Ec1rSBM9{\r\n\r\n}\r\n\r\n._28bEV430au--RZaJ2xSY1N{\r\n}\r\n\r\n._3cmt0U3hlMd_HMd_nJ5qhp{\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4{\r\n    zoom: 50%;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4:hover {\r\n\t\t\topacity: 0.5 ;\r\n\t\t\t}\r\n\r\n._3aG70LPFzQ6gf8GTqMOBnA{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: #ffffff;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n\r\n.qjd7pqriQ2YEt1IYVUVD2{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: yellow;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n._2KKqHTaHHvDB_zZMSQVVj1{\r\n    clear: both;\r\n    display: block;\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx{\r\n\r\n  font-size: 20px;\r\n\r\n  clear: both;\r\n  width: 900px;\r\n  margin-left: 20px;\r\n  margin-bottom: 30px;\r\n  height: 30px;\r\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx:hover{\r\n  background: linear-gradient(transparent 70%, #3399FF 70%);\r\n}\r\n\r\n._1_OCKufZ9iw3Nr_cirIxya{\r\n    float:left;\r\n    zoom:10%;\r\n    margin-right: 40px;\r\n}\r\n._1QngIjT4jlVy0UiLe0EYWL{\r\n    float:right;\r\n    zoom:40%;\r\n}\r\n._1kfNriLJEYfnTMV7uUXYYN{\r\n    float:left;\r\n    zoom:10%;\r\n}\r\n\r\n._3bxkJB3OwNSzMBLftSenZU{\r\n  width: 200px;\r\n  float: left;\r\n}\r\n\r\n._3VG2LQ5aNDXYKGEC0bf3I4{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n.u1qg79XiSQJFhMQl2j6vS{\r\n\r\n  width: 300px;\r\n  float: left;\r\n\r\n}\r\n\r\n._2GSJHwrtgEqlyv78OQefcv{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n._342IUSYDWQFWnD_qbQ3Ax3{\r\n  font-size: 30px;\r\n\r\n  text-align: center;\r\n}", ""]);
+	exports.push([module.id, "._21IlS4cigU1jp3URI1qdEI{\r\n  display:block;\r\n  background-color:#000088;\r\n  margin: 0 auto;\r\n  margin-bottom:25px;\r\n  padding-bottom:5px;\r\n  border-bottom: medium solid #000088;\r\n  width:100%;\r\n  height:60px;\r\n\r\n}\r\n._39lGWu0C-owsCVe_ao0I1O{\r\n   display:block;\r\n   margin: 0 auto;\r\n   height:100%;\r\n}\r\n.Mkcf_FrN7x3CB21zr5onA{\r\n   display:block;\r\n   font-size:10px;\r\n   text-align:center;\r\n   margin: 0 auto;\r\n   margin-top:50px;\r\n   padding-top:10px;\r\n   border-top: medium solid #000088;\r\n   background-color:#000088;\r\n   height:50px;\r\n   color:white;\r\n   width:100%;\r\n}\r\n.Rx6jc5zsF2JOssZB9cbBG{\r\n  font-size:20px;\r\n}\r\n\r\n._1ymn_JM6VAPhJiCBE43b0Z{\r\n  height:60px;\r\n}\r\n\r\n.ZV7UOwMK-zpqQdgK3w0uj{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:60px;\r\n    height:60px;\r\n}\r\n._3Xl_zuhVONV6Oa54l6ujMu{\r\n    float:left;\r\n    margin-top:4px;\r\n    margin-left:4px;\r\n    width:80px;\r\n    height:60px;\r\n    padding-top: 20px;\r\n    color: white;\r\n    font-size: 8px;\r\n}\r\n\r\n._3tMeNULEtH4UE9lkTLIWR1{\r\n  float:right;\r\n\r\n  margin-top:20px;\r\n  margin-right:5px;\r\n  font-size:10px;\r\n  height:50px;\r\n  width: 800px;\r\n}\r\na {\r\n   text-decoration: none;\r\n}\r\n\r\na:active {\r\n    text-decoration:none;\r\n}\r\n\r\n.VhfzMFgtiDeytcikj8r28{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:60%;\r\n}\r\n\r\n._1RzYgKr7UvluOrir40jLOs {\r\n  float:right;\r\n  margin-left:10px;\r\n  border:solid 1px #C0C0C0;;\r\n  padding: 5px 5px 5px 5px;\r\n  font-color:black;\r\n  background-color:#ffffff;\r\n}\r\n\r\n._2FIIxzQHLNlgcCfO-DxVJo{\r\n  float:right;\r\n  margin-left:10px;\r\n  margin-top:4px;\r\n}\r\n._1iJKfh2DQs5q2KZnr6H0FG{\r\n  float:right;\r\n}\r\n\r\n._3IPWpvFNSTwN3yFrdpc400{\r\n  float:right;\r\n  margin-left:1px;\r\n  border:solid 1px #C0C0C0;\r\n    background: #C0C0C0;\r\n}\r\n.OYtAsBD1pHnipY9J2OdDw{\r\n    float:right;\r\n    margin-left:10px;\r\n    margin-right:5px;\r\n    margin-top:6px;\r\n    zoom:60%;\r\n}\r\n._1RzYgKr7UvluOrir40jLOs:hover {\r\n    background:#808080;\r\n    border-color:#808080;\r\n}\r\n\r\n._6uth5HE0kdJEWKMKp9chp{\r\n    width:400px;\r\n    margin: 0 auto;\r\n}\r\n._2xdtauEEKDUCZ7egnAcnjl{\r\n    text-align:center;\r\n    width:400px;\r\n    margin-bottom:30px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x{\r\n    text-align:center;\r\n    margin-bottom:30px;\r\n    width:401px;\r\n    height:20px;\r\n    font-size:20px;\r\n}\r\n\r\n.hgCU0dIRX3laVI5gvlI0x:-webkit-autofill{\r\n    -webkit-box-shadow: 0 0 0px 1000px white inset;\r\n}\r\n\r\n._2CrAYKqxG4yMY1TZFIl0Kt{\r\n    background-color:#E0F2F7;\r\n    text-align:center;\r\n    width:400px;\r\n    border:solid 1px #C0C0C0;\r\n}\r\n._2CrAYKqxG4yMY1TZFIl0Kt:hover{\r\n    background-color:#808080;\r\n}\r\n\r\n._1AJxF0j-z9p2VbNjzte0P-{\r\n    margin-top:20px;\r\n    text-align:right;\r\n}\r\n\r\n.G2msH2J9HYmQaOZLQtXqm{\r\n    color: #ff0000;\r\n}\r\n._1EX5qd1Q_Ma2vBic6LZi1D{\r\n    margin-top:20px;\r\n}\r\n\r\n._2qZa5LHHWXB2zdjjK5A0TF{\r\n}\r\n._-iPVMXyGTb1t597MkH6Sx{\r\n    width:1500px;\r\n    padding-left:1485px;\r\n}\r\n\r\n._3wSWab8jd-NCnH0Lc9JKyR{\r\n    paddinig-top:50px;\r\n    margin-right:5px;\r\n    zoom:50%;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF {\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  margin: auto;\r\n\r\n  z-index:20;\r\n}\r\n\r\n.GRDAGXTygk4MB-lPHt3oy{\r\n    display: block;\r\n    margin: 0 auto;\r\n    width:600px;\r\n}\r\n._3sGfRBvUwkFzQe8AFgz2iQ{\r\n    margin-bottom:10px;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    width:600px;\r\n}\r\n\r\n._2c8EKTA8wPxWzSYaK13W8D:hover{\r\n    background-color:#E0F2F7;\r\n}\r\n\r\n._3tjac6GaorzVbD9W_7IfvF{\r\n    position:absolute;\r\n\r\n    z-index:10px;\r\n\r\n    height:100%;\r\n    width:100%;\r\n\r\n    background-color:black;\r\n}\r\n\r\n._1OJTFKoMOYJKUbluCzoq_x{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    border:solid 1px #C0C0C0;\r\n    padding-top:10px;\r\n    width: 800px;\r\n    border-radius: 10px;        /* CSS3草案 */\r\n    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */\r\n    -moz-border-radius: 10px;   /* Firefox用 */\r\n}\r\n\r\n._1tGcysSkVX3P8fZepj9lXh{\r\n    clear:both;\r\n    display: block;\r\n    margin: 0 auto;\r\n    padding-top:10px;\r\n    width: 800px;\r\n}\r\n._22OBOc5j9yt82rrLlamcG{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n}\r\n._1s0xtDoRlEgtxfiT7E7kzm{\r\n    padding:0 auto;\r\n    display:block;\r\n    width: 80%;\r\n    margin: 0 auto;\r\n    margin-bottom:10px;\r\n    border-bottom:solid 1px #C0C0C0;;\r\n}\r\n._2dvKc1mcRnLfIpgx1-EtIv{\r\n    font-size:12px;\r\n    width: 800px;\r\n}\r\n._2Z6cNVbGVHHKU089-VXO3S{\r\n    font-size:10px;\r\n}\r\n\r\n.EiBNqPpkHeQEYmB2LnuTk{\r\n    width:400px;\r\n}\r\n._3QyPxrGwm_9dd2gXx7Aca0{\r\n    width:60%;\r\n    height:60%;\r\n    padding-left:70px;\r\n    margin-top:30px;\r\n}\r\n._2820e232rGWlpnLkGm3xd8{\r\n    width:59%;\r\n    height:60%;\r\n    padding-left:73px;\r\n    margin-top:5px;\r\n}\r\n\r\n.A25vvGxnamwA_1-jxJDFw{\r\n    width:400px;\r\n}\r\n\r\n._2NFpzgTtQffD_D2flkl0Yd{\r\n    margin-left:130px;\r\n    margin-bottom:15px;\r\n    width:30%;\r\n    height:30%;\r\n}\r\n\r\n._3sn4LmzhoNJImhJozT2CbJ{\r\n    width:100%;\r\n    height:100%;\r\n}\r\n\r\n._3C9eRpVrocQMq1eVa-5AeP {\r\n  width : 300px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3YpqWUpiYdWziTD-LaQBMt {\r\n  margin-left:10px;\r\n  width : 400px;\r\n  height : 20px;\r\n  border-style: dotted;\r\n  float: left;\r\n}\r\n\r\n._3uCgp1xQccu1Ls1v8On4ub{\r\n    background-color:red;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._2vPLW3O634mH-zb4ap8HOw{\r\n    background-color:black;\r\n    display: inline-block;\r\n    min-height: 1000px;\r\n    min-width: 10px;\r\n}\r\n\r\n._2kOLoHM1EjEcFN0DXCDEP8{\r\n    background: #eaeaea;\r\n}\r\n._1o6OTEcANV4DsY4wOKnxUA{\r\n    background-color: blue;\r\n    width:10;\r\n    height: 100%;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n._3ZgVDhmRLmbwFurHAa80fY{\r\n    background-color: yellow;\r\n    min-height: 10px;\r\n    min-width: 10px;\r\n}\r\n\r\n._3zr9cD0Xg1PFRaNOWYvJec{\r\n  width : 160px;\r\n  height : 25px;\r\n  float: left;\r\n  background-color: #CED8F6;\r\n}\r\n\r\n._1v2QEd_xxFLbdWO-43JF1y{\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n._3Oh_ppFtB70E1WaRVVngI3{\r\n    margin-right: 10px;\r\n    width: 270px;\r\n    float:left;\r\n}\r\n\r\n._3pZunEapYtxb_yhRw5c_vo{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._2SwhuFZEWu1oYzCMeTndxU{\r\n   float: left;\r\n   width: 100px;\r\n}\r\n\r\n._2Iehh8JIgqkXm-YB4rh74N{\r\n   width: 180px;\r\n}\r\n\r\n._3vjclEY51AQwq4nzr7IsYx{\r\n   float: left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._2lvtl3VkOHea6sxXHhWmzs{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n.rBU-smzcehI-fVuWMTxOJ{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 150px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1jbbmcfcXHhh9Oh5FO59I6{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 60px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n._1UIdy8ocS8kJ3tXWEJGKc0{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 80px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._15_I19Ep29e_USI2oX3_c4{\r\n  font-size: 10px;\r\n  color: white;\r\n  width : 120px;\r\n  height : 40px;\r\n  float: left;\r\n  background-color: #000088;\r\n  margin-right: 2px;\r\n\r\n  text-align: center;\r\n}\r\n\r\n._2n226EmCv8P0yFoTuIH8ZX{\r\n  color: white;\r\n  text-decoration: underline;\r\n  font-size: 10px;\r\n}\r\n\r\n._2L0mXa7_EzhSospqoyphbB{\r\n    max-width:90%;\r\n}\r\n._3ndPMP-fQ0l445pF-up9eO{\r\n    margin-left: 2px;\r\n    max-width:95%;\r\n    float: left;\r\n}\r\n\r\n._1e8JEH9Y-Bxej2s2Ak-SwU{\r\n    display:block;\r\n    width: 300px;\r\n    width: 300px;\r\n}\r\n\r\n.Vvla0RGP8dEu400vL7NKf{\r\n    margin-top: 20px;\r\n    display:block;\r\n}\r\n\r\n._2PUP-R1t1EJnstBN4JkrrB{\r\n    display:block;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz {\r\n    margin-top: 20px;\r\n    margin-left:130px;\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.5em;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    background: #fd9535;/*背景色*/\r\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\r\n    border-radius: 4px;/*角の丸み*/\r\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\r\n    font-weight: bold;\r\n}\r\n\r\n._1Z7bMkMuXHFB6fR77hYlhz:active {\r\n    border-bottom: solid 2px #fd9535;\r\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\r\n}\r\n\r\n._2KXawChEyiT_LvDznW62ne{\r\n   display: block;\r\n   width: 300px;\r\n}\r\n\r\n._32apsN4U2ZLtmU6E83iyv3{\r\n   width: 100px;\r\n}\r\n\r\n.mEN3dRNLU8bQ5nmD2uq1O{\r\n   width: 180px;\r\n}\r\n\r\n._1raG9542fWdnrUh0l9JHxV{\r\n    float:left;\r\n   width: 100px;\r\n  text-align: center;\r\n}\r\n\r\n._3e_zzB02xPMOqzGv6I4WkH{\r\n   width: 180px;\r\n  text-align: center;\r\n}\r\n\r\n._3gT7FIEAY6Cdop9gxqaJUE{\r\n\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n.GxYC7EtjEzu6lPMHkrZln{\r\n    float: left;\r\n}\r\n._1aDfbuNhv282xUrZ9GeQ_y{\r\n    float: left;\r\n\r\n}\r\n._3r43NZpUVPFDRg3G8RyNny{\r\n    float: left;\r\n}\r\n._3Gp6TXG3U3mTf4Ec1rSBM9{\r\n\r\n}\r\n\r\n._28bEV430au--RZaJ2xSY1N{\r\n}\r\n\r\n._3cmt0U3hlMd_HMd_nJ5qhp{\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4{\r\n    zoom: 50%;\r\n}\r\n\r\n.whEXNGoOXTHlU_ru4_TG4:hover {\r\n\t\t\topacity: 0.5 ;\r\n\t\t\t}\r\n\r\n._3aG70LPFzQ6gf8GTqMOBnA{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: #ffffff;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n\r\n.qjd7pqriQ2YEt1IYVUVD2{\r\n  position:absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n\r\n  z-index:20;\r\n  margin: auto;\r\n\r\n  background-color: yellow;\r\n\r\n  padding: 2 2 2 2;\r\n  font-size: 30px;\r\n  text-align: center;\r\n  height: 35px;\r\n}\r\n._2KKqHTaHHvDB_zZMSQVVj1{\r\n    clear: both;\r\n    display: block;\r\n}\r\n\r\n._3LHLurNUY-3Z_HBlGO9X9L{\r\n\r\n  font-size: 20px;\r\n\r\n  clear: both;\r\n  width: 800px;\r\n  margin-left: 20px;\r\n  margin-bottom: 30px;\r\n  height: 30px;\r\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\r\n}\r\n\r\n._3LHLurNUY-3Z_HBlGO9X9L:hover{\r\n  background: linear-gradient(transparent 70%, #3399FF 70%);\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx{\r\n\r\n  font-size: 20px;\r\n\r\n  clear: both;\r\n  width: 900px;\r\n  margin-left: 20px;\r\n  margin-bottom: 30px;\r\n  height: 30px;\r\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\r\n}\r\n\r\n._2Xeim6bvo34U_F_xxQaupx:hover{\r\n  background: linear-gradient(transparent 70%, #3399FF 70%);\r\n}\r\n\r\n._1_OCKufZ9iw3Nr_cirIxya{\r\n    float:left;\r\n    zoom:10%;\r\n    margin-right: 40px;\r\n}\r\n._1QngIjT4jlVy0UiLe0EYWL{\r\n    float:right;\r\n    zoom:40%;\r\n}\r\n._1kfNriLJEYfnTMV7uUXYYN{\r\n    float:left;\r\n    zoom:10%;\r\n}\r\n\r\n._3bxkJB3OwNSzMBLftSenZU{\r\n  width: 200px;\r\n  float: left;\r\n}\r\n\r\n._3VG2LQ5aNDXYKGEC0bf3I4{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n.u1qg79XiSQJFhMQl2j6vS{\r\n\r\n  width: 300px;\r\n  float: left;\r\n\r\n}\r\n\r\n._2GSJHwrtgEqlyv78OQefcv{\r\n\r\n  width: 100px;\r\n  float: left;\r\n}\r\n\r\n._342IUSYDWQFWnD_qbQ3Ax3{\r\n  font-size: 30px;\r\n\r\n  text-align: center;\r\n}", ""]);
 	
 	// exports
 	exports.locals = {
@@ -27906,6 +27906,7 @@
 		"popupMessage": "_3aG70LPFzQ6gf8GTqMOBnA",
 		"popupMessageClose": "qjd7pqriQ2YEt1IYVUVD2",
 		"searchResults": "_2KKqHTaHHvDB_zZMSQVVj1",
+		"searchResultBoxHistory": "_3LHLurNUY-3Z_HBlGO9X9L",
 		"searchResultBox": "_2Xeim6bvo34U_F_xxQaupx",
 		"searchResultBoxFlaskIcon": "_1_OCKufZ9iw3Nr_cirIxya",
 		"searchResultBoxRightArrowIcon": "_1QngIjT4jlVy0UiLe0EYWL",
@@ -41302,6 +41303,10 @@
 	
 	var _graphSaveView2 = _interopRequireDefault(_graphSaveView);
 	
+	var _modelHistoryDialogWithSearch = __webpack_require__(285);
+	
+	var _modelHistoryDialogWithSearch2 = _interopRequireDefault(_modelHistoryDialogWithSearch);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -41342,9 +41347,12 @@
 	        _this.save = _this.save.bind(_this);
 	        _this.saveCallBack = _this.saveCallBack.bind(_this);
 	        _this.setup = _this.setup.bind(_this);
+	        _this.clear = _this.clear.bind(_this);
 	
 	        _this.addNode = _this.addNode.bind(_this);
 	        _this.addEdge = _this.addEdge.bind(_this);
+	
+	        _this.openPreviousTestedGraph = _this.openPreviousTestedGraph.bind(_this);
 	
 	        return _this;
 	    }
@@ -41399,6 +41407,12 @@
 	                    this.setup(this.props.location.state.graphInfo);
 	                }
 	            }
+	        }
+	    }, {
+	        key: 'clear',
+	        value: function clear() {
+	            var graph = this.refs.graph;
+	            graph.clearSvgPane();
 	        }
 	    }, {
 	        key: 'setup',
@@ -41639,6 +41653,12 @@
 	            }, 5000);
 	        }
 	    }, {
+	        key: 'openPreviousTestedGraph',
+	        value: function openPreviousTestedGraph() {
+	
+	            this.refs.modelHistoryDialogWithSearch.openModal(_auth2.default.getUserid(), this.state.modelid);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement(
@@ -41788,12 +41808,23 @@
 	                                { className: styles.graphLabMenuItemDownloadLink, href: this.state.downloadContent, download: 'graph.json' },
 	                                this.state.downloadLink
 	                            )
+	                        ),
+	                        React.createElement(
+	                            'div',
+	                            { onClick: this.openPreviousTestedGraph, className: styles.graphLabMenuItem },
+	                            React.createElement('br', null),
+	                            'Open ',
+	                            React.createElement('br', null),
+	                            'Previous Tested ',
+	                            React.createElement('br', null),
+	                            'Graph '
 	                        )
 	                    ),
 	                    React.createElement(_graph2.default, { ref: 'graph', items: [] })
 	                ),
 	                React.createElement(_loading2.default, { ref: 'loading' }),
-	                React.createElement(_popupMessage2.default, { ref: 'popupMessage' })
+	                React.createElement(_popupMessage2.default, { ref: 'popupMessage' }),
+	                React.createElement(_modelHistoryDialogWithSearch2.default, { ref: 'modelHistoryDialogWithSearch', setup: this.setup, clear: this.clear })
 	            );
 	        }
 	    }]);
@@ -43386,13 +43417,9 @@
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _reactDropzone = __webpack_require__(276);
+	var _reactModal = __webpack_require__(253);
 	
-	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-	
-	var _structure = __webpack_require__(248);
-	
-	var styles = _interopRequireWildcard(_structure);
+	var _reactModal2 = _interopRequireDefault(_reactModal);
 	
 	var _auth = __webpack_require__(268);
 	
@@ -43402,15 +43429,15 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _loading = __webpack_require__(270);
+	var _structure = __webpack_require__(248);
 	
-	var _loading2 = _interopRequireDefault(_loading);
+	var styles = _interopRequireWildcard(_structure);
 	
-	var _graphLabRecord = __webpack_require__(286);
+	var _reactD3Components = __webpack_require__(286);
 	
-	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
+	var _testHistoryRecordLine = __webpack_require__(308);
 	
-	var _reactRouter = __webpack_require__(184);
+	var _testHistoryRecordLine2 = _interopRequireDefault(_testHistoryRecordLine);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -43422,189 +43449,162 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
-	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
-	var GraphicalLabLocalRepository = function (_React$Component) {
-	    _inherits(GraphicalLabLocalRepository, _React$Component);
+	var customStyles = {
+	    content: {
+	        top: '50%',
+	        left: '50%',
+	        right: 'auto',
+	        bottom: 'auto',
+	        marginRight: '-50%',
+	        transform: 'translate(-50%, -50%)',
+	        height: '500px',
+	        width: '800px'
+	    }
+	};
 	
-	    function GraphicalLabLocalRepository(props) {
-	        _classCallCheck(this, GraphicalLabLocalRepository);
+	var ModelHistoryDialogWithSearch = function (_React$Component) {
+	    _inherits(ModelHistoryDialogWithSearch, _React$Component);
 	
-	        var _this = _possibleConstructorReturn(this, (GraphicalLabLocalRepository.__proto__ || Object.getPrototypeOf(GraphicalLabLocalRepository)).call(this, props));
+	    function ModelHistoryDialogWithSearch(props) {
+	        _classCallCheck(this, ModelHistoryDialogWithSearch);
+	
+	        var _this = _possibleConstructorReturn(this, (ModelHistoryDialogWithSearch.__proto__ || Object.getPrototypeOf(ModelHistoryDialogWithSearch)).call(this, props));
 	
 	        _this.state = {
-	            records: [],
-	            notFound: false
+	            modalIsOpen: false,
+	            plotTestHistory: false,
+	            records: []
 	        };
 	
+	        _this.openModal = _this.openModal.bind(_this);
+	        _this.closeModal = _this.closeModal.bind(_this);
+	        _this.tooltipScatter = _this.tooltipScatter.bind(_this);
 	        _this.openGraph = _this.openGraph.bind(_this);
-	        _this.setup = _this.setup.bind(_this);
-	        _this.clear = _this.clear.bind(_this);
-	        _this.showResult = _this.showResult.bind(_this);
 	        return _this;
 	    }
 	
-	    _createClass(GraphicalLabLocalRepository, [{
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("resize", this.updateDimensions);
-	        }
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            this.setState({
-	                records: []
-	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            //this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'showResult',
-	        value: function showResult() {
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                code: 10
-	            };
-	
+	    _createClass(ModelHistoryDialogWithSearch, [{
+	        key: 'openModal',
+	        value: function openModal(model_userid, modelid) {
 	            var self = this;
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/model/list",
-	                type: "post",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                success: function success(response) {
-	                    var modelRecords = [];
+	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	            this.setState({ modalIsOpen: true }, function () {
+	                var data = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken(),
+	                    model_userid: model_userid,
+	                    modelid: modelid,
+	                    code: 10
+	                };
 	
-	                    console.log("local repository");
-	                    console.log(response);
-	                    var _iteratorNormalCompletion = true;
-	                    var _didIteratorError = false;
-	                    var _iteratorError = undefined;
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/model/history",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
 	
-	                    try {
-	                        for (var _iterator = response.body.models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                            var model = _step.value;
+	                        var values = [];
+	                        var records = [];
+	                        var oldestDate = new Date();
 	
-	                            var modelInfo = JSON.parse(model);
-	                            modelRecords.push(modelInfo);
-	                        }
-	                    } catch (err) {
-	                        _didIteratorError = true;
-	                        _iteratorError = err;
-	                    } finally {
-	                        try {
-	                            if (!_iteratorNormalCompletion && _iterator.return) {
-	                                _iterator.return();
+	                        // JSON.parse(response.body.model)
+	                        console.log("success for save");
+	                        console.log(response);
+	
+	                        for (var index in response.body.history) {
+	                            var json = JSON.parse(response.body.history[index]);
+	                            records.push(json);
+	                            var date = new Date(json.time);
+	
+	                            values.push({
+	                                x: date, y: json.info.accuracy
+	                            });
+	
+	                            if (date < oldestDate) {
+	                                oldestDate = date;
 	                            }
-	                        } finally {
-	                            if (_didIteratorError) {
-	                                throw _iteratorError;
+	                        }
+	
+	                        var earliestDate = oldestDate;
+	
+	                        for (var _index in values) {
+	                            if (values[_index].x > earliestDate) {
+	                                earliestDate = values[_index].x;
 	                            }
 	                        }
-	                    }
 	
-	                    console.log("recodes length ? " + modelRecords.length + ",," + modelRecords.size);
-	                    if (modelRecords.length > 0) {
+	                        var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
+	                        var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
+	
 	                        self.setState({
-	                            records: modelRecords
+	                            plotTestHistory: true,
+	                            data: { label: 'test accuracy history', values: values },
+	                            xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                            xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                            records: records
 	                        });
-	                    } else {
-	                        self.context.router.push({
-	                            pathname: '/notFound',
-	                            state: {}
-	                        });
+	
+	                        console.log(self.state.data);
+	                    },
+	                    error: function error(request, status, _error) {
+	                        alert("error");
+	                        console.log(request);
+	                        console.log(status);
+	                        console.log(_error);
 	                    }
-	                },
-	                error: function error(request, status, _error) {
-	                    alert("error");
-	                    console.log(request);
-	                    console.log(status);
-	                    console.log(_error);
-	                }
+	                });
 	            });
 	        }
 	    }, {
-	        key: 'setup',
-	        value: function setup(models) {
-	            var modelRecords = [];
-	            var _iteratorNormalCompletion2 = true;
-	            var _didIteratorError2 = false;
-	            var _iteratorError2 = undefined;
-	
-	            try {
-	                for (var _iterator2 = models[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	                    var modelInfo = _step2.value;
-	
-	                    modelRecords.push(modelInfo);
-	                }
-	            } catch (err) {
-	                _didIteratorError2 = true;
-	                _iteratorError2 = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	                        _iterator2.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError2) {
-	                        throw _iteratorError2;
-	                    }
-	                }
-	            }
-	
-	            this.setState({
-	                records: modelRecords
-	            });
+	        key: 'closeModal',
+	        value: function closeModal() {
+	            this.setState({ modalIsOpen: false });
+	        }
+	    }, {
+	        key: 'tooltipScatter',
+	        value: function tooltipScatter(x, y) {
+	            var n = 2;
+	            return Math.floor(y * Math.pow(10, n)) / Math.pow(10, n) + ".., " + x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate() + " " + x.getHours() + ":" + x.getMinutes();
 	        }
 	    }, {
 	        key: 'openGraph',
 	        value: function openGraph(recordInfo) {
+	            console.log(recordInfo);
+	
 	            var self = this;
 	
-	            if (recordInfo.modelid) {
-	                console.log("open : " + recordInfo.modelid);
+	            if (recordInfo.model.modelid) {
+	                console.log("open : " + recordInfo.model.modelid);
 	                console.log(recordInfo);
 	                var data = {
 	                    companyid: _auth2.default.getCompanyid(),
 	                    userid: _auth2.default.getUserid(),
 	                    token: _auth2.default.getToken(),
 	                    code: 10,
-	                    modelid: recordInfo.modelid,
-	                    datetime: recordInfo.datetime
+	                    modelid: recordInfo.model.modelid,
+	                    datetime: recordInfo.model.datetime
 	                };
 	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
+	                    url: "../commonModules/php/modules/GML.php/gml/model/history/get",
 	                    type: "post",
 	                    data: JSON.stringify(data),
 	                    contentType: 'application/json',
 	                    dataType: "json",
 	                    success: function success(response) {
-	                        self.context.router.push({
-	                            pathname: '/graphLab',
-	                            state: {
-	                                graphInfo: JSON.parse(response.body.model)
-	                            }
-	                        });
+	                        console.log("got graph");
+	                        console.log(response);
+	                        self.props.clear();
+	                        self.props.setup(JSON.parse(response.body.model));
+	                        self.closeModal();
 	                    },
 	                    error: function error(request, status, _error2) {
 	                        alert("error");
 	                        console.log(request);
 	                        console.log(status);
 	                        console.log(_error2);
-	                    }
-	                });
-	            } else {
-	                this.context.router.push({
-	                    pathname: '/graphLab',
-	                    state: {
-	                        graphInfo: recordInfo
 	                    }
 	                });
 	            }
@@ -43616,145 +43616,52 @@
 	
 	            return React.createElement(
 	                'div',
-	                { className: styles.searchResults },
-	                this.state.records.map(function (d, idx) {
-	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
-	                })
+	                null,
+	                React.createElement(
+	                    _reactModal2.default,
+	                    {
+	                        contentLabel: 'Model Property',
+	                        isOpen: this.state.modalIsOpen,
+	                        onAfterOpen: this.afterOpenModal,
+	                        style: customStyles, ref: 'modal' },
+	                    React.createElement(
+	                        'div',
+	                        { className: styles.nodePropertyViewTitle },
+	                        React.createElement(
+	                            'h2',
+	                            { ref: 'subtitle' },
+	                            React.createElement('div', { className: styles.modalTitle }),
+	                            React.createElement(
+	                                'div',
+	                                { onClick: this.closeModal, className: styles.closeButton },
+	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	                            )
+	                        )
+	                    ),
+	                    this.state.plotTestHistory ? React.createElement(_reactD3Components.ScatterPlot, {
+	                        data: this.state.data,
+	                        width: 1000,
+	                        height: 400,
+	                        tooltipHtml: this.tooltipScatter,
+	                        margin: { top: 10, bottom: 50, left: 50, right: 20 },
+	                        xScale: this.state.xScale,
+	                        xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") }
+	                    }) : React.createElement('div', null),
+	                    this.state.records.map(function (d, idx) {
+	                        return React.createElement(_testHistoryRecordLine2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d });
+	                    })
+	                )
 	            );
 	        }
 	    }]);
 	
-	    return GraphicalLabLocalRepository;
+	    return ModelHistoryDialogWithSearch;
 	}(React.Component);
 	
-	exports.default = GraphicalLabLocalRepository;
-	
-	
-	GraphicalLabLocalRepository.contextTypes = {
-	    router: React.PropTypes.object
-	};
+	exports.default = ModelHistoryDialogWithSearch;
 
 /***/ }),
 /* 286 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var React = _interopRequireWildcard(_react);
-	
-	var _reactDom = __webpack_require__(37);
-	
-	var ReactDOM = _interopRequireWildcard(_reactDom);
-	
-	var _reactDropzone = __webpack_require__(276);
-	
-	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-	
-	var _structure = __webpack_require__(248);
-	
-	var styles = _interopRequireWildcard(_structure);
-	
-	var _auth = __webpack_require__(268);
-	
-	var _auth2 = _interopRequireDefault(_auth);
-	
-	var _jquery = __webpack_require__(269);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _loading = __webpack_require__(270);
-	
-	var _loading2 = _interopRequireDefault(_loading);
-	
-	var _modelHistoryDialog = __webpack_require__(329);
-	
-	var _modelHistoryDialog2 = _interopRequireDefault(_modelHistoryDialog);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var GraphLabRecord = function (_React$Component) {
-	    _inherits(GraphLabRecord, _React$Component);
-	
-	    function GraphLabRecord(props) {
-	        _classCallCheck(this, GraphLabRecord);
-	
-	        var _this = _possibleConstructorReturn(this, (GraphLabRecord.__proto__ || Object.getPrototypeOf(GraphLabRecord)).call(this, props));
-	
-	        _this.clickCallBack = _this.clickCallBack.bind(_this);
-	        _this.showHistoryCallBack = _this.showHistoryCallBack.bind(_this);
-	
-	        console.log(_this.props.recordInfo);
-	        return _this;
-	    }
-	
-	    _createClass(GraphLabRecord, [{
-	        key: 'clickCallBack',
-	        value: function clickCallBack() {
-	            this.props.clickCallBack(this.props.recordInfo);
-	        }
-	    }, {
-	        key: 'showHistoryCallBack',
-	        value: function showHistoryCallBack() {
-	            this.refs.modelHistoryDialog.openModal(this.props.recordInfo.userid, this.props.recordInfo.modelid);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: styles.searchResultBox },
-	                React.createElement('img', { src: '../icon/flask.png', className: styles.searchResultBoxFlaskIcon }),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxModelName },
-	                    this.props.recordInfo.modelname
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxModelTag },
-	                    this.props.recordInfo.modeltag
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxTimeStamp },
-	                    this.props.recordInfo.timestamp
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxAlgorithm },
-	                    this.props.recordInfo.algorithm
-	                ),
-	                React.createElement('img', { onClick: this.showHistoryCallBack, src: '../icon/history.png', className: styles.searchResultBoxHistoryIcon }),
-	                React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon }),
-	                React.createElement(_modelHistoryDialog2.default, { ref: 'modelHistoryDialog' })
-	            );
-	        }
-	    }]);
-	
-	    return GraphLabRecord;
-	}(React.Component);
-	
-	exports.default = GraphLabRecord;
-
-/***/ }),
-/* 287 */,
-/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43764,7 +43671,7 @@
 	});
 	exports.d3 = exports.Brush = exports.AreaChart = exports.LineChart = exports.ScatterPlot = exports.PieChart = exports.Waveform = exports.BarChart = undefined;
 	
-	var _BarChart = __webpack_require__(289);
+	var _BarChart = __webpack_require__(287);
 	
 	Object.defineProperty(exports, 'BarChart', {
 	  enumerable: true,
@@ -43773,7 +43680,7 @@
 	  }
 	});
 	
-	var _Waveform = __webpack_require__(302);
+	var _Waveform = __webpack_require__(300);
 	
 	Object.defineProperty(exports, 'Waveform', {
 	  enumerable: true,
@@ -43782,7 +43689,7 @@
 	  }
 	});
 	
-	var _PieChart = __webpack_require__(303);
+	var _PieChart = __webpack_require__(301);
 	
 	Object.defineProperty(exports, 'PieChart', {
 	  enumerable: true,
@@ -43791,7 +43698,7 @@
 	  }
 	});
 	
-	var _ScatterPlot = __webpack_require__(305);
+	var _ScatterPlot = __webpack_require__(303);
 	
 	Object.defineProperty(exports, 'ScatterPlot', {
 	  enumerable: true,
@@ -43800,7 +43707,7 @@
 	  }
 	});
 	
-	var _LineChart = __webpack_require__(306);
+	var _LineChart = __webpack_require__(304);
 	
 	Object.defineProperty(exports, 'LineChart', {
 	  enumerable: true,
@@ -43809,7 +43716,7 @@
 	  }
 	});
 	
-	var _AreaChart = __webpack_require__(308);
+	var _AreaChart = __webpack_require__(306);
 	
 	Object.defineProperty(exports, 'AreaChart', {
 	  enumerable: true,
@@ -43818,7 +43725,7 @@
 	  }
 	});
 	
-	var _Brush = __webpack_require__(309);
+	var _Brush = __webpack_require__(307);
 	
 	Object.defineProperty(exports, 'Brush', {
 	  enumerable: true,
@@ -43827,7 +43734,7 @@
 	  }
 	});
 	
-	var _d2 = __webpack_require__(295);
+	var _d2 = __webpack_require__(293);
 	
 	var _d3 = _interopRequireDefault(_d2);
 	
@@ -43836,7 +43743,7 @@
 	exports.d3 = _d3.default;
 
 /***/ }),
-/* 289 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43859,47 +43766,47 @@
 	
 	var _createReactClass2 = _interopRequireDefault(_createReactClass);
 	
-	var _Chart = __webpack_require__(290);
+	var _Chart = __webpack_require__(288);
 	
 	var _Chart2 = _interopRequireDefault(_Chart);
 	
-	var _Axis = __webpack_require__(291);
+	var _Axis = __webpack_require__(289);
 	
 	var _Axis2 = _interopRequireDefault(_Axis);
 	
-	var _Bar = __webpack_require__(292);
+	var _Bar = __webpack_require__(290);
 	
 	var _Bar2 = _interopRequireDefault(_Bar);
 	
-	var _Tooltip = __webpack_require__(293);
+	var _Tooltip = __webpack_require__(291);
 	
 	var _Tooltip2 = _interopRequireDefault(_Tooltip);
 	
-	var _DefaultPropsMixin = __webpack_require__(294);
+	var _DefaultPropsMixin = __webpack_require__(292);
 	
 	var _DefaultPropsMixin2 = _interopRequireDefault(_DefaultPropsMixin);
 	
-	var _HeightWidthMixin = __webpack_require__(296);
+	var _HeightWidthMixin = __webpack_require__(294);
 	
 	var _HeightWidthMixin2 = _interopRequireDefault(_HeightWidthMixin);
 	
-	var _ArrayifyMixin = __webpack_require__(297);
+	var _ArrayifyMixin = __webpack_require__(295);
 	
 	var _ArrayifyMixin2 = _interopRequireDefault(_ArrayifyMixin);
 	
-	var _StackAccessorMixin = __webpack_require__(298);
+	var _StackAccessorMixin = __webpack_require__(296);
 	
 	var _StackAccessorMixin2 = _interopRequireDefault(_StackAccessorMixin);
 	
-	var _StackDataMixin = __webpack_require__(299);
+	var _StackDataMixin = __webpack_require__(297);
 	
 	var _StackDataMixin2 = _interopRequireDefault(_StackDataMixin);
 	
-	var _DefaultScalesMixin = __webpack_require__(300);
+	var _DefaultScalesMixin = __webpack_require__(298);
 	
 	var _DefaultScalesMixin2 = _interopRequireDefault(_DefaultScalesMixin);
 	
-	var _TooltipMixin = __webpack_require__(301);
+	var _TooltipMixin = __webpack_require__(299);
 	
 	var _TooltipMixin2 = _interopRequireDefault(_TooltipMixin);
 	
@@ -44096,7 +44003,7 @@
 	exports.default = BarChart;
 
 /***/ }),
-/* 290 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44162,7 +44069,7 @@
 	exports.default = Chart;
 
 /***/ }),
-/* 291 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44397,7 +44304,7 @@
 	exports.default = Axis;
 
 /***/ }),
-/* 292 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44474,7 +44381,7 @@
 	exports.default = Bar;
 
 /***/ }),
-/* 293 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44548,7 +44455,7 @@
 	exports.default = Tooltip;
 
 /***/ }),
-/* 294 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44561,7 +44468,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _d = __webpack_require__(295);
+	var _d = __webpack_require__(293);
 	
 	var _d2 = _interopRequireDefault(_d);
 	
@@ -44605,7 +44512,7 @@
 	exports.default = DefaultPropsMixin;
 
 /***/ }),
-/* 295 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -54164,7 +54071,7 @@
 	}();
 
 /***/ }),
-/* 296 */
+/* 294 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -54193,7 +54100,7 @@
 	exports.default = HeightWidthMixin;
 
 /***/ }),
-/* 297 */
+/* 295 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -54225,7 +54132,7 @@
 	exports.default = ArrayifyMixin;
 
 /***/ }),
-/* 298 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54276,7 +54183,7 @@
 	exports.default = StackAccessorMixin;
 
 /***/ }),
-/* 299 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54289,7 +54196,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _d = __webpack_require__(295);
+	var _d = __webpack_require__(293);
 	
 	var _d2 = _interopRequireDefault(_d);
 	
@@ -54347,7 +54254,7 @@
 	exports.default = StackDataMixin;
 
 /***/ }),
-/* 300 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54362,7 +54269,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _d2 = __webpack_require__(295);
+	var _d2 = __webpack_require__(293);
 	
 	var _d3 = _interopRequireDefault(_d2);
 	
@@ -54525,7 +54432,7 @@
 	exports.default = DefaultScalesMixin;
 
 /***/ }),
-/* 301 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54668,7 +54575,7 @@
 	exports.default = TooltipMixin;
 
 /***/ }),
-/* 302 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54689,39 +54596,39 @@
 	
 	var _createReactClass2 = _interopRequireDefault(_createReactClass);
 	
-	var _Chart = __webpack_require__(290);
+	var _Chart = __webpack_require__(288);
 	
 	var _Chart2 = _interopRequireDefault(_Chart);
 	
-	var _Bar = __webpack_require__(292);
+	var _Bar = __webpack_require__(290);
 	
 	var _Bar2 = _interopRequireDefault(_Bar);
 	
-	var _DefaultPropsMixin = __webpack_require__(294);
+	var _DefaultPropsMixin = __webpack_require__(292);
 	
 	var _DefaultPropsMixin2 = _interopRequireDefault(_DefaultPropsMixin);
 	
-	var _HeightWidthMixin = __webpack_require__(296);
+	var _HeightWidthMixin = __webpack_require__(294);
 	
 	var _HeightWidthMixin2 = _interopRequireDefault(_HeightWidthMixin);
 	
-	var _ArrayifyMixin = __webpack_require__(297);
+	var _ArrayifyMixin = __webpack_require__(295);
 	
 	var _ArrayifyMixin2 = _interopRequireDefault(_ArrayifyMixin);
 	
-	var _StackAccessorMixin = __webpack_require__(298);
+	var _StackAccessorMixin = __webpack_require__(296);
 	
 	var _StackAccessorMixin2 = _interopRequireDefault(_StackAccessorMixin);
 	
-	var _StackDataMixin = __webpack_require__(299);
+	var _StackDataMixin = __webpack_require__(297);
 	
 	var _StackDataMixin2 = _interopRequireDefault(_StackDataMixin);
 	
-	var _DefaultScalesMixin = __webpack_require__(300);
+	var _DefaultScalesMixin = __webpack_require__(298);
 	
 	var _DefaultScalesMixin2 = _interopRequireDefault(_DefaultScalesMixin);
 	
-	var _TooltipMixin = __webpack_require__(301);
+	var _TooltipMixin = __webpack_require__(299);
 	
 	var _TooltipMixin2 = _interopRequireDefault(_TooltipMixin);
 	
@@ -54912,7 +54819,7 @@
 	exports.default = Waveform;
 
 /***/ }),
-/* 303 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54933,31 +54840,31 @@
 	
 	var _createReactClass2 = _interopRequireDefault(_createReactClass);
 	
-	var _d = __webpack_require__(295);
+	var _d = __webpack_require__(293);
 	
 	var _d2 = _interopRequireDefault(_d);
 	
-	var _Chart = __webpack_require__(290);
+	var _Chart = __webpack_require__(288);
 	
 	var _Chart2 = _interopRequireDefault(_Chart);
 	
-	var _Tooltip = __webpack_require__(293);
+	var _Tooltip = __webpack_require__(291);
 	
 	var _Tooltip2 = _interopRequireDefault(_Tooltip);
 	
-	var _DefaultPropsMixin = __webpack_require__(294);
+	var _DefaultPropsMixin = __webpack_require__(292);
 	
 	var _DefaultPropsMixin2 = _interopRequireDefault(_DefaultPropsMixin);
 	
-	var _HeightWidthMixin = __webpack_require__(296);
+	var _HeightWidthMixin = __webpack_require__(294);
 	
 	var _HeightWidthMixin2 = _interopRequireDefault(_HeightWidthMixin);
 	
-	var _AccessorMixin = __webpack_require__(304);
+	var _AccessorMixin = __webpack_require__(302);
 	
 	var _AccessorMixin2 = _interopRequireDefault(_AccessorMixin);
 	
-	var _TooltipMixin = __webpack_require__(301);
+	var _TooltipMixin = __webpack_require__(299);
 	
 	var _TooltipMixin2 = _interopRequireDefault(_TooltipMixin);
 	
@@ -55229,7 +55136,7 @@
 	exports.default = PieChart;
 
 /***/ }),
-/* 304 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55280,7 +55187,7 @@
 	exports.default = AccessorMixin;
 
 /***/ }),
-/* 305 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55303,43 +55210,43 @@
 	
 	var _createReactClass2 = _interopRequireDefault(_createReactClass);
 	
-	var _d = __webpack_require__(295);
+	var _d = __webpack_require__(293);
 	
 	var _d2 = _interopRequireDefault(_d);
 	
-	var _Chart = __webpack_require__(290);
+	var _Chart = __webpack_require__(288);
 	
 	var _Chart2 = _interopRequireDefault(_Chart);
 	
-	var _Axis = __webpack_require__(291);
+	var _Axis = __webpack_require__(289);
 	
 	var _Axis2 = _interopRequireDefault(_Axis);
 	
-	var _Tooltip = __webpack_require__(293);
+	var _Tooltip = __webpack_require__(291);
 	
 	var _Tooltip2 = _interopRequireDefault(_Tooltip);
 	
-	var _DefaultPropsMixin = __webpack_require__(294);
+	var _DefaultPropsMixin = __webpack_require__(292);
 	
 	var _DefaultPropsMixin2 = _interopRequireDefault(_DefaultPropsMixin);
 	
-	var _HeightWidthMixin = __webpack_require__(296);
+	var _HeightWidthMixin = __webpack_require__(294);
 	
 	var _HeightWidthMixin2 = _interopRequireDefault(_HeightWidthMixin);
 	
-	var _ArrayifyMixin = __webpack_require__(297);
+	var _ArrayifyMixin = __webpack_require__(295);
 	
 	var _ArrayifyMixin2 = _interopRequireDefault(_ArrayifyMixin);
 	
-	var _AccessorMixin = __webpack_require__(304);
+	var _AccessorMixin = __webpack_require__(302);
 	
 	var _AccessorMixin2 = _interopRequireDefault(_AccessorMixin);
 	
-	var _DefaultScalesMixin = __webpack_require__(300);
+	var _DefaultScalesMixin = __webpack_require__(298);
 	
 	var _DefaultScalesMixin2 = _interopRequireDefault(_DefaultScalesMixin);
 	
-	var _TooltipMixin = __webpack_require__(301);
+	var _TooltipMixin = __webpack_require__(299);
 	
 	var _TooltipMixin2 = _interopRequireDefault(_TooltipMixin);
 	
@@ -55506,7 +55413,7 @@
 	exports.default = ScatterPlot;
 
 /***/ }),
-/* 306 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55529,47 +55436,47 @@
 	
 	var _createReactClass2 = _interopRequireDefault(_createReactClass);
 	
-	var _d = __webpack_require__(295);
+	var _d = __webpack_require__(293);
 	
 	var _d2 = _interopRequireDefault(_d);
 	
-	var _Chart = __webpack_require__(290);
+	var _Chart = __webpack_require__(288);
 	
 	var _Chart2 = _interopRequireDefault(_Chart);
 	
-	var _Axis = __webpack_require__(291);
+	var _Axis = __webpack_require__(289);
 	
 	var _Axis2 = _interopRequireDefault(_Axis);
 	
-	var _Path = __webpack_require__(307);
+	var _Path = __webpack_require__(305);
 	
 	var _Path2 = _interopRequireDefault(_Path);
 	
-	var _Tooltip = __webpack_require__(293);
+	var _Tooltip = __webpack_require__(291);
 	
 	var _Tooltip2 = _interopRequireDefault(_Tooltip);
 	
-	var _DefaultPropsMixin = __webpack_require__(294);
+	var _DefaultPropsMixin = __webpack_require__(292);
 	
 	var _DefaultPropsMixin2 = _interopRequireDefault(_DefaultPropsMixin);
 	
-	var _HeightWidthMixin = __webpack_require__(296);
+	var _HeightWidthMixin = __webpack_require__(294);
 	
 	var _HeightWidthMixin2 = _interopRequireDefault(_HeightWidthMixin);
 	
-	var _ArrayifyMixin = __webpack_require__(297);
+	var _ArrayifyMixin = __webpack_require__(295);
 	
 	var _ArrayifyMixin2 = _interopRequireDefault(_ArrayifyMixin);
 	
-	var _AccessorMixin = __webpack_require__(304);
+	var _AccessorMixin = __webpack_require__(302);
 	
 	var _AccessorMixin2 = _interopRequireDefault(_AccessorMixin);
 	
-	var _DefaultScalesMixin = __webpack_require__(300);
+	var _DefaultScalesMixin = __webpack_require__(298);
 	
 	var _DefaultScalesMixin2 = _interopRequireDefault(_DefaultScalesMixin);
 	
-	var _TooltipMixin = __webpack_require__(301);
+	var _TooltipMixin = __webpack_require__(299);
 	
 	var _TooltipMixin2 = _interopRequireDefault(_TooltipMixin);
 	
@@ -55917,7 +55824,7 @@
 	exports.default = LineChart;
 
 /***/ }),
-/* 307 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56004,7 +55911,7 @@
 	exports.default = Path;
 
 /***/ }),
-/* 308 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56027,51 +55934,51 @@
 	
 	var _createReactClass2 = _interopRequireDefault(_createReactClass);
 	
-	var _d = __webpack_require__(295);
+	var _d = __webpack_require__(293);
 	
 	var _d2 = _interopRequireDefault(_d);
 	
-	var _Chart = __webpack_require__(290);
+	var _Chart = __webpack_require__(288);
 	
 	var _Chart2 = _interopRequireDefault(_Chart);
 	
-	var _Axis = __webpack_require__(291);
+	var _Axis = __webpack_require__(289);
 	
 	var _Axis2 = _interopRequireDefault(_Axis);
 	
-	var _Path = __webpack_require__(307);
+	var _Path = __webpack_require__(305);
 	
 	var _Path2 = _interopRequireDefault(_Path);
 	
-	var _Tooltip = __webpack_require__(293);
+	var _Tooltip = __webpack_require__(291);
 	
 	var _Tooltip2 = _interopRequireDefault(_Tooltip);
 	
-	var _DefaultPropsMixin = __webpack_require__(294);
+	var _DefaultPropsMixin = __webpack_require__(292);
 	
 	var _DefaultPropsMixin2 = _interopRequireDefault(_DefaultPropsMixin);
 	
-	var _HeightWidthMixin = __webpack_require__(296);
+	var _HeightWidthMixin = __webpack_require__(294);
 	
 	var _HeightWidthMixin2 = _interopRequireDefault(_HeightWidthMixin);
 	
-	var _ArrayifyMixin = __webpack_require__(297);
+	var _ArrayifyMixin = __webpack_require__(295);
 	
 	var _ArrayifyMixin2 = _interopRequireDefault(_ArrayifyMixin);
 	
-	var _StackAccessorMixin = __webpack_require__(298);
+	var _StackAccessorMixin = __webpack_require__(296);
 	
 	var _StackAccessorMixin2 = _interopRequireDefault(_StackAccessorMixin);
 	
-	var _StackDataMixin = __webpack_require__(299);
+	var _StackDataMixin = __webpack_require__(297);
 	
 	var _StackDataMixin2 = _interopRequireDefault(_StackDataMixin);
 	
-	var _DefaultScalesMixin = __webpack_require__(300);
+	var _DefaultScalesMixin = __webpack_require__(298);
 	
 	var _DefaultScalesMixin2 = _interopRequireDefault(_DefaultScalesMixin);
 	
-	var _TooltipMixin = __webpack_require__(301);
+	var _TooltipMixin = __webpack_require__(299);
 	
 	var _TooltipMixin2 = _interopRequireDefault(_TooltipMixin);
 	
@@ -56271,7 +56178,7 @@
 	exports.default = AreaChart;
 
 /***/ }),
-/* 309 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56294,15 +56201,15 @@
 	
 	var _createReactClass2 = _interopRequireDefault(_createReactClass);
 	
-	var _Chart = __webpack_require__(290);
+	var _Chart = __webpack_require__(288);
 	
 	var _Chart2 = _interopRequireDefault(_Chart);
 	
-	var _Axis = __webpack_require__(291);
+	var _Axis = __webpack_require__(289);
 	
 	var _Axis2 = _interopRequireDefault(_Axis);
 	
-	var _HeightWidthMixin = __webpack_require__(296);
+	var _HeightWidthMixin = __webpack_require__(294);
 	
 	var _HeightWidthMixin2 = _interopRequireDefault(_HeightWidthMixin);
 	
@@ -56629,6 +56536,374 @@
 	exports.default = Brush;
 
 /***/ }),
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _reactDropzone = __webpack_require__(276);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _loading = __webpack_require__(270);
+	
+	var _loading2 = _interopRequireDefault(_loading);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TestHistoryRecordLine = function (_React$Component) {
+	    _inherits(TestHistoryRecordLine, _React$Component);
+	
+	    function TestHistoryRecordLine(props) {
+	        _classCallCheck(this, TestHistoryRecordLine);
+	
+	        var _this = _possibleConstructorReturn(this, (TestHistoryRecordLine.__proto__ || Object.getPrototypeOf(TestHistoryRecordLine)).call(this, props));
+	
+	        _this.clickCallBack = _this.clickCallBack.bind(_this);
+	
+	        return _this;
+	    }
+	
+	    _createClass(TestHistoryRecordLine, [{
+	        key: 'clickCallBack',
+	        value: function clickCallBack() {
+	            this.props.clickCallBack(this.props.recordInfo);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                { className: styles.searchResultBoxHistory },
+	                React.createElement('img', { src: '../icon/flask.png', className: styles.searchResultBoxFlaskIcon }),
+	                React.createElement(
+	                    'span',
+	                    { className: styles.searchResultBoxTimeStamp },
+	                    this.props.recordInfo.model.timestamp
+	                ),
+	                React.createElement(
+	                    'span',
+	                    { className: styles.searchResultBoxAlgorithm },
+	                    this.props.recordInfo.model.algorithm
+	                ),
+	                React.createElement(
+	                    'span',
+	                    { className: styles.searchResultBoxAlgorithm },
+	                    this.props.recordInfo.info.accuracy
+	                ),
+	                React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon })
+	            );
+	        }
+	    }]);
+	
+	    return TestHistoryRecordLine;
+	}(React.Component);
+	
+	exports.default = TestHistoryRecordLine;
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _reactDropzone = __webpack_require__(276);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _loading = __webpack_require__(270);
+	
+	var _loading2 = _interopRequireDefault(_loading);
+	
+	var _graphLabRecord = __webpack_require__(310);
+	
+	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
+	
+	var _reactRouter = __webpack_require__(184);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
+	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
+	var GraphicalLabLocalRepository = function (_React$Component) {
+	    _inherits(GraphicalLabLocalRepository, _React$Component);
+	
+	    function GraphicalLabLocalRepository(props) {
+	        _classCallCheck(this, GraphicalLabLocalRepository);
+	
+	        var _this = _possibleConstructorReturn(this, (GraphicalLabLocalRepository.__proto__ || Object.getPrototypeOf(GraphicalLabLocalRepository)).call(this, props));
+	
+	        _this.state = {
+	            records: [],
+	            notFound: false
+	        };
+	
+	        _this.openGraph = _this.openGraph.bind(_this);
+	        _this.setup = _this.setup.bind(_this);
+	        _this.clear = _this.clear.bind(_this);
+	        _this.showResult = _this.showResult.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(GraphicalLabLocalRepository, [{
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            window.removeEventListener("resize", this.updateDimensions);
+	        }
+	    }, {
+	        key: 'clear',
+	        value: function clear() {
+	            this.setState({
+	                records: []
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            //this.clear();
+	            this.showResult();
+	        }
+	    }, {
+	        key: 'showResult',
+	        value: function showResult() {
+	            var data = {
+	                companyid: _auth2.default.getCompanyid(),
+	                userid: _auth2.default.getUserid(),
+	                token: _auth2.default.getToken(),
+	                code: 10
+	            };
+	
+	            var self = this;
+	            _jquery2.default.ajax({
+	                url: "../commonModules/php/modules/GML.php/gml/model/list",
+	                type: "post",
+	                data: JSON.stringify(data),
+	                contentType: 'application/json',
+	                dataType: "json",
+	                success: function success(response) {
+	                    var modelRecords = [];
+	
+	                    console.log("local repository");
+	                    console.log(response);
+	                    var _iteratorNormalCompletion = true;
+	                    var _didIteratorError = false;
+	                    var _iteratorError = undefined;
+	
+	                    try {
+	                        for (var _iterator = response.body.models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                            var model = _step.value;
+	
+	                            var modelInfo = JSON.parse(model);
+	                            modelRecords.push(modelInfo);
+	                        }
+	                    } catch (err) {
+	                        _didIteratorError = true;
+	                        _iteratorError = err;
+	                    } finally {
+	                        try {
+	                            if (!_iteratorNormalCompletion && _iterator.return) {
+	                                _iterator.return();
+	                            }
+	                        } finally {
+	                            if (_didIteratorError) {
+	                                throw _iteratorError;
+	                            }
+	                        }
+	                    }
+	
+	                    console.log("recodes length ? " + modelRecords.length + ",," + modelRecords.size);
+	                    if (modelRecords.length > 0) {
+	                        self.setState({
+	                            records: modelRecords
+	                        });
+	                    } else {
+	                        self.context.router.push({
+	                            pathname: '/notFound',
+	                            state: {}
+	                        });
+	                    }
+	                },
+	                error: function error(request, status, _error) {
+	                    alert("error");
+	                    console.log(request);
+	                    console.log(status);
+	                    console.log(_error);
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'setup',
+	        value: function setup(models) {
+	            var modelRecords = [];
+	            var _iteratorNormalCompletion2 = true;
+	            var _didIteratorError2 = false;
+	            var _iteratorError2 = undefined;
+	
+	            try {
+	                for (var _iterator2 = models[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                    var modelInfo = _step2.value;
+	
+	                    modelRecords.push(modelInfo);
+	                }
+	            } catch (err) {
+	                _didIteratorError2 = true;
+	                _iteratorError2 = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	                        _iterator2.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError2) {
+	                        throw _iteratorError2;
+	                    }
+	                }
+	            }
+	
+	            this.setState({
+	                records: modelRecords
+	            });
+	        }
+	    }, {
+	        key: 'openGraph',
+	        value: function openGraph(recordInfo) {
+	            var self = this;
+	
+	            if (recordInfo.modelid) {
+	                console.log("open : " + recordInfo.modelid);
+	                console.log(recordInfo);
+	                var data = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken(),
+	                    code: 10,
+	                    modelid: recordInfo.modelid,
+	                    datetime: recordInfo.datetime
+	                };
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
+	                        self.context.router.push({
+	                            pathname: '/graphLab',
+	                            state: {
+	                                graphInfo: JSON.parse(response.body.model)
+	                            }
+	                        });
+	                    },
+	                    error: function error(request, status, _error2) {
+	                        alert("error");
+	                        console.log(request);
+	                        console.log(status);
+	                        console.log(_error2);
+	                    }
+	                });
+	            } else {
+	                this.context.router.push({
+	                    pathname: '/graphLab',
+	                    state: {
+	                        graphInfo: recordInfo
+	                    }
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+	
+	            return React.createElement(
+	                'div',
+	                { className: styles.searchResults },
+	                this.state.records.map(function (d, idx) {
+	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
+	                })
+	            );
+	        }
+	    }]);
+	
+	    return GraphicalLabLocalRepository;
+	}(React.Component);
+	
+	exports.default = GraphicalLabLocalRepository;
+	
+	
+	GraphicalLabLocalRepository.contextTypes = {
+	    router: React.PropTypes.object
+	};
+
+/***/ }),
 /* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -56668,7 +56943,341 @@
 	
 	var _loading2 = _interopRequireDefault(_loading);
 	
-	var _graphLabRecord = __webpack_require__(286);
+	var _modelHistoryDialog = __webpack_require__(311);
+	
+	var _modelHistoryDialog2 = _interopRequireDefault(_modelHistoryDialog);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var GraphLabRecord = function (_React$Component) {
+	    _inherits(GraphLabRecord, _React$Component);
+	
+	    function GraphLabRecord(props) {
+	        _classCallCheck(this, GraphLabRecord);
+	
+	        var _this = _possibleConstructorReturn(this, (GraphLabRecord.__proto__ || Object.getPrototypeOf(GraphLabRecord)).call(this, props));
+	
+	        _this.clickCallBack = _this.clickCallBack.bind(_this);
+	        _this.showHistoryCallBack = _this.showHistoryCallBack.bind(_this);
+	
+	        console.log(_this.props.recordInfo);
+	        return _this;
+	    }
+	
+	    _createClass(GraphLabRecord, [{
+	        key: 'clickCallBack',
+	        value: function clickCallBack() {
+	            this.props.clickCallBack(this.props.recordInfo);
+	        }
+	    }, {
+	        key: 'showHistoryCallBack',
+	        value: function showHistoryCallBack() {
+	            this.refs.modelHistoryDialog.openModal(this.props.recordInfo.userid, this.props.recordInfo.modelid);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                { className: styles.searchResultBox },
+	                React.createElement('img', { src: '../icon/flask.png', className: styles.searchResultBoxFlaskIcon }),
+	                React.createElement(
+	                    'span',
+	                    { className: styles.searchResultBoxModelName },
+	                    this.props.recordInfo.modelname
+	                ),
+	                React.createElement(
+	                    'span',
+	                    { className: styles.searchResultBoxModelTag },
+	                    this.props.recordInfo.modeltag
+	                ),
+	                React.createElement(
+	                    'span',
+	                    { className: styles.searchResultBoxTimeStamp },
+	                    this.props.recordInfo.timestamp
+	                ),
+	                React.createElement(
+	                    'span',
+	                    { className: styles.searchResultBoxAlgorithm },
+	                    this.props.recordInfo.algorithm
+	                ),
+	                React.createElement('img', { onClick: this.showHistoryCallBack, src: '../icon/history.png', className: styles.searchResultBoxHistoryIcon }),
+	                React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon }),
+	                React.createElement(_modelHistoryDialog2.default, { ref: 'modelHistoryDialog' })
+	            );
+	        }
+	    }]);
+	
+	    return GraphLabRecord;
+	}(React.Component);
+	
+	exports.default = GraphLabRecord;
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _reactModal = __webpack_require__(253);
+	
+	var _reactModal2 = _interopRequireDefault(_reactModal);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _reactD3Components = __webpack_require__(286);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var customStyles = {
+	    content: {
+	        top: '50%',
+	        left: '50%',
+	        right: 'auto',
+	        bottom: 'auto',
+	        marginRight: '-50%',
+	        transform: 'translate(-50%, -50%)',
+	        height: '500px',
+	        width: '800px'
+	    }
+	};
+	
+	var ModelHistoryDialog = function (_React$Component) {
+	    _inherits(ModelHistoryDialog, _React$Component);
+	
+	    function ModelHistoryDialog(props) {
+	        _classCallCheck(this, ModelHistoryDialog);
+	
+	        var _this = _possibleConstructorReturn(this, (ModelHistoryDialog.__proto__ || Object.getPrototypeOf(ModelHistoryDialog)).call(this, props));
+	
+	        _this.state = {
+	            modalIsOpen: false,
+	            plotTestHistory: false
+	
+	        };
+	
+	        _this.openModal = _this.openModal.bind(_this);
+	        _this.closeModal = _this.closeModal.bind(_this);
+	        _this.tooltipScatter = _this.tooltipScatter.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(ModelHistoryDialog, [{
+	        key: 'openModal',
+	        value: function openModal(model_userid, modelid) {
+	            var self = this;
+	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	            this.setState({ modalIsOpen: true }, function () {
+	                alert("opened history modal : " + modelid);
+	                var data = {
+	                    companyid: _auth2.default.getCompanyid(),
+	                    userid: _auth2.default.getUserid(),
+	                    token: _auth2.default.getToken(),
+	                    model_userid: model_userid,
+	                    modelid: modelid,
+	                    code: 10
+	                };
+	
+	                _jquery2.default.ajax({
+	                    url: "../commonModules/php/modules/GML.php/gml/model/history",
+	                    type: "post",
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    dataType: "json",
+	                    success: function success(response) {
+	
+	                        var values = [];
+	                        var oldestDate = new Date();
+	
+	                        // JSON.parse(response.body.model)
+	                        console.log("success for save");
+	                        console.log(response);
+	
+	                        for (var index in response.body.history) {
+	                            var json = JSON.parse(response.body.history[index]);
+	                            var date = new Date(json.time);
+	                            values.push({
+	                                x: date, y: json.info.accuracy
+	                            });
+	
+	                            if (date < oldestDate) {
+	                                oldestDate = date;
+	                            }
+	                        }
+	
+	                        var earliestDate = oldestDate;
+	
+	                        for (var _index in values) {
+	                            if (values[_index].x > earliestDate) {
+	                                earliestDate = values[_index].x;
+	                            }
+	                        }
+	
+	                        console.log("values");
+	                        console.log(values);
+	
+	                        console.log(earliestDate);
+	                        console.log(oldestDate);
+	
+	                        var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
+	                        var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
+	
+	                        self.setState({
+	                            plotTestHistory: true,
+	                            data: { label: 'test accuracy history', values: values },
+	                            xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                            xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
+	                        });
+	
+	                        console.log(self.state.data);
+	                    },
+	                    error: function error(request, status, _error) {
+	                        alert("error");
+	                        console.log(request);
+	                        console.log(status);
+	                        console.log(_error);
+	                    }
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'closeModal',
+	        value: function closeModal() {
+	            this.setState({ modalIsOpen: false });
+	        }
+	    }, {
+	        key: 'tooltipScatter',
+	        value: function tooltipScatter(x, y) {
+	            var n = 2;
+	            return Math.floor(y * Math.pow(10, n)) / Math.pow(10, n) + ".., " + x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate() + " " + x.getHours() + ":" + x.getMinutes();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                    _reactModal2.default,
+	                    {
+	                        contentLabel: 'Model Property',
+	                        isOpen: this.state.modalIsOpen,
+	                        onAfterOpen: this.afterOpenModal,
+	                        style: customStyles, ref: 'modal' },
+	                    React.createElement(
+	                        'div',
+	                        { className: styles.nodePropertyViewTitle },
+	                        React.createElement(
+	                            'h2',
+	                            { ref: 'subtitle' },
+	                            React.createElement('div', { className: styles.modalTitle }),
+	                            React.createElement(
+	                                'div',
+	                                { onClick: this.closeModal, className: styles.closeButton },
+	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	                            )
+	                        )
+	                    ),
+	                    this.state.plotTestHistory ? React.createElement(_reactD3Components.ScatterPlot, {
+	                        data: this.state.data,
+	                        width: 1000,
+	                        height: 400,
+	                        tooltipHtml: this.tooltipScatter,
+	                        margin: { top: 10, bottom: 50, left: 50, right: 20 },
+	                        xScale: this.state.xScale,
+	                        xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") }
+	                    }) : React.createElement('div', null)
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return ModelHistoryDialog;
+	}(React.Component);
+	
+	exports.default = ModelHistoryDialog;
+
+/***/ }),
+/* 312 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _reactDropzone = __webpack_require__(276);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
+	var _structure = __webpack_require__(248);
+	
+	var styles = _interopRequireWildcard(_structure);
+	
+	var _auth = __webpack_require__(268);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _jquery = __webpack_require__(269);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _loading = __webpack_require__(270);
+	
+	var _loading2 = _interopRequireDefault(_loading);
+	
+	var _graphLabRecord = __webpack_require__(310);
 	
 	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
 	
@@ -56830,7 +57439,7 @@
 	};
 
 /***/ }),
-/* 311 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56869,7 +57478,7 @@
 	
 	var _loading2 = _interopRequireDefault(_loading);
 	
-	var _graphLabRecord = __webpack_require__(286);
+	var _graphLabRecord = __webpack_require__(310);
 	
 	var _graphLabRecord2 = _interopRequireDefault(_graphLabRecord);
 	
@@ -57031,7 +57640,7 @@
 	};
 
 /***/ }),
-/* 312 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57120,7 +57729,7 @@
 	exports.default = WebExploration;
 
 /***/ }),
-/* 313 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57203,7 +57812,7 @@
 	exports.default = SocialConnect;
 
 /***/ }),
-/* 314 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57526,7 +58135,7 @@
 	exports.default = AccountManagementIndividual;
 
 /***/ }),
-/* 315 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57684,7 +58293,7 @@
 	exports.default = AccountManagement;
 
 /***/ }),
-/* 316 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57838,7 +58447,7 @@
 	exports.default = CompanyRegistration;
 
 /***/ }),
-/* 317 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57865,7 +58474,7 @@
 	
 	var _reactModal2 = _interopRequireDefault(_reactModal);
 	
-	var _chatBox = __webpack_require__(318);
+	var _chatBox = __webpack_require__(320);
 	
 	var _chatBox2 = _interopRequireDefault(_chatBox);
 	
@@ -57921,7 +58530,7 @@
 	exports.default = Top;
 
 /***/ }),
-/* 318 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57936,15 +58545,15 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _chatbox = __webpack_require__(319);
+	var _chatbox = __webpack_require__(321);
 	
 	var styles = _interopRequireWildcard(_chatbox);
 	
-	var _chatElement = __webpack_require__(321);
+	var _chatElement = __webpack_require__(323);
 	
 	var _chatElement2 = _interopRequireDefault(_chatElement);
 	
-	var _chatWritingElement = __webpack_require__(322);
+	var _chatWritingElement = __webpack_require__(324);
 	
 	var _chatWritingElement2 = _interopRequireDefault(_chatWritingElement);
 	
@@ -58040,13 +58649,13 @@
 	exports.default = ChatBox;
 
 /***/ }),
-/* 319 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(320);
+	var content = __webpack_require__(322);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(251)(content, {});
@@ -58066,7 +58675,7 @@
 	}
 
 /***/ }),
-/* 320 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(250)();
@@ -58090,7 +58699,7 @@
 	};
 
 /***/ }),
-/* 321 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58105,11 +58714,11 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _chatbox = __webpack_require__(319);
+	var _chatbox = __webpack_require__(321);
 	
 	var styles = _interopRequireWildcard(_chatbox);
 	
-	var _chatWritingElement = __webpack_require__(322);
+	var _chatWritingElement = __webpack_require__(324);
 	
 	var _chatWritingElement2 = _interopRequireDefault(_chatWritingElement);
 	
@@ -58166,7 +58775,7 @@
 	exports.default = ChatElement;
 
 /***/ }),
-/* 322 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58181,7 +58790,7 @@
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _chatbox = __webpack_require__(319);
+	var _chatbox = __webpack_require__(321);
 	
 	var styles = _interopRequireWildcard(_chatbox);
 	
@@ -58221,7 +58830,7 @@
 	exports.default = ChatWritingElement;
 
 /***/ }),
-/* 323 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58298,7 +58907,7 @@
 	};
 
 /***/ }),
-/* 324 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58317,13 +58926,13 @@
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _top = __webpack_require__(317);
+	var _top = __webpack_require__(319);
 	
 	var _top2 = _interopRequireDefault(_top);
 	
 	var _reactRouter = __webpack_require__(184);
 	
-	var _reactSticky = __webpack_require__(325);
+	var _reactSticky = __webpack_require__(327);
 	
 	var _structure = __webpack_require__(248);
 	
@@ -58703,7 +59312,7 @@
 	};
 
 /***/ }),
-/* 325 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58713,15 +59322,15 @@
 	});
 	exports.Channel = exports.StickyContainer = exports.Sticky = undefined;
 	
-	var _sticky = __webpack_require__(326);
+	var _sticky = __webpack_require__(328);
 	
 	var _sticky2 = _interopRequireDefault(_sticky);
 	
-	var _container = __webpack_require__(327);
+	var _container = __webpack_require__(329);
 	
 	var _container2 = _interopRequireDefault(_container);
 	
-	var _channel = __webpack_require__(328);
+	var _channel = __webpack_require__(330);
 	
 	var _channel2 = _interopRequireDefault(_channel);
 	
@@ -58733,7 +59342,7 @@
 	exports.default = _sticky2.default;
 
 /***/ }),
-/* 326 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59006,7 +59615,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 327 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59029,7 +59638,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _channel = __webpack_require__(328);
+	var _channel = __webpack_require__(330);
 	
 	var _channel2 = _interopRequireDefault(_channel);
 	
@@ -59115,7 +59724,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 328 */
+/* 330 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -59151,245 +59760,6 @@
 	
 	exports.default = Channel;
 	module.exports = exports['default'];
-
-/***/ }),
-/* 329 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var React = _interopRequireWildcard(_react);
-	
-	var _reactDom = __webpack_require__(37);
-	
-	var ReactDOM = _interopRequireWildcard(_reactDom);
-	
-	var _reactModal = __webpack_require__(253);
-	
-	var _reactModal2 = _interopRequireDefault(_reactModal);
-	
-	var _auth = __webpack_require__(268);
-	
-	var _auth2 = _interopRequireDefault(_auth);
-	
-	var _jquery = __webpack_require__(269);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _structure = __webpack_require__(248);
-	
-	var styles = _interopRequireWildcard(_structure);
-	
-	var _reactD3Components = __webpack_require__(288);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '400px',
-	        width: '600px'
-	    }
-	};
-	
-	var ModelHistoryDialog = function (_React$Component) {
-	    _inherits(ModelHistoryDialog, _React$Component);
-	
-	    function ModelHistoryDialog(props) {
-	        _classCallCheck(this, ModelHistoryDialog);
-	
-	        var _this = _possibleConstructorReturn(this, (ModelHistoryDialog.__proto__ || Object.getPrototypeOf(ModelHistoryDialog)).call(this, props));
-	
-	        _this.state = {
-	            modalIsOpen: false,
-	            plotTestHistory: false
-	
-	        };
-	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(ModelHistoryDialog, [{
-	        key: 'openModal',
-	        value: function openModal(model_userid, modelid) {
-	            var self = this;
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true }, function () {
-	                alert("opened history modal : " + modelid);
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    model_userid: model_userid,
-	                    modelid: modelid,
-	                    code: 10
-	                };
-	
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/history",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
-	                    success: function success(response) {
-	
-	                        var values = [];
-	                        var oldestDate = new Date();
-	
-	                        // JSON.parse(response.body.model)
-	                        console.log("success for save");
-	                        console.log(response);
-	
-	                        for (var index in response.body.history) {
-	                            var json = JSON.parse(response.body.history[index]);
-	                            var date = new Date(json.time);
-	                            values.push({
-	                                x: date, y: json.info.accuracy
-	                            });
-	
-	                            if (date < oldestDate) {
-	                                oldestDate = date;
-	                            }
-	                        }
-	
-	                        var earliestDate = oldestDate;
-	
-	                        for (var _index in values) {
-	                            if (values[_index].x > earliestDate) {
-	                                earliestDate = values[_index].x;
-	                            }
-	                        }
-	
-	                        console.log("values");
-	                        console.log(values);
-	
-	                        console.log(earliestDate);
-	                        console.log(oldestDate);
-	
-	                        var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
-	                        var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
-	
-	                        console.log(axisOldest);
-	                        console.log(axisEarliest);
-	
-	                        var newValues = [];
-	
-	                        while (axisOldest < oldestDate) {
-	                            console.log(axisOldest + " < " + oldestDate + "add oldest : " + axisOldest);
-	                            newValues.push({
-	                                x: new Date(axisOldest.getTime()), y: 0
-	                            });
-	                            axisOldest.setDate(axisOldest.getDate() + 1);
-	                        }
-	
-	                        for (var _index2 in values) {
-	                            newValues.push(values[_index2]);
-	                        }
-	
-	                        var axisEarliest2 = new Date(earliestDate.getTime());axisEarliest2.setDate(axisEarliest2.getDate() + 1);
-	                        while (axisEarliest >= axisEarliest2) {
-	                            console.log(axisEarliest + " > " + earliestDate + "add earliest : " + earliestDate);
-	                            newValues.push({
-	                                x: new Date(axisEarliest2.getTime()), y: 0
-	                            });
-	                            axisEarliest2.setDate(axisEarliest2.getDate() + 1);
-	                        }
-	
-	                        console.log(earliestDate);
-	                        console.log(oldestDate);
-	
-	                        axisOldest.setDate(oldestDate.getDate() - 2);
-	
-	                        self.setState({
-	                            plotTestHistory: true,
-	                            data: { label: 'test accuracy history', values: newValues },
-	                            xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-	                            xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
-	                        });
-	
-	                        console.log(self.state.data);
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("error");
-	                        console.log(request);
-	                        console.log(status);
-	                        console.log(_error);
-	                    }
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Model Property',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement('div', { className: styles.modalTitle }),
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.closeModal, className: styles.closeButton },
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                            )
-	                        )
-	                    ),
-	                    this.state.plotTestHistory ? React.createElement(_reactD3Components.LineChart, {
-	                        data: this.state.data,
-	                        width: 1000,
-	                        height: 400,
-	                        margin: { top: 10, bottom: 50, left: 50, right: 20 },
-	                        xScale: this.state.xScale,
-	                        xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") }
-	                    }) : React.createElement('div', null)
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return ModelHistoryDialog;
-	}(React.Component);
-	
-	exports.default = ModelHistoryDialog;
 
 /***/ })
 /******/ ]);

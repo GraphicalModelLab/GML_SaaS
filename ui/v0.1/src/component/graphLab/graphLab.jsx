@@ -9,6 +9,7 @@ import PopupMessage from './../popupMessage/popupMessage';
 import Graph from './graph';
 import NodePropertyView from './graphProperty/nodePropertyView'
 import GraphSaveView from './graphSave/graphSaveView'
+import ModelHistoryDialogWithSearch from './../modelHistory/modelHistoryDialogWithSearch'
 
 export default class GraphicalDesign extends React.Component<Props, {}> {
 
@@ -35,9 +36,12 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.save = this.save.bind(this);
         this.saveCallBack = this.saveCallBack.bind(this);
         this.setup = this.setup.bind(this);
+        this.clear = this.clear.bind(this);
 
         this.addNode = this.addNode.bind(this);
         this.addEdge = this.addEdge.bind(this);
+
+        this.openPreviousTestedGraph = this.openPreviousTestedGraph.bind(this);
 
     }
 
@@ -87,7 +91,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             }
         }
     }
-
+    clear(){
+        var graph = this.refs.graph;
+        graph.clearSvgPane();
+    }
     setup(graphInfo){
         var graph = this.refs.graph;
 
@@ -332,6 +339,11 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         }, 5000);
     }
 
+    openPreviousTestedGraph(){
+
+        this.refs.modelHistoryDialogWithSearch.openModal(auth.getUserid(),this.state.modelid);
+    }
+
     render() {
         return (
             <div>
@@ -385,11 +397,13 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
 
                         <div onClick={this.save} className={styles.graphLabMenuItem}><br/><br/>モデル保存<br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
+                        <div onClick={this.openPreviousTestedGraph} className={styles.graphLabMenuItem}><br/>Open <br/>Previous Tested <br/>Graph </div>
                     </div>
                     <Graph ref="graph" items={[]}/>
                 </div>
                 <Loading ref="loading"/>
                 <PopupMessage ref="popupMessage"/>
+                <ModelHistoryDialogWithSearch ref="modelHistoryDialogWithSearch" setup={this.setup} clear={this.clear}/>
             </div>
            )
     }
