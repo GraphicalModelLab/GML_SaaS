@@ -5,7 +5,7 @@ import * as styles from './../../css/structure.css';
 import auth from "./../auth/auth";
 import $ from 'jquery';
 import Loading from './../loader/loading';
-import ModelHistory from './../modelHistory/modelHistory'
+import ModelHistoryDialog from './../modelHistory/modelHistoryDialog'
 
 export default class GraphLabRecord extends React.Component<Props, {}> {
 
@@ -23,7 +23,7 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
     }
 
     showHistoryCallBack(){
-        this.refs.modelHistory.openModal(this.props.recordInfo.userid,this.props.recordInfo.modelid);
+        this.refs.modelHistoryDialog.openModal(this.props.recordInfo.userid,this.props.recordInfo.modelid);
     }
 
     render() {
@@ -48,7 +48,7 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
 
                    <img onClick={this.clickCallBack} src="../icon/Right-Arrow-02.png" className={styles.searchResultBoxRightArrowIcon}/>
 
-                   <ModelHistory ref="modelHistory" />
+                   <ModelHistoryDialog ref="modelHistoryDialog" />
             </div>
            )
     }
