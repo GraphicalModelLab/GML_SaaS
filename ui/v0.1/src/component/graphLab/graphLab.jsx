@@ -48,11 +48,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
     addNode(label,x,y,disable,properties){
         this.refs.graph.addNode(label, x, y, disable, properties);
 
-        console.log("analyzing add node : "+label);
         this.state.analyzingTarget.push(label);
         this.setState({
             analyzingTarget : this.state.analyzingTarget
-         });
+        });
     }
 
     addEdge(label1, label2, x1, y1, x2, y2, disable){
@@ -94,6 +93,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
     clear(){
         var graph = this.refs.graph;
         graph.clearSvgPane();
+
+        this.setState({
+            analyzingTarget : []
+        });
     }
     setup(graphInfo){
         var graph = this.refs.graph;

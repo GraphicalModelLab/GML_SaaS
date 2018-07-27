@@ -41367,7 +41367,6 @@
 	        value: function addNode(label, x, y, disable, properties) {
 	            this.refs.graph.addNode(label, x, y, disable, properties);
 	
-	            console.log("analyzing add node : " + label);
 	            this.state.analyzingTarget.push(label);
 	            this.setState({
 	                analyzingTarget: this.state.analyzingTarget
@@ -41418,6 +41417,10 @@
 	        value: function clear() {
 	            var graph = this.refs.graph;
 	            graph.clearSvgPane();
+	
+	            this.setState({
+	                analyzingTarget: []
+	            });
 	        }
 	    }, {
 	        key: 'setup',
