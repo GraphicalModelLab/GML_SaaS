@@ -11,10 +11,10 @@ if(isset($_GET["companyid"])){
     $initialization = $initialization.'var companyid="'.$_GET["companyid"].'";';
 }
 
-if(isset($_GET["role"])){
-    $initialization = $initialization.'var role="'.$_GET["role"].'"; var autocompleteLanguage=[]; var autocompleteServeros=[]; var autocompleteOs = []; var autocompleteFrameworkmiddleware = []; var autocompleteDatabase = []; var autocompleteNetwork = [];  var autocompleteDesignerSoftware=[]; var autocompleteContractForm = [];';
-}else{
-    $initialization = $initialization.'var role=""; var autocompleteLanguage=[]; var autocompleteServeros=[]; var autocompleteOs = []; var autocompleteFrameworkmiddleware = []; var autocompleteDatabase = []; var autocompleteNetwork = [];  var autocompleteDesignerSoftware=[]; var autocompleteContractForm = [];';
+$initialization = $initialization.'var role="'.$_GET["role"].'";';
+
+if(isset($_GET["firstpage"])){
+    $initialization = $initialization.'var firstpage="'.$_GET["firstpage"].'";';
 }
 
 echo '
@@ -33,6 +33,10 @@ echo '
 <div id="app">
 </div>
 <script type="text/javascript">
+// This is to avoid the issue of Facebook Federated Login where "#_=_" is added to the url.
+if (window.location.hash && window.location.hash == "#_=_") {
+        window.location.hash = "";
+}
 '
 .$initialization.
 '

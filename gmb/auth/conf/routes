@@ -10,3 +10,5 @@ POST                /auth/:companyId/removeAccount                    controller
 POST                /auth/:companyId/googleApps/authenticate                    controllers.AuthController.googleAppsAuthenticate(companyId:String)
 POST                /auth/:companyId/facebookApps/authenticate                    controllers.AuthController.facebookAppsAuthenticate(companyId:String)
 POST                /auth/:companyId/registerCompany                    controllers.AuthController.registerCompany(companyId:String)
+POST                /auth/:companyId/social/connect/status                    controllers.AuthController.getSocialConnectStatus(companyId:String)
+POST                /auth/:companyId/social/connect/facebook/disconnect                    controllers.AuthController.disconnectFacebookConnection(companyId:String)

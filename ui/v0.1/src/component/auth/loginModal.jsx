@@ -107,12 +107,14 @@ export default class LoginModal extends React.Component {
 
     goToFacebookAppsLogin(e){
         e.preventDefault();
+
         window.location.href = '../commonModules/php/modules/Auth.php/auth/facebookAppsLogin/login?companyid='+auth.getCompanyid();
     }
 
     render() {
         return <div>
                     <Modal
+                        contentLabel="login"
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles} ref="modal">
