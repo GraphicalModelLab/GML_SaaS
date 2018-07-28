@@ -174,4 +174,38 @@ object AuthController extends Controller {
       }
     )
   }
+
+  def getSocialConnectStatus(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[socialConnectStatusResponse](authService.getSocialConnectStatus(companyId,Json.fromJson[socialConnectStatusRequest](request.body.asJson.get).asOpt)))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def disconnectFacebookConnection(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[disconnectFacebookResponse](authService.disconnectFacebookConnection(companyId,Json.fromJson[disconnectFacebookRequest](request.body.asJson.get).asOpt)))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
 }

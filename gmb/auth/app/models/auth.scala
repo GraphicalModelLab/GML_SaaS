@@ -1,3 +1,5 @@
+import java.util.Date
+
 import play.api.libs.json._
 
 package object auth {
@@ -135,12 +137,13 @@ package object auth {
   }
 
   // Facebook Apps Authenticate
-  case class facebookAppsAuthenticateRequest(code: String)
-  case class facebookAppsAuthenticateResponse(code: Int, email:String, accessToken: String,role: String)
+  case class facebookAppsAuthenticateRequest(code: String, state: String)
+  case class facebookAppsAuthenticateResponse(code: Int, email:String, accessToken: String, role: String, expires_in: Long)
 
   implicit lazy val facebookAppsAuthenticateRequestReads: Reads[facebookAppsAuthenticateRequest] = Reads[facebookAppsAuthenticateRequest] {
     json => JsSuccess(facebookAppsAuthenticateRequest(
-      (json \ "code").as[String]
+      (json \ "code").as[String],
+      (json \ "state").as[String]
     ))
   }
   implicit lazy val facebookAppsAuthenticateWrites: Writes[facebookAppsAuthenticateResponse] = Writes[facebookAppsAuthenticateResponse] {
@@ -148,7 +151,8 @@ package object auth {
       "code" -> Json.toJson(o.code),
       "email" -> Json.toJson(o.email),
       "token" -> Json.toJson(o.accessToken),
-      "role" -> Json.toJson(o.role)
+      "role" -> Json.toJson(o.role),
+      "expires_in" -> Json.toJson(o.expires_in)
     ).filter(_._2 != JsNull))
   }
 
@@ -172,4 +176,46 @@ package object auth {
     ).filter(_._2 != JsNull))
   }
 
+  // Get Social Connection Status
+  case class socialConnectStatusRequest(code: Int, userid:String, token: String)
+  case class socialConnectStatusResponse(code: Int,
+                                         connectedWithFacebook: Boolean,
+                                         facebookExpiresIn: Long,
+                                         connectedDateWithFacebook: Long,
+                                         facebookTimePassed: Long
+                                        )
+
+  implicit lazy val socialConnectStatusRequestReads: Reads[socialConnectStatusRequest] = Reads[socialConnectStatusRequest] {
+    json => JsSuccess(socialConnectStatusRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "token").as[String]
+    ))
+  }
+  implicit lazy val socialConnectStatusResponseWrites: Writes[socialConnectStatusResponse] = Writes[socialConnectStatusResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "connectedWithFacebook" -> Json.toJson(o.connectedWithFacebook),
+      "facebookExpiresIn" -> Json.toJson(o.facebookExpiresIn),
+      "connectedDateWithFacebook" -> Json.toJson(o.connectedDateWithFacebook),
+      "facebookTimePassed" -> Json.toJson(o.facebookTimePassed)
+    ).filter(_._2 != JsNull))
+  }
+
+  // Disconnect facebook
+  case class disconnectFacebookRequest(code: Int, userid:String, token: String)
+  case class disconnectFacebookResponse(code: Int)
+
+  implicit lazy val disconnectFacebookRequestReads: Reads[disconnectFacebookRequest] = Reads[disconnectFacebookRequest] {
+    json => JsSuccess(disconnectFacebookRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "token").as[String]
+    ))
+  }
+  implicit lazy val disconnectFacebookWrites: Writes[disconnectFacebookResponse] = Writes[disconnectFacebookResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code)
+    ).filter(_._2 != JsNull))
+  }
 }

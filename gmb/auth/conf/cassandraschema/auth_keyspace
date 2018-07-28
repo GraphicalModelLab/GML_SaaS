@@ -1,3 +1,4 @@
 CREATE KEYSPACE master WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 CREATE TABLE master.company (companyid varchar, companyname varchar, PRIMARY KEY(companyid));
 CREATE TABLE master.account (companyid varchar, supervisorid varchar, id varchar,password varchar,accesstoken varchar, role varchar, validationToken varchar, validated varchar,googleapps varchar, facebookapps varchar, PRIMARY KEY(companyid, id));
+CREATE TABLE master.social_connect_facebook (companyid varchar, supervisorid varchar, id varchar, registered_date timestamp, email varchar, access_token varchar, token_type varchar, expires_in bigint, PRIMARY KEY(companyid, id));

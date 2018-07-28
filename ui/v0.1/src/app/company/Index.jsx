@@ -22,8 +22,8 @@ ReactDOM.render(<Router history={hashHistory}>
                     <Route path="/" component={App}>
                       <Route path="top" component={Top} />
                       <Route path="topNoLogin" component={TopNoLogin} />
-                      <Route path="register" component={Register} type="ses"/>
-                      <Route path="login" component={Login} type="ses"/>
+                      <Route path="register" component={Register} />
+                      <Route path="login" component={Login}/>
                       <Route path="logout" component={Logout} />
                       <Route path="graphLab" component={GraphLab} editable="true"/>
                       <Route path="graphLabLocalRepository" component={GraphLabLocalRepository} editable="true"/>

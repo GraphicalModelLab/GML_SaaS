@@ -19,7 +19,7 @@ object GraphicalModelLabServiceController extends Controller {
   val gmlService = new GraphicalModelLabService();
 
   GmlDBClient.init(List[String]("localhost"));
-  AuthDBClient.init(List[String]("localhost"))
+  AuthDBClient.init(List[String]("localhost"));
   GmlElasticSearchClient.init("localhost");
 
   def helloworld() = {

@@ -1,5 +1,7 @@
 package services
 
+import java.util.Date
+
 import auth._
 import org.graphicalmodellab.auth.AuthDBClient
 import org.graphicalmodellab.auth.facebookapps.FacebookAppsOpenIDConnector
@@ -184,42 +186,143 @@ class AuthService {
         val response = new JSONObject(FacebookAppsOpenIDConnector.getAccessToken(request.code,config.getString("facebookapps.client_id"),config.getString("facebookapps.client_secret"),config.getString("facebookapps.redirect_uri")))
 
         if(response.has("access_token")) {
-          val verificationResult = new JSONObject(FacebookAppsOpenIDConnector.verifyAccessToken(response.getString("access_token"),config.getString("facebookapps.application_accesstoken")));
+          val state = new JSONObject(request.state)
 
-          if(verificationResult.has("data")) {
-            if(verificationResult.getJSONObject("data").getBoolean("is_valid")) {
-              val accessToken = new Token().accessToken
+          state.getString("type") match {
+            case "login" =>
+              val verificationResult = new JSONObject(FacebookAppsOpenIDConnector.verifyAccessToken(response.getString("access_token"), config.getString("facebookapps.application_accesstoken")));
 
-              val meInfo = new JSONObject(FacebookAppsOpenIDConnector.getMeInfo(response.getString("access_token")));
+              if (verificationResult.has("data")) {
+                if (verificationResult.getJSONObject("data").getBoolean("is_valid")) {
+                  val accessToken = new Token().accessToken
 
-              if (meInfo.has("email")) {
-                AuthDBClient.registerGoogleAccount(
-                            companyId,
-                            meInfo.getString("email"),
-                            accessToken,
-                            response.toString()
-                )
+                  val meInfo = new JSONObject(FacebookAppsOpenIDConnector.getMeInfo(response.getString("access_token")));
 
-               val roleInfo = AuthDBClient.getAccount(companyId,meInfo.getString("email"))
-                var roleString = ""
-                if(roleInfo.contains("role")) {
-                  roleInfo.get("role") match {
-                    case Some(roleContent) => if(roleContent != null) roleString = roleContent.toString
+                  if (meInfo.has("email")) {
+                    AuthDBClient.registerGoogleAccount(
+                      companyId,
+                      meInfo.getString("email"),
+                      accessToken,
+                      response.toString()
+                    )
+
+                    val roleInfo = AuthDBClient.getAccount(companyId, meInfo.getString("email"))
+                    var roleString = ""
+                    if (roleInfo.contains("role")) {
+                      roleInfo.get("role") match {
+                        case Some(roleContent) => if (roleContent != null) roleString = roleContent.toString
+                      }
+                    }
+                    return facebookAppsAuthenticateResponse(Status.OK, meInfo.getString("email"), accessToken, roleString,-1L)
                   }
                 }
-                return facebookAppsAuthenticateResponse(Status.OK,meInfo.getString("email"),accessToken,roleString)
               }
-            }
+            case "connect" =>
+              if (AuthDBClient.isValidToken(companyId, state.getString("userid"), state.getString("token"))) {
+
+                val verificationResult = new JSONObject(FacebookAppsOpenIDConnector.verifyAccessToken(response.getString("access_token"), config.getString("facebookapps.application_accesstoken")));
+
+                if (verificationResult.has("data")) {
+                  if (verificationResult.getJSONObject("data").getBoolean("is_valid")) {
+
+                    val meInfo = new JSONObject(FacebookAppsOpenIDConnector.getMeInfo(response.getString("access_token")));
+
+                    if (meInfo.has("email")) {
+                      AuthDBClient.registerFacebookConnect(
+                        companyId,
+                        state.getString("userid"),
+                        new Date(),
+                        meInfo.getString("email"),
+                        response.getString("access_token"),
+                        response.getString("token_type"),
+                        response.getLong("expires_in")
+                      );
+
+                      val roleInfo = AuthDBClient.getAccount(companyId, meInfo.getString("email"))
+                      var roleString = ""
+                      if (roleInfo.contains("role")) {
+                        roleInfo.get("role") match {
+                          case Some(roleContent) => if (roleContent != null) roleString = roleContent.toString
+                        }
+                      }
+
+                      return facebookAppsAuthenticateResponse(Status.OK, meInfo.getString("email"), state.getString("token"), roleString, response.getLong("expires_in"))
+                    }
+                  }
+                }
+              }
           }
 
         }
 
-        return facebookAppsAuthenticateResponse(auth.STATUS_NOT_VALIDATED,"","","")
+        return facebookAppsAuthenticateResponse(auth.STATUS_NOT_VALIDATED,"","","",-1L)
       case None =>
 
-        return facebookAppsAuthenticateResponse(auth.STATUS_NOT_VALIDATED,"","","")
+        return facebookAppsAuthenticateResponse(auth.STATUS_NOT_VALIDATED,"","","",-1L)
     }
-    return facebookAppsAuthenticateResponse(Status.INTERNAL_SERVER_ERROR,"","","")
+    return facebookAppsAuthenticateResponse(Status.INTERNAL_SERVER_ERROR,"","","",-1L)
+
+  }
+
+
+  def getSocialConnectStatus(companyId:String,request: Option[socialConnectStatusRequest]) :socialConnectStatusResponse= {
+    request match {
+      case Some(request)=>
+
+        if (AuthDBClient.isValidToken(companyId, request.userid, request.token)) {
+          var facebookAlive = false;
+          var facebookConnectionDate = new Date()
+          var facebookTimePassed = -1L
+          var facebookExpiresIn = -1L
+
+          val accountInfo = AuthDBClient.getFacebookAccount(companyId,request.userid)
+          if(accountInfo.contains("access_token")){
+            val registered_date = accountInfo.get("registered_date");
+            val expires_in = accountInfo.get("expires_in")
+            val now = new Date();
+
+            val seconds = (now.getTime() - registered_date.get.asInstanceOf[Date].getTime())/1000;
+
+            if(seconds < expires_in.get.asInstanceOf[Long]){
+              // Still this connection is alive
+              facebookAlive = true
+              facebookConnectionDate = registered_date.get.asInstanceOf[Date]
+              facebookTimePassed = seconds
+              facebookExpiresIn = expires_in.get.asInstanceOf[Long]
+            }
+
+            return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,facebookAlive,facebookExpiresIn,facebookConnectionDate.getTime,facebookTimePassed)
+          }
+        }
+
+        return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,false,-1L,-1L,-1L)
+      case None =>
+
+        return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,false,-1L,-1L,-1L)
+    }
+    return socialConnectStatusResponse(Status.INTERNAL_SERVER_ERROR,false,-1L,-1L,-1L)
+
+  }
+
+  def disconnectFacebookConnection(companyId:String,request: Option[disconnectFacebookRequest]) :disconnectFacebookResponse= {
+    request match {
+      case Some(request)=>
+
+        if (AuthDBClient.isValidToken(companyId, request.userid, request.token)) {
+          // 1. Deactivate access token by calling Facebook API
+
+          // 2. Remove info from DB
+          AuthDBClient.removeFacebookConnection(companyId,request.userid)
+
+          return disconnectFacebookResponse(auth.STATUS_NOT_VALIDATED)
+        }
+
+        return disconnectFacebookResponse(auth.STATUS_NOT_VALIDATED)
+      case None =>
+
+        return disconnectFacebookResponse(auth.STATUS_NOT_VALIDATED)
+    }
+    return disconnectFacebookResponse(Status.INTERNAL_SERVER_ERROR)
 
   }
 }

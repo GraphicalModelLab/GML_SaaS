@@ -1,5 +1,8 @@
 package org.graphicalmodellab.auth
 
+
+import java.util.Date
+
 import org.graphicalmodellab.cassandra.CassandraClient
 import com.datastax.driver.core.DataType
 import com.datastax.driver.core.querybuilder.QueryBuilder
@@ -204,4 +207,60 @@ object AuthDBClient {
 
     client.executeStatement(query)
   }
+
+  def registerFacebookConnect(companyId: String, id:String, registered_date: Date, email: String, access_token: String, token_type: String, expires_in: Long): Unit =  {
+    val query = QueryBuilder.update("master","social_connect_facebook")
+      .`with`(QueryBuilder.set("access_token",access_token))
+      .and(QueryBuilder.set("registered_date",registered_date.getTime()))
+      .and(QueryBuilder.set("token_type",token_type))
+      .and(QueryBuilder.set("expires_in",expires_in))
+      .and(QueryBuilder.set("email",email))
+      .where(QueryBuilder.eq("id",id)).and(QueryBuilder.eq("companyid",companyId))
+
+    client.executeStatement(query)
+  }
+
+  def getFacebookAccount(companyId: String,id:String): Map[String,Any]={
+    val result = collection.mutable.Map[String,Any]()
+    if(id.length > 0) {
+      val query = QueryBuilder.select()
+        .all()
+        .from("master", "social_connect_facebook")
+        .where(QueryBuilder.eq("id", id)).and(QueryBuilder.eq("companyid",companyId))
+
+      val iterator = client.executeStatement(query).iterator()
+      if (iterator.hasNext) {
+        val row = iterator.next()
+
+        val definition = row.getColumnDefinitions.asList()
+        (0 until definition.size()).foreach {
+          index =>
+            val definitionCheck1 = definition.get(index).getType.getName+","+DataType.varchar().getName
+            val booleCheck = definition.get(index).getType.getName.toString == "set"
+            val booleCheck2 = definition.get(index).getType.getName.toString == DataType.varchar().getName.toString
+            if(definition.get(index).getType.getName.toString == DataType.varchar().getName.toString) {
+              result(definition.get(index).getName) = row.getString(definition.get(index).getName)
+            }else if(definition.get(index).getType.getName.toString == "set"){
+              result(definition.get(index).getName) = row.getSet[String](definition.get(index).getName,classOf[String])
+            }else if(definition.get(index).getType.getName.toString == "bigint"){
+              result(definition.get(index).getName) = row.getLong(definition.get(index).getName)
+            }else if(definition.get(index).getType.getName.toString == "timestamp"){
+              result(definition.get(index).getName) = row.getTimestamp(definition.get(index).getName)
+            }
+        }
+      }
+    }
+
+    return result.toMap
+  }
+
+
+  def removeFacebookConnection(companyId: String,id:String): Unit = {
+    // Account
+    val query = QueryBuilder.delete().from("master","social_connect_facebook")
+      .where(QueryBuilder.eq("id",id)).and(QueryBuilder.eq("companyid",companyId))
+
+    client.executeStatement(query)
+  }
+
 }

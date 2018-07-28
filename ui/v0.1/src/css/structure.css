@@ -532,13 +532,6 @@ a:active {
     margin: 0 auto;
 }
 
-.iconConnect{
-    zoom: 50%;
-}
-
-.iconConnect:hover {
-			opacity: 0.5 ;
-			}
 
 .popupMessage{
   position:absolute;
@@ -654,4 +647,85 @@ a:active {
   font-size: 30px;
 
   text-align: center;
+}
+
+.socialConnectionBody{
+    margin-top: 20px;
+}
+
+.socialConnectionRecord{
+
+  font-size: 20px;
+
+  clear: both;
+  width: 600px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  height: 30px;
+}
+
+.socialConnectionRecord:hover{
+}
+
+
+.socialConnectionIcon{
+    float:left;
+
+    width: 200px;
+}
+
+.socialConnectionIcon:hover {
+	opacity: 0.5 ;
+}
+
+.socialConnectionRecordStatus{
+    float: left;
+    padding-top: 30px;
+    font-size: 20px;
+    width: 100px;
+    text-align: center;
+}
+.socialConnectionRecordStatusActive{
+    float: left;
+    padding-top: 30px;
+    font-size: 20px;
+    width: 100px;
+    text-align: center;
+
+    color: red;
+}
+
+.socialConnectionRecordStatusExpired{
+    float: left;
+    padding-top: 30px;
+    font-size: 20px;
+    width: 100px;
+    text-align: center;
+
+    color: yellow;
+}
+
+.socialConnectionRecordStatusNotConnected{
+    float: left;
+    padding-top: 30px;
+    font-size: 20px;
+    width: 100px;
+    text-align: center;
+
+    color: blue;
+}
+
+.socialConnectionRecordStatusRemainingTime{
+    float: left;
+    padding-top: 18px;
+    font-size: 12px;
+    width: 100px;
+    text-align: center;
+}
+
+.socialConnectionDisconnectIcon{
+    paddinig-top:50px;
+    margin-top:80px;
+    zoom:50%;
+    float: left;
 }
