@@ -36,8 +36,6 @@ export default class App extends React.Component<Props, {}> {
       componentDidMount() {
         if(!this.state.loggedIn){
             this.context.router.push('/'+"topNoLogin")
-        }else{
-            this.context.router.push('/'+auth.getFirstPage())
         }
       }
 

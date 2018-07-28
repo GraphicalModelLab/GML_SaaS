@@ -55,13 +55,6 @@ module.exports = {
     return companyid;
   },
 
-  getFirstPage(){
-      // company id should have been setup before hand, i.e. in index.php
-      if(firstpage) return firstpage;
-
-      return "top";
-  },
-
   logout(cb) {
     delete localStorage.token
     if (cb) cb()
