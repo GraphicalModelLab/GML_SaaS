@@ -59217,6 +59217,15 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLabLocalRepository' },
+	                                        'Cron Job'
+	                                    )
+	                                ),
+	                                React.createElement(
+	                                    'div',
+	                                    { className: styles.menuItem },
+	                                    React.createElement(
+	                                        _reactRouter.Link,
+	                                        { to: '/graphLabLocalRepository' },
 	                                        'Graph Local Repository'
 	                                    )
 	                                ),
@@ -59281,6 +59290,15 @@
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLab' },
 	                                        'Graph Lab'
+	                                    )
+	                                ),
+	                                React.createElement(
+	                                    'div',
+	                                    { className: styles.menuItem },
+	                                    React.createElement(
+	                                        _reactRouter.Link,
+	                                        { to: '/graphLabLocalRepository' },
+	                                        'Cron Job'
 	                                    )
 	                                ),
 	                                React.createElement(

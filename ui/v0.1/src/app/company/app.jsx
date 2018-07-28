@@ -135,6 +135,7 @@ export default class App extends React.Component<Props, {}> {
                                         <div className={styles.menuItem}><Link to={'/socialConnect'}>Social Connect</Link></div>
                                         <div className={styles.menuItem}><Link to={'/webExploration'}>Web Exploration</Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLab'}>Graph Lab</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>Cron Job</Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>Graph Local Repository</Link></div>
                                         <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div><div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
                                     </div>
@@ -145,6 +146,7 @@ export default class App extends React.Component<Props, {}> {
                                         <div className={styles.menuItem}><Link to={'/socialConnect'}>Social Connect</Link></div>
                                         <div className={styles.menuItem}><Link to={'/webExploration'}>Web Exploration</Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLab'}>Graph Lab</Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>Cron Job</Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>Graph Local Repository</Link></div>
                                         <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div><div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
                                     </div>
