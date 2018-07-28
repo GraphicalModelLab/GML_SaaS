@@ -13,10 +13,6 @@ if(isset($_GET["companyid"])){
 
 $initialization = $initialization.'var role="'.$_GET["role"].'";';
 
-if(isset($_GET["firstpage"])){
-    $initialization = $initialization.'var firstpage="'.$_GET["firstpage"].'";';
-}
-
 echo '
 <!DOCTYPE html>
 <html>
