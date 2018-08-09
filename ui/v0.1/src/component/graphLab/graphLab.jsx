@@ -10,6 +10,7 @@ import Graph from './graph';
 import NodePropertyView from './graphProperty/nodePropertyView'
 import GraphSaveView from './graphSave/graphSaveView'
 import ModelHistoryDialogWithSearch from './../modelHistory/modelHistoryDialogWithSearch'
+import AddCustomNodeDialog from './graphComponent/addCustomNodeDialog/addCustomNodeDialog'
 
 export default class GraphicalDesign extends React.Component<Props, {}> {
 
@@ -42,7 +43,17 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.addEdge = this.addEdge.bind(this);
 
         this.openPreviousTestedGraph = this.openPreviousTestedGraph.bind(this);
+        this.addCustomNodeToCanvas = this.addCustomNodeToCanvas.bind(this);
 
+        this.showAddCustomNodeDialog = this.showAddCustomNodeDialog.bind(this);
+
+    }
+    showAddCustomNodeDialog(){
+        this.refs.addCustomNodeToCanvas.openModal();
+    }
+
+    addCustomNodeToCanvas(label, x,y){
+        this.refs.graph.addNode(label, x, y, false, []);
     }
 
     addNode(label,x,y,disable,properties){
@@ -398,9 +409,11 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             </select>
                         </div>
                         <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
+                        <AddCustomNodeDialog addCustomNode={this.addCustomNodeToCanvas} ref="addCustomNodeToCanvas" />
 
                         <div onClick={this.save} className={styles.graphLabMenuItem}><br/><br/>Save Model<br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
                         <div onClick={this.openPreviousTestedGraph} className={styles.graphLabMenuItem}><br/><br/>Test<br/>History</div>
+                        <div onClick={this.showAddCustomNodeDialog} className={styles.graphLabMenuItem}><br/><br/>Add<br/>Custom<br/>Node</div>
                     </div>
                     <Graph ref="graph" items={[]}/>
                 </div>

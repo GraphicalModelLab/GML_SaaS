@@ -22,6 +22,7 @@ export default class Node extends React.Component<Props, {}> {
         this.setDisable = this.setDisable.bind(this);
         this.getProperties = this.getProperties.bind(this);
         this.addProperties = this.addProperties.bind(this);
+        this.resetMove = this.resetMove.bind(this);
    }
 
    handleMouseMove(e) {
@@ -32,19 +33,27 @@ export default class Node extends React.Component<Props, {}> {
       this.coords.x = e.pageX;
       this.coords.y = e.pageY;
 
-      console.log("move with "+this.props.zoom);
       this.setState({
           x: this.state.x - xDiff*(1 / this.props.zoom),
           y: this.state.y - yDiff*(1 / this.props.zoom)
       });
 
       this.props.moveCircleCallBack(this.props.label,this.state.x,this.state.y);
+
+      /*console.log("mouse:"+this.state.x+","+this.state.y+","+e.pageX+","+e.pageY)
+
+      if(Math.abs(this.state.x - e.pageX) > 30 || Math.abs(this.state.y - e.pageY)){
+        console.log("off from the cursor");
+        //this.resetMove();
+      }
+      */
    }
-    componentDidMount() {
+
+   componentDidMount() {
         if(this.props.properties){
             this.addProperties(this.props.properties);
         }
-    }
+   }
 
    handleMouseDown(e){
       e.stopPropagation();
@@ -70,8 +79,12 @@ export default class Node extends React.Component<Props, {}> {
          this.refs["nodePropertyView"+this.props.label].openModal();
       }
 
-      document.removeEventListener('mousemove', this.handleMouseMove);
-      this.coords = {};
+      this.resetMove();
+   }
+
+   resetMove(){
+     document.removeEventListener('mousemove', this.handleMouseMove);
+     this.coords = {};
    }
 
   handleMouseEnterConnectedPoint(){
