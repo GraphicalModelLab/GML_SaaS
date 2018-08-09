@@ -204,7 +204,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             })
         }else{
             //please give a name to a graph at first
-            this.refs.graphSaveView.openModal("学習する前に保存してください");
+            this.refs.graphSaveView.openModal("学習する前に保存してください","","","");
         }
     }
 
@@ -291,7 +291,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
     }
 
     save(){
-       this.refs.graphSaveView.openModal("");
+       this.refs.graphSaveView.openModal("",this.state.modelname,this.state.modeltag,this.state.modeldescription);
     }
 
     saveCallBack(modelname,modeltag,modeldescription){

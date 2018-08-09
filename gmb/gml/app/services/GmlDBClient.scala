@@ -28,10 +28,10 @@ object GmlDBClient {
 
     val query = QueryBuilder.update("master","model")
       .`with`(QueryBuilder.set("model","{\"modelversion\":\""+timestamp.getTime+"\","+"\"timestamp\":\""+timestamp.toString+"\","+"\"datetime\":"+timestamp.getTime+","+Json.toJson[graph](request.graph).toString().substring(1)))
+      .and(QueryBuilder.set("datetime",timestamp.getTime))
       .where(QueryBuilder.eq("companyid",request.companyid))
       .and(QueryBuilder.eq("userid",request.userid))
       .and(QueryBuilder.eq("modelid",request.graph.modelid))
-      .and(QueryBuilder.eq("datetime",timestamp.getTime))
 
     client.executeStatement(query)
 
@@ -131,7 +131,6 @@ object GmlDBClient {
       .where(QueryBuilder.eq("companyid",request.companyid))
       .and(QueryBuilder.eq("userid",request.userid))
       .and(QueryBuilder.eq("modelid",request.modelid))
-      .and(QueryBuilder.eq("datetime",request.datetime))
 
     client.executeStatement(query)
 
