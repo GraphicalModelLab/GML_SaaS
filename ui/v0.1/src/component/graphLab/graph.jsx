@@ -61,14 +61,6 @@ export default class Graph extends React.Component<Props, {}> {
         this.updateMatrix();
         window.addEventListener("resize", this.updateDimensions);
 
-        ReactDOM.findDOMNode(this.refs.leftArrow).setAttribute('marker-start', "url(#left_ar)");
-
-        ReactDOM.findDOMNode(this.refs.upperArrow).setAttribute('marker-end', "url(#upper_ar)");
-
-        ReactDOM.findDOMNode(this.refs.rightArrow).setAttribute('marker-end', "url(#right_ar)");
-
-        ReactDOM.findDOMNode(this.refs.bottomArrow).setAttribute('marker-end', "url(#bottom_ar)");
-
         this.zoomIn();
     }
 
@@ -352,49 +344,6 @@ export default class Graph extends React.Component<Props, {}> {
                             onScroll={this.onScroll}
                 >
                     <g>
-                        <defs>
-                          <marker id="left_ar" orient="180"
-                                                                           markerWidth='2' markerHeight='4'
-                                                                           refX='0.1' refY='2'>
-                                                                           <path ref="left_ar_symbol" d='M0,0 V4 L2,2 Z' />
-                          </marker>
-                          <marker id="upper_ar" orient="270"
-                                                                                                       markerWidth='2' markerHeight='4'
-                                                                                                       refX='0.1' refY='2'>
-                                                                                                       <path ref="upper_ar_symbol" d='M0,0 V4 L2,2 Z' />
-                          </marker>
-                          <marker id="right_ar" orient="0"
-                                                                                                       markerWidth='2' markerHeight='4'
-                                                                                                       refX='0.1' refY='2'>
-                                                                                                       <path ref="right_ar_symbol" d='M0,0 V4 L2,2 Z' />
-                          </marker>
-                          <marker id="bottom_ar" orient="90"
-                                                                                                       markerWidth='2' markerHeight='4'
-                                                                                                       refX='0.1' refY='2' >
-                                                                                                       <path ref="bottom_ar_symbol" d='M0,0 V4 L2,2 Z' />
-                          </marker>
-                        </defs>
-
-                        <g onClick={this.panLeft}>
-                            <circle cx="16.5" cy={this.state.svg_height/2} r="10" fill="#eaeaea"/>
-                            <line ref="leftArrow" strokeWidth="4px" stroke="#000088" x1={13} y1={this.state.svg_height/2} x2={20} y2={this.state.svg_height/2} />
-                        </g>
-
-                        <g onClick={this.panTop}>
-                            <circle cx={this.state.svg_width/2} cy={16.5} r="10" fill="#eaeaea"/>
-                            <line ref="upperArrow" strokeWidth="4px" stroke="#000088"  x1={this.state.svg_width/2} y1={20} x2={this.state.svg_width/2} y2={13}/>
-                        </g>
-
-                        <g onClick={this.panRight}>
-                            <circle cx={this.state.svg_width - 16.5} cy={this.state.svg_height/2} r="10" fill="#eaeaea"/>
-                            <line ref="rightArrow" strokeWidth="4px" stroke="#000088" x1={this.state.svg_width - 20} y1={this.state.svg_height/2} x2={this.state.svg_width - 13} y2={this.state.svg_height/2} />
-                        </g>
-
-                        <g onClick={this.panBottom}>
-                            <circle cx={this.state.svg_width/2} cy={this.state.svg_height - 16.5} r="10" fill="#eaeaea"/>
-                            <line ref="bottomArrow" strokeWidth="4px" stroke="#000088" x1={this.state.svg_width/2} y1={this.state.svg_height - 20} x2={this.state.svg_width/2} y2={this.state.svg_height - 13} />
-                        </g>
-
                         <g onClick={this.zoomIn} >
                             <circle cx="25" cy="20.5" r="8" fill="white"/>
                             <line stroke="#000088" x1={21.5} y1={20.5} x2={28.5} y2={20.5} />

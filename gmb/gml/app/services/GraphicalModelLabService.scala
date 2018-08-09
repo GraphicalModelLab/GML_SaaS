@@ -32,7 +32,7 @@ class GraphicalModelLabService {
     request match {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
-          val model: ModelSimpleCSV = new ModelSimpleCSV(request);
+          val model: ModelSimpleCSV = new ModelSimpleCSV(request.graph.edges,request.graph.nodes,request.graph.commonProperties);
           model.training(request.datasource)
           TrainedModelMap.put("test",model)
 
@@ -50,11 +50,27 @@ class GraphicalModelLabService {
     request match {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
-          val model:ModelSimpleCSV = TrainedModelMap.get("test").get
-          val accuracy = model.testSimple(request.testsource,request.targetLabel)
-          val accuracySummary = GmlDBClient.saveTestHistory(request,accuracy)
 
-          return testResponse(Status.INTERNAL_SERVER_ERROR, 1,"",accuracySummary.toString)
+          if(request.evaluationMethod == "simple") {
+            val model: ModelSimpleCSV = TrainedModelMap.get("test").get
+            val accuracy = model.testSimple(request.testsource, request.targetLabel)
+            val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
+
+            return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
+          }else if(request.evaluationMethod == "cross-validation"){
+            val K = 10;
+            val model: ModelSimpleCSV = new ModelSimpleCSV(request.graph.edges,request.graph.nodes,request.graph.commonProperties);
+
+            val accuracy = model.testByCrossValidation(request.testsource, request.targetLabel,K)
+            val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
+
+            print("Cross validated result:"+ accuracy)
+            return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
+
+          }else{
+
+          }
+
         }
 
       case None =>

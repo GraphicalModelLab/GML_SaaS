@@ -32,11 +32,14 @@ export default class GraphSaveView extends React.Component<Props, {}> {
         this.save = this.save.bind(this);
    }
 
-    openModal(message) {
+    openModal(message, modelname, modeltag, modeldescription) {
         var self = this;
         // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
         this.setState({modalIsOpen: true, message: message},function(){
             self.refs.modelName.focus();
+            self.refs.modelName.value = modelname;
+            self.refs.modelTag.value = modeltag;
+            self.refs.modelDescription.value = modeldescription;
         });
     }
 

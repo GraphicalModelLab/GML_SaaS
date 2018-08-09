@@ -189,7 +189,7 @@ package object gml {
   }
 
   // 3. get models
-  case class getRequest(code: Int, userid:String, token: String, companyid: String, modelid: String, datetime: Long)
+  case class getRequest(code: Int, userid:String, token: String, companyid: String, modelid: String)
   case class getResponse(code: Int, listSuccessCode: Int, model: String)
 
   implicit lazy val getRequestReads: Reads[getRequest] = Reads[getRequest] {
@@ -198,8 +198,7 @@ package object gml {
       (json \ "userid").as[String],
       (json \ "token").as[String],
       (json \ "companyid").as[String],
-      (json \ "modelid").as[String],
-      (json \ "datetime").as[Long]
+      (json \ "modelid").as[String]
     ))
   }
 

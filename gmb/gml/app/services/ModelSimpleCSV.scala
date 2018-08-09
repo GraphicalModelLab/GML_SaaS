@@ -18,16 +18,13 @@ import scala.io.Source
 /**
   * Created by itomao on 6/15/18.
   */
-class ModelSimpleCSV(request: trainingRequest) extends Model{
-
-  val dataSource: String = request.datasource
-  val allEdges: List[edge] = request.graph.edges
-  val allNodes: List[node] = request.graph.nodes
+class ModelSimpleCSV(edges:List[edge], nodes: List[node], commonProperties: List[property]) extends Model{
+  val allEdges: List[edge] = edges
+  val allNodes: List[node] = nodes
   val allNodesMap: Map[String, node] = allNodes.zipWithIndex.map { case (v, i) => v.label -> v }.toMap
 
   val invertedIndex = allNodes.zipWithIndex.map { case (v, i) => v.label -> i }.toMap
 
-  val commonProperties: List[property] = request.graph.commonProperties
   val commonDistribution = commonProperties.filter(_.name == "distribution")(0).value
   val distributionMap: mutable.Map[String, String] = mutable.Map[String,String]()
   for(node <- allNodes){
@@ -60,17 +57,77 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
     println(categoricalPossibleValues)
   }
 
-  /**
-    * Calculate hyper parameters for joint probability,
-    * i.e. P(all nodes) = P(A |..)P(B |..)...
-    *
-    */
-  def training(datasource: String): Unit ={
-
-//    val csvData = sparkSession.read.csv("/Users/itomao/Documents/GMB/DemoDataSet/abalone_test_answer.csv")
-    println("Load "+datasource+" ...")
+  def testByCrossValidation(datasource: String,targetLabel: String, numOfSplit: Int): Double={
     val csvData = sparkSession.read.csv(datasource)
 
+    val target = targetLabel;
+    val targetIndex = invertedIndex.get(target).get
+
+    val weight = mutable.ArrayBuffer[Double]();
+    (0 until numOfSplit).foreach(index => weight += 1.0)
+
+    val splittedDf = csvData.randomSplit(weight.toArray)
+
+    var averagedAccuracy = 0.0
+    (0 until numOfSplit).foreach{
+      index=>
+        val testDF = splittedDf(index);
+        var trainingDF:Dataset[Row] = null
+
+        var firstIndex = -1;
+        if(index == 0){
+          trainingDF = splittedDf(index+1)
+          firstIndex = index + 1
+        }else{
+          trainingDF = splittedDf(index-1)
+          firstIndex = index - 1
+        }
+
+
+        (0 until numOfSplit).foreach{
+          index2 =>
+            if(index != index2 && index != firstIndex){
+              trainingDF.union(splittedDf(index2))
+            }
+        }
+
+        training(trainingDF)
+
+        // Calculate accuracy for this fold
+        var count = 0;
+        var total = 0;
+
+        for(row <- testDF.collect().toList){
+          val cols = row.toSeq.toList.asInstanceOf[List[String]]
+          var maxLabel = ""
+          var maxValue = - Double.MaxValue
+
+          for (targetValue <- categoricalPossibleValues.get(target).get){
+            val prob = test(target,targetValue, cols)
+
+            println("  predict "+target+" = "+prob)
+            if(prob > maxValue){
+              maxLabel = targetValue;
+              maxValue = prob;
+            }
+          }
+
+          println("  selected "+maxLabel+" , "+maxValue)
+          if(cols(targetIndex) == maxLabel){
+            count += 1
+          }
+          total += 1
+        }
+
+        println("acurracy("+index+")="+(count.toDouble/total.toDouble))
+
+        averagedAccuracy += (count.toDouble/total.toDouble)
+    }
+
+    return averagedAccuracy/numOfSplit
+  }
+
+  def training(csvData: DataFrame): Unit ={
     initCategoryMap(csvData)
 
     (0 until allNodes.length).foreach {
@@ -115,17 +172,18 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
       println("    Mean : "+parameter._2.mu.toArray.mkString(","))
       println("    Covariance : "+parameter._2.sigma.toArray.mkString(","))
     }
+  }
+  /**
+    * Calculate hyper parameters for joint probability,
+    * i.e. P(all nodes) = P(A |..)P(B |..)...
+    *
+    */
+  def training(datasource: String): Unit ={
+//    val csvData = sparkSession.read.csv("/Users/itomao/Documents/GMB/DemoDataSet/abalone_test_answer.csv")
+    println("Load "+datasource+" ...")
+    val csvData = sparkSession.read.csv(datasource)
 
-//    println("Test outputs ---- ")
-//    predict(Map[String,String](
-//      "sex" -> "M"
-//    ),List[String]("length"),List[String]("M","0.585"))
-//    predict(Map[String,String](
-//      "sex" -> "F"
-//    ),List[String]("length"),List[String]("F","0.585"))
-//    predict(Map[String,String](
-//      "sex" -> "I"
-//    ),List[String]("length"),List[String]("I","0.585"))
+    training(csvData)
   }
 
   def training_helper(categoryLabelList: List[String], categoryValues: Map[String, String], currentIndex: Int, realLabelIndices: List[String], data:DataFrame) : Unit={
@@ -174,13 +232,8 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
 
 
   def testSimple(testsource : String, targetLabel: String): Double ={
-
-//    val csvData = "/Users/itomao/Documents/GMB/DemoDataSet/abalone_test_answer.csv"
     var csvData = testsource
 
-    println("test "+csvData)
-
-//    val target = "category"
     val target = targetLabel;
     val targetIndex = invertedIndex.get(target).get
 
@@ -208,7 +261,6 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
       }
       total += 1
     }
-
 
     println("accuracy ("+count+"/"+total+") = "+(count.toDouble/total.toDouble))
 
@@ -266,7 +318,6 @@ class ModelSimpleCSV(request: trainingRequest) extends Model{
 
           // 2. Calculation for Denominator, e.g. P(B,C)
           var denominator = predict(dependentCategoryValues.toMap, realLabelList.toList, attr_values)
-
 
           totalProb *= (numerator / denominator)
         }
