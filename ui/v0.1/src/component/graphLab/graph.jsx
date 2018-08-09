@@ -28,7 +28,7 @@ export default class Graph extends React.Component<Props, {}> {
             centerY : 250,
             zoom    : 1.0,
             svg_width: window.innerWidth - 17,
-            svg_height: window.innerHeight - 100
+            svg_height: window.innerHeight - 185
         };
         this.entryPointCallBack = this.entryPointCallBack.bind(this);
         this.moveCircleCallBack = this.moveCircleCallBack.bind(this);
@@ -52,6 +52,7 @@ export default class Graph extends React.Component<Props, {}> {
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.onScroll = this.onScroll.bind(this);
     }
+
     componentWillUnmount(){
         window.removeEventListener("resize", this.updateDimensions);
     }
@@ -74,7 +75,7 @@ export default class Graph extends React.Component<Props, {}> {
     updateDimensions(){
         this.setState({
             svg_width: window.innerWidth - 17,
-            svg_height: window.innerHeight - 100
+            svg_height: window.innerHeight - 185
         });
     }
 

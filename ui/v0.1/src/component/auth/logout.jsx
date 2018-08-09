@@ -15,7 +15,7 @@ export default class logout extends React.Component {
 
 
      render() {
-        return <p>ログアウトしました。</p>
+        return <p>Log out</p>
      }
 }
 

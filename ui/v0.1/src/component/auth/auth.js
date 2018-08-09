@@ -140,7 +140,7 @@ function registerRequest(email, pass, type, cb) {
                 var codeValue = validationCodeData.body.validationCode;
                 var data = {
                     mailto: email ? email : "",
-                    subject: "Graphical Model Lab - ご登録の完了確認",
+                    subject: "Graphical Model Lab - Confirm Registration",
                     codeValue: codeValue,
                     email: email,
                     companyid : companyid,
