@@ -37,6 +37,8 @@ class GraphicalModelLabService {
           TrainedModelMap.put("test",model)
 
           GmlDBClient.saveTrainingHistory(request)
+        }else{
+          return trainingResponse(Status.UNAUTHORIZED, 1,"")
         }
 
       case None =>
@@ -71,6 +73,8 @@ class GraphicalModelLabService {
 
           }
 
+        }else{
+          return testResponse(Status.UNAUTHORIZED, 1,"","")
         }
 
       case None =>
@@ -86,6 +90,8 @@ class GraphicalModelLabService {
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           val timestamp = GmlDBClient.save(request)
           GmlElasticSearchClient.addDocument(request)
+        }else{
+          return saveResponse(Status.UNAUTHORIZED, 1)
         }
 
         return saveResponse(Status.OK, 1)
@@ -101,6 +107,8 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           return GmlDBClient.list(request)
+        }else{
+          return listResponse(Status.UNAUTHORIZED, 1, List[String]())
         }
       case None =>
         println("No request")
@@ -114,6 +122,8 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           return GmlDBClient.get(request)
+        }else{
+          return getResponse(Status.UNAUTHORIZED, 1, null)
         }
       case None =>
         println("No request")
@@ -128,6 +138,8 @@ class GraphicalModelLabService {
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           val result = GmlElasticSearchClient.searchDocument(request.query)
           return searchResponse(Status.OK, 1, result)
+        }else{
+          return searchResponse(Status.UNAUTHORIZED, 1, "[]")
         }
       case None =>
         println("No request")
@@ -147,6 +159,8 @@ class GraphicalModelLabService {
             Status.OK,
             testHistory.toList
           )
+        }else{
+          return historyResponse(Status.UNAUTHORIZED, 1, List[String]())
         }
       case None =>
         println("No request")
@@ -159,6 +173,8 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
           return GmlDBClient.getHistory(request)
+        }else{
+          return getHistoryResponse(Status.UNAUTHORIZED, 1, null)
         }
       case None =>
         println("No request")

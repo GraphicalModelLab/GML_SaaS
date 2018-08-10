@@ -147,26 +147,56 @@ class AuthService {
         val response = new JSONObject(GoogleAppsOpenIDConnector.getAccessToken(request.code,config.getString("googleapps.client_id"),config.getString("googleapps.client_secret"),config.getString("googleapps.redirect_uri")))
 
         if(response.has("id_token")) {
-          val decodedToken = GoogleAppsOpenIDConnector.decodeToken(response.getString("id_token"));
-          val accessToken = new Token().accessToken
+          val state = new JSONObject(request.state)
+          state.getString("type") match {
+            case "login" =>
+              val decodedToken = GoogleAppsOpenIDConnector.decodeToken(response.getString("id_token"));
+              val accessToken = new Token().accessToken
 
-          if (decodedToken.contains("email")) {
-            AuthDBClient.registerGoogleAccount(
-              companyId,
-              decodedToken.get("email").get,
-              accessToken,
-              response.toString()
-            )
+              if (decodedToken.contains("email")) {
+                AuthDBClient.registerGoogleAccount(
+                  companyId,
+                  decodedToken.get("email").get,
+                  accessToken,
+                  response.toString()
+                )
 
-            val roleInfo = AuthDBClient.getAccount(companyId,decodedToken.get("email").get)
-            var roleString = ""
-            if(roleInfo.contains("role")) {
-              roleInfo.get("role") match {
-                case Some(roleContent) => if(roleContent != null) roleString = roleContent.toString
+                val roleInfo = AuthDBClient.getAccount(companyId, decodedToken.get("email").get)
+                var roleString = ""
+                if (roleInfo.contains("role")) {
+                  roleInfo.get("role") match {
+                    case Some(roleContent) => if (roleContent != null) roleString = roleContent.toString
+                  }
+                }
+
+                return googleAppsAuthenticateResponse(Status.OK, decodedToken.get("email").get, accessToken, roleString)
               }
-            }
 
-            return googleAppsAuthenticateResponse(Status.OK,decodedToken.get("email").get,accessToken,roleString)
+            case "connect" =>
+              if (AuthDBClient.isValidToken(companyId, state.getString("userid"), state.getString("token"))) {
+                val decodedToken = GoogleAppsOpenIDConnector.decodeToken(response.getString("id_token"));
+                val accessToken = new Token().accessToken
+
+                if (decodedToken.contains("email")) {
+                  AuthDBClient.registerGoogleConnect(
+                    companyId,
+                    state.getString("userid"),
+                    new Date(),
+                    accessToken,
+                    response.toString()
+                  )
+
+                  val roleInfo = AuthDBClient.getAccount(companyId, decodedToken.get("email").get)
+                  var roleString = ""
+                  if (roleInfo.contains("role")) {
+                    roleInfo.get("role") match {
+                      case Some(roleContent) => if (roleContent != null) roleString = roleContent.toString
+                    }
+                  }
+
+                  return googleAppsAuthenticateResponse(Status.OK, decodedToken.get("email").get, accessToken, roleString)
+                }
+              }
           }
         }
 
@@ -274,11 +304,18 @@ class AuthService {
           var facebookConnectionDate = new Date()
           var facebookTimePassed = -1L
           var facebookExpiresIn = -1L
+          var facebookExpired = false
 
-          val accountInfo = AuthDBClient.getFacebookAccount(companyId,request.userid)
-          if(accountInfo.contains("access_token")){
-            val registered_date = accountInfo.get("registered_date");
-            val expires_in = accountInfo.get("expires_in")
+          var googleAlive = false;
+          var googleConnectionDate = new Date()
+          var googleTimePassed = -1L
+          var googleExpiresIn = -1L
+          var googleExpired = false
+
+          val facebookAccountInfo = AuthDBClient.getFacebookAccount(companyId,request.userid)
+          if(facebookAccountInfo.contains("access_token")){
+            val registered_date = facebookAccountInfo.get("registered_date");
+            val expires_in = facebookAccountInfo.get("expires_in")
             val now = new Date();
 
             val seconds = (now.getTime() - registered_date.get.asInstanceOf[Date].getTime())/1000;
@@ -289,18 +326,58 @@ class AuthService {
               facebookConnectionDate = registered_date.get.asInstanceOf[Date]
               facebookTimePassed = seconds
               facebookExpiresIn = expires_in.get.asInstanceOf[Long]
+              facebookExpired = false
+            }else{
+              facebookExpired = true
             }
 
-            return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,facebookAlive,facebookExpiresIn,facebookConnectionDate.getTime,facebookTimePassed)
           }
+
+          val googleAccountInfo = AuthDBClient.getGoogleAccount(companyId,request.userid)
+          if(googleAccountInfo.contains("accesstoken")){
+            val registered_date = googleAccountInfo.get("registered_date");
+            val googleAppsJSON = new JSONObject(googleAccountInfo.get("googleapps").get.toString)
+            val expires_in = googleAppsJSON.getLong("expires_in")
+            val now = new Date();
+
+            val seconds = (now.getTime() - registered_date.get.asInstanceOf[Date].getTime())/1000;
+
+            if(seconds < expires_in){
+              // Still this connection is alive
+              googleAlive = true
+              googleConnectionDate = registered_date.get.asInstanceOf[Date]
+              googleTimePassed = seconds
+              googleExpiresIn = expires_in
+            }else{
+              googleExpired = true
+            }
+          }
+
+          return socialConnectStatusResponse(
+            auth.STATUS_NOT_VALIDATED,
+
+            facebookAlive,
+            facebookExpiresIn,
+            facebookConnectionDate.getTime,
+            facebookTimePassed,
+            facebookExpired,
+
+            googleAlive,
+            googleExpiresIn,
+            googleConnectionDate.getTime,
+            googleTimePassed,
+            googleExpired
+          )
+        }else{
+          return socialConnectStatusResponse(Status.UNAUTHORIZED,false,-1L,-1L,-1L,false,false,-1L,-1L,-1L,false)
         }
 
-        return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,false,-1L,-1L,-1L)
+        return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,false,-1L,-1L,-1L,false,false,-1L,-1L,-1L,false)
       case None =>
 
-        return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,false,-1L,-1L,-1L)
+        return socialConnectStatusResponse(auth.STATUS_NOT_VALIDATED,false,-1L,-1L,-1L,false,false,-1L,-1L,-1L,false)
     }
-    return socialConnectStatusResponse(Status.INTERNAL_SERVER_ERROR,false,-1L,-1L,-1L)
+    return socialConnectStatusResponse(Status.INTERNAL_SERVER_ERROR,false,-1L,-1L,-1L,false,false,-1L,-1L,-1L,false)
 
   }
 
@@ -315,6 +392,8 @@ class AuthService {
           AuthDBClient.removeFacebookConnection(companyId,request.userid)
 
           return disconnectFacebookResponse(auth.STATUS_NOT_VALIDATED)
+        }else{
+          return disconnectFacebookResponse(Status.UNAUTHORIZED)
         }
 
         return disconnectFacebookResponse(auth.STATUS_NOT_VALIDATED)

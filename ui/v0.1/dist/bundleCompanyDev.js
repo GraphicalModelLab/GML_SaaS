@@ -41524,15 +41524,17 @@
 	                        token: _auth2.default.getToken()
 	                    }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'graph', graph), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'code', 10), _data);
 	
-	                    console.log("training");
-	                    console.log(JSON.stringify(data));
 	                    _jquery2.default.ajax({
 	                        url: "../commonModules/php/modules/GML.php/gml/training",
 	                        type: "post",
 	                        data: JSON.stringify(data),
 	                        contentType: 'application/json',
 	                        dataType: "json",
-	                        success: function success(response) {},
+	                        success: function success(response) {
+	                            if (response.body.code == 401) {
+	                                _auth2.default.logout();
+	                            }
+	                        },
 	                        error: function error(request, status, _error2) {
 	                            alert("Failed to train the model. Contact Administrator");
 	                            console.log(status);
@@ -41604,7 +41606,11 @@
 	                    data: JSON.stringify(data),
 	                    contentType: 'application/json',
 	                    dataType: "json",
-	                    success: function success(response) {},
+	                    success: function success(response) {
+	                        if (response.body.code == 401) {
+	                            _auth2.default.logout();
+	                        }
+	                    },
 	                    error: function error(request, status, _error4) {
 	                        alert("failed to do testing. Contact Administrator");
 	                        console.log(status);
@@ -41671,6 +41677,9 @@
 	                success: function success(response) {
 	                    console.log("success for save");
 	                    console.log(response);
+	                    if (response.body.code == 401) {
+	                        _auth2.default.logout();
+	                    }
 	                },
 	                error: function error(request, status, _error5) {
 	                    alert("error");
@@ -57068,6 +57077,11 @@
 	                    contentType: 'application/json',
 	                    dataType: "json",
 	                    success: function success(response) {
+	
+	                        if (response.body.code == 401) {
+	                            _auth2.default.logout();
+	                        }
+	
 	                        self.context.router.push({
 	                            pathname: '/graphLab',
 	                            state: {
@@ -57996,20 +58010,22 @@
 	
 	        _this.state = {
 	            facebookStatus: "none",
-	
 	            facebookRemainingTimeDay: "",
 	            facebookRemainingTimeHour: "",
 	            facebookRemainingTimeMinute: "",
 	            facebookRemainingTimeSecond: "",
 	
-	            connectedDateWithFacebook: "",
-	            facebookTimePassed: "",
+	            googleStatus: "none",
+	            googleRemainingTimeDay: "",
+	            googleRemainingTimeHour: "",
+	            googleRemainingTimeMinute: "",
+	            googleRemainingTimeSecond: "",
 	
-	            googleStatus: "unconnected",
 	            twitterStatus: "unconnected"
 	        };
 	
 	        _this.goToFacebookAppsLogin = _this.goToFacebookAppsLogin.bind(_this);
+	        _this.goToGoogleAppsLogin = _this.goToGoogleAppsLogin.bind(_this);
 	        _this.disconnectFacebook = _this.disconnectFacebook.bind(_this);
 	        return _this;
 	    }
@@ -58032,18 +58048,22 @@
 	                data: JSON.stringify(data),
 	                contentType: 'application/json',
 	                dataType: "json",
-	                success: function success(json_data) {
+	                success: function success(response) {
 	
-	                    console.log(json_data);
+	                    console.log(response);
+	                    if (response.body.code == 401) {
+	                        _auth2.default.logout();
+	                    }
+	
 	                    var facebookStatus = "unconnected";
 	                    var facebookRemainingTimeDay = "";
 	                    var facebookRemainingTimeHour = "";
 	                    var facebookRemainingTimeMinute = "";
 	                    var facebookRemainingTimeSecond = "";
 	
-	                    if (json_data.body.connectedWithFacebook) {
+	                    if (response.body.connectedWithFacebook) {
 	                        facebookStatus = "active";
-	                        var timeToRemain = json_data.body.facebookExpiresIn - json_data.body.facebookTimePassed;
+	                        var timeToRemain = response.body.facebookExpiresIn - response.body.facebookTimePassed;
 	
 	                        var day = timeToRemain / (60 * 60 * 24) | 0;
 	                        var hour = (timeToRemain - 60 * 60 * 24 * day) / (60 * 60) | 0;
@@ -58056,8 +58076,38 @@
 	                        facebookRemainingTimeMinute = minute;
 	                        facebookRemainingTimeSecond = second;
 	                    } else {
-	                        if (json_data.body.facebookExpiresIn > 0) {
+	                        if (response.body.facebookExpired) {
 	                            facebookStatus = "expired";
+	                        } else {
+	                            facebookStatus = "unconnected";
+	                        }
+	                    }
+	
+	                    var googleStatus = "unconnected";
+	                    var googleRemainingTimeDay = "";
+	                    var googleRemainingTimeHour = "";
+	                    var googleRemainingTimeMinute = "";
+	                    var googleRemainingTimeSecond = "";
+	
+	                    if (response.body.connectedWithGoogle) {
+	                        googleStatus = "active";
+	                        var timeToRemain = response.body.googleExpiresIn - response.body.googleTimePassed;
+	
+	                        var day = timeToRemain / (60 * 60 * 24) | 0;
+	                        var hour = (timeToRemain - 60 * 60 * 24 * day) / (60 * 60) | 0;
+	
+	                        var minute = (timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60) / 60 | 0;
+	                        var second = timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60 - minute * 60;
+	
+	                        googleRemainingTimeDay = day;
+	                        googleRemainingTimeHour = hour;
+	                        googleRemainingTimeMinute = minute;
+	                        googleRemainingTimeSecond = second;
+	                    } else {
+	                        if (response.body.googleExpired) {
+	                            googleStatus = "expired";
+	                        } else {
+	                            googleStatus = "unconnected";
 	                        }
 	                    }
 	
@@ -58066,7 +58116,13 @@
 	                        facebookRemainingTimeDay: facebookRemainingTimeDay,
 	                        facebookRemainingTimeHour: facebookRemainingTimeHour,
 	                        facebookRemainingTimeMinute: facebookRemainingTimeMinute,
-	                        facebookRemainingTimeSecond: facebookRemainingTimeSecond
+	                        facebookRemainingTimeSecond: facebookRemainingTimeSecond,
+	
+	                        googleStatus: googleStatus,
+	                        googleRemainingTimeDay: googleRemainingTimeDay,
+	                        googleRemainingTimeHour: googleRemainingTimeHour,
+	                        googleRemainingTimeMinute: googleRemainingTimeMinute,
+	                        googleRemainingTimeSecond: googleRemainingTimeSecond
 	                    });
 	                },
 	                error: function error(request, status, _error) {
@@ -58075,6 +58131,13 @@
 	                },
 	                complete: function complete() {}
 	            });
+	        }
+	    }, {
+	        key: 'goToGoogleAppsLogin',
+	        value: function goToGoogleAppsLogin(e) {
+	            e.preventDefault();
+	
+	            window.location.href = '../commonModules/php/modules/Auth.php/auth/googleAppsLogin/connect?companyid=' + _auth2.default.getCompanyid() + '&userid=' + _auth2.default.getUserid() + '&token=' + _auth2.default.getToken();
 	        }
 	    }, {
 	        key: 'goToFacebookAppsLogin',
@@ -58103,6 +58166,9 @@
 	                dataType: "json",
 	                success: function success(json_data) {
 	                    console.log(json_data);
+	                    if (response.body.code == 401) {
+	                        _auth2.default.logout();
+	                    }
 	
 	                    self.setState({
 	                        facebookStatus: "expired"
@@ -58195,14 +58261,35 @@
 	                            'div',
 	                            { className: styles.socialConnectionRecord },
 	                            React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.socialConnectionDisconnectIcon }),
-	                            React.createElement('img', { src: '../icon/social_icons/google.jpg', className: styles.socialConnectionIcon }),
+	                            React.createElement('img', { onClick: this.goToGoogleAppsLogin, src: '../icon/social_icons/google.jpg', className: styles.socialConnectionIcon }),
 	                            function () {
 	                                switch (_this2.state.googleStatus) {
 	                                    case "active":
 	                                        return React.createElement(
 	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusActive },
-	                                            'Active'
+	                                            null,
+	                                            React.createElement(
+	                                                'span',
+	                                                { className: styles.socialConnectionRecordStatusActive },
+	                                                'Active'
+	                                            ),
+	                                            React.createElement(
+	                                                'span',
+	                                                { className: styles.socialConnectionRecordStatusRemainingTime },
+	                                                'Expire in',
+	                                                React.createElement('br', null),
+	                                                _this2.state.googleRemainingTimeDay,
+	                                                ' Day',
+	                                                React.createElement('br', null),
+	                                                _this2.state.googleRemainingTimeHour,
+	                                                ' Hour',
+	                                                React.createElement('br', null),
+	                                                _this2.state.googleRemainingTimeMinute,
+	                                                ' Minute',
+	                                                React.createElement('br', null),
+	                                                _this2.state.googleRemainingTimeSecond,
+	                                                ' Seconds'
+	                                            )
 	                                        );
 	
 	                                    case "expired":
