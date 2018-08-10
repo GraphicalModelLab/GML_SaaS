@@ -204,7 +204,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             })
         }else{
             //please give a name to a graph at first
-            this.refs.graphSaveView.openModal("学習する前に保存してください","","","");
+            this.refs.graphSaveView.openModal("Save the model before training","","","");
         }
     }
 

@@ -64,7 +64,7 @@ class ModelSimpleCSV(edges:List[edge], nodes: List[node], commonProperties: List
     val targetIndex = invertedIndex.get(target).get
 
     val weight = mutable.ArrayBuffer[Double]();
-    (0 until numOfSplit).foreach(index => weight += 1.0)
+    (0 until numOfSplit).foreach(index => weight += (1/numOfSplit.toDouble))
 
     val splittedDf = csvData.randomSplit(weight.toArray)
 
@@ -86,7 +86,7 @@ class ModelSimpleCSV(edges:List[edge], nodes: List[node], commonProperties: List
 
         (0 until numOfSplit).foreach{
           index2 =>
-            if(index != index2 && index != firstIndex){
+            if(index != index2 && firstIndex != index2){
               trainingDF.union(splittedDf(index2))
             }
         }
@@ -124,6 +124,14 @@ class ModelSimpleCSV(edges:List[edge], nodes: List[node], commonProperties: List
         averagedAccuracy += (count.toDouble/total.toDouble)
     }
 
+
+    (0 until numOfSplit).foreach {
+      index =>
+        val testDF = splittedDf(index);
+
+        println("testDF(" + index + ") size : " + testDF.collect().size)
+
+    }
     return averagedAccuracy/numOfSplit
   }
 
