@@ -129,14 +129,15 @@ export default class App extends React.Component<Props, {}> {
                                 ):(
                                 (auth.getRole() == 'administrator' ? (
                                     <div className={styles.menu}>
-                                        <div className={styles.menuItem}><Link to={'/logout'}>Logout</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}>Account Management</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/socialConnect'}>Social Connect</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/webExploration'}>Web Exploration</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLab'}>Graph Lab</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}>Cron Job</Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}><img src="./../icon/menu_icons/database.png" className={styles.icon}/></Link></div>
-                                        <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div><div className={styles.menuItemSearchIcon}><span onClick={this.searchTag.bind(this)}><img src="../icon/mono_icons/search32.png" className={styles.menuItemSearchIconImg}/></span></div>
+                                        <div className={styles.menuItem}><Link to={'/logout'}><img src="./../icon/menu_icons/logout.jpg" className={styles.icon} data-tip="Logout"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}><img src="./../icon/menu_icons/account.png" className={styles.icon} data-tip="Manage Account Info"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/socialConnect'}><img src="./../icon/menu_icons/dataconnection.png" className={styles.icon} data-tip="Connect to Social Data Source"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/webExploration'}><img src="./../icon/menu_icons/explore.jpg" className={styles.icon} data-tip="Explore Data"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLab'}><img src="../icon/menu_icons/flask.png" className={styles.icon} data-tip="Design Graph"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}><img src="../icon/menu_icons/timer.png" className={styles.icon} data-tip="Cron Job"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}><img src="./../icon/menu_icons/database.jpg" className={styles.icon} data-tip="Show a list of graphs"/></Link></div>
+                                        <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div>
+                                        <div className={styles.menuItem}><img src="./../icon/menu_icons/search.png" onClick={this.searchTag.bind(this)} className={styles.searchIcon} data-tip="Search Keyword in Database"/></div>
                                     </div>
                                 ):(
                                     <div className={styles.menu}>
@@ -155,8 +156,8 @@ export default class App extends React.Component<Props, {}> {
                             )
                         ) : (
                                 <div className={styles.menu}>
-                                    <div className={styles.menuItem}><Link to={'/register'}>Register</Link></div>
-                                    <div className={styles.menuItem}><Link to={'/login'}>Sign in</Link></div>
+                                    <div className={styles.menuItem}><Link to={'/register'}><img src="./../icon/menu_icons/register.png" className={styles.icon} data-tip="Register Account"/></Link></div>
+                                    <div className={styles.menuItem}><Link to={'/login'}><img src="./../icon/menu_icons/login.png" className={styles.icon} data-tip="Sign In"/></Link></div>
                                 </div>
                         )}
                     </div>

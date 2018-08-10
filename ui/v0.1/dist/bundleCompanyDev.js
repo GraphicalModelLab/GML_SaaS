@@ -59672,7 +59672,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/logout' },
-	                                        'Logout'
+	                                        React.createElement('img', { src: './../icon/menu_icons/logout.jpg', className: styles.icon, 'data-tip': 'Logout' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59681,7 +59681,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/accountManagementIndividual' },
-	                                        'Account Management'
+	                                        React.createElement('img', { src: './../icon/menu_icons/account.png', className: styles.icon, 'data-tip': 'Manage Account Info' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59690,7 +59690,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/socialConnect' },
-	                                        'Social Connect'
+	                                        React.createElement('img', { src: './../icon/menu_icons/dataconnection.png', className: styles.icon, 'data-tip': 'Connect to Social Data Source' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59699,7 +59699,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/webExploration' },
-	                                        'Web Exploration'
+	                                        React.createElement('img', { src: './../icon/menu_icons/explore.jpg', className: styles.icon, 'data-tip': 'Explore Data' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59708,7 +59708,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLab' },
-	                                        'Graph Lab'
+	                                        React.createElement('img', { src: '../icon/menu_icons/flask.png', className: styles.icon, 'data-tip': 'Design Graph' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59717,7 +59717,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLabLocalRepository' },
-	                                        'Cron Job'
+	                                        React.createElement('img', { src: '../icon/menu_icons/timer.png', className: styles.icon, 'data-tip': 'Cron Job' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59726,7 +59726,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/graphLabLocalRepository' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/database.png', className: styles.icon })
+	                                        React.createElement('img', { src: './../icon/menu_icons/database.jpg', className: styles.icon, 'data-tip': 'Show a list of graphs' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59737,12 +59737,8 @@
 	                                ),
 	                                React.createElement(
 	                                    'div',
-	                                    { className: styles.menuItemSearchIcon },
-	                                    React.createElement(
-	                                        'span',
-	                                        { onClick: this.searchTag.bind(this) },
-	                                        React.createElement('img', { src: '../icon/mono_icons/search32.png', className: styles.menuItemSearchIconImg })
-	                                    )
+	                                    { className: styles.menuItem },
+	                                    React.createElement('img', { src: './../icon/menu_icons/search.png', onClick: this.searchTag.bind(this), className: styles.searchIcon, 'data-tip': 'Search Keyword in Database' })
 	                                )
 	                            ) : React.createElement(
 	                                'div',
@@ -59830,7 +59826,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/register' },
-	                                        'Register'
+	                                        React.createElement('img', { src: './../icon/menu_icons/register.png', className: styles.icon, 'data-tip': 'Register Account' })
 	                                    )
 	                                ),
 	                                React.createElement(
@@ -59839,7 +59835,7 @@
 	                                    React.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/login' },
-	                                        'Sign in'
+	                                        React.createElement('img', { src: './../icon/menu_icons/login.png', className: styles.icon, 'data-tip': 'Sign In' })
 	                                    )
 	                                )
 	                            )
