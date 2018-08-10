@@ -342,8 +342,11 @@ a:active {
 }
 
 .graphLabMenu{
-    display: block;
-    width: 100%;
+  display: block;
+  width: 655px;
+  height: 45px;
+  padding-top: 5px;
+  background-color: #000088;
 }
 
 .modalTitle{
@@ -385,49 +388,82 @@ a:active {
    text-align: center;
 }
 .graphLabMenuCalculationModelItem{
-  font-size: 10px;
-  color: white;
-  width : 150px;
-  height : 80px;
+  width : 140px;
+  height : 30px;
   float: left;
   background-color: #000088;
-  margin-right: 2px;
-
-  text-align: center;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+.graphLabMenuItemLast{
+  width : 35px;
+  height : 40px;
+  float: left;
+  padding-left: 5px;
+  background-color: #ffffff;
+}
+.graphLabMenuItemLast:hover {
+  background:#808080;
+  border-color:#808080;
 }
 .graphLabMenuItem{
-  font-size: 10px;
-  color: white;
-  width : 60px;
-  height : 80px;
+  width : 35px;
+  height : 40px;
   float: left;
-  background-color: #000088;
-  margin-right: 2px;
-
-  text-align: center;
+  padding-left: 5px;
+  margin-right: 5px;
+  background-color: #ffffff;
 }
-.graphLabMenuItemDropAnalyzingBox{
-  font-size: 10px;
-  color: white;
-  width : 120px;
-  height : 80px;
+.graphLabMenuItem:hover {
+  background:#808080;
+  border-color:#808080;
+}
+.graphLabMenuItemTraining{
+  width : 45px;
+  height : 40px;
   float: left;
-  background-color: #000088;
-  margin-right: 2px;
+  padding-left: 5px;
+  background-color: #ffffff;
+  margin-right: 5px;
+}
+.graphLabMenuItemTraining:hover {
+     background:#808080;
+     border-color:#808080;
+}
 
-  text-align: center;
+.graphLabMenuItemSave{
+  width : 43px;
+  height : 40px;
+  padding-left: 5px;
+  float: left;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
+
+.graphLabMenuItemSave:hover {
+  background:#808080;
+  border-color:#808080;
+}
+
+.graphLabMenuItemDropAnalyzingBox{
+  width : 220px;
+  height : 40px;
+  float: left;
+  background-color: #00000;
 }
 
 .graphLabMenuItemDropAnalyzing{
-  font-size: 10px;
-  color: white;
-  width : 120px;
-  height : 40px;
+  padding-left: 5px;
+  width : 35px;
+  height: 40px;
   float: left;
-  background-color: #000088;
-  margin-right: 2px;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
 
-  text-align: center;
+.graphLabMenuItemDropAnalyzing:hover {
+     background:#808080;
+     border-color:#808080;
 }
 
 .graphLabMenuItemDownloadLink{
@@ -440,9 +476,11 @@ a:active {
     max-width:90%;
 }
 .graphLabMenuItemAnalyzingTarget{
-    margin-left: 2px;
-    max-width:95%;
     float: left;
+    width: 160px;
+}
+.graphLabMenuItemAnalyzingTargetBox{
+    margin-top:2px;
 }
 
 .saveModelViewTitle{
@@ -687,6 +725,13 @@ a:active {
 
 .socialConnectionIcon:hover {
 	opacity: 0.5 ;
+}
+
+.graphLabMenuIcon{
+    paddinig-top:50px;
+    margin-top: 10px;
+    margin-right:5px;
+    zoom:60%;
 }
 
 .socialConnectionRecordStatus{
