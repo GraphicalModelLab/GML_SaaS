@@ -60,7 +60,7 @@
   float: right;
 
   margin-top:20px;
-  margin-right:5px;
+  margin-right:10px;
   font-size:10px;
   height:50px;
 
@@ -83,7 +83,8 @@ a:active {
   float:right;
   margin-left:10px;
   border:solid 1px #C0C0C0;;
-  padding: 5px 5px 5px 5px;
+  padding-top: 2px;
+  padding-left: 2px;
   font-color:black;
   background-color:#ffffff;
 }
@@ -91,17 +92,18 @@ a:active {
 .menuItemSearch{
   float:right;
   margin-left:10px;
-  margin-top:4px;
+  margin-top:5px;
 }
 .menuItemSearchInput{
   float:right;
+  margin-top: 2px;
 }
 
 .menuItemSearchIcon{
   float:right;
+  padding: 2px 2px 2px 2px;
   margin-left:1px;
-  border:solid 1px #C0C0C0;
-    background: #C0C0C0;
+  background: #ffffff;
 }
 .menuItemSearchIconImg{
     float:right;
@@ -173,6 +175,12 @@ a:active {
     paddinig-top:50px;
     margin-right:5px;
     zoom:50%;
+}
+.searchIcon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+    background: white;
 }
 
 .loading {
@@ -705,7 +713,7 @@ a:active {
     width: 100px;
     text-align: center;
 
-    color: yellow;
+    color: black;
 }
 
 .socialConnectionRecordStatusNotConnected{

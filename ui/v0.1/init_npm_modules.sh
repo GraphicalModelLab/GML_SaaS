@@ -14,3 +14,4 @@ npm install csv
 npm install react-dropzone
 npm install --save-dev file-loader url-loader
 npm install react-d3-components
+npm install react-tooltip
