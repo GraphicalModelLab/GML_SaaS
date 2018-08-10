@@ -29,7 +29,7 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
     render() {
         return (
             <div className={styles.searchResultBox}>
-                <img src="../icon/flask.png" className={styles.searchResultBoxFlaskIcon}/>
+                    <img src="../icon/flask.png" className={styles.searchResultBoxFlaskIcon}/>
                     <span className={styles.searchResultBoxModelName}>
                     {this.props.recordInfo.modelname}
                     </span>
