@@ -7,10 +7,11 @@ import $ from 'jquery';
 import Loading from './../loader/loading';
 import PopupMessage from './../popupMessage/popupMessage';
 import Graph from './graph';
-import NodePropertyView from './graphProperty/nodePropertyView'
-import GraphSaveView from './graphSave/graphSaveView'
-import ModelHistoryDialogWithSearch from './../modelHistory/modelHistoryDialogWithSearch'
-import AddCustomNodeDialog from './graphComponent/addCustomNodeDialog/addCustomNodeDialog'
+import NodePropertyView from './graphProperty/nodePropertyView';
+import GraphSaveView from './graphSave/graphSaveView';
+import ModelHistoryDialogWithSearch from './../modelHistory/modelHistoryDialogWithSearch';
+import AddCustomNodeDialog from './graphComponent/addCustomNodeDialog/addCustomNodeDialog';
+import ReactTooltip from 'react-tooltip';
 
 export default class GraphicalDesign extends React.Component<Props, {}> {
 
@@ -368,38 +369,41 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             <div>
                 <div>
                     <div className={styles.graphLabMenu}>
-                        <div className={styles.graphLabMenuCalculationModelItem}><br/>Calculation Model<br/><br/><select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect}>
+                        <div className={styles.graphLabMenuCalculationModelItem}><select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect}>
                                                                                                                       <option value="" disabled selected>Select your model</option>
                                                                                                                       <option value="model1">Freq(Mul & Norm)</option>
                                                                                                                       <option value="model2">Only Multinomial</option>
                                                                                                                     </select></div>
-                        <div onClick={this.showNodePropertyView} className={styles.graphLabMenuItem}><br/>Common Node<br/>Property<br/>Setup</div>
+                        <div onClick={this.showNodePropertyView} className={styles.graphLabMenuItem}><img src="./../icon/graphlab_menu_icons/commonSetting.png" className={styles.graphLabMenuIcon} data-tip="Setup Common Property for all nodes"/></div>
                         <NodePropertyView label="All Nodes" ref="nodePropertyView" />
                         <Dropzone
                             className={styles.graphLabMenuItem}
                             onDrop={this.onDropAttributeImport}
                             accept="text/csv" >
                             <div>
-                                <br/>Import Attributes<br/>(Drop file or Click)
+                                <img src="./../icon/graphlab_menu_icons/importAttrs.png" className={styles.graphLabMenuIcon} data-tip="Import Attribute Information from CSV file"/>
                             </div>
                         </Dropzone>
                         <Dropzone
-                            className={styles.graphLabMenuItem}
+                            className={styles.graphLabMenuItemTraining}
                             onDrop={this.onDropTraining}
                             accept="text/csv" >
                             <div>
-                                <br/>Training Model<br/>(Drop file or Click)
+                                <img src="./../icon/graphlab_menu_icons/training.jpg" className={styles.graphLabMenuIcon} data-tip="Training Model. Drop File Here or Click"/>
                             </div>
                         </Dropzone>
                         <div className={styles.graphLabMenuItemDropAnalyzingBox}>
                             <Dropzone
                                 className={styles.graphLabMenuItemDropAnalyzing}
                                 onDrop={this.onDropAnalyzing}
-                                accept="text/csv" >
+                                accept="text/csv"
+                                data-tip="Evaluate Model. Drop File Here Or Click"
+                                >
                                 <div>
-                                   <br/> Test Model <br/> (Drop file or Click)
+                                   <img src="./../icon/graphlab_menu_icons/test.png" className={styles.graphLabMenuIcon} />
                                 </div>
                             </Dropzone>
+                            <div className={styles.graphLabMenuItemAnalyzingTargetBox}>
                             <select ref="evaluationMethod" className={styles.graphLabMenuItemAnalyzingTarget}>
                                 <option value="" disabled selected>Select Evaluation Method</option>
                                 { this.state.evaluationMethod.map((d, idx) => {
@@ -412,19 +416,21 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                     return <option value={d} key={"option"+d}>{d}</option>
                                 })}
                             </select>
+                            </div>
                         </div>
                         <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
                         <AddCustomNodeDialog addCustomNode={this.addCustomNodeToCanvas} ref="addCustomNodeToCanvas" />
 
-                        <div onClick={this.save} className={styles.graphLabMenuItem}><br/><br/>Save Model<br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
-                        <div onClick={this.openPreviousTestedGraph} className={styles.graphLabMenuItem}><br/><br/>Test<br/>History</div>
-                        <div onClick={this.showAddCustomNodeDialog} className={styles.graphLabMenuItem}><br/><br/>Add<br/>Custom<br/>Node</div>
+                        <div onClick={this.save} className={styles.graphLabMenuItemSave}><img src="./../icon/graphlab_menu_icons/save.png" className={styles.graphLabMenuIcon} data-tip="Save Model"/><br/><a className={styles.graphLabMenuItemDownloadLink} href={this.state.downloadContent} download="graph.json" >{this.state.downloadLink}</a></div>
+                        <div onClick={this.openPreviousTestedGraph} className={styles.graphLabMenuItem}><img src="./../icon/graphlab_menu_icons/testHistory.png" className={styles.graphLabMenuIcon} data-tip="History of Testing Model"/></div>
+                        <div onClick={this.showAddCustomNodeDialog} className={styles.graphLabMenuItemLast}><img src="./../icon/graphlab_menu_icons/addNode.png" className={styles.graphLabMenuIcon} data-tip="Add Node to Canvas"/></div>
                     </div>
                     <Graph ref="graph" items={[]}/>
                 </div>
                 <Loading ref="loading"/>
                 <PopupMessage ref="popupMessage"/>
                 <ModelHistoryDialogWithSearch ref="modelHistoryDialogWithSearch" setup={this.setup} clear={this.clear}/>
+                <ReactTooltip />
             </div>
            )
     }

@@ -9,7 +9,7 @@ import auth from "./../../component/auth/auth";
 import Loading from './../../component/loader/loading';
 import PopupMessage from './../../component/popupMessage/popupMessage';
 import $ from 'jquery';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 export default class App extends React.Component<Props, {}> {
 
