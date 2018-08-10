@@ -117,6 +117,11 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
                     contentType: 'application/json',
                     dataType: "json",
                     success: function(response) {
+
+                        if(response.body.code == 401){
+                            auth.logout();
+                        }
+
                         self.context.router.push({
                             pathname: '/graphLab',
                             state: {

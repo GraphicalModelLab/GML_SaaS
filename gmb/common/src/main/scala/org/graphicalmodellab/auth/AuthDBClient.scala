@@ -198,6 +198,16 @@ object AuthDBClient {
     client.executeStatement(query)
   }
 
+  def registerGoogleConnect(companyId: String, id:String, registered_date: Date, accesstoken: String, googleapps: String): Unit =  {
+    val query = QueryBuilder.update("master","social_connect_google")
+      .`with`(QueryBuilder.set("accesstoken",accesstoken))
+      .and(QueryBuilder.set("googleapps",googleapps))
+      .and(QueryBuilder.set("registered_date",registered_date.getTime()))
+      .where(QueryBuilder.eq("id",id)).and(QueryBuilder.eq("companyid",companyId))
+
+    client.executeStatement(query)
+  }
+
   def registerFacebookAccount(companyId: String, id:String, accesstoken: String, facebookapps: String): Unit =  {
     val query = QueryBuilder.update("master","account")
       .`with`(QueryBuilder.set("accesstoken",accesstoken))
@@ -261,6 +271,40 @@ object AuthDBClient {
       .where(QueryBuilder.eq("id",id)).and(QueryBuilder.eq("companyid",companyId))
 
     client.executeStatement(query)
+  }
+
+  def getGoogleAccount(companyId: String,id:String): Map[String,Any]={
+    val result = collection.mutable.Map[String,Any]()
+    if(id.length > 0) {
+      val query = QueryBuilder.select()
+        .all()
+        .from("master", "social_connect_google")
+        .where(QueryBuilder.eq("id", id)).and(QueryBuilder.eq("companyid",companyId))
+
+      val iterator = client.executeStatement(query).iterator()
+      if (iterator.hasNext) {
+        val row = iterator.next()
+
+        val definition = row.getColumnDefinitions.asList()
+        (0 until definition.size()).foreach {
+          index =>
+            val definitionCheck1 = definition.get(index).getType.getName+","+DataType.varchar().getName
+            val booleCheck = definition.get(index).getType.getName.toString == "set"
+            val booleCheck2 = definition.get(index).getType.getName.toString == DataType.varchar().getName.toString
+            if(definition.get(index).getType.getName.toString == DataType.varchar().getName.toString) {
+              result(definition.get(index).getName) = row.getString(definition.get(index).getName)
+            }else if(definition.get(index).getType.getName.toString == "set"){
+              result(definition.get(index).getName) = row.getSet[String](definition.get(index).getName,classOf[String])
+            }else if(definition.get(index).getType.getName.toString == "bigint"){
+              result(definition.get(index).getName) = row.getLong(definition.get(index).getName)
+            }else if(definition.get(index).getType.getName.toString == "timestamp"){
+              result(definition.get(index).getName) = row.getTimestamp(definition.get(index).getName)
+            }
+        }
+      }
+    }
+
+    return result.toMap
   }
 
 }

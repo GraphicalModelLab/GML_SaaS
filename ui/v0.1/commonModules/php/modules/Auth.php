@@ -158,11 +158,11 @@ function removeAccount($data)
    return $response;
 }
 
-function googleAppsAuthenticate($data)
+function googleAppsAuthenticate($data,$companyid)
 {
    $curl = curl_init();
 
-   curl_setopt($curl, CURLOPT_URL, "http://localhost:9097/auth/".$data["state"]."/googleApps/authenticate");
+   curl_setopt($curl, CURLOPT_URL, "http://localhost:9097/auth/".$companyid."/googleApps/authenticate");
    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
@@ -330,7 +330,25 @@ $CloudCareerSheetAuth->get('/auth/googleAppsLogin/login', function (Request $req
         .'&scope='.$config["login"]["scope"]
         .'&response_type='.$config["login"]["response_type"]
         .'&redirect_uri='.urlencode($config["login"]["redirect_uri"])
-        .'&state='.$data_request["companyid"], false);
+        .'&state={"companyid":"'.$data_request["companyid"].'","type":"login"}', false);
+});
+
+$CloudCareerSheetAuth->get('/auth/googleAppsLogin/connect', function (Request $request) use ($CloudCareerSheetAuth) {
+    $config = parse_ini_file(__DIR__."/../config/OpenIDConnect/GoogleApps.ini",true);
+
+    $data_request = array();
+
+    foreach ( $request->query->keys() as $key){
+        $data_request[$key] = $request->query->get($key);
+    }
+
+    Redirect(
+        'https://accounts.google.com/o/oauth2/auth'
+        .'?client_id='.$config["login"]["client_id"]
+        .'&scope='.$config["login"]["scope"]
+        .'&response_type='.$config["login"]["response_type"]
+        .'&redirect_uri='.urlencode($config["login"]["redirect_uri"])
+        .'&state={"companyid":"'.$data_request["companyid"].'","type":"connect","userid":"'.$data_request["userid"].'","token":"'.$data_request["token"].'"}', false);
 });
 
 $CloudCareerSheetAuth->get('/auth/googleAppsLogin/authenticate', function (Request $request) use ($CloudCareerSheetAuth) {
@@ -342,19 +360,26 @@ $CloudCareerSheetAuth->get('/auth/googleAppsLogin/authenticate', function (Reque
         $data_request[$key] = $request->query->get($key);
      }
 
+     $stateJSON = json_decode($data_request["state"],true);
+
      $decodeJSON = json_decode(
-          googleAppsAuthenticate($data_request)
+          googleAppsAuthenticate($data_request, $stateJSON["companyid"])
           ,
           true);
 
      mb_internal_encoding('UTF-8');
 
      if($decodeJSON["code"] == 200){
-        Redirect($config["login"]["loginCallback"].'/company/'.$data_request["state"].'?userid='.$decodeJSON["email"].'&token='.$decodeJSON["token"].'&role='.$decodeJSON["role"].'#/top', false);
+        if($stateJSON["type"] == "login"){
+            Redirect($config["login"]["loginCallback"].'/company/'.$stateJSON["companyid"].'?userid='.$decodeJSON["email"].'&token='.$decodeJSON["token"].'&role='.$decodeJSON["role"].'#/top',false);
+        }else if($stateJSON["type"] == "connect"){
+            Redirect($config["login"]["loginCallback"].'/company/'.$stateJSON["companyid"].'#/socialConnect',false);
+        }else{
+            Redirect($config["login"]["loginCallback"].'/company/'.$stateJSON["companyid"].'#/top',false);
+        }
      }else{
-        Redirect($config["login"]["loginCallback"].'/company/'.$data_request["state"],false);
+        Redirect($config["login"]["loginCallback"].'/company/'.$stateJSON["companyid"],false);
      }
-
 });
 
 $CloudCareerSheetAuth->get('/auth/facebookAppsLogin/login', function (Request $request) use ($CloudCareerSheetAuth) {

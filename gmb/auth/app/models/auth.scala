@@ -116,12 +116,13 @@ package object auth {
   }
 
   // Google Apps Authenticate
-  case class googleAppsAuthenticateRequest(code: String, authuser: String, session_state: String, prompt: String)
+  case class googleAppsAuthenticateRequest(code: String, state: String,authuser: String, session_state: String, prompt: String)
   case class googleAppsAuthenticateResponse(code: Int, email:String, accessToken: String, role: String)
 
   implicit lazy val googleAppsAuthenticateRequestReads: Reads[googleAppsAuthenticateRequest] = Reads[googleAppsAuthenticateRequest] {
     json => JsSuccess(googleAppsAuthenticateRequest(
       (json \ "code").as[String],
+      (json \ "state").as[String],
       (json \ "authuser").as[String],
       (json \ "session_state").as[String],
       (json \ "prompt").as[String]
@@ -182,7 +183,14 @@ package object auth {
                                          connectedWithFacebook: Boolean,
                                          facebookExpiresIn: Long,
                                          connectedDateWithFacebook: Long,
-                                         facebookTimePassed: Long
+                                         facebookTimePassed: Long,
+                                         facebookExpired: Boolean,
+
+                                         connectedWithGoogle: Boolean,
+                                         googleExpiresIn: Long,
+                                         connectedDateWithGoogle: Long,
+                                         googleTimePassed: Long,
+                                         googleExpired: Boolean
                                         )
 
   implicit lazy val socialConnectStatusRequestReads: Reads[socialConnectStatusRequest] = Reads[socialConnectStatusRequest] {
@@ -198,7 +206,14 @@ package object auth {
       "connectedWithFacebook" -> Json.toJson(o.connectedWithFacebook),
       "facebookExpiresIn" -> Json.toJson(o.facebookExpiresIn),
       "connectedDateWithFacebook" -> Json.toJson(o.connectedDateWithFacebook),
-      "facebookTimePassed" -> Json.toJson(o.facebookTimePassed)
+      "facebookTimePassed" -> Json.toJson(o.facebookTimePassed),
+      "facebookExpired" -> Json.toJson(o.facebookExpired),
+
+      "connectedWithGoogle" -> Json.toJson(o.connectedWithGoogle),
+      "googleExpiresIn" -> Json.toJson(o.googleExpiresIn),
+      "connectedDateWithGoogle" -> Json.toJson(o.connectedDateWithGoogle),
+      "googleTimePassed" -> Json.toJson(o.googleTimePassed),
+      "googleExpired" -> Json.toJson(o.googleExpired)
     ).filter(_._2 != JsNull))
   }
 

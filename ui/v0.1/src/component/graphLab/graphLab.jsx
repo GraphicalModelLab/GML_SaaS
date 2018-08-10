@@ -181,8 +181,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         code:10
                 };
 
-                 console.log("training");
-                 console.log(JSON.stringify(data));
                  $.ajax({
                     url  : "../commonModules/php/modules/GML.php/gml/training",
                     type : "post",
@@ -190,7 +188,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     contentType: 'application/json',
                     dataType: "json",
                     success: function(response) {
-
+                        if(response.body.code == 401){
+                            auth.logout();
+                        }
                     },
                     error: function (request, status, error) {
                         alert("Failed to train the model. Contact Administrator");
@@ -269,7 +269,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     contentType: 'application/json',
                     dataType: "json",
                     success: function(response) {
-
+                        if(response.body.code == 401){
+                            auth.logout();
+                        }
                     },
                     error: function (request, status, error) {
                         alert("failed to do testing. Contact Administrator");
@@ -334,6 +336,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             success: function(response) {
                 console.log("success for save");
                 console.log(response);
+                if(response.body.code == 401){
+                    auth.logout();
+                }
             },
             error: function(request, status, error) {
                 alert("error");
