@@ -51,6 +51,7 @@ export default class Graph extends React.Component<Props, {}> {
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.onScroll = this.onScroll.bind(this);
+        this.visibleEdge = this.visibleEdge.bind(this);
     }
 
     componentWillUnmount(){
@@ -113,7 +114,6 @@ export default class Graph extends React.Component<Props, {}> {
                 this.refs["edge"+i].update1(x,y);
                 this.refs["edgeDeletion"+i].update((x+this.state.edges[i].x2)/2,(y+this.state.edges[i].y2)/2);
              }else if(this.state.edges[i].label2 == label && !this.state.edges[i].disable){
-                console.log("Label 2222");
                 this.state.edges[i] = {
                                     x1: this.state.edges[i].x1,
                                     y1: this.state.edges[i].y1,
@@ -129,9 +129,7 @@ export default class Graph extends React.Component<Props, {}> {
     }
 
     updateMatrix(){
-        console.log("Update matrix!");
         if(ReactDOM.findDOMNode(this.refs.canvas)){
-            console.log("Found canvas : "+ "matrix(" +  this.state.transformMatrix.join(' ') + ")");
             ReactDOM.findDOMNode(this.refs.canvas).setAttribute("transform", "matrix(" +  this.state.transformMatrix.join(' ') + ")");
         }
     }
@@ -140,7 +138,6 @@ export default class Graph extends React.Component<Props, {}> {
         this.state.transformMatrix[4] += dx;
         this.state.transformMatrix[5] += dy;
 
-        console.log("pan !!!!");
         this.updateMatrix();
     }
 
@@ -210,43 +207,47 @@ export default class Graph extends React.Component<Props, {}> {
     }
 
     addEdge(label1, label2, x1, y1, x2, y2, disable){
-          var newEdge = {
-              x1: x1,
-              y1: y1,
-              x2: x2,
-              y2: y2,
-              label1: label1,
-              label2: label2,
-              disable: disable
-          };
+          var existingEdgeIndex = this.state.edges.findIndex(edge => edge.label1 == label1 && edge.label2 == label2);
 
-          var newEdgeDeletion = {
-              x: (x1 + x2)/2,
-              y: (y1 + y2)/2,
-              label1: label1,
-              label2: label2,
-              disable: disable
-          };
+          if(existingEdgeIndex < 0){
+              var newEdge = {
+                  x1: x1,
+                  y1: y1,
+                  x2: x2,
+                  y2: y2,
+                  label1: label1,
+                  label2: label2,
+                  disable: disable
+              };
 
-          this.state.edges.push(newEdge);
-          this.state.edgesDeletion.push(newEdgeDeletion);
+              var newEdgeDeletion = {
+                  x: (x1 + x2)/2,
+                  y: (y1 + y2)/2,
+                  label1: label1,
+                  label2: label2,
+                  disable: disable
+              };
+
+              this.state.edges.push(newEdge);
+              this.state.edgesDeletion.push(newEdgeDeletion);
 
 
-          this.setState({
-            nodes: this.state.nodes,
-            edges: this.state.edges,
-            edgesDeletion: this.state.edgesDeletion,
-            newEdge: false,
-            prevLabel: null,
-            currentChosenNode: null
-          });
+              this.setState({
+                nodes: this.state.nodes,
+                edges: this.state.edges,
+                edgesDeletion: this.state.edgesDeletion,
+                newEdge: false,
+                prevLabel: null,
+                currentChosenNode: null
+              });
+          }else{
+            this.visibleEdge(label1,label2, false);
+          }
     }
 
     addNode(label,x,y,disable,properties){
        var nodes = this.state.nodes;
 
-       console.log("add label : "+label)
-       console.log(properties);
        nodes.push({
             label: label,
             x: x,
@@ -260,16 +261,19 @@ export default class Graph extends React.Component<Props, {}> {
        });
     }
 
+    visibleEdge(label1, label2, disable){
+       var deletedIndex = this.state.edges.findIndex(edge => edge.label1 == label1 && edge.label2 == label2);
+       this.state.edges[deletedIndex].disable = disable;
+
+       var deletedEdgeMarkIndex = this.state.edgesDeletion.findIndex(mark => mark.label1 == label1 && mark.label2 == label2);
+       this.state.edgesDeletion[deletedEdgeMarkIndex].disable = disable;
+
+       this.setState({
+        edges: this.state.edges
+       });
+    }
     deleteEdgeCallBack(label1, label2){
-        var deletedIndex = this.state.edges.findIndex(edge => edge.label1 == label1 && edge.label2 == label2);
-        this.state.edges[deletedIndex].disable = true;
-
-        var deletedEdgeMarkIndex = this.state.edgesDeletion.findIndex(mark => mark.label1 == label1 && mark.label2 == label2);
-        this.state.edgesDeletion[deletedEdgeMarkIndex].disable = true;
-
-        this.setState({
-            edges: this.state.edges
-        });
+        this.visibleEdge(label1,label2, true);
     }
 
     deleteNodeCallBack(label){
@@ -323,7 +327,6 @@ export default class Graph extends React.Component<Props, {}> {
 
     onScroll(e){
       e.stopPropagation();
-        console.log(e);
     }
 
     clearSvgPane(){
