@@ -29,7 +29,6 @@ export default class Circle extends React.Component<Props, {}> {
                      label2: this.props.label2
                    };
 
-        console.log(this.state);
 
    }
 
@@ -126,7 +125,6 @@ export default class Circle extends React.Component<Props, {}> {
    }
 
    update2(x2, y2){
-        console.log("update2");
         var new_x_y_1 = this.calculateCircleEdgePoint({x:this.state.x1,y:this.state.y1},{x:x2,y:y2}, 30, 0);
         var new_x_y_2 = this.calculateCircleEdgePoint({x:this.state.x1,y:this.state.y1},{x:x2,y:y2}, 30, 8);
         this.setState({

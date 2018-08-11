@@ -26,8 +26,8 @@ export default class EdgeDeletion extends React.Component<Props, {}> {
    }
 
    deleteEdge(e){
-
       e.stopPropagation();
+
       this.props.deleteEdgeCallBack(this.props.label1, this.props.label2);
    }
 
@@ -44,6 +44,7 @@ export default class EdgeDeletion extends React.Component<Props, {}> {
                     <line stroke="white" x1={this.state.x-3} y1={this.state.y-3} x2={this.state.x+3} y2={this.state.y+3} />
 
                     <line stroke="white" x1={this.state.x+3} y1={this.state.y-3} x2={this.state.x-3} y2={this.state.y+3} />
+
                </g>
            )
    }
