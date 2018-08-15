@@ -8,8 +8,6 @@ import Loading from './../loader/loading';
 import GraphLabRecord from './../graphLabRepository/graphLabRecord';
 import { withRouter } from 'react-router';
 
-// Tree List  https://www.sozailab.jp/sozai/detail/6152/
-//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
 export default class GraphicalLabLocalRepository extends React.Component<Props, {}> {
 
     constructor(props) {
@@ -61,6 +59,20 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
                     console.log(response);
                     for(let model of response.body.models) {
                         var modelInfo = JSON.parse(model);
+
+                        console.log(modelInfo);
+                        var date = new Date(modelInfo.datetime);
+
+                        var format_str = 'YYYY/MM/DD hh:mm:ss';
+                        format_str = format_str.replace(/YYYY/g, date.getFullYear());
+                        format_str = format_str.replace(/MM/g, date.getMonth());
+                        format_str = format_str.replace(/DD/g, date.getDate());
+                        format_str = format_str.replace(/hh/g, date.getHours());
+                        format_str = format_str.replace(/mm/g, date.getMinutes());
+                        format_str = format_str.replace(/ss/g, date.getSeconds());
+
+                        modelInfo.formattedDate = format_str;
+                        console.log("model date:"+modelInfo.formattedDate+":"+date+":"+modelInfo.timestamp);
                         modelRecords.push(modelInfo);
                     }
 

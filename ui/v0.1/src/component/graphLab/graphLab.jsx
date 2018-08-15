@@ -12,6 +12,7 @@ import GraphSaveView from './graphSave/graphSaveView';
 import ModelHistoryDialogWithSearch from './../modelHistory/modelHistoryDialogWithSearch';
 import AddCustomNodeDialog from './graphComponent/addCustomNodeDialog/addCustomNodeDialog';
 import ReactTooltip from 'react-tooltip';
+import GraphTestResult from './graphTestResult/graphTestResult';
 
 export default class GraphicalDesign extends React.Component<Props, {}> {
 
@@ -273,6 +274,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         if(response.body.code == 401){
                             auth.logout();
                         }
+
+                        var jsonResponse = JSON.parse(response.body.accuracy)
+
+                        self.refs.testResult.openModal(jsonResponse.accuracy,jsonResponse.evaluationMethod);
                     },
                     error: function (request, status, error) {
                         alert("failed to do testing. Contact Administrator");
@@ -320,7 +325,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         };
 
         this.setState({
-            downloadLink: "ダウンロードリンク",
+            downloadLink: "DownloadLink",
             downloadContent: "data:text/csv;charset=utf-8,"+JSON.stringify(graph),
             modelid: graph.modelid,
             modelname: graph.modelname,
@@ -431,6 +436,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 <PopupMessage ref="popupMessage"/>
                 <ModelHistoryDialogWithSearch ref="modelHistoryDialogWithSearch" setup={this.setup} clear={this.clear}/>
                 <ReactTooltip />
+                <GraphTestResult ref="testResult"/>
             </div>
            )
     }
