@@ -14,9 +14,9 @@ curl -IHEAD 'http://localhost:9200/model_index2'
 3. search
 curl -XGET 'localhost:9200/model_index3/model_type/_search?pretty=true&q=*:*'
 
-curl -H 'Content-Type:application/json' -XGET 'localhost:9200/model_index/model_type/_search?pretty' -d'
+curl -H 'Content-Type:application/json' -XGET 'localhost:9200/model_index3/model_type/_search?pretty' -d'
       {
-        "query":{"match":{"tag":"rgarge"}}
+        "query":{"match":{"modeltag":"wine"}}
       }'
 
 4.  delete all indexes

@@ -27,7 +27,7 @@ class ElasticSearchClient {
   def getClient(): TransportClient = client
 
   def addDocument(): Unit={
-    client.prepareIndex("model_index","model_type","1")
+    client.prepareIndex("model_index3","model_type","1")
       .setSource(jsonBuilder()
         .startObject()
         .field("id", "1")
@@ -38,7 +38,7 @@ class ElasticSearchClient {
   }
 
   def searchDocument(keyword: String): String = {
-    val response = client.prepareSearch("model_index")
+    val response = client.prepareSearch("model_index3")
       .setTypes("model_type")
       .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
       .setQuery(QueryBuilders.termQuery("tag", "ge")) // Query

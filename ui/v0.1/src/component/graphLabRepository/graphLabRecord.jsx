@@ -14,8 +14,6 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
 
         this.clickCallBack = this.clickCallBack.bind(this);
         this.showHistoryCallBack = this.showHistoryCallBack.bind(this);
-
-        console.log(this.props.recordInfo);
     }
 
     clickCallBack(){
@@ -35,9 +33,6 @@ export default class GraphLabRecord extends React.Component<Props, {}> {
                     </span>
                     <span className={styles.searchResultBoxModelTag}>
                       {this.props.recordInfo.modeltag}
-                    </span>
-                    <span className={styles.searchResultBoxTimeStamp}>
-                    {this.props.recordInfo.timestamp}
                     </span>
 
                     <span className={styles.searchResultBoxAlgorithm}>

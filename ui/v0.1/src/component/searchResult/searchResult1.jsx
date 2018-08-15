@@ -38,16 +38,14 @@ constructor(props) {
 
     showResult(){
         if(this.props.location.state.modelInfo){
-                      var modelInfo = JSON.parse(this.props.location.state.modelInfo);
-
-                      this.setup(modelInfo);
-                  }
+            this.setup(this.props.location.state.modelInfo);
+        }
     }
 
     setup(models){
         var modelRecords = [];
         for(let modelInfo of models) {
-            modelRecords.push(modelInfo);
+           modelRecords.push(modelInfo);
         }
 
         this.setState({

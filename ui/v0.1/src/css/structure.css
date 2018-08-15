@@ -680,15 +680,25 @@ a:active {
 }
 
 .searchResultBoxTimeStamp{
-
-  width: 300px;
+  width: 180px;
   float: left;
 
 }
 
 .searchResultBoxAlgorithm{
 
+   width: 100px;
+   float: left;
+}
+.searchResultBoxAccuracy{
+
   width: 100px;
+  float: left;
+}
+
+.searchResultBoxEvaluationMethod{
+
+  width: 200px;
   float: left;
 }
 

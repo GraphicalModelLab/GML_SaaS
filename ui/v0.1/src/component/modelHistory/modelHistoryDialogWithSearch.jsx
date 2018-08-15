@@ -65,10 +65,26 @@ export default class ModelHistoryDialogWithSearch extends React.Component<Props,
                     console.log("success for save");
                     console.log(response);
 
+                    var n = 4;
                     for(let index in response.body.history){
                         var json = JSON.parse(response.body.history[index]);
-                        records.push(json);
+                        console.log(json);
+
+                        json.info.accuracy = Math.floor( json.info.accuracy * Math.pow( 10, n ) ) / Math.pow( 10, n );
+
                         var date = new Date(json.time);
+
+                        var format_str = 'YYYY/MM/DD hh:mm:ss';
+                        format_str = format_str.replace(/YYYY/g, date.getFullYear());
+                        format_str = format_str.replace(/MM/g, date.getMonth());
+                        format_str = format_str.replace(/DD/g, date.getDate());
+                        format_str = format_str.replace(/hh/g, date.getHours());
+                        format_str = format_str.replace(/mm/g, date.getMinutes());
+                        format_str = format_str.replace(/ss/g, date.getSeconds());
+
+                        json.model.formattedDate = format_str;
+
+                        records.push(json);
 
                         values.push({
                             x: date, y: json.info.accuracy
@@ -162,7 +178,7 @@ export default class ModelHistoryDialogWithSearch extends React.Component<Props,
     render() {
         return <div>
                     <Modal
-                        contentLabel="Model Property"
+                        contentLabel="Model History"
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles} ref="modal">

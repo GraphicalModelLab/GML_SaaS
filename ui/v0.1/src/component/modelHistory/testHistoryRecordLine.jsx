@@ -24,15 +24,19 @@ export default class TestHistoryRecordLine extends React.Component<Props, {}> {
             <div className={styles.searchResultBoxHistory}>
                 <img src="../icon/flask.png" className={styles.searchResultBoxFlaskIcon}/>
                     <span className={styles.searchResultBoxTimeStamp}>
-                    {this.props.recordInfo.model.timestamp}
+                    {this.props.recordInfo.model.formattedDate}
                     </span>
 
                     <span className={styles.searchResultBoxAlgorithm}>
                     {this.props.recordInfo.model.algorithm}
                     </span>
 
-                    <span className={styles.searchResultBoxAlgorithm}>
+                    <span className={styles.searchResultBoxAccuracy}>
                         {this.props.recordInfo.info.accuracy}
+                    </span>
+
+                    <span className={styles.searchResultBoxEvaluationMethod}>
+                        {this.props.recordInfo.info.evaluationMethod}
                     </span>
 
                    <img onClick={this.clickCallBack} src="../icon/Right-Arrow-02.png" className={styles.searchResultBoxRightArrowIcon}/>

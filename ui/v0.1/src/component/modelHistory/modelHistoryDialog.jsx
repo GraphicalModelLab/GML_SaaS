@@ -58,47 +58,39 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
                     var values = [];
                     var oldestDate = new Date();
 
-                    // JSON.parse(response.body.model)
-                    console.log("success for save");
-                    console.log(response);
+                    if(response.body.history.length > 0){
+                        for(let index in response.body.history){
+                            var json = JSON.parse(response.body.history[index]);
+                            var date = new Date(json.time);
+                            values.push({
+                                x: date, y: json.info.accuracy
+                            });
 
-                    for(let index in response.body.history){
-                        var json = JSON.parse(response.body.history[index]);
-                        var date = new Date(json.time);
-                        values.push({
-                            x: date, y: json.info.accuracy
+                            if(date < oldestDate){
+                                oldestDate = date;
+                            }
+                        }
+
+                        var earliestDate = oldestDate;
+
+                        for(let index in values){
+                            if(values[index].x > earliestDate){
+                                earliestDate = values[index].x;
+                            }
+                        }
+
+                        var axisOldest = new Date(oldestDate.getTime()); axisOldest.setDate(oldestDate.getDate() - 2);
+                        var axisEarliest = new Date(earliestDate.getTime()); axisEarliest.setDate(earliestDate.getDate() + 2);
+
+                        self.setState({
+                            plotTestHistory: true,
+                            data: {label: 'test accuracy history', values: values},
+                            xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+                            xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
                         });
 
-                        if(date < oldestDate){
-                            oldestDate = date;
-                        }
+                        console.log(self.state.data);
                     }
-
-                    var earliestDate = oldestDate;
-
-                    for(let index in values){
-                        if(values[index].x > earliestDate){
-                            earliestDate = values[index].x;
-                        }
-                    }
-
-                    console.log("values");
-                    console.log(values);
-
-                    console.log(earliestDate);
-                    console.log(oldestDate);
-
-                    var axisOldest = new Date(oldestDate.getTime()); axisOldest.setDate(oldestDate.getDate() - 2);
-                    var axisEarliest = new Date(earliestDate.getTime()); axisEarliest.setDate(earliestDate.getDate() + 2);
-
-                    self.setState({
-                        plotTestHistory: true,
-                        data: {label: 'test accuracy history', values: values},
-                        xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-                        xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
-                    });
-
-                    console.log(self.state.data);
                 },
                 error: function(request, status, error) {
                     alert("error");
