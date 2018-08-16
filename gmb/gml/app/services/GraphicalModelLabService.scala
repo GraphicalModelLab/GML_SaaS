@@ -1,16 +1,12 @@
 package services
 
+import java.util.ServiceLoader
+
 import gml._
-import org.apache.spark.SparkConf
-import org.apache.spark.sql.SparkSession
-import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.auth.AuthDBClient
-import org.graphicalmodellab.auth.facebookapps.FacebookAppsOpenIDConnector
-import org.graphicalmodellab.auth.googleapps.GoogleAppsOpenIDConnector
-import org.graphicalmodellab.elastic.ElasticSearchClient
-import org.graphicalmodellab.encryption.Encryption
 import play.Play
 import play.api.http.Status
+import scala.collection.JavaConverters._
 
 import scala.collection.mutable
 
@@ -19,20 +15,28 @@ import scala.collection.mutable
  */
 class GraphicalModelLabService {
   val config = Play.application().configuration()
+  var listOfModel: List[String] = null
 
-  val TrainedModelMap: mutable.Map[String,ModelSimpleCSV] = mutable.Map[String,ModelSimpleCSV]()
+
+  GmlDBClient.init(List[String]("localhost"));
+  AuthDBClient.init(List[String]("localhost"));
+  GmlElasticSearchClient.init("localhost");
+
+  val TrainedModelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
 
   // If we define spark conf here, I get some error
 //  val sparkConf = new SparkConf().setAppName("Model").setMaster("local")
 //  //  val sparkContext = new SparkContext(sparkConf)
 //  val sparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
 
-  def training(companyId:String,request: Option[trainingRequest]): trainingResponse = {
+  def training(token:String, companyId:String,request: Option[trainingRequest]): trainingResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
-          val model: ModelSimpleCSV = new ModelSimpleCSV(request.graph.edges,request.graph.nodes,request.graph.commonProperties);
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val model: Model = new ModelSimpleCSV();
+          model.setup(SparkContext.sparkConf,SparkContext.sparkSession,request.graph.edges,request.graph.nodes,request.graph.commonProperties)
           model.training(request.datasource)
           TrainedModelMap.put("test",model)
 
@@ -47,21 +51,22 @@ class GraphicalModelLabService {
     return trainingResponse(Status.INTERNAL_SERVER_ERROR, 1,"")
   }
 
-  def test(companyId:String,request: Option[testRequest]): testResponse = {
+  def test(token: String, companyId:String,request: Option[testRequest]): testResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
           if(request.evaluationMethod == "simple") {
-            val model: ModelSimpleCSV = TrainedModelMap.get("test").get
+            val model: Model = TrainedModelMap.get("test").get
             val accuracy = model.testSimple(request.testsource, request.targetLabel)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
 
             return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
           }else if(request.evaluationMethod == "cross-validation"){
             val K = 10;
-            val model: ModelSimpleCSV = new ModelSimpleCSV(request.graph.edges,request.graph.nodes,request.graph.commonProperties);
+            val model: Model = new ModelSimpleCSV();
+            model.setup(SparkContext.sparkConf,SparkContext.sparkSession,request.graph.edges,request.graph.nodes,request.graph.commonProperties)
 
             val accuracy = model.testByCrossValidation(request.testsource, request.targetLabel,K)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
@@ -83,11 +88,11 @@ class GraphicalModelLabService {
     return testResponse(Status.INTERNAL_SERVER_ERROR, 1,"","")
   }
 
-  def save(companyId:String,request: Option[saveRequest]): saveResponse = {
+  def save(token:String, companyId:String,request: Option[saveRequest]): saveResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
           val timestamp = GmlDBClient.save(request)
           GmlElasticSearchClient.addDocument(request)
         }else{
@@ -101,11 +106,11 @@ class GraphicalModelLabService {
     return saveResponse(Status.INTERNAL_SERVER_ERROR, 1)
   }
 
-  def list(companyId:String,request: Option[listRequest]): listResponse = {
+  def list(token: String, companyId:String,request: Option[listRequest]): listResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
           return GmlDBClient.list(request)
         }else{
           return listResponse(Status.UNAUTHORIZED, 1, List[String]())
@@ -116,11 +121,11 @@ class GraphicalModelLabService {
     return listResponse(Status.INTERNAL_SERVER_ERROR, 1, List[String]())
   }
 
-  def get(companyId:String,request: Option[getRequest]): getResponse = {
+  def get(token:String, companyId:String,request: Option[getRequest]): getResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
           return GmlDBClient.get(request)
         }else{
           return getResponse(Status.UNAUTHORIZED, 1, null)
@@ -131,11 +136,11 @@ class GraphicalModelLabService {
     return getResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
   }
 
-  def search(companyId:String,request: Option[searchRequest]): searchResponse = {
+  def search(token:String, companyId:String,request: Option[searchRequest]): searchResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
           val result = GmlElasticSearchClient.searchDocument(request.query)
           return searchResponse(Status.OK, 1, result)
         }else{
@@ -147,38 +152,52 @@ class GraphicalModelLabService {
     return searchResponse(Status.INTERNAL_SERVER_ERROR, 1, "[]")
   }
 
-  def history(companyId:String,request: Option[historyRequest]): historyResponse = {
+  def getTestHistory(token:String, companyId:String,request: Option[getTestHistoryRequest]): getTestHistoryResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
           val testHistory = GmlDBClient.getTestHistory(request)
 
-          return new historyResponse(
+          return new getTestHistoryResponse(
             Status.OK,
             Status.OK,
             testHistory.toList
           )
         }else{
-          return historyResponse(Status.UNAUTHORIZED, 1, List[String]())
+          return getTestHistoryResponse(Status.UNAUTHORIZED, 1, List[String]())
         }
       case None =>
         println("No request")
     }
-    return historyResponse(Status.INTERNAL_SERVER_ERROR, 1, List[String]())
+    return getTestHistoryResponse(Status.INTERNAL_SERVER_ERROR, 1, List[String]())
   }
-  def getHistory(companyId:String,request: Option[getHistoryRequest]): getHistoryResponse = {
+  def getModelInTestHistory(token:String, companyId:String,request: Option[getModelInHistoryRequest]): getModelInHistoryResponse = {
 
     request match {
       case Some(request)=>
-        if(AuthDBClient.isValidToken(companyId,request.userid,request.token)) {
-          return GmlDBClient.getHistory(request)
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
+          return GmlDBClient.getModelInHistory(request)
         }else{
-          return getHistoryResponse(Status.UNAUTHORIZED, 1, null)
+          return getModelInHistoryResponse(Status.UNAUTHORIZED, 1, null)
         }
       case None =>
         println("No request")
     }
-    return getHistoryResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
+    return getModelInHistoryResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
+  }
+
+  def getListOfModels(companyId: String, request: Option[getListOfAvailableModelsRequest]): getListOfAvailableModelsResponse={
+    if(listOfModel == null) {
+      var list = mutable.ListBuffer[String]()
+      val ws = (ServiceLoader load classOf[Model]).asScala
+
+      for (w <- ws) {
+        list += w.getModelName
+      }
+      listOfModel = list.to
+    }
+
+    return getListOfAvailableModelsResponse(Status.OK,listOfModel.toList)
   }
 }

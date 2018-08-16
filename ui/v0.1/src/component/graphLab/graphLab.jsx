@@ -176,7 +176,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 var data = {
                         companyid: auth.getCompanyid(),
                         userid:auth.getUserid(),
-                        token: auth.getToken(),
                         companyid: auth.getCompanyid(),
                         graph: graph,
                         datasource: data,
@@ -189,6 +188,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     data : JSON.stringify(data),
                     contentType: 'application/json',
                     dataType: "json",
+                    headers : {
+                                Authorization: "Bearer "+auth.getToken()
+                    },
                     success: function(response) {
                         if(response.body.code == 401){
                             auth.logout();
@@ -253,7 +255,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 var data = {
                         companyid: auth.getCompanyid(),
                         userid:auth.getUserid(),
-                        token: auth.getToken(),
                         companyid: auth.getCompanyid(),
                         graph: graph,
                         evaluationMethod: evaluationMethod,
@@ -270,6 +271,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     data : JSON.stringify(data),
                     contentType: 'application/json',
                     dataType: "json",
+                    headers : {
+                        Authorization: "Bearer "+auth.getToken()
+                    },
                     success: function(response) {
                         if(response.body.code == 401){
                             auth.logout();
@@ -319,7 +323,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         var data = {
                     companyid: auth.getCompanyid(),
                     userid:auth.getUserid(),
-                    token: auth.getToken(),
                     graph: graph,
                     code:10
         };
@@ -339,6 +342,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             data : JSON.stringify(data),
             contentType: 'application/json',
             dataType: "json",
+            headers : {
+                        Authorization: "Bearer "+auth.getToken()
+            },
             success: function(response) {
                 console.log("success for save");
                 console.log(response);

@@ -38,21 +38,12 @@ export default class ModelHistoryDialog extends React.Component<Props, {}> {
         var self = this;
         // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
         this.setState({modalIsOpen: true}, function(){
-            var data = {
-                        companyid: auth.getCompanyid(),
-                        userid:auth.getUserid(),
-                        token: auth.getToken(),
-                        model_userid: model_userid,
-                        modelid: modelid,
-                        code:10
-            };
-
             $.ajax({
-                url  : "../commonModules/php/modules/GML.php/gml/model/history",
-                type : "post",
-                data : JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: "json",
+                url  : "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid()+"&model_userid="+model_userid+"&modelid="+modelid,
+                type : "get",
+                headers : {
+                    Authorization: "Bearer "+auth.getToken()
+                },
                 success: function(response) {
 
                     var values = [];

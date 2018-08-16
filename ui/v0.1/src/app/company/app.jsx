@@ -51,20 +51,12 @@ export default class App extends React.Component<Props, {}> {
             self.refs.loading.openModal();
             self.refs.popupMessage.showMessage("now searching...");
 
-            var data = {
-                companyid: auth.getCompanyid(),
-                userid:auth.getUserid(),
-                token: auth.getToken(),
-                code:10,
-                query: this.refs.search.value
-            };
-
             $.ajax({
-                type:"post",
-                url:"../commonModules/php/modules/GML.php/gml/model/search",
-                data:JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: "json",
+                type:"get",
+                url:"../commonModules/php/modules/GML.php/gml/model/search?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid()+"&query="+this.refs.search.value,
+                headers : {
+                    Authorization: "Bearer "+auth.getToken()
+                },
                 success: function(json_data) {
                     // React query convert an array with only one element to an string type data so that push one dummy data to keep it as an array
                     self.refs.loading.closeModal();

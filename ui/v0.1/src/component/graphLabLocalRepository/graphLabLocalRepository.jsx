@@ -38,20 +38,14 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
     }
 
     showResult(){
-           var data = {
-                companyid: auth.getCompanyid(),
-                userid:auth.getUserid(),
-                token: auth.getToken(),
-                code:10
-            };
 
             var self = this;
             $.ajax({
-                url  : "../commonModules/php/modules/GML.php/gml/model/list",
-                type : "post",
-                data : JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: "json",
+                url  : "../commonModules/php/modules/GML.php/gml/model/list?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid(),
+                type : "get",
+                headers : {
+                    Authorization: "Bearer "+auth.getToken()
+                },
                 success: function(response) {
                     var modelRecords = [];
 
@@ -60,7 +54,6 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
                     for(let model of response.body.models) {
                         var modelInfo = JSON.parse(model);
 
-                        console.log(modelInfo);
                         var date = new Date(modelInfo.datetime);
 
                         var format_str = 'YYYY/MM/DD hh:mm:ss';
@@ -90,6 +83,7 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
                 },
                 error: function (request, status, error) {
                     alert("error");
+                    console.log(request.responseText);
                     console.log(request);
                     console.log(status);
                     console.log(error);
@@ -112,24 +106,15 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
         var self = this;
 
         if(recordInfo.modelid){
-            console.log("open : "+recordInfo.modelid);
-            console.log(recordInfo);
-            var data = {
-                companyid: auth.getCompanyid(),
-                userid:auth.getUserid(),
-                token: auth.getToken(),
-                code:10,
-                modelid: recordInfo.modelid,
-                datetime: recordInfo.datetime
-            };
             $.ajax({
-                    url  : "../commonModules/php/modules/GML.php/gml/model/get",
-                    type : "post",
-                    data : JSON.stringify(data),
-                    contentType: 'application/json',
-                    dataType: "json",
+                    url  : "../commonModules/php/modules/GML.php/gml/model?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid()+"&modelid="+recordInfo.modelid,
+                    type : "get",
+                    headers : {
+                        Authorization: "Bearer "+auth.getToken()
+                    },
                     success: function(response) {
-
+                        console.log("got response");
+                        console.log(response);
                         if(response.body.code == 401){
                             auth.logout();
                         }
@@ -143,7 +128,7 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
                     },
                     error: function (request, status, error) {
                         alert("error");
-                        console.log(request);
+                    console.log(request.responseText);
                         console.log(status);
                         console.log(error);
                     }

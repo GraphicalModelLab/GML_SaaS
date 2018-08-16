@@ -41536,8 +41536,7 @@
 	
 	                    var data = (_data = {
 	                        companyid: _auth2.default.getCompanyid(),
-	                        userid: _auth2.default.getUserid(),
-	                        token: _auth2.default.getToken()
+	                        userid: _auth2.default.getUserid()
 	                    }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'graph', graph), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'code', 10), _data);
 	
 	                    _jquery2.default.ajax({
@@ -41546,6 +41545,9 @@
 	                        data: JSON.stringify(data),
 	                        contentType: 'application/json',
 	                        dataType: "json",
+	                        headers: {
+	                            Authorization: "Bearer " + _auth2.default.getToken()
+	                        },
 	                        success: function success(response) {
 	                            if (response.body.code == 401) {
 	                                _auth2.default.logout();
@@ -41610,8 +41612,7 @@
 	
 	                var data = (_data2 = {
 	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken()
+	                    userid: _auth2.default.getUserid()
 	                }, _defineProperty(_data2, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data2, 'graph', graph), _defineProperty(_data2, 'evaluationMethod', evaluationMethod), _defineProperty(_data2, 'testsource', data), _defineProperty(_data2, 'targetLabel', targetLabel), _defineProperty(_data2, 'code', 10), _data2);
 	
 	                console.log("Training start");
@@ -41622,6 +41623,9 @@
 	                    data: JSON.stringify(data),
 	                    contentType: 'application/json',
 	                    dataType: "json",
+	                    headers: {
+	                        Authorization: "Bearer " + _auth2.default.getToken()
+	                    },
 	                    success: function success(response) {
 	                        if (response.body.code == 401) {
 	                            _auth2.default.logout();
@@ -41674,7 +41678,6 @@
 	            var data = {
 	                companyid: _auth2.default.getCompanyid(),
 	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
 	                graph: graph,
 	                code: 10
 	            };
@@ -41694,6 +41697,9 @@
 	                data: JSON.stringify(data),
 	                contentType: 'application/json',
 	                dataType: "json",
+	                headers: {
+	                    Authorization: "Bearer " + _auth2.default.getToken()
+	                },
 	                success: function success(response) {
 	                    console.log("success for save");
 	                    console.log(response);
@@ -43537,21 +43543,12 @@
 	            var self = this;
 	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
 	            this.setState({ modalIsOpen: true }, function () {
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    model_userid: model_userid,
-	                    modelid: modelid,
-	                    code: 10
-	                };
-	
 	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/history",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
+	                    url: "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&model_userid=" + model_userid + "&modelid=" + modelid,
+	                    type: "get",
+	                    headers: {
+	                        Authorization: "Bearer " + _auth2.default.getToken()
+	                    },
 	                    success: function success(response) {
 	
 	                        var values = [];
@@ -43562,60 +43559,60 @@
 	                        console.log("success for save");
 	                        console.log(response);
 	
-	                        var n = 4;
-	                        for (var index in response.body.history) {
-	                            var json = JSON.parse(response.body.history[index]);
-	                            console.log(json);
+	                        if (response.body.history.length > 0) {
+	                            var n = 4;
+	                            for (var index in response.body.history) {
+	                                var json = JSON.parse(response.body.history[index]);
+	                                json.info.accuracy = Math.floor(json.info.accuracy * Math.pow(10, n)) / Math.pow(10, n);
 	
-	                            json.info.accuracy = Math.floor(json.info.accuracy * Math.pow(10, n)) / Math.pow(10, n);
+	                                var date = new Date(json.time);
 	
-	                            var date = new Date(json.time);
+	                                var format_str = 'YYYY/MM/DD hh:mm:ss';
+	                                format_str = format_str.replace(/YYYY/g, date.getFullYear());
+	                                format_str = format_str.replace(/MM/g, date.getMonth());
+	                                format_str = format_str.replace(/DD/g, date.getDate());
+	                                format_str = format_str.replace(/hh/g, date.getHours());
+	                                format_str = format_str.replace(/mm/g, date.getMinutes());
+	                                format_str = format_str.replace(/ss/g, date.getSeconds());
 	
-	                            var format_str = 'YYYY/MM/DD hh:mm:ss';
-	                            format_str = format_str.replace(/YYYY/g, date.getFullYear());
-	                            format_str = format_str.replace(/MM/g, date.getMonth());
-	                            format_str = format_str.replace(/DD/g, date.getDate());
-	                            format_str = format_str.replace(/hh/g, date.getHours());
-	                            format_str = format_str.replace(/mm/g, date.getMinutes());
-	                            format_str = format_str.replace(/ss/g, date.getSeconds());
+	                                json.model.formattedDate = format_str;
 	
-	                            json.model.formattedDate = format_str;
+	                                records.push(json);
 	
-	                            records.push(json);
+	                                values.push({
+	                                    x: date, y: json.info.accuracy
+	                                });
 	
-	                            values.push({
-	                                x: date, y: json.info.accuracy
+	                                if (date < oldestDate) {
+	                                    oldestDate = date;
+	                                }
+	                            }
+	
+	                            var earliestDate = oldestDate;
+	
+	                            for (var _index in values) {
+	                                if (values[_index].x > earliestDate) {
+	                                    earliestDate = values[_index].x;
+	                                }
+	                            }
+	
+	                            var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
+	                            var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
+	
+	                            self.setState({
+	                                plotTestHistory: true,
+	                                data: { label: 'test accuracy history', values: values },
+	                                xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                                xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                                records: records
 	                            });
 	
-	                            if (date < oldestDate) {
-	                                oldestDate = date;
-	                            }
+	                            console.log(self.state.data);
 	                        }
-	
-	                        var earliestDate = oldestDate;
-	
-	                        for (var _index in values) {
-	                            if (values[_index].x > earliestDate) {
-	                                earliestDate = values[_index].x;
-	                            }
-	                        }
-	
-	                        var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
-	                        var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
-	
-	                        self.setState({
-	                            plotTestHistory: true,
-	                            data: { label: 'test accuracy history', values: values },
-	                            xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-	                            xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-	                            records: records
-	                        });
-	
-	                        console.log(self.state.data);
 	                    },
 	                    error: function error(request, status, _error) {
 	                        alert("error");
-	                        console.log(request);
+	                        console.log(request.responseText);
 	                        console.log(status);
 	                        console.log(_error);
 	                    }
@@ -43646,17 +43643,16 @@
 	                var data = {
 	                    companyid: _auth2.default.getCompanyid(),
 	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
 	                    code: 10,
 	                    modelid: recordInfo.model.modelid,
 	                    datetime: recordInfo.model.datetime
 	                };
 	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/history/get",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
+	                    url: "../commonModules/php/modules/GML.php/gml/model/test/history?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.model.modelid + "&datetime=" + recordInfo.model.datetime,
+	                    type: "get",
+	                    headers: {
+	                        Authorization: "Bearer " + _auth2.default.getToken()
+	                    },
 	                    success: function success(response) {
 	                        console.log("got graph");
 	                        console.log(response);
@@ -58629,20 +58625,14 @@
 	    }, {
 	        key: 'showResult',
 	        value: function showResult() {
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                code: 10
-	            };
 	
 	            var self = this;
 	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/model/list",
-	                type: "post",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
+	                url: "../commonModules/php/modules/GML.php/gml/model/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
+	                type: "get",
+	                headers: {
+	                    Authorization: "Bearer " + _auth2.default.getToken()
+	                },
 	                success: function success(response) {
 	                    var modelRecords = [];
 	
@@ -58658,7 +58648,6 @@
 	
 	                            var modelInfo = JSON.parse(model);
 	
-	                            console.log(modelInfo);
 	                            var date = new Date(modelInfo.datetime);
 	
 	                            var format_str = 'YYYY/MM/DD hh:mm:ss';
@@ -58702,6 +58691,7 @@
 	                },
 	                error: function error(request, status, _error) {
 	                    alert("error");
+	                    console.log(request.responseText);
 	                    console.log(request);
 	                    console.log(status);
 	                    console.log(_error);
@@ -58747,24 +58737,15 @@
 	            var self = this;
 	
 	            if (recordInfo.modelid) {
-	                console.log("open : " + recordInfo.modelid);
-	                console.log(recordInfo);
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    code: 10,
-	                    modelid: recordInfo.modelid,
-	                    datetime: recordInfo.datetime
-	                };
 	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
+	                    url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
+	                    type: "get",
+	                    headers: {
+	                        Authorization: "Bearer " + _auth2.default.getToken()
+	                    },
 	                    success: function success(response) {
-	
+	                        console.log("got response");
+	                        console.log(response);
 	                        if (response.body.code == 401) {
 	                            _auth2.default.logout();
 	                        }
@@ -58778,7 +58759,7 @@
 	                    },
 	                    error: function error(request, status, _error2) {
 	                        alert("error");
-	                        console.log(request);
+	                        console.log(request.responseText);
 	                        console.log(status);
 	                        console.log(_error2);
 	                    }
@@ -59015,21 +58996,12 @@
 	            var self = this;
 	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
 	            this.setState({ modalIsOpen: true }, function () {
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    model_userid: model_userid,
-	                    modelid: modelid,
-	                    code: 10
-	                };
-	
 	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/history",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
+	                    url: "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&model_userid=" + model_userid + "&modelid=" + modelid,
+	                    type: "get",
+	                    headers: {
+	                        Authorization: "Bearer " + _auth2.default.getToken()
+	                    },
 	                    success: function success(response) {
 	
 	                        var values = [];
@@ -59274,20 +59246,12 @@
 	            var self = this;
 	
 	            if (recordInfo.modelid) {
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    code: 10,
-	                    modelid: recordInfo.modelid,
-	                    datetime: recordInfo.datetime
-	                };
 	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
+	                    url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
+	                    type: "get",
+	                    headers: {
+	                        Authorization: "Bearer " + _auth2.default.getToken()
+	                    },
 	                    success: function success(response) {
 	                        self.context.router.push({
 	                            pathname: '/graphLab',
@@ -59473,20 +59437,12 @@
 	            var self = this;
 	
 	            if (recordInfo.modelid) {
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    token: _auth2.default.getToken(),
-	                    code: 10,
-	                    modelid: recordInfo.modelid,
-	                    datetime: recordInfo.datetime
-	                };
 	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/get",
-	                    type: "post",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
+	                    url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
+	                    type: "get",
+	                    headers: {
+	                        Authorization: "Bearer " + _auth2.default.getToken()
+	                    },
 	                    success: function success(response) {
 	                        self.context.router.push({
 	                            pathname: '/graphLab',
@@ -61226,20 +61182,12 @@
 	            self.refs.loading.openModal();
 	            self.refs.popupMessage.showMessage("now searching...");
 	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                code: 10,
-	                query: this.refs.search.value
-	            };
-	
 	            _jquery2.default.ajax({
-	                type: "post",
-	                url: "../commonModules/php/modules/GML.php/gml/model/search",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
+	                type: "get",
+	                url: "../commonModules/php/modules/GML.php/gml/model/search?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&query=" + this.refs.search.value,
+	                headers: {
+	                    Authorization: "Bearer " + _auth2.default.getToken()
+	                },
 	                success: function success(json_data) {
 	                    // React query convert an array with only one element to an string type data so that push one dummy data to keep it as an array
 	                    self.refs.loading.closeModal();

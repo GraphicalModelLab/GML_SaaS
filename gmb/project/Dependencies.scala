@@ -64,6 +64,8 @@ object Dependencies {
   val nd4j = "org.nd4j" % "nd4j-x86" % "0.4-rc3.8"
   val datavec_api = "org.datavec" % "datavec-api" % "0.9.1"
 
+  // Reflection
+  val scala_reflect = "org.scala-lang" % "scala-reflect" % "2.10.2"
 
   // Spark Mllib
   val de_unkrig_jdisasm = "de.unkrig.jdisasm" % "jdisasm" % "1.0.0"
@@ -87,7 +89,6 @@ object Dependencies {
     google_apis
   )
 
-
   val backendDependencies = Seq(
     scalaLoggingSlf4j,
     jon4s,
@@ -101,7 +102,8 @@ object Dependencies {
     jacksonDatabind,
     jacksonDataformatYaml,
     jacksonModule,
-    jettison
+    jettison,
+    scala_reflect
   )
 
   val dl4jDependencies = Seq(

@@ -8,7 +8,7 @@ import org.graphicalmodellab.auth.AuthDBClient
 import org.graphicalmodellab.elastic.ElasticSearchClient
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
-import services.{GmlDBClient, GmlElasticSearchClient, GraphicalModelLabService}
+import services.{GraphicalModelLabService}
 
 
 /**
@@ -18,20 +18,20 @@ object GraphicalModelLabServiceController extends Controller {
 
   val gmlService = new GraphicalModelLabService();
 
-  GmlDBClient.init(List[String]("localhost"));
-  AuthDBClient.init(List[String]("localhost"));
-  GmlElasticSearchClient.init("localhost");
-
   def helloworld() = {
     Action(request =>
-      Ok("hello auth service")
+
+      Ok(request.headers.get("Authorization").get.substring(7))
     )
   }
 
   def training(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[trainingResponse](gmlService.training(companyId,Json.fromJson[trainingRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[trainingResponse](gmlService.training(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Json.fromJson[trainingRequest](request.body.asJson.get).asOpt)))
       catch {
         case (err: Throwable) => {
 
@@ -48,7 +48,10 @@ object GraphicalModelLabServiceController extends Controller {
   def test(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[testResponse](gmlService.test(companyId,Json.fromJson[testRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[testResponse](gmlService.test(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Json.fromJson[testRequest](request.body.asJson.get).asOpt)))
       catch {
         case (err: Throwable) => {
 
@@ -65,7 +68,10 @@ object GraphicalModelLabServiceController extends Controller {
   def save(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[saveResponse](gmlService.save(companyId,Json.fromJson[saveRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[saveResponse](gmlService.save(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Json.fromJson[saveRequest](request.body.asJson.get).asOpt)))
       catch {
         case (err: Throwable) => {
 
@@ -82,7 +88,11 @@ object GraphicalModelLabServiceController extends Controller {
   def list(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[listResponse](gmlService.list(companyId,Json.fromJson[listRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[listResponse](gmlService.list(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Some(listRequest(0,request.getQueryString("userid").get,companyId))
+        )))
       catch {
         case (err: Throwable) => {
 
@@ -99,7 +109,11 @@ object GraphicalModelLabServiceController extends Controller {
   def get(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[getResponse](gmlService.get(companyId,Json.fromJson[getRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[getResponse](gmlService.get(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Some(getRequest(0,request.getQueryString("userid").get,companyId,request.getQueryString("modelid").get))
+        )))
       catch {
         case (err: Throwable) => {
 
@@ -116,7 +130,11 @@ object GraphicalModelLabServiceController extends Controller {
   def search(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[searchResponse](gmlService.search(companyId,Json.fromJson[searchRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[searchResponse](gmlService.search(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Some(searchRequest(0,request.getQueryString("userid").get,companyId,request.getQueryString("query").get))
+        )))
       catch {
         case (err: Throwable) => {
 
@@ -130,10 +148,14 @@ object GraphicalModelLabServiceController extends Controller {
     )
   }
 
-  def history(companyId:String) = {
+  def getTestHistory(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[historyResponse](gmlService.history(companyId,Json.fromJson[historyRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[getTestHistoryResponse](gmlService.getTestHistory(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Some(getTestHistoryRequest(0,request.getQueryString("userid").get,companyId,request.getQueryString("model_userid").get,request.getQueryString("modelid").get))
+        )))
       catch {
         case (err: Throwable) => {
 
@@ -147,10 +169,14 @@ object GraphicalModelLabServiceController extends Controller {
     )
   }
 
-  def getHistory(companyId:String) = {
+  def getModelInTestHistory(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[getHistoryResponse](gmlService.getHistory(companyId,Json.fromJson[getHistoryRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[getModelInHistoryResponse](gmlService.getModelInTestHistory(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Some(getModelInHistoryRequest(0,request.getQueryString("userid").get,companyId,request.getQueryString("modelid").get,request.getQueryString("datetime").get.toLong))
+        )))
       catch {
         case (err: Throwable) => {
 
@@ -163,4 +189,22 @@ object GraphicalModelLabServiceController extends Controller {
       }
     )
   }
+
+  def getListOfAvailableModelsRequest(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getListOfAvailableModelsResponse](gmlService.getListOfModels(companyId,Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt)))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
 }
