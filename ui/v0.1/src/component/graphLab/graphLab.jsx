@@ -25,6 +25,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             downloadContent: "",
             evaluationMethod: ["simple", "cross-validation", "precision-recall", "ROC"],
             analyzingTarget: [],
+            algorithms: [],
 
             modelid: "",
             modelname: "",
@@ -102,6 +103,31 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 this.setup(this.props.location.state.graphInfo);
             }
         }
+        var self = this;
+        $.ajax({
+                    url  : "../commonModules/php/modules/GML.php/gml/model/algorithm/list?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid(),
+                    type : "get",
+                    headers : {
+                        Authorization: "Bearer "+auth.getToken()
+                    },
+                    success: function(response) {
+                        console.log("algorithm list");
+                        console.log(response);
+                        if(response.body.code == 401){
+                            auth.logout();
+                        }
+
+                        self.setState({
+                            algorithms : response.body.modelAlgorithmIds
+                        });
+                    },
+                    error: function (request, status, error) {
+                        alert("error");
+                    console.log(request.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+        });
     }
     clear(){
         var graph = this.refs.graph;
@@ -382,8 +408,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                     <div className={styles.graphLabMenu}>
                         <div className={styles.graphLabMenuCalculationModelItem}><select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect}>
                                                                                                                       <option value="" disabled selected>Select your model</option>
-                                                                                                                      <option value="model1">Freq(Mul & Norm)</option>
-                                                                                                                      <option value="model2">Only Multinomial</option>
+                                                                                                                      { this.state.algorithms.map((d, idx) => {
+                                                                                                                        return <option value={d} key={"evaluation"+d}>{d}</option>
+                                                                                                                      })}
                                                                                                                     </select></div>
                         <div onClick={this.showNodePropertyView} className={styles.graphLabMenuItem}><img src="./../icon/graphlab_menu_icons/commonSetting.png" className={styles.graphLabMenuIcon} data-tip="Setup Common Property for all nodes"/></div>
                         <NodePropertyView label="All Nodes" ref="nodePropertyView" />

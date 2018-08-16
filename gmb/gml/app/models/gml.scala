@@ -272,14 +272,13 @@ package object gml {
 
 
   // 4. get list of available models
-  case class getListOfAvailableModelsRequest(code: Int, userid:String, token: String, companyid: String)
+  case class getListOfAvailableModelsRequest(code: Int, userid:String, companyid: String)
   case class getListOfAvailableModelsResponse(code: Int, modelAlgorithmIds: List[String])
 
   implicit lazy val getListOfAvailableModelsRequestReads: Reads[getListOfAvailableModelsRequest] = Reads[getListOfAvailableModelsRequest] {
     json => JsSuccess(getListOfAvailableModelsRequest(
       (json \ "code").as[Int],
       (json \ "userid").as[String],
-      (json \ "token").as[String],
       (json \ "companyid").as[String]
     ))
   }
