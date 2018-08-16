@@ -18,29 +18,50 @@ import scala.io.Source
 /**
   * Created by itomao on 6/15/18.
   */
-class ModelSimpleCSV(edges:List[edge], nodes: List[node], commonProperties: List[property]) extends Model{
-  val allEdges: List[edge] = edges
-  val allNodes: List[node] = nodes
-  val allNodesMap: Map[String, node] = allNodes.zipWithIndex.map { case (v, i) => v.label -> v }.toMap
 
-  val invertedIndex = allNodes.zipWithIndex.map { case (v, i) => v.label -> i }.toMap
+class ModelSimpleCSV extends Model{
 
-  val commonDistribution = commonProperties.filter(_.name == "distribution")(0).value
-  val distributionMap: mutable.Map[String, String] = mutable.Map[String,String]()
-  for(node <- allNodes){
-    val distribution = if(node.properties.filter(_.name == "distribution").size > 0) node.properties.filter(_.name == "distribution")(0).value else commonDistribution;
-    distributionMap.put(node.label,distribution)
-  }
 
-  val categoricalPossibleValues : collection.mutable.Map[String, Set[String]] = collection.mutable.Map[String,Set[String]]()
-//    collection.mutable.Map[String,collection.mutable.Set[String]]("category" -> collection.mutable.Set[String]("red","white"))
+  var allEdges: List[edge] = null;
+  var allNodes: List[node] = null;
+  var allNodesMap: Map[String, node] = null;
 
-  val guassianHyperParam = mutable.Map[String, MultivariateGaussian]()
+  var invertedIndex: Map[String, Int] = null;
+  var commonDistribution: String = null;
+  var distributionMap: mutable.Map[String, String] = null;
+  var categoricalPossibleValues : collection.mutable.Map[String, Set[String]] = null;
+  var guassianHyperParam : mutable.Map[String, MultivariateGaussian] = null;
 
   def getJointId(nodesLabel: List[String]): String=nodesLabel.sorted.mkString(".")
 
-  val sparkConf: SparkConf = new SparkConf().setAppName("Model").setMaster("local")
-  val sparkSession: SparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
+  var sparkConf: SparkConf = null;
+  var sparkSession: SparkSession = null;
+
+
+  def getModelName: String = "Freq & Multi"
+
+  def setup(_sparkConf: SparkConf, _sparkSession: SparkSession, edges:List[edge], nodes: List[node], commonProperties: List[property]): Unit ={
+    sparkConf = _sparkConf
+    sparkSession = _sparkSession
+
+    allEdges = edges
+    allNodes = nodes
+    allNodesMap = allNodes.zipWithIndex.map { case (v, i) => v.label -> v }.toMap
+
+    invertedIndex = allNodes.zipWithIndex.map { case (v, i) => v.label -> i }.toMap
+
+    commonDistribution = commonProperties.filter(_.name == "distribution")(0).value
+    distributionMap = mutable.Map[String,String]()
+    for(node <- allNodes){
+      val distribution = if(node.properties.filter(_.name == "distribution").size > 0) node.properties.filter(_.name == "distribution")(0).value else commonDistribution;
+      distributionMap.put(node.label,distribution)
+    }
+
+    categoricalPossibleValues = collection.mutable.Map[String,Set[String]]()
+    //    collection.mutable.Map[String,collection.mutable.Set[String]]("category" -> collection.mutable.Set[String]("red","white"))
+
+    guassianHyperParam = mutable.Map[String, MultivariateGaussian]()
+  }
 
   def initCategoryMap(csvData: DataFrame): Unit ={
     var categoricalKeySet = distributionMap.filter(f => f._2 == "categorical").keySet

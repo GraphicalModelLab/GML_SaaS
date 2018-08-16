@@ -3,7 +3,7 @@ package services
 import java.util.Date
 
 import com.datastax.driver.core.querybuilder.QueryBuilder
-import gml.{getHistoryRequest, getHistoryResponse, getRequest, getResponse, graph, historyRequest, listRequest, listResponse, saveRequest, testRequest, trainingRequest}
+import gml.{getModelInHistoryRequest, getModelInHistoryResponse, getRequest, getResponse, getTestHistoryRequest, graph, listRequest, listResponse, saveRequest, testRequest, trainingRequest}
 import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.cassandra.CassandraClient
 import play.api.http.Status
@@ -76,8 +76,7 @@ object GmlDBClient {
 
     return accuracyJSON
   }
-
-  def getTestHistory(request: historyRequest): List[String] ={
+  def getTestHistory(request: getTestHistoryRequest): List[String] ={
     val query = QueryBuilder.select()
       .all()
       .from("master","model_test_history")
@@ -148,7 +147,7 @@ object GmlDBClient {
     )
   }
 
-  def getHistory(request: getHistoryRequest):getHistoryResponse ={
+  def getModelInHistory(request: getModelInHistoryRequest):getModelInHistoryResponse ={
 
     val query = QueryBuilder.select()
       .all()
@@ -167,7 +166,7 @@ object GmlDBClient {
       model = iterator.next().getString("model")
     }
 
-    return new getHistoryResponse(
+    return new getModelInHistoryResponse(
       Status.OK,
       Status.OK,
       model

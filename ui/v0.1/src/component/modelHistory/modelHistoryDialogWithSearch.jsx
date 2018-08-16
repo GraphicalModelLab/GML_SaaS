@@ -40,21 +40,12 @@ export default class ModelHistoryDialogWithSearch extends React.Component<Props,
         var self = this;
         // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
         this.setState({modalIsOpen: true}, function(){
-            var data = {
-                        companyid: auth.getCompanyid(),
-                        userid:auth.getUserid(),
-                        token: auth.getToken(),
-                        model_userid: model_userid,
-                        modelid: modelid,
-                        code:10
-            };
-
             $.ajax({
-                url  : "../commonModules/php/modules/GML.php/gml/model/history",
-                type : "post",
-                data : JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: "json",
+                url  : "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid()+"&model_userid="+model_userid+"&modelid="+modelid,
+                type : "get",
+                headers : {
+                    Authorization: "Bearer "+auth.getToken()
+                },
                 success: function(response) {
 
                     var values = [];
@@ -65,60 +56,60 @@ export default class ModelHistoryDialogWithSearch extends React.Component<Props,
                     console.log("success for save");
                     console.log(response);
 
-                    var n = 4;
-                    for(let index in response.body.history){
-                        var json = JSON.parse(response.body.history[index]);
-                        console.log(json);
+                    if(response.body.history.length > 0){
+                        var n = 4;
+                        for(let index in response.body.history){
+                            var json = JSON.parse(response.body.history[index]);
+                            json.info.accuracy = Math.floor( json.info.accuracy * Math.pow( 10, n ) ) / Math.pow( 10, n );
 
-                        json.info.accuracy = Math.floor( json.info.accuracy * Math.pow( 10, n ) ) / Math.pow( 10, n );
+                            var date = new Date(json.time);
 
-                        var date = new Date(json.time);
+                            var format_str = 'YYYY/MM/DD hh:mm:ss';
+                            format_str = format_str.replace(/YYYY/g, date.getFullYear());
+                            format_str = format_str.replace(/MM/g, date.getMonth());
+                            format_str = format_str.replace(/DD/g, date.getDate());
+                            format_str = format_str.replace(/hh/g, date.getHours());
+                            format_str = format_str.replace(/mm/g, date.getMinutes());
+                            format_str = format_str.replace(/ss/g, date.getSeconds());
 
-                        var format_str = 'YYYY/MM/DD hh:mm:ss';
-                        format_str = format_str.replace(/YYYY/g, date.getFullYear());
-                        format_str = format_str.replace(/MM/g, date.getMonth());
-                        format_str = format_str.replace(/DD/g, date.getDate());
-                        format_str = format_str.replace(/hh/g, date.getHours());
-                        format_str = format_str.replace(/mm/g, date.getMinutes());
-                        format_str = format_str.replace(/ss/g, date.getSeconds());
+                            json.model.formattedDate = format_str;
 
-                        json.model.formattedDate = format_str;
+                            records.push(json);
 
-                        records.push(json);
+                            values.push({
+                                x: date, y: json.info.accuracy
+                            });
 
-                        values.push({
-                            x: date, y: json.info.accuracy
+                            if(date < oldestDate){
+                                oldestDate = date;
+                            }
+                        }
+
+                        var earliestDate = oldestDate;
+
+                        for(let index in values){
+                            if(values[index].x > earliestDate){
+                                earliestDate = values[index].x;
+                            }
+                        }
+
+                        var axisOldest = new Date(oldestDate.getTime()); axisOldest.setDate(oldestDate.getDate() - 2);
+                        var axisEarliest = new Date(earliestDate.getTime()); axisEarliest.setDate(earliestDate.getDate() + 2);
+
+                        self.setState({
+                            plotTestHistory: true,
+                            data: {label: 'test accuracy history', values: values},
+                            xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+                            xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+                            records: records
                         });
 
-                        if(date < oldestDate){
-                            oldestDate = date;
-                        }
+                        console.log(self.state.data);
                     }
-
-                    var earliestDate = oldestDate;
-
-                    for(let index in values){
-                        if(values[index].x > earliestDate){
-                            earliestDate = values[index].x;
-                        }
-                    }
-
-                    var axisOldest = new Date(oldestDate.getTime()); axisOldest.setDate(oldestDate.getDate() - 2);
-                    var axisEarliest = new Date(earliestDate.getTime()); axisEarliest.setDate(earliestDate.getDate() + 2);
-
-                    self.setState({
-                        plotTestHistory: true,
-                        data: {label: 'test accuracy history', values: values},
-                        xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-                        xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-                        records: records
-                    });
-
-                    console.log(self.state.data);
                 },
                 error: function(request, status, error) {
                     alert("error");
-                    console.log(request);
+                    console.log(request.responseText);
                     console.log(status);
                     console.log(error);
                 }
@@ -147,17 +138,16 @@ export default class ModelHistoryDialogWithSearch extends React.Component<Props,
              var data = {
                  companyid: auth.getCompanyid(),
                  userid:auth.getUserid(),
-                 token: auth.getToken(),
                  code:10,
                  modelid: recordInfo.model.modelid,
                  datetime: recordInfo.model.datetime
              };
              $.ajax({
-                     url  : "../commonModules/php/modules/GML.php/gml/model/history/get",
-                     type : "post",
-                     data : JSON.stringify(data),
-                     contentType: 'application/json',
-                     dataType: "json",
+                     url  : "../commonModules/php/modules/GML.php/gml/model/test/history?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid()+"&modelid="+recordInfo.model.modelid+"&datetime="+recordInfo.model.datetime,
+                     type : "get",
+                    headers : {
+                        Authorization: "Bearer "+auth.getToken()
+                    },
                      success: function(response) {
                          console.log("got graph");
                          console.log(response);

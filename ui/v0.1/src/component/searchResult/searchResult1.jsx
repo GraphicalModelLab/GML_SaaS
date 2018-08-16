@@ -57,20 +57,12 @@ constructor(props) {
         var self = this;
 
         if(recordInfo.modelid){
-            var data = {
-                companyid: auth.getCompanyid(),
-                userid:auth.getUserid(),
-                token: auth.getToken(),
-                code:10,
-                modelid: recordInfo.modelid,
-                datetime: recordInfo.datetime
-            };
             $.ajax({
-                    url  : "../commonModules/php/modules/GML.php/gml/model/get",
-                    type : "post",
-                    data : JSON.stringify(data),
-                    contentType: 'application/json',
-                    dataType: "json",
+                    url  : "../commonModules/php/modules/GML.php/gml/model?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid()+"&modelid="+recordInfo.modelid,
+                    type : "get",
+                    headers : {
+                        Authorization: "Bearer "+auth.getToken()
+                    },
                     success: function(response) {
                         self.context.router.push({
                             pathname: '/graphLab',

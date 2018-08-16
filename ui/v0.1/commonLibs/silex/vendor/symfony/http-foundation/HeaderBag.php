@@ -126,7 +126,6 @@ class HeaderBag implements \IteratorAggregate, \Countable
     public function get($key, $default = null, $first = true)
     {
         $key = strtr(strtolower($key), '_', '-');
-
         if (!array_key_exists($key, $this->headers)) {
             if (null === $default) {
                 return $first ? null : array();
