@@ -190,10 +190,15 @@ object GraphicalModelLabServiceController extends Controller {
     )
   }
 
-  def getListOfAvailableModelsRequest(companyId:String) = {
+  def getListOfAvailableModels(companyId:String) = {
     Action(request =>
       try
-        Ok(Json.toJson[getListOfAvailableModelsResponse](gmlService.getListOfModels(companyId,Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt)))
+        Ok(Json.toJson[getListOfAvailableModelsResponse](gmlService.getListOfModels(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+//          Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt
+        )))
       catch {
         case (err: Throwable) => {
 

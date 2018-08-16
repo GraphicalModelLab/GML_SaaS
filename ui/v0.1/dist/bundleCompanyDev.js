@@ -41369,6 +41369,7 @@
 	            downloadContent: "",
 	            evaluationMethod: ["simple", "cross-validation", "precision-recall", "ROC"],
 	            analyzingTarget: [],
+	            algorithms: [],
 	
 	            modelid: "",
 	            modelname: "",
@@ -41455,6 +41456,31 @@
 	                    this.setup(this.props.location.state.graphInfo);
 	                }
 	            }
+	            var self = this;
+	            _jquery2.default.ajax({
+	                url: "../commonModules/php/modules/GML.php/gml/model/algorithm/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
+	                type: "get",
+	                headers: {
+	                    Authorization: "Bearer " + _auth2.default.getToken()
+	                },
+	                success: function success(response) {
+	                    console.log("algorithm list");
+	                    console.log(response);
+	                    if (response.body.code == 401) {
+	                        _auth2.default.logout();
+	                    }
+	
+	                    self.setState({
+	                        algorithms: response.body.modelAlgorithmIds
+	                    });
+	                },
+	                error: function error(request, status, _error) {
+	                    alert("error");
+	                    console.log(request.responseText);
+	                    console.log(status);
+	                    console.log(_error);
+	                }
+	            });
 	        }
 	    }, {
 	        key: 'clear',
@@ -41514,10 +41540,10 @@
 	                    processData: false,
 	                    dataType: "text",
 	                    success: function success() {},
-	                    error: function error(request, status, _error) {
+	                    error: function error(request, status, _error2) {
 	                        alert("failed to upload csv file to server. Contact Administrator");
 	                        console.log(status);
-	                        console.log(_error);
+	                        console.log(_error2);
 	                    }
 	                }).done(function (data, textStatus, jqXHR) {
 	                    var _data;
@@ -41553,10 +41579,10 @@
 	                                _auth2.default.logout();
 	                            }
 	                        },
-	                        error: function error(request, status, _error2) {
+	                        error: function error(request, status, _error3) {
 	                            alert("Failed to train the model. Contact Administrator");
 	                            console.log(status);
-	                            console.log(_error2);
+	                            console.log(_error3);
 	                        }
 	                    }).done(function (data, textStatus, jqXHR) {
 	                        self.refs.loading.closeModal();
@@ -41602,10 +41628,10 @@
 	                processData: false,
 	                dataType: "text",
 	                success: function success() {},
-	                error: function error(request, status, _error3) {
+	                error: function error(request, status, _error4) {
 	                    alert("failed to upload files for testing");
 	                    console.log(status);
-	                    console.log(_error3);
+	                    console.log(_error4);
 	                }
 	            }).done(function (data, textStatus, jqXHR) {
 	                var _data2;
@@ -41635,10 +41661,10 @@
 	
 	                        self.refs.testResult.openModal(jsonResponse.accuracy, jsonResponse.evaluationMethod);
 	                    },
-	                    error: function error(request, status, _error4) {
+	                    error: function error(request, status, _error5) {
 	                        alert("failed to do testing. Contact Administrator");
 	                        console.log(status);
-	                        console.log(_error4);
+	                        console.log(_error5);
 	                    }
 	                }).done(function (data, textStatus, jqXHR) {
 	                    self.refs.loading.closeModal();
@@ -41707,11 +41733,11 @@
 	                        _auth2.default.logout();
 	                    }
 	                },
-	                error: function error(request, status, _error5) {
+	                error: function error(request, status, _error6) {
 	                    alert("error");
 	                    console.log(request);
 	                    console.log(status);
-	                    console.log(_error5);
+	                    console.log(_error6);
 	                }
 	            });
 	
@@ -41752,16 +41778,13 @@
 	                                    { value: '', disabled: true, selected: true },
 	                                    'Select your model'
 	                                ),
-	                                React.createElement(
-	                                    'option',
-	                                    { value: 'model1' },
-	                                    'Freq(Mul & Norm)'
-	                                ),
-	                                React.createElement(
-	                                    'option',
-	                                    { value: 'model2' },
-	                                    'Only Multinomial'
-	                                )
+	                                this.state.algorithms.map(function (d, idx) {
+	                                    return React.createElement(
+	                                        'option',
+	                                        { value: d, key: "evaluation" + d },
+	                                        d
+	                                    );
+	                                })
 	                            )
 	                        ),
 	                        React.createElement(

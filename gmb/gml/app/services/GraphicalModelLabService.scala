@@ -16,7 +16,7 @@ import scala.collection.mutable
 class GraphicalModelLabService {
   val config = Play.application().configuration()
   var listOfModel: List[String] = null
-
+  var modelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
 
   GmlDBClient.init(List[String]("localhost"));
   AuthDBClient.init(List[String]("localhost"));
@@ -24,18 +24,14 @@ class GraphicalModelLabService {
 
   val TrainedModelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
 
-  // If we define spark conf here, I get some error
-//  val sparkConf = new SparkConf().setAppName("Model").setMaster("local")
-//  //  val sparkContext = new SparkContext(sparkConf)
-//  val sparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
-
   def training(token:String, companyId:String,request: Option[trainingRequest]): trainingResponse = {
 
     request match {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
-          val model: Model = new ModelSimpleCSV();
+          val model: Model = modelMap.get(request.graph.algorithm).get
+
           model.setup(SparkContext.sparkConf,SparkContext.sparkSession,request.graph.edges,request.graph.nodes,request.graph.commonProperties)
           model.training(request.datasource)
           TrainedModelMap.put("test",model)
@@ -187,13 +183,14 @@ class GraphicalModelLabService {
     return getModelInHistoryResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
   }
 
-  def getListOfModels(companyId: String, request: Option[getListOfAvailableModelsRequest]): getListOfAvailableModelsResponse={
+  def getListOfModels(token:String, companyId: String, request: Option[getListOfAvailableModelsRequest]): getListOfAvailableModelsResponse={
     if(listOfModel == null) {
       var list = mutable.ListBuffer[String]()
       val ws = (ServiceLoader load classOf[Model]).asScala
 
       for (w <- ws) {
         list += w.getModelName
+        modelMap.put(w.getModelName,w)
       }
       listOfModel = list.to
     }

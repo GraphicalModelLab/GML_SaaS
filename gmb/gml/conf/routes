@@ -10,4 +10,4 @@ GET                /gml/:companyId/model          controllers.GraphicalModelLabS
 GET               /gml/:companyId/model/search     controllers.GraphicalModelLabServiceController.search(companyId:String)
 GET                /gml/:companyId/model/test/history/list     controllers.GraphicalModelLabServiceController.getTestHistory(companyId:String)
 GET                /gml/:companyId/model/test/history    controllers.GraphicalModelLabServiceController.getModelInTestHistory(companyId:String)
-GET                /gml/:companyId/model/algorithm/get     controllers.GraphicalModelLabServiceController.getListOfAvailableModelsRequest(companyId:String)
+GET                /gml/:companyId/model/algorithm/list     controllers.GraphicalModelLabServiceController.getListOfAvailableModels(companyId:String)
