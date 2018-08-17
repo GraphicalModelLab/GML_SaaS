@@ -208,9 +208,9 @@ function Redirect($url, $permanent = false)
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$CloudCareerSheetAuth = new Silex\Application();
+$GmlAuth = new Silex\Application();
 
-$CloudCareerSheetAuth->post('/auth/login', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/login', function (Request $request) use ($GmlAuth) {
     $data_request = json_decode(file_get_contents("php://input"),true);
 
     mb_internal_encoding('UTF-8');
@@ -220,13 +220,13 @@ $CloudCareerSheetAuth->post('/auth/login', function (Request $request) use ($Clo
       ,
       true);
 
-    return $CloudCareerSheetAuth->json(array(
+    return $GmlAuth->json(array(
           "success"=>true,
           "body" =>$decodeJSON,
           "request"=>$data_request),201);
 });
 
-$CloudCareerSheetAuth->post('/auth/register', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/register', function (Request $request) use ($GmlAuth) {
     $data_request = json_decode(file_get_contents("php://input"),true);
 
     mb_internal_encoding('UTF-8');
@@ -236,13 +236,13 @@ $CloudCareerSheetAuth->post('/auth/register', function (Request $request) use ($
       ,
       true);
 
-    return $CloudCareerSheetAuth->json(array(
+    return $GmlAuth->json(array(
           "success"=>true,
           "body" =>$decodeJSON,
           "request"=>$data_request),201);
 });
 
-$CloudCareerSheetAuth->get('/auth/validation', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->get('/auth/validation', function (Request $request) use ($GmlAuth) {
     mb_internal_encoding('UTF-8');
 
     $config = parse_ini_file(__DIR__."/../config/MailApp.ini");
@@ -267,7 +267,7 @@ $CloudCareerSheetAuth->get('/auth/validation', function (Request $request) use (
     }
 });
 
-$CloudCareerSheetAuth->post('/auth/changePassword', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/changePassword', function (Request $request) use ($GmlAuth) {
      $data_request = json_decode(file_get_contents("php://input"),true);
 
      mb_internal_encoding('UTF-8');
@@ -277,13 +277,13 @@ $CloudCareerSheetAuth->post('/auth/changePassword', function (Request $request) 
           ,
           true);
 
-     return $CloudCareerSheetAuth->json(array(
+     return $GmlAuth->json(array(
               "success"=>true,
               "body" =>$decodeJSON,
               "request"=>$data_request),201);
 });
 
-$CloudCareerSheetAuth->post('/auth/changeRole', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/changeRole', function (Request $request) use ($GmlAuth) {
      $data_request = json_decode(file_get_contents("php://input"),true);
 
      mb_internal_encoding('UTF-8');
@@ -293,13 +293,13 @@ $CloudCareerSheetAuth->post('/auth/changeRole', function (Request $request) use 
           ,
           true);
 
-     return $CloudCareerSheetAuth->json(array(
+     return $GmlAuth->json(array(
               "success"=>true,
               "body" =>$decodeJSON,
               "request"=>$data_request),201);
 });
 
-$CloudCareerSheetAuth->post('/auth/removeAccount', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/removeAccount', function (Request $request) use ($GmlAuth) {
      $data_request = json_decode(file_get_contents("php://input"),true);
 
      mb_internal_encoding('UTF-8');
@@ -309,13 +309,13 @@ $CloudCareerSheetAuth->post('/auth/removeAccount', function (Request $request) u
           ,
           true);
 
-     return $CloudCareerSheetAuth->json(array(
+     return $GmlAuth->json(array(
               "success"=>true,
               "body" =>$decodeJSON,
               "request"=>$data_request),201);
 });
 
-$CloudCareerSheetAuth->get('/auth/googleAppsLogin/login', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->get('/auth/googleAppsLogin/login', function (Request $request) use ($GmlAuth) {
     $config = parse_ini_file(__DIR__."/../config/OpenIDConnect/GoogleApps.ini",true);
 
     $data_request = array();
@@ -333,7 +333,7 @@ $CloudCareerSheetAuth->get('/auth/googleAppsLogin/login', function (Request $req
         .'&state={"companyid":"'.$data_request["companyid"].'","type":"login"}', false);
 });
 
-$CloudCareerSheetAuth->get('/auth/googleAppsLogin/connect', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->get('/auth/googleAppsLogin/connect', function (Request $request) use ($GmlAuth) {
     $config = parse_ini_file(__DIR__."/../config/OpenIDConnect/GoogleApps.ini",true);
 
     $data_request = array();
@@ -351,7 +351,7 @@ $CloudCareerSheetAuth->get('/auth/googleAppsLogin/connect', function (Request $r
         .'&state={"companyid":"'.$data_request["companyid"].'","type":"connect","userid":"'.$data_request["userid"].'","token":"'.$data_request["token"].'"}', false);
 });
 
-$CloudCareerSheetAuth->get('/auth/googleAppsLogin/authenticate', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->get('/auth/googleAppsLogin/authenticate', function (Request $request) use ($GmlAuth) {
      $config = parse_ini_file(__DIR__."/../config/OpenIDConnect/GoogleApps.ini",true);
 
      $data_request = array();
@@ -382,7 +382,7 @@ $CloudCareerSheetAuth->get('/auth/googleAppsLogin/authenticate', function (Reque
      }
 });
 
-$CloudCareerSheetAuth->get('/auth/facebookAppsLogin/login', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->get('/auth/facebookAppsLogin/login', function (Request $request) use ($GmlAuth) {
     $config = parse_ini_file(__DIR__."/../config/OpenIDConnect/FacebookApps.ini",true);
 
     $data_request = array();
@@ -400,7 +400,7 @@ $CloudCareerSheetAuth->get('/auth/facebookAppsLogin/login', function (Request $r
 
 });
 
-$CloudCareerSheetAuth->get('/auth/facebookAppsLogin/connect', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->get('/auth/facebookAppsLogin/connect', function (Request $request) use ($GmlAuth) {
     $config = parse_ini_file(__DIR__."/../config/OpenIDConnect/FacebookApps.ini",true);
 
     $data_request = array();
@@ -418,7 +418,7 @@ $CloudCareerSheetAuth->get('/auth/facebookAppsLogin/connect', function (Request 
 
 });
 
-$CloudCareerSheetAuth->get('/auth/facebookAppsLogin/authenticate', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->get('/auth/facebookAppsLogin/authenticate', function (Request $request) use ($GmlAuth) {
      $config = parse_ini_file(__DIR__."/../config/OpenIDConnect/FacebookApps.ini",true);
 
      $data_request = array();
@@ -451,7 +451,7 @@ $CloudCareerSheetAuth->get('/auth/facebookAppsLogin/authenticate', function (Req
      }
 });
 
-$CloudCareerSheetAuth->post('/auth/registerCompany', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/registerCompany', function (Request $request) use ($GmlAuth) {
      $data_request = json_decode(file_get_contents("php://input"),true);
 
      mb_internal_encoding('UTF-8');
@@ -461,13 +461,13 @@ $CloudCareerSheetAuth->post('/auth/registerCompany', function (Request $request)
                ,
      true);
 
-     return $CloudCareerSheetAuth->json(array(
+     return $GmlAuth->json(array(
                    "success"=>true,
                    "body" =>$decodeJSON,
                    "request"=>$data_request),201);
 });
 
-$CloudCareerSheetAuth->post('/auth/social/connect/status', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/social/connect/status', function (Request $request) use ($GmlAuth) {
      $data_request = json_decode(file_get_contents("php://input"),true);
 
      mb_internal_encoding('UTF-8');
@@ -477,13 +477,13 @@ $CloudCareerSheetAuth->post('/auth/social/connect/status', function (Request $re
                ,
      true);
 
-     return $CloudCareerSheetAuth->json(array(
+     return $GmlAuth->json(array(
                    "success"=>true,
                    "body" =>$decodeJSON,
                    "request"=>$data_request),201);
 });
 
-$CloudCareerSheetAuth->post('/auth/social/connect/facebook/disconnect', function (Request $request) use ($CloudCareerSheetAuth) {
+$GmlAuth->post('/auth/social/connect/facebook/disconnect', function (Request $request) use ($GmlAuth) {
      $data_request = json_decode(file_get_contents("php://input"),true);
 
      mb_internal_encoding('UTF-8');
@@ -493,13 +493,11 @@ $CloudCareerSheetAuth->post('/auth/social/connect/facebook/disconnect', function
                ,
      true);
 
-     return $CloudCareerSheetAuth->json(array(
+     return $GmlAuth->json(array(
                    "success"=>true,
                    "body" =>$decodeJSON,
                    "request"=>$data_request),201);
 });
 
-
-
-$CloudCareerSheetAuth->run();
+$GmlAuth->run();
 ?>

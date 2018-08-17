@@ -210,6 +210,7 @@ export default class Graph extends React.Component<Props, {}> {
           var existingEdgeIndex = this.state.edges.findIndex(edge => edge.label1 == label1 && edge.label2 == label2);
 
           if(existingEdgeIndex < 0){
+
               var newEdge = {
                   x1: x1,
                   y1: y1,
@@ -231,7 +232,6 @@ export default class Graph extends React.Component<Props, {}> {
               this.state.edges.push(newEdge);
               this.state.edgesDeletion.push(newEdgeDeletion);
 
-
               this.setState({
                 nodes: this.state.nodes,
                 edges: this.state.edges,
@@ -241,7 +241,7 @@ export default class Graph extends React.Component<Props, {}> {
                 currentChosenNode: null
               });
           }else{
-            this.visibleEdge(label1,label2, false);
+            this.visibleEdge(label1,label2,x1,y1,x2,y2, false);
           }
     }
 
@@ -261,19 +261,29 @@ export default class Graph extends React.Component<Props, {}> {
        });
     }
 
-    visibleEdge(label1, label2, disable){
-       var deletedIndex = this.state.edges.findIndex(edge => edge.label1 == label1 && edge.label2 == label2);
-       this.state.edges[deletedIndex].disable = disable;
+    visibleEdge(label1, label2, x1,y1,x2,y2, disable){
+       var disableIndex = this.state.edges.findIndex(edge => edge.label1 == label1 && edge.label2 == label2);
+       this.state.edges[disableIndex].disable = disable;
+       if(!disable){
+           this.state.edges[disableIndex].x1 = x1;
+           this.state.edges[disableIndex].x2 = x2;
+           this.state.edges[disableIndex].y1 = y1;
+           this.state.edges[disableIndex].y2 = y2;
+       }
 
-       var deletedEdgeMarkIndex = this.state.edgesDeletion.findIndex(mark => mark.label1 == label1 && mark.label2 == label2);
-       this.state.edgesDeletion[deletedEdgeMarkIndex].disable = disable;
+       var disableEdgeMarkIndex = this.state.edgesDeletion.findIndex(mark => mark.label1 == label1 && mark.label2 == label2);
+       this.state.edgesDeletion[disableEdgeMarkIndex].disable = disable;
+       if(!disable){
+           this.state.edgesDeletion[disableEdgeMarkIndex].x = (x1+x2)/2;
+           this.state.edgesDeletion[disableEdgeMarkIndex].y = (y1+y2)/2;
+       }
 
        this.setState({
-        edges: this.state.edges
+            edges: this.state.edges
        });
     }
     deleteEdgeCallBack(label1, label2){
-        this.visibleEdge(label1,label2, true);
+        this.visibleEdge(label1,label2, 0,0,0,0, true);
     }
 
     deleteNodeCallBack(label){

@@ -74,8 +74,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
 
     onDropAttributeImport(acceptedFiles, rejectedFiles){
         var reader = new FileReader();
-        var graph = this.refs.graph;
-        graph.clearSvgPane();
+
+        this.clear();
         var self = this;
         reader.onload = function(e) {
             var text = reader.result;                 // the entire file

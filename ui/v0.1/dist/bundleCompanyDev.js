@@ -41426,8 +41426,8 @@
 	        key: 'onDropAttributeImport',
 	        value: function onDropAttributeImport(acceptedFiles, rejectedFiles) {
 	            var reader = new FileReader();
-	            var graph = this.refs.graph;
-	            graph.clearSvgPane();
+	
+	            this.clear();
 	            var self = this;
 	            reader.onload = function (e) {
 	                var text = reader.result; // the entire file
@@ -42299,6 +42299,7 @@
 	            });
 	
 	            if (existingEdgeIndex < 0) {
+	
 	                var newEdge = {
 	                    x1: x1,
 	                    y1: y1,
@@ -42329,7 +42330,7 @@
 	                    currentChosenNode: null
 	                });
 	            } else {
-	                this.visibleEdge(label1, label2, false);
+	                this.visibleEdge(label1, label2, x1, y1, x2, y2, false);
 	            }
 	        }
 	    }, {
@@ -42351,16 +42352,26 @@
 	        }
 	    }, {
 	        key: 'visibleEdge',
-	        value: function visibleEdge(label1, label2, disable) {
-	            var deletedIndex = this.state.edges.findIndex(function (edge) {
+	        value: function visibleEdge(label1, label2, x1, y1, x2, y2, disable) {
+	            var disableIndex = this.state.edges.findIndex(function (edge) {
 	                return edge.label1 == label1 && edge.label2 == label2;
 	            });
-	            this.state.edges[deletedIndex].disable = disable;
+	            this.state.edges[disableIndex].disable = disable;
+	            if (!disable) {
+	                this.state.edges[disableIndex].x1 = x1;
+	                this.state.edges[disableIndex].x2 = x2;
+	                this.state.edges[disableIndex].y1 = y1;
+	                this.state.edges[disableIndex].y2 = y2;
+	            }
 	
-	            var deletedEdgeMarkIndex = this.state.edgesDeletion.findIndex(function (mark) {
+	            var disableEdgeMarkIndex = this.state.edgesDeletion.findIndex(function (mark) {
 	                return mark.label1 == label1 && mark.label2 == label2;
 	            });
-	            this.state.edgesDeletion[deletedEdgeMarkIndex].disable = disable;
+	            this.state.edgesDeletion[disableEdgeMarkIndex].disable = disable;
+	            if (!disable) {
+	                this.state.edgesDeletion[disableEdgeMarkIndex].x = (x1 + x2) / 2;
+	                this.state.edgesDeletion[disableEdgeMarkIndex].y = (y1 + y2) / 2;
+	            }
 	
 	            this.setState({
 	                edges: this.state.edges
@@ -42369,7 +42380,7 @@
 	    }, {
 	        key: 'deleteEdgeCallBack',
 	        value: function deleteEdgeCallBack(label1, label2) {
-	            this.visibleEdge(label1, label2, true);
+	            this.visibleEdge(label1, label2, 0, 0, 0, 0, true);
 	        }
 	    }, {
 	        key: 'deleteNodeCallBack',
@@ -43039,6 +43050,8 @@
 	
 	        _this.calculateCircleEdgePoint = _this.calculateCircleEdgePoint.bind(_this);
 	        _this.trimForMarkerEnd = _this.trimForMarkerEnd.bind(_this);
+	        _this.update1 = _this.update1.bind(_this);
+	        _this.update2 = _this.update2.bind(_this);
 	
 	        var new_x_y_2 = _this.calculateCircleEdgePoint({ x: _this.props.x1, y: _this.props.y1 }, { x: _this.props.x2, y: _this.props.y2 }, 30, 8);
 	        var new_x_y_1 = _this.calculateCircleEdgePoint({ x: _this.props.x1, y: _this.props.y1 }, { x: _this.props.x2, y: _this.props.y2 }, 30, 0);

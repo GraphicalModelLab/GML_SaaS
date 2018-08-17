@@ -9,6 +9,8 @@ export default class Circle extends React.Component<Props, {}> {
 
         this.calculateCircleEdgePoint = this.calculateCircleEdgePoint.bind(this);
         this.trimForMarkerEnd = this.trimForMarkerEnd.bind(this);
+        this.update1 = this.update1.bind(this);
+        this.update2 = this.update2.bind(this);
 
         var new_x_y_2 = this.calculateCircleEdgePoint({x:this.props.x1,y:this.props.y1},{x:this.props.x2,y:this.props.y2}, 30, 8);
         var new_x_y_1 = this.calculateCircleEdgePoint({x:this.props.x1,y:this.props.y1},{x:this.props.x2,y:this.props.y2}, 30, 0);
@@ -39,7 +41,7 @@ export default class Circle extends React.Component<Props, {}> {
    }
 
    trimForMarkerEnd(str){
-    return str.replace(/\s/g,'');
+      return str.replace(/\s/g,'');
    }
 
    isLabel1(label){
