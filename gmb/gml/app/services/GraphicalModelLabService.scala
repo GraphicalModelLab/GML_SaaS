@@ -22,7 +22,7 @@ class GraphicalModelLabService {
   AuthDBClient.init(List[String]("localhost"));
   GmlElasticSearchClient.init("localhost");
 
-  val TrainedModelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
+  def getModelId(userid: String, algorithm: String): String = userid+algorithm;
 
   def training(token:String, companyId:String,request: Option[trainingRequest]): trainingResponse = {
 
@@ -30,11 +30,10 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
-          val model: Model = modelMap.get(request.graph.algorithm).get
+          val model: Model = modelMap.get(getModelId(request.userid,request.graph.algorithm)).get
 
           model.setup(SparkContext.sparkConf,SparkContext.sparkSession,request.graph.edges,request.graph.nodes,request.graph.commonProperties)
           model.training(request.datasource)
-          TrainedModelMap.put("test",model)
 
           GmlDBClient.saveTrainingHistory(request)
         }else{
@@ -53,15 +52,14 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
+          val model: Model = modelMap.get(getModelId(request.userid,request.graph.algorithm)).get
           if(request.evaluationMethod == "simple") {
-            val model: Model = TrainedModelMap.get("test").get
             val accuracy = model.testSimple(request.testsource, request.targetLabel)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
 
             return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
           }else if(request.evaluationMethod == "cross-validation"){
             val K = 10;
-            val model: Model = new ModelSimpleCSV();
             model.setup(SparkContext.sparkConf,SparkContext.sparkSession,request.graph.edges,request.graph.nodes,request.graph.commonProperties)
 
             val accuracy = model.testByCrossValidation(request.testsource, request.targetLabel,K)
@@ -190,7 +188,7 @@ class GraphicalModelLabService {
 
       for (w <- ws) {
         list += w.getModelName
-        modelMap.put(w.getModelName,w)
+        modelMap.put(getModelId(request.get.userid,w.getModelName),w)
       }
       listOfModel = list.to
     }
