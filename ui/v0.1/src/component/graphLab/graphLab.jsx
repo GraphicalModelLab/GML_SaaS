@@ -30,7 +30,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             modelid: "",
             modelname: "",
             modeltag: "",
-            modeldescription: ""
+            modeldescription: "",
+
+            modelparameter: [
+            ]
         };
 
         this.onDropAttributeImport = this.onDropAttributeImport.bind(this);
@@ -50,6 +53,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
 
         this.showAddCustomNodeDialog = this.showAddCustomNodeDialog.bind(this);
 
+        this.changeAlgorithm = this.changeAlgorithm.bind(this);
+
+        console.log("first props");
+        console.log(this.state.modelparameter);
     }
     showAddCustomNodeDialog(){
         this.refs.addCustomNodeToCanvas.openModal();
@@ -401,19 +408,57 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.refs.modelHistoryDialogWithSearch.openModal(auth.getUserid(),this.state.modelid);
     }
 
+    changeAlgorithm(){
+
+        var self = this;
+        $.ajax({
+                    url  : "../commonModules/php/modules/GML.php/gml/model/parameter?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid()+"&userid="+auth.getUserid()+"&algorithm="+this.refs.algorithm.value,
+                    type : "get",
+                    headers : {
+                        Authorization: "Bearer "+auth.getToken()
+                    },
+                    success: function(response) {
+                        console.log("fetch parameter");
+                        console.log(response);
+                        if(response.body.code == 401){
+                            auth.logout();
+                        }
+                        var modelparameter = [];
+
+                        response.body.parameter.forEach(function(entry) {
+                            modelparameter.push({
+                                label: entry
+                            });
+                        });
+
+                        self.setState({
+                            modelparameter : modelparameter
+                        });
+                    },
+                    error: function (request, status, error) {
+                        alert("error");
+                    console.log(request.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+        });
+    }
+
     render() {
         return (
             <div>
                 <div>
                     <div className={styles.graphLabMenu}>
-                        <div className={styles.graphLabMenuCalculationModelItem}><select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect}>
-                                                                                                                      <option value="" disabled selected>Select your model</option>
-                                                                                                                      { this.state.algorithms.map((d, idx) => {
-                                                                                                                        return <option value={d} key={"evaluation"+d}>{d}</option>
-                                                                                                                      })}
-                                                                                                                    </select></div>
+                        <div className={styles.graphLabMenuCalculationModelItem}>
+                            <select ref="algorithm" className={styles.graphLabMenuItemCalculationSelect} onChange={this.changeAlgorithm}>
+                                <option value="" disabled selected>Select your model</option>
+                                    { this.state.algorithms.map((d, idx) => {
+                                        return <option value={d} key={"evaluation"+d}>{d}</option>
+                                    })}
+                            </select>
+                        </div>
                         <div onClick={this.showNodePropertyView} className={styles.graphLabMenuItem}><img src="./../icon/graphlab_menu_icons/commonSetting.png" className={styles.graphLabMenuIcon} data-tip="Setup Common Property for all nodes"/></div>
-                        <NodePropertyView label="All Nodes" ref="nodePropertyView" />
+                        <NodePropertyView label="All Nodes" ref="nodePropertyView" modelparameter={this.state.modelparameter} />
                         <Dropzone
                             className={styles.graphLabMenuItem}
                             onDrop={this.onDropAttributeImport}
@@ -463,7 +508,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         <div onClick={this.openPreviousTestedGraph} className={styles.graphLabMenuItem}><img src="./../icon/graphlab_menu_icons/testHistory.png" className={styles.graphLabMenuIcon} data-tip="History of Testing Model"/></div>
                         <div onClick={this.showAddCustomNodeDialog} className={styles.graphLabMenuItemLast}><img src="./../icon/graphlab_menu_icons/addNode.png" className={styles.graphLabMenuIcon} data-tip="Add Node to Canvas"/></div>
                     </div>
-                    <Graph ref="graph" items={[]}/>
+                    <Graph ref="graph" items={[]} modelparameter={this.state.modelparameter} />
                 </div>
                 <Loading ref="loading"/>
                 <PopupMessage ref="popupMessage"/>

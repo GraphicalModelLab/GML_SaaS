@@ -358,7 +358,7 @@ a:active {
 .nodeProp{
    clear: both;
    display: block;
-   width: 340px;
+   width: 310px;
 }
 
 .nodePropName{
@@ -367,7 +367,7 @@ a:active {
 }
 
 .nodePropValue{
-   float: left;
+   float: right;
    width: 150px;
 }
 .nodePropAdd{

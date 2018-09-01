@@ -11,6 +11,11 @@ class ModelSimple2 extends Model{
   def getModelName: String = {
     return "gg"
   }
+
+  def getModelParameterInfo: List[String] = List[String](
+    "distributionTesting"
+  )
+
   def setup(_sparkConf: SparkConf, _sparkSession: SparkSession, edges:List[edge], nodes: List[node], commonProperties: List[property]): Unit = {
 
   }

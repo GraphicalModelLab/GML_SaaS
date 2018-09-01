@@ -2,11 +2,15 @@ package services
 
 import java.io._
 
+import org.apache.commons.io.FileUtils
 import org.apache.spark.SparkConf
 import org.apache.spark.mllib.feature.StandardScaler
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql._
+
+import scala.collection.mutable
+import scala.io.Source
 /**
   * Created by itomao on 7/16/18.
   */
@@ -51,9 +55,57 @@ object NormalizeData {
 
 
   }
+  def standarlizeWithoutSpark(): Unit={
+    var source = FileUtils.lineIterator( new File("/Users/itomao/Documents/GMB/DemoDataSet/wine/winequality-normalization-check.csv"), "utf-8" )
+//    val source = Source.fromFile("/Users/itomao/Documents/GMB/DemoDataSet/wine/winequality-normalization-check.csv")
+    var array = mutable.ListBuffer[Double]()
+    var mean = 0.0;
+    var numOfData = 0;
+    var max = Double.MinValue
+    var min = Double.MaxValue
 
+    while(source.hasNext){
+      var elements = source.next().split(",")
+      var data = elements(0).toDouble
+      array += data
+      mean += data
+      numOfData += 1
+
+      if(data > max){
+        max = data
+      }
+
+      if(data < min){
+        min = data
+      }
+    }
+
+    mean = mean/numOfData
+
+    source.close()
+
+    var variance = 0.0
+    (0 until array.length).foreach{
+      index=>
+        variance += (array(index) - mean)*(array(index) - mean)
+    }
+    variance = Math.sqrt(variance/numOfData)
+
+    val file = new PrintWriter("/Users/itomao/Documents/GMB/DemoDataSet/wine/winequality-normalization-check-normalizing.csv")
+
+    (0 until array.length).foreach{
+      index=>
+       file.write(array(index)+","+(array(index) - mean)/variance+"\n")
+    }
+
+    file.close()
+  }
   def main(args: Array[String]): Unit = {
-    addLabel()
+//    addLabel()
+    standarlizeWithoutSpark()
+//    standarlize(args)
+
+//    println((7.8 - 7.215307064799109)/1.296433757799806)
   }
 
   def standarlize(args: Array[String]) {
@@ -83,7 +135,6 @@ object NormalizeData {
     val scaler = new StandardScaler(withMean = true, withStd = true).fit(final_rdd_dense)
     // Scale features using the scaler model
     val scaledFeatures = scaler.transform(final_rdd_dense)
-
 
     val outIndices = (0 to 11).toList
 

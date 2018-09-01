@@ -130,6 +130,25 @@ class GraphicalModelLabService {
     return getResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
   }
 
+  def getModelParameter(token:String, companyId:String,request: Option[getModelParameterRequest]): getModelParameterResponse = {
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val model: Model = modelMap.get(getModelId(request.userid,request.algorithm)).get
+
+          return getModelParameterResponse(
+              Status.OK, 1, request.algorithm, model.getModelParameterInfo)
+        }else{
+          return getModelParameterResponse(Status.UNAUTHORIZED, 1, null, List[String]())
+        }
+      case None =>
+        println("No request")
+    }
+    return getModelParameterResponse(Status.INTERNAL_SERVER_ERROR, 1, null, List[String]())
+  }
+
   def search(token:String, companyId:String,request: Option[searchRequest]): searchResponse = {
 
     request match {

@@ -111,6 +111,23 @@ function getModel($data,$authorization)
     return $response;
 }
 
+function getModelParameter($data,$authorization)
+{
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, "http://localhost:9098/gml/".$data["companyid"]."/model/parameter?userid=".$data["userid"]."&algorithm=".$data["algorithm"]);
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+ 	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: '.$authorization));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,false);
+
+    $response = curl_exec($curl);
+    //$result = json_decode($response, true);
+
+    curl_close($curl);
+    return $response;
+}
+
 function getTestHistoryModel($data,$authorization)
 {
     $curl = curl_init();
@@ -242,6 +259,26 @@ $GMLService->get('/gml/model', function (Request $request) use ($GMLService) {
 
      $decodeJSON = json_decode(
         getModel($data_request,$request->headers->get("Authorization"))
+     ,
+     true);
+
+     return $GMLService->json(array(
+                   "success"=>true,
+                   "body" =>$decodeJSON,
+                   "request"=>$data_request),201);
+});
+
+$GMLService->get('/gml/model/parameter', function (Request $request) use ($GMLService) {
+
+     mb_internal_encoding('UTF-8');
+     $data_request = array();
+
+     foreach ( $request->query->keys() as $key){
+        $data_request[$key] = $request->query->get($key);
+     }
+
+     $decodeJSON = json_decode(
+        getModelParameter($data_request,$request->headers->get("Authorization"))
      ,
      true);
 

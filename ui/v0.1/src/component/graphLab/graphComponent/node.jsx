@@ -123,7 +123,7 @@ export default class Node extends React.Component<Props, {}> {
    render() {
         return (
                <g>
-                    <NodePropertyView label={this.props.label} properties={this.props.properties} ref={"nodePropertyView" + this.props.label} />
+                    <NodePropertyView modelparameter={this.props.modelparameter} label={this.props.label} properties={this.props.properties} ref={"nodePropertyView" + this.props.label} />
                     <circle
                             r={30}
                             cx={this.state.x}
