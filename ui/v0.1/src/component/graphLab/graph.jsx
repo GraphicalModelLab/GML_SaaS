@@ -370,7 +370,7 @@ export default class Graph extends React.Component<Props, {}> {
 
                     <g ref="canvas">
                         { this.state.nodes.map((d, idx) => {
-                            return <Node key={d.label} zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={d.x} y={d.y} properties={d.properties} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
+                            return <Node key={d.label} modelparameter={this.props.modelparameter} zoom={this.state.zoom} ref={d.label} disable={d.disable} label={d.label} x={d.x} y={d.y} properties={d.properties} entryPointCallBack={this.entryPointCallBack} moveCircleCallBack={this.moveCircleCallBack} currentChosenNode={this.state.currentChosenNode} deleteNodeCallBack={this.deleteNodeCallBack} />
                         }) }
 
                         { this.state.edges.map((d, idx) => {

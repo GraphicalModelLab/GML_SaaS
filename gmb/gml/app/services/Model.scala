@@ -12,6 +12,7 @@ import scala.collection.mutable
   */
 trait Model{
   def getModelName: String
+  def getModelParameterInfo: List[String]
   def setup(_sparkConf: SparkConf, _sparkSession: SparkSession, edges:List[edge], nodes: List[node], commonProperties: List[property]): Unit
   def training(datasource: String): Unit
   def testSimple(testsource : String, targetLabel: String): Double

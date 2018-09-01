@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import auth from "./../auth/auth";
 import $ from 'jquery';
 import * as styles from './../../css/structure.css';
-import { ScatterPlot } from 'react-d3-components'
+import { ScatterPlot } from 'react-d3-components';
 
 const customStyles = {
   content : {

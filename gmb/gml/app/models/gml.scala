@@ -205,6 +205,28 @@ package object gml {
     ).filter(_._2 != JsNull))
   }
 
+  // 3. get models
+  case class getModelParameterRequest(code: Int, userid:String, companyid: String, algorithm: String)
+  case class getModelParameterResponse(code: Int, listSuccessCode: Int, algorithm: String, parameter: List[String])
+
+  implicit lazy val getModelParameterRequestReads: Reads[getModelParameterRequest] = Reads[getModelParameterRequest] {
+    json => JsSuccess(getModelParameterRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String],
+      (json \ "algorithm").as[String]
+    ))
+  }
+
+  implicit lazy val getModelParameterRequestWrites: Writes[getModelParameterResponse] = Writes[getModelParameterResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "listSuccessCode" -> Json.toJson(o.listSuccessCode),
+      "algorithm" -> Json.toJson(o.algorithm),
+      "parameter" -> Json.toJson(o.parameter)
+    ).filter(_._2 != JsNull))
+  }
+
   // 3. search models
   case class searchRequest(code: Int, userid:String, companyid: String, query: String)
   case class searchResponse(code: Int, listSuccessCode: Int, result: String)

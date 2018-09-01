@@ -38,7 +38,11 @@ class ModelSimpleCSV extends Model{
   var sparkSession: SparkSession = null;
 
 
-  def getModelName: String = "Freq & Multi"
+  def getModelName: String = "Freq_and_Multi"
+
+  def getModelParameterInfo: List[String] = List[String](
+    "distribution"
+  )
 
   def setup(_sparkConf: SparkConf, _sparkSession: SparkSession, edges:List[edge], nodes: List[node], commonProperties: List[property]): Unit ={
     sparkConf = _sparkConf

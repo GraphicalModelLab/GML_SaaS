@@ -35,6 +35,7 @@ export default class NodePropertyView extends React.Component<Props, {}> {
         this.getProperties = this.getProperties.bind(this);
         this.addProperties = this.addProperties.bind(this);
         this.deleteCallBack = this.deleteCallBack.bind(this);
+
    }
 
     openModal() {
@@ -53,7 +54,7 @@ export default class NodePropertyView extends React.Component<Props, {}> {
 
     syncProperty(){
         this.state.properties.map((d, idx) => {
-            this.state.properties[idx].name = this.refs["prop"+idx].refs.propName.value;
+            this.state.properties[idx].name = this.refs["prop"+idx].state.propAutoCompletedValue;
             this.state.properties[idx].value = this.refs["prop"+idx].refs.propValue.value;
         });
     }
@@ -111,7 +112,7 @@ export default class NodePropertyView extends React.Component<Props, {}> {
                                 <span className={styles.nodePropValueHeader}>value</span>
                             </div>
                             { this.state.properties.map((d, idx) => {
-                                return <NodeProperty key={"nodeprop"+idx} ref={"prop"+idx} deleteCallBack={this.deleteCallBack} indexKey={d.key} name={d.name} value={d.value}/>
+                                return <NodeProperty key={"nodeprop"+idx} ref={"prop"+idx} deleteCallBack={this.deleteCallBack} indexKey={d.key} name={d.name} value={d.value} modelparameter={this.props.modelparameter}/>
                             }) }
                         </div>
                     </Modal>

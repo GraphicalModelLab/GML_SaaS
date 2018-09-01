@@ -18,10 +18,10 @@ object GraphicalModelLabServiceController extends Controller {
 
   val gmlService = new GraphicalModelLabService();
 
+  //http://localhost:9098/helloworld
   def helloworld() = {
     Action(request =>
-
-      Ok(request.headers.get("Authorization").get.substring(7))
+      Ok("helloworld")
     )
   }
 
@@ -113,6 +113,27 @@ object GraphicalModelLabServiceController extends Controller {
           request.headers.get("Authorization").get.substring(7),
           companyId,
           Some(getRequest(0,request.getQueryString("userid").get,companyId,request.getQueryString("modelid").get))
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def getModelParameter(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getModelParameterResponse](gmlService.getModelParameter(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Some(getModelParameterRequest(0,request.getQueryString("userid").get,companyId,request.getQueryString("algorithm").get))
         )))
       catch {
         case (err: Throwable) => {
