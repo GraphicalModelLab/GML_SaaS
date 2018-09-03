@@ -104,12 +104,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
     componentDidMount() {
         console.log("component Did mount ");
         console.log(this.props.location);
-        if(this.props.location.state){
-            if(this.props.location.state.graphInfo){
-                //alert("Found Graph Info");
-                this.setup(this.props.location.state.graphInfo);
-            }
-        }
+
         var self = this;
         $.ajax({
                     url  : "../commonModules/php/modules/GML.php/gml/model/algorithm/list?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid(),
@@ -127,6 +122,13 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         self.setState({
                             algorithms : response.body.modelAlgorithmIds
                         });
+
+                        if(self.props.location.state){
+                            if(self.props.location.state.graphInfo){
+                                //alert("Found Graph Info");
+                                self.setup(self.props.location.state.graphInfo);
+                            }
+                        }
                     },
                     error: function (request, status, error) {
                         alert("error");

@@ -41456,12 +41456,7 @@
 	        value: function componentDidMount() {
 	            console.log("component Did mount ");
 	            console.log(this.props.location);
-	            if (this.props.location.state) {
-	                if (this.props.location.state.graphInfo) {
-	                    //alert("Found Graph Info");
-	                    this.setup(this.props.location.state.graphInfo);
-	                }
-	            }
+	
 	            var self = this;
 	            _jquery2.default.ajax({
 	                url: "../commonModules/php/modules/GML.php/gml/model/algorithm/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
@@ -41479,6 +41474,13 @@
 	                    self.setState({
 	                        algorithms: response.body.modelAlgorithmIds
 	                    });
+	
+	                    if (self.props.location.state) {
+	                        if (self.props.location.state.graphInfo) {
+	                            //alert("Found Graph Info");
+	                            self.setup(self.props.location.state.graphInfo);
+	                        }
+	                    }
 	                },
 	                error: function error(request, status, _error) {
 	                    alert("error");
