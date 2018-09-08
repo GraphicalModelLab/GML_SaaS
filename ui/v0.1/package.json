@@ -49,6 +49,7 @@
     "style-loader": "^0.13.1",
     "file-loader": "^1.1.2",
     "react-d3-components": "^0.9.1",
-    "react-tooltip": "^3.6.1"
+    "react-tooltip": "^3.6.1",
+    "react-color": "^2.14.1"
   }
 }

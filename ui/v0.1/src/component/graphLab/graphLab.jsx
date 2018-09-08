@@ -54,10 +54,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.showAddCustomNodeDialog = this.showAddCustomNodeDialog.bind(this);
 
         this.changeAlgorithm = this.changeAlgorithm.bind(this);
-
-        console.log("first props");
-        console.log(this.state.modelparameter);
+        this.updateColor = this.updateColor.bind(this);
     }
+
     showAddCustomNodeDialog(){
         this.refs.addCustomNodeToCanvas.openModal();
     }
@@ -444,6 +443,9 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                         console.log(error);
                     }
         });
+    }
+    updateColor(){
+        alert("updated Color");
     }
 
     render() {

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import NodePropertyView from './../graphProperty/nodePropertyView'
+import color from "./../graphColor/color";
 
 
 export default class Node extends React.Component<Props, {}> {
@@ -130,7 +131,7 @@ export default class Node extends React.Component<Props, {}> {
                             cy={this.state.y}
                             onMouseDown={this.handleMouseDown}
                             onMouseUp={this.handleMouseUp}
-                            fill={(this.state.disable ? "#E0E0E0" : "#000088")}
+                            fill={(this.state.disable ? "#E0E0E0" : color.get())}
                     ></circle>
 
                     <g onMouseEnter={this.handleMouseEnterConnectedPoint} onClick={this.clickNode}>
