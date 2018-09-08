@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import NodePropertyView from './../graphProperty/nodePropertyView'
-
+import color from "./../graphColor/color";
 
 export default class EdgeDeletion extends React.Component<Props, {}> {
 
@@ -38,7 +38,7 @@ export default class EdgeDeletion extends React.Component<Props, {}> {
                         r="8"
                         cx={this.state.x}
                         cy={this.state.y}
-                        fill="blue"
+                        fill={ color.get() }
                     ></circle>
 
                     <line stroke="white" x1={this.state.x-3} y1={this.state.y-3} x2={this.state.x+3} y2={this.state.y+3} />

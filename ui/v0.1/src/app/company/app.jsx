@@ -10,6 +10,10 @@ import Loading from './../../component/loader/loading';
 import PopupMessage from './../../component/popupMessage/popupMessage';
 import $ from 'jquery';
 import ReactTooltip from 'react-tooltip';
+import { SketchPicker } from 'react-color';
+import GraphColorView from './../../component/graphLab/graphColor/graphColorView';
+import color from "./../../component/graphLab/graphColor/color";
+
 
 export default class App extends React.Component<Props, {}> {
 
@@ -20,7 +24,8 @@ export default class App extends React.Component<Props, {}> {
         };
 
         this.searchTag = this.searchTag.bind(this);
-
+        this.showGraphColorView = this.showGraphColorView.bind(this);
+        this.saveGraphColorCallBack = this.saveGraphColorCallBack.bind(this);
       }
 
       updateAuth(loggedIn) {
@@ -105,13 +110,21 @@ export default class App extends React.Component<Props, {}> {
             });
       }
 
+      showGraphColorView(){
+        this.refs.graphColorView.openModal("Save the model before training","","","");
+      }
+
+      saveGraphColorCallBack(colorValue){
+        color.save(colorValue);
+      }
+
       render() {
         return (
           <StickyContainer>
             <Sticky>
                 <Sticky className={styles.header}>
                     <div className={styles.menuHeader}>
-                        <img className={styles.menuItemLogo} src='../icon/infographic/ccs_logo.png'/>
+                        <img className={styles.menuItemLogo} src='../icon/infographic/ccs_logo.png' onClick={this.showGraphColorView.bind(this)}  />
                         <div className={styles.menuItemUserId}>Hello, {auth.getUserid()}</div>
                         {this.state.loggedIn ? (
                             (auth.getRole() == 'sysadmin' ? (
@@ -119,6 +132,7 @@ export default class App extends React.Component<Props, {}> {
                                     <div className={styles.menuItem}><Link to={'/logout'}>Logout</Link></div>
                                     <div className={styles.menuItem}><Link to={'/companyRegistration'}>Register Company</Link></div>
                                     <div className={styles.menuItem}><Link to={'/accountManagement'}>Account Management</Link></div>
+
                                 </div>
                                 ):(
                                 (auth.getRole() == 'administrator' ? (
@@ -127,11 +141,12 @@ export default class App extends React.Component<Props, {}> {
                                         <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}><img src="./../icon/menu_icons/account.png" className={styles.icon} data-tip="Manage Account Info"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/socialConnect'}><img src="./../icon/menu_icons/dataconnection.png" className={styles.icon} data-tip="Connect to Social Data Source"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/webExploration'}><img src="./../icon/menu_icons/explore.jpg" className={styles.icon} data-tip="Explore Data"/></Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLab'}><img src="../icon/menu_icons/flask.png" className={styles.icon} data-tip="Design Graph"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLab'} ref="graphLab"><img src="../icon/menu_icons/flask.png" className={styles.icon} data-tip="Design Graph"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}><img src="../icon/menu_icons/timer.png" className={styles.icon} data-tip="Cron Job"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}><img src="./../icon/menu_icons/database.jpg" className={styles.icon} data-tip="Show a list of graphs"/></Link></div>
                                         <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div>
                                         <div className={styles.menuItem}><img src="./../icon/menu_icons/search.png" onClick={this.searchTag.bind(this)} className={styles.searchIcon} data-tip="Search Keyword in Database"/></div>
+
                                     </div>
                                 ):(
                                     <div className={styles.menu}>
@@ -139,11 +154,12 @@ export default class App extends React.Component<Props, {}> {
                                         <div className={styles.menuItem}><Link to={'/accountManagementIndividual'}><img src="./../icon/menu_icons/account.png" className={styles.icon} data-tip="Manage Account Info"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/socialConnect'}><img src="./../icon/menu_icons/dataconnection.png" className={styles.icon} data-tip="Connect to Social Data Source"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/webExploration'}><img src="./../icon/menu_icons/explore.jpg" className={styles.icon} data-tip="Explore Data"/></Link></div>
-                                        <div className={styles.menuItem}><Link to={'/graphLab'}><img src="../icon/menu_icons/flask.png" className={styles.icon} data-tip="Design Graph"/></Link></div>
+                                        <div className={styles.menuItem}><Link to={'/graphLab'} ref="graphLab"><img src="../icon/menu_icons/flask.png" className={styles.icon} data-tip="Design Graph"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}><img src="../icon/menu_icons/timer.png" className={styles.icon} data-tip="Cron Job"/></Link></div>
                                         <div className={styles.menuItem}><Link to={'/graphLabLocalRepository'}><img src="./../icon/menu_icons/database.jpg" className={styles.icon} data-tip="Show a list of graphs"/></Link></div>
                                         <div className={styles.menuItemSearch}><input type="text" placeholder="Tag Keyword" ref="search" className={styles.menuItemSearchInput}/> </div>
                                         <div className={styles.menuItem}><img src="./../icon/menu_icons/search.png" onClick={this.searchTag.bind(this)} className={styles.searchIcon} data-tip="Search Keyword in Database"/></div>
+
                                     </div>
                                 ))
                                 )
@@ -163,6 +179,8 @@ export default class App extends React.Component<Props, {}> {
             </div>
             <Loading ref="loading"/>
             <PopupMessage ref="popupMessage"/>
+            <GraphColorView ref="graphColorView" saveCallBack={this.saveGraphColorCallBack}/>
+
           </StickyContainer>
         )
       }
