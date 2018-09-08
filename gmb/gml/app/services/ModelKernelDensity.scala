@@ -18,6 +18,7 @@ import scala.io.Source
 object Kernel{
   def GuassianKernel(data: Double): Double = Math.exp(-data*data/2)/Math.sqrt(2*Math.PI);
 }
+
 class ModelKernelDensity extends Model{
 
 
@@ -77,7 +78,7 @@ class ModelKernelDensity extends Model{
   }
 
   def initCategoryMap(csvData: DataFrame): Unit ={
-    var categoricalKeySet = distributionMap.filter(f => f._2 == "categorical").keySet
+    val categoricalKeySet = distributionMap.filter(f => f._2 == "categorical").keySet
     println("find category Map for :"+categoricalKeySet+","+distributionMap)
 
     for(key <- categoricalKeySet) {
@@ -197,7 +198,7 @@ class ModelKernelDensity extends Model{
 
 
   def testSimple(testsource : String, targetLabel: String): Double ={
-    var csvData = testsource
+    val csvData = testsource
 
     val target = targetLabel;
     val targetIndex = invertedIndex.get(target).get
@@ -235,7 +236,7 @@ class ModelKernelDensity extends Model{
   def test(bandwidth: Double,targetLabel: String, targetValue: String, attr_values: List[String], trainingData: Dataset[Row]): Double={
     var totalProb = 1.0
     (0 until allNodes.length).foreach {
-      nodeIndex => print(nodeIndex)
+      nodeIndex =>
 
         if(!allNodes(nodeIndex).disable) {
 
@@ -271,7 +272,7 @@ class ModelKernelDensity extends Model{
 
 
           // 1. Calculation for Numerator, e.g. P(A,B,C)
-          var nodeValue = if (allNodes(nodeIndex).label == targetLabel) targetValue else attr_values(nodeIndex)
+          val nodeValue = if (allNodes(nodeIndex).label == targetLabel) targetValue else attr_values(nodeIndex)
 
           var numerator = 0.0
           if (distributionMap.get(allNodes(nodeIndex).label).get == "categorical") {
@@ -281,7 +282,7 @@ class ModelKernelDensity extends Model{
           }
 
           // 2. Calculation for Denominator, e.g. P(B,C)
-          var denominator = predict(bandwidth,dependentCategoryValues.toMap, realLabelList.toList, attr_values,trainingData)
+          val denominator = predict(bandwidth,dependentCategoryValues.toMap, realLabelList.toList, attr_values,trainingData)
 
           totalProb *= (numerator / denominator)
         }
@@ -290,16 +291,23 @@ class ModelKernelDensity extends Model{
     return totalProb
   }
 
-  def predictByGuassianKernel(bandwidth: Double, value: Double, index:Int, restrictedData: RDD[Row]): Double={
+  def predictByGuassianKernel(numOfRows:Long,bandwidth: Double, value: Double, index:Int, restrictedData: RDD[Row]): Double={
     val sum = restrictedData.map {
       x =>(Kernel.GuassianKernel((value - x.getString(index).toDouble)/bandwidth))
-    }.reduce(_ + _)
+    }.reduce{
+      (a, b) =>
+        if(a == 0) println("Fined 000000!");
+        a+b
+    }
 
-    return sum/(restrictedData.collect().length*bandwidth)
+    return sum/(numOfRows*bandwidth)
   }
-  def predict(bandwidth: Double, categoryValues: Map[String, String], realLabelIndices:List[String], attr_values: List[String],trainingData: Dataset[Row]): Double ={
 
-     val indices = realLabelIndices.map(label => invertedIndex.get(label)).toList
+  def predict(bandwidth: Double, categoryValues: Map[String, String], realLabelIndices:List[String], attr_values: List[String],trainingData: Dataset[Row]): Double ={
+     if(realLabelIndices.size == 0){
+       println("zero array")
+       return 1.0
+     }
 
      // 1. We restrict Data by Categorical Variables
      var rdd_dense: RDD[Row] = trainingData.rdd;
@@ -310,14 +318,32 @@ class ModelKernelDensity extends Model{
           x.getString(categoryIndex) == categoryValue
         )
      }
+//     // 2. This model assumes that multi dimensional kernels can be computed via Multiplicative Kernel
+     val indices = realLabelIndices.map(label => invertedIndex.get(label))
+     val numOfRows = rdd_dense.count()
+     println("numOfRows : "+numOfRows)
+     val kernelizedValues = rdd_dense.map {
+       x =>
 
-    // 2. We calculate Kernel Density for the restricted Data by IID assumption
-    var predict = 1.0
+         val values = collection.mutable.ListBuffer[Double]()
+         indices.foreach {
+           index =>
+//             println(Kernel.GuassianKernel((attr_values(index.get).toDouble - x.getString(index.get).toDouble)/bandwidth)+":"+attr_values(index.get) +","+x.getString(index.get)+","+bandwidth)
+             val value = (Kernel.GuassianKernel((attr_values(index.get).toDouble - x.getString(index.get).toDouble)/bandwidth))/(numOfRows*bandwidth)
+             values += value
+         }
+         Vectors.dense(values.toArray[Double])
+     }.reduce {
+       (a, b) =>
+         Vectors.dense((a.toArray, b.toArray).zipped.map(_ + _))
+     }
 
-    indices.foreach{
-      index =>
-        predict *= predictByGuassianKernel(bandwidth,attr_values(index.get).toDouble,index.get,rdd_dense)
-    }
+     println("kernelized values");
+     println(kernelizedValues)
+     // 3. Then simply multiply each kernel value to get the final prediction value
+     var predict = 1.0
+
+     kernelizedValues.toArray.foreach( kernel => predict *= kernel)
 
      return predict;
   }
