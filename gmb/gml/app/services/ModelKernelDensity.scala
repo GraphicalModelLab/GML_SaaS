@@ -291,21 +291,10 @@ class ModelKernelDensity extends Model{
     return totalProb
   }
 
-  def predictByGuassianKernel(numOfRows:Long,bandwidth: Double, value: Double, index:Int, restrictedData: RDD[Row]): Double={
-    val sum = restrictedData.map {
-      x =>(Kernel.GuassianKernel((value - x.getString(index).toDouble)/bandwidth))
-    }.reduce{
-      (a, b) =>
-        if(a == 0) println("Fined 000000!");
-        a+b
-    }
-
-    return sum/(numOfRows*bandwidth)
-  }
 
   def predict(bandwidth: Double, categoryValues: Map[String, String], realLabelIndices:List[String], attr_values: List[String],trainingData: Dataset[Row]): Double ={
      if(realLabelIndices.size == 0){
-       println("zero array")
+       // Here, we return 1.0 when there is no dependent real variables, which means that we assume Uniform Distribution
        return 1.0
      }
 
@@ -321,7 +310,7 @@ class ModelKernelDensity extends Model{
 //     // 2. This model assumes that multi dimensional kernels can be computed via Multiplicative Kernel
      val indices = realLabelIndices.map(label => invertedIndex.get(label))
      val numOfRows = rdd_dense.count()
-     println("numOfRows : "+numOfRows)
+//     println("numOfRows : "+numOfRows)
      val kernelizedValues = rdd_dense.map {
        x =>
 
@@ -337,9 +326,9 @@ class ModelKernelDensity extends Model{
        (a, b) =>
          Vectors.dense((a.toArray, b.toArray).zipped.map(_ + _))
      }
-
-     println("kernelized values");
-     println(kernelizedValues)
+//
+//     println("kernelized values");
+//     println(kernelizedValues)
      // 3. Then simply multiply each kernel value to get the final prediction value
      var predict = 1.0
 
