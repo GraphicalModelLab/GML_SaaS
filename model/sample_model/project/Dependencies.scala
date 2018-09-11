@@ -1,6 +1,5 @@
-import sbt._
-import sbt.Keys.scalaVersion
-import CommonSettings._;
+import CommonSettings._
+import sbt._;
 
 object Dependencies {
 
@@ -77,6 +76,10 @@ object Dependencies {
   val elasticsearch = "org.elasticsearch" % "elasticsearch" % "6.3.1"
   val elasticsearch_transport = "org.elasticsearch.client" % "transport" % "6.3.1"
 
+  // Graphical Model Lab API
+  val graphicalmodellab_api = "org.graphicalmodellab" %% "gml_api" % "0.1-SNAPSHOT"
+
+
   val elasticSearchDependencies = Seq(
     elasticsearch,
     elasticsearch_transport
@@ -125,5 +128,9 @@ object Dependencies {
     spark_mllib,
     spark_sql,
     de_unkrig_jdisasm
+  )
+
+  val gmlDependencies = Seq(
+    graphicalmodellab_api
   )
 }

@@ -1,16 +1,14 @@
-package services
-
-import java.io.File
-import java.util
-
-import gml.{edge, node, property, trainingRequest}
+package services.caulculationmodel
+import play.api.libs.json._
+import org.graphicalmodellab.api.graph_api._
 import org.apache.spark.SparkConf
-import org.apache.spark.mllib.linalg.{Matrix, Vectors}
 import org.apache.spark.mllib.linalg.distributed.RowMatrix
+import org.apache.spark.mllib.linalg.{Matrix, Vectors}
 import org.apache.spark.mllib.stat.distribution.MultivariateGaussian
 import org.apache.spark.mllib.stat.{MultivariateStatisticalSummary, Statistics}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
+import services.SparkProcessManager
 
 import scala.collection.mutable
 import scala.io.Source
@@ -19,9 +17,19 @@ import scala.io.Source
   * Created by itomao on 6/15/18.
   */
 
-class ModelSimpleCSV extends Model{
+class ModelMultivariateGuassianCSV extends Model{
+  val appJar = "/Users/itomao/git/GML_SaaS/model/sample_model/multivariateguassian/target/scala-2.11/multivariateguassian-assembly-0.1-SNAPSHOT.jar";
+  val jars = List[String]()
+  // Never specify Spark installed by brew
+  val SPARK_HOME = "/Users/itomao/OSS/spark-2.2.0-bin-hadoop2.7"
+  val env = Map[String,String]()
+  val master = "local";
+  val mainClass = "org.graphicalmodellab.model.TestByCrossValidation";
+  val appName = "Multivariate Guassian Model";
+  var userid : String = null;
+  var graph: graph = null;
 
-
+  var sparkProcessManager: SparkProcessManager = null;
   var allEdges: List[edge] = null;
   var allNodes: List[node] = null;
   var allNodesMap: Map[String, node] = null;
@@ -67,8 +75,15 @@ class ModelSimpleCSV extends Model{
     guassianHyperParam = mutable.Map[String, MultivariateGaussian]()
   }
 
+  def setup(_userid: String, _sparkProcessManager: SparkProcessManager, _graph:graph): Unit ={
+    graph = _graph
+    sparkProcessManager = _sparkProcessManager
+    userid = _userid
+  }
+
+
   def initCategoryMap(csvData: DataFrame): Unit ={
-    var categoricalKeySet = distributionMap.filter(f => f._2 == "categorical").keySet
+    val categoricalKeySet = distributionMap.filter(f => f._2 == "categorical").keySet
     println("find category Map for :"+categoricalKeySet+","+distributionMap)
 
     for(key <- categoricalKeySet) {
@@ -83,81 +98,23 @@ class ModelSimpleCSV extends Model{
   }
 
   def testByCrossValidation(datasource: String,targetLabel: String, numOfSplit: Int): Double={
-    val csvData = sparkSession.read.csv(datasource)
+    val uuid = sparkProcessManager.createSparkProcess(
+      userid,
+      SPARK_HOME,
+      master,
+      mainClass,
+      appName,
+      appJar,
+      jars,
+      env,
+      List[String](
+        Json.prettyPrint(Json.toJson(graph)),
+        datasource,
+        targetLabel,
+        numOfSplit.toString
+      ));
 
-    val target = targetLabel;
-    val targetIndex = invertedIndex.get(target).get
-
-    val weight = mutable.ArrayBuffer[Double]();
-    (0 until numOfSplit).foreach(index => weight += (1/numOfSplit.toDouble))
-
-    val splittedDf = csvData.randomSplit(weight.toArray)
-
-    var averagedAccuracy = 0.0
-    (0 until numOfSplit).foreach{
-      index=>
-        val testDF = splittedDf(index);
-        var trainingDF:Dataset[Row] = null
-
-        var firstIndex = -1;
-        if(index == 0){
-          trainingDF = splittedDf(index+1)
-          firstIndex = index + 1
-        }else{
-          trainingDF = splittedDf(index-1)
-          firstIndex = index - 1
-        }
-
-
-        (0 until numOfSplit).foreach{
-          index2 =>
-            if(index != index2 && firstIndex != index2){
-              trainingDF.union(splittedDf(index2))
-            }
-        }
-
-        training(trainingDF)
-
-        // Calculate accuracy for this fold
-        var count = 0;
-        var total = 0;
-
-        for(row <- testDF.collect().toList){
-          val cols = row.toSeq.toList.asInstanceOf[List[String]]
-          var maxLabel = ""
-          var maxValue = - Double.MaxValue
-
-          for (targetValue <- categoricalPossibleValues.get(target).get){
-            val prob = test(target,targetValue, cols)
-
-            println("  predict "+target+" = "+prob)
-            if(prob > maxValue){
-              maxLabel = targetValue;
-              maxValue = prob;
-            }
-          }
-
-          println("  selected "+maxLabel+" , "+maxValue)
-          if(cols(targetIndex) == maxLabel){
-            count += 1
-          }
-          total += 1
-        }
-
-        println("acurracy("+index+")="+(count.toDouble/total.toDouble))
-
-        averagedAccuracy += (count.toDouble/total.toDouble)
-    }
-
-
-    (0 until numOfSplit).foreach {
-      index =>
-        val testDF = splittedDf(index);
-
-        println("testDF(" + index + ") size : " + testDF.collect().size)
-
-    }
-    return averagedAccuracy/numOfSplit
+    return 0.0;
   }
 
   def training(csvData: DataFrame): Unit ={
@@ -206,6 +163,7 @@ class ModelSimpleCSV extends Model{
       println("    Covariance : "+parameter._2.sigma.toArray.mkString(","))
     }
   }
+
   /**
     * Calculate hyper parameters for joint probability,
     * i.e. P(all nodes) = P(A |..)P(B |..)...

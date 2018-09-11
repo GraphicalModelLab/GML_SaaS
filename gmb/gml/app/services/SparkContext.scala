@@ -9,4 +9,5 @@ import org.apache.spark.sql.SparkSession
 object SparkContext {
   val sparkConf: SparkConf = new SparkConf().setAppName("Model").setMaster("local")
   val sparkSession: SparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
+  val sparkProcessManager: SparkProcessManager = new SparkProcessManager();
 }

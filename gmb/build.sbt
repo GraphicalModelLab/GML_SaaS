@@ -63,3 +63,9 @@ lazy val gml = project.in(file("gml"))
   })
   .enablePlugins(PlayScala)
   .dependsOn(common)
+  .dependsOn(gml_api)
+
+
+lazy val gml_api = project.in(file("gml_api"))
+  .settings(commonSettings: _*)
+  .settings(libraryDependencies ++= playDependencies)

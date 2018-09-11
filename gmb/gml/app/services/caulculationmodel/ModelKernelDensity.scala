@@ -1,17 +1,15 @@
-package services
+package services.caulculationmodel
 
-import gml.{edge, node, property}
 import org.apache.spark.SparkConf
-import org.apache.spark.mllib.linalg.{Matrix, Vectors}
-import org.apache.spark.mllib.linalg.distributed.RowMatrix
-import org.apache.spark.mllib.stat.{MultivariateStatisticalSummary, Statistics}
-import org.apache.spark.mllib.stat.distribution.MultivariateGaussian
+import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{Dataset, Row, _}
+import services.SparkProcessManager
 
 import scala.collection.mutable
 import scala.io.Source
 
+import org.graphicalmodellab.api.graph_api._
 /**
   * Created by itomao on 8/15/18.
   */
@@ -20,7 +18,6 @@ object Kernel{
 }
 
 class ModelKernelDensity extends Model{
-
 
   var allEdges: List[edge] = null;
   var allNodes: List[node] = null;
@@ -336,4 +333,6 @@ class ModelKernelDensity extends Model{
 
      return predict;
   }
+
+  override def setup(userid: String, processManager: SparkProcessManager, graph:graph): Unit = {}
 }

@@ -6,8 +6,9 @@ import gml._
 import org.graphicalmodellab.auth.AuthDBClient
 import play.Play
 import play.api.http.Status
-import scala.collection.JavaConverters._
+import services.caulculationmodel.Model
 
+import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 /**
@@ -60,7 +61,7 @@ class GraphicalModelLabService {
             return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
           }else if(request.evaluationMethod == "cross-validation"){
             val K = 10;
-            model.setup(SparkContext.sparkConf,SparkContext.sparkSession,request.graph.edges,request.graph.nodes,request.graph.commonProperties)
+            model.setup(request.userid,SparkContext.sparkProcessManager, request.graph)
 
             val accuracy = model.testByCrossValidation(request.testsource, request.targetLabel,K)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)

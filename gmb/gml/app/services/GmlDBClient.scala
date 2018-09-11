@@ -3,7 +3,7 @@ package services
 import java.util.Date
 
 import com.datastax.driver.core.querybuilder.QueryBuilder
-import gml.{getModelInHistoryRequest, getModelInHistoryResponse, getRequest, getResponse, getTestHistoryRequest, graph, listRequest, listResponse, saveRequest, testRequest, trainingRequest}
+import gml.{getModelInHistoryRequest, getModelInHistoryResponse, getRequest, getResponse, getTestHistoryRequest,  listRequest, listResponse, saveRequest, testRequest, trainingRequest}
 import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.cassandra.CassandraClient
 import play.api.http.Status
@@ -11,11 +11,14 @@ import play.api.libs.json.Json
 
 import scala.collection.mutable
 
+import org.graphicalmodellab.api.graph_api._
 /**
  * Created by ito_m on 9/26/16.
  */
 object GmlDBClient {
   var client = new CassandraClient()
+
+  //  Json.fromJson(Json.parse("ggg"))
 
   def init(hosts: List[String]): Unit = {
     client.connect(List[String](
