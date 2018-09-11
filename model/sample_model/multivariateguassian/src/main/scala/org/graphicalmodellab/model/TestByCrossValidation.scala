@@ -164,6 +164,8 @@ object TestByCrossValidation {
     }
 
     log.info("accuray : "+averagedAccuracy/numOfSplit)
+
+    println(averagedAccuracy/numOfSplit)
   }
 
   def training(csvData: DataFrame): Unit ={
