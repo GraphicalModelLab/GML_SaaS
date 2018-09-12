@@ -5,7 +5,7 @@ object CommonSettings {
 
   val commonSettings = Seq(
     organization := "org.graphicalmodel",
-    scalaVersion := "2.11.11",
+    scalaVersion := "2.11.8",
     resolvers ++= Dependencies.resolvers,
     fork in Test := true,
     parallelExecution in Test := true

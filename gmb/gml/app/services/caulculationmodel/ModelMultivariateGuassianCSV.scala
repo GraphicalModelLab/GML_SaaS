@@ -1,4 +1,8 @@
 package services.caulculationmodel
+import java.nio.file.{Files, Paths}
+
+import gml.sparkJobContextRequest
+import org.apache.commons.lang3.StringEscapeUtils
 import play.api.libs.json._
 import org.graphicalmodellab.api.graph_api._
 import org.apache.spark.SparkConf
@@ -8,43 +12,31 @@ import org.apache.spark.mllib.stat.distribution.MultivariateGaussian
 import org.apache.spark.mllib.stat.{MultivariateStatisticalSummary, Statistics}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
-import services.SparkProcessManager
+import org.codehaus.jettison.json.{JSONArray, JSONObject}
+import play.api.libs.ws._
 
 import scala.collection.mutable
+import scala.concurrent.Future
 import scala.io.Source
+import scalaj.http
+import scalaj.http.{Base64, Http, MultiPart}
 
 /**
   * Created by itomao on 6/15/18.
   */
 
 class ModelMultivariateGuassianCSV extends Model{
+  // Three Parameters for spark-job-server
+  val contextName = "multi"
+  val appNameSparkJob = "multi"
   val appJar = "/Users/itomao/git/GML_SaaS/model/sample_model/multivariateguassian/target/scala-2.11/multivariateguassian-assembly-0.1-SNAPSHOT.jar";
-  val jars = List[String]()
-  // Never specify Spark installed by brew
-  val SPARK_HOME = "/Users/itomao/OSS/spark-2.2.0-bin-hadoop2.7"
-  val env = Map[String,String]()
-  val master = "local";
-  val mainClass = "org.graphicalmodellab.model.TestByCrossValidation";
-  val appName = "Multivariate Guassian Model";
-  var userid : String = null;
-  var graph: graph = null;
 
-  var sparkProcessManager: SparkProcessManager = null;
-  var allEdges: List[edge] = null;
-  var allNodes: List[node] = null;
-  var allNodesMap: Map[String, node] = null;
-
+  // Parameters for TestSimple & Training Methods
   var invertedIndex: Map[String, Int] = null;
   var commonDistribution: String = null;
   var distributionMap: mutable.Map[String, String] = null;
   var categoricalPossibleValues : collection.mutable.Map[String, Set[String]] = null;
   var guassianHyperParam : mutable.Map[String, MultivariateGaussian] = null;
-
-  def getJointId(nodesLabel: List[String]): String=nodesLabel.sorted.mkString(".")
-
-  var sparkConf: SparkConf = null;
-  var sparkSession: SparkSession = null;
-
 
   def getModelName: String = "Freq_and_Multi"
 
@@ -52,116 +44,60 @@ class ModelMultivariateGuassianCSV extends Model{
     "distribution"
   )
 
-  def setup(_sparkConf: SparkConf, _sparkSession: SparkSession, edges:List[edge], nodes: List[node], commonProperties: List[property]): Unit ={
-    sparkConf = _sparkConf
-    sparkSession = _sparkSession
+  def init(): Unit ={
+    // 1. Generate Context
+    val existingSparkContext = Json.fromJson[sparkJobContextRequest](Json.parse(Http("http://localhost:8090/contexts").timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 ).asString.body))
 
-    allEdges = edges
-    allNodes = nodes
-    allNodesMap = allNodes.zipWithIndex.map { case (v, i) => v.label -> v }.toMap
+    if(!existingSparkContext.get.context.contains(contextName)) {
+      val response1 = Http("http://localhost:8090/contexts/"+contextName+"?num-cpu-cores=1&memory-per-node=512m&spark.executor.instances=1&context-factory=spark.jobserver.context.SessionContextFactory")
+        .timeout(connTimeoutMs = 4000, readTimeoutMs = 90000 ).postData("").asString
 
-    invertedIndex = allNodes.zipWithIndex.map { case (v, i) => v.label -> i }.toMap
-
-    commonDistribution = commonProperties.filter(_.name == "distribution")(0).value
-    distributionMap = mutable.Map[String,String]()
-    for(node <- allNodes){
-      val distribution = if(node.properties.filter(_.name == "distribution").size > 0) node.properties.filter(_.name == "distribution")(0).value else commonDistribution;
-      distributionMap.put(node.label,distribution)
+      println(response1)
     }
 
-    categoricalPossibleValues = collection.mutable.Map[String,Set[String]]()
-    //    collection.mutable.Map[String,collection.mutable.Set[String]]("category" -> collection.mutable.Set[String]("red","white"))
+    // 2. Upload Jar
+    val bytes: Array[Byte] = Files.readAllBytes(Paths.get(appJar))
+    val response2 = Http("http://localhost:8090/jars/"+appNameSparkJob)
+                    .timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 )
+                    .header("Content-Type", "application/java-archive")
+                    .postData(bytes)
+                    .asString
+    println(response2)
 
-    guassianHyperParam = mutable.Map[String, MultivariateGaussian]()
   }
 
-  def setup(_userid: String, _sparkProcessManager: SparkProcessManager, _graph:graph): Unit ={
-    graph = _graph
-    sparkProcessManager = _sparkProcessManager
-    userid = _userid
-  }
+  def testByCrossValidation(graph:graph, datasource: String,targetLabel: String, numOfSplit: Int): Double={
+    val jsonString = Json.stringify(Json.toJson(graph))
 
+    val requestString =
+      "{"+ "\"datasource\":\""+datasource+"\","+"\"targetLabel\":\""+targetLabel+"\","+"\"numOfSplit\":"+numOfSplit+",\"graph\":"+ jsonString+"}"
+    val base64Encoded = Base64.encodeString(requestString)
 
-  def initCategoryMap(csvData: DataFrame): Unit ={
-    val categoricalKeySet = distributionMap.filter(f => f._2 == "categorical").keySet
-    println("find category Map for :"+categoricalKeySet+","+distributionMap)
+    val responseJson = new JSONObject(Http("http://localhost:8090/jobs?appName="+appNameSparkJob+"&context="+contextName+"&classPath=org.graphicalmodellab.model.TestByCrossValidation")
+                    .timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 )
+                    .postData("input.string = \""+base64Encoded+"\"")
+                    .asString.body)
 
-    for(key <- categoricalKeySet) {
-      val index = invertedIndex.get(key).get
-      val possibleValue = collection.mutable.Set[String]()
-      val final_rdd_dense = csvData.rdd.map(_.getString(index)).distinct().collect()
+    if(responseJson.get("status") == "ERROR") return -1;
 
-      categoricalPossibleValues.put(key, final_rdd_dense.toSet)
-    }
-    println("Initialized Category Map");
-    println(categoricalPossibleValues)
-  }
+    val jobId = responseJson.get("jobId")
 
-  def testByCrossValidation(datasource: String,targetLabel: String, numOfSplit: Int): Double={
-    val uuid = sparkProcessManager.createSparkProcess(
-      userid,
-      SPARK_HOME,
-      master,
-      mainClass,
-      appName,
-      appJar,
-      jars,
-      env,
-      List[String](
-        Json.prettyPrint(Json.toJson(graph)),
-        datasource,
-        targetLabel,
-        numOfSplit.toString
-      ));
+    val finished = false;
 
-    return 0.0;
-  }
+    while(!finished){
+      val statusResponse = new JSONObject(Http("http://localhost:8090/jobs/"+jobId)
+        .asString.body)
 
-  def training(csvData: DataFrame): Unit ={
-    initCategoryMap(csvData)
+      statusResponse.get("status") match {
+        case "ERROR" => return -1
+        case "FINISHED" => return statusResponse.getJSONObject("result").getDouble("accurarcy")
+        case _ =>
+      }
 
-    (0 until allNodes.length).foreach {
-      nodeIndex => print(nodeIndex)
-
-        if(!allNodes(nodeIndex).disable) {
-          val categoryLabelList = collection.mutable.ListBuffer[String]();
-          val realLabelList = collection.mutable.ListBuffer[String]();
-
-          val dependentIndices = collection.mutable.ListBuffer[Int]();
-          (0 until allEdges.length).foreach {
-            edgeIndex =>
-
-              if (allEdges(edgeIndex).label2 == allNodes(nodeIndex).label) {
-                distributionMap.get(allEdges(edgeIndex).label1).get match {
-                  case "categorical" =>
-                    categoryLabelList += (allEdges(edgeIndex).label1)
-                  case "real" =>
-                    realLabelList += (allEdges(edgeIndex).label1)
-                }
-              }
-          }
-
-          println("categorical Label List : " + categoryLabelList.mkString(","))
-          println("real Label List : " + realLabelList.mkString(","))
-
-          // 1. Calculation for Numerator, e.g. P(A,B,C)
-          if (distributionMap.get(allNodes(nodeIndex).label).get == "categorical") {
-            training_helper(categoryLabelList.toList :+ allNodes(nodeIndex).label, Map[String, String](), 0, realLabelList.toList, csvData)
-          } else {
-            training_helper(categoryLabelList.toList, Map[String, String](), 0, realLabelList.toList :+ allNodes(nodeIndex).label, csvData)
-          }
-
-          // 1. Calculation for Denominator, e.g. P(B,C)
-          training_helper(categoryLabelList.toList, Map[String, String](), 0, realLabelList.toList, csvData)
-        }
+      Thread.sleep(1000);
     }
 
-    println("Finished Learning ---- Dumping Parameters")
-    for( parameter <- guassianHyperParam){
-      println(" Parameter - "+parameter._1 +" , ")
-      println("    Mean : "+parameter._2.mu.toArray.mkString(","))
-      println("    Covariance : "+parameter._2.sigma.toArray.mkString(","))
-    }
+    return -1;
   }
 
   /**
@@ -169,60 +105,11 @@ class ModelMultivariateGuassianCSV extends Model{
     * i.e. P(all nodes) = P(A |..)P(B |..)...
     *
     */
-  def training(datasource: String): Unit ={
-//    val csvData = sparkSession.read.csv("/Users/itomao/Documents/GMB/DemoDataSet/abalone_test_answer.csv")
-    println("Load "+datasource+" ...")
-    val csvData = sparkSession.read.csv(datasource)
+  def training(graph:graph, datasource: String): Unit ={
 
-    training(csvData)
   }
 
-  def training_helper(categoryLabelList: List[String], categoryValues: Map[String, String], currentIndex: Int, realLabelIndices: List[String], data:DataFrame) : Unit={
-    if(currentIndex == categoryLabelList.size) {
-      val jointIdentity = getJointId(categoryValues.map(d => d._2).toList ++ realLabelIndices)
-
-      if(!guassianHyperParam.contains(jointIdentity)) {
-        println(categoryValues)
-
-        var rdd_dense: RDD[Row] = data.rdd;
-        for (category <- categoryLabelList) {
-          val categoryIndex = invertedIndex.get(category).get
-          val categoryValue = categoryValues.get(category).get
-          rdd_dense = rdd_dense.filter(x =>
-            x.getString(categoryIndex) == categoryValue
-          )
-        }
-        val indices = realLabelIndices.map(label=>invertedIndex.get(label)).toList
-        if(indices.size > 0) {
-          val final_rdd_dense = rdd_dense.map {
-                        x =>
-                          val values = collection.mutable.ListBuffer[Double]()
-                          indices.foreach {
-                            index =>
-                              values += (x.getString(index.get).toDouble)
-                          }
-
-                          Vectors.dense(values.toArray)
-          }
-
-          val mat: RowMatrix = new RowMatrix(final_rdd_dense)
-          val summary: MultivariateStatisticalSummary = Statistics.colStats(final_rdd_dense)
-          val covariance: Matrix = mat.computeCovariance()
-
-          guassianHyperParam.put(jointIdentity, new MultivariateGaussian(summary.mean, covariance))
-        }
-      }
-    }else {
-      println("categoryLabelList:"+currentIndex)
-      println(categoryLabelList)
-      for (categoryValue <- categoricalPossibleValues.get(categoryLabelList(currentIndex)).get) {
-        training_helper(categoryLabelList, categoryValues + (categoryLabelList(currentIndex) -> categoryValue.toString), currentIndex + 1, realLabelIndices: List[String], data:DataFrame)
-      }
-    }
-  }
-
-
-  def testSimple(testsource : String, targetLabel: String): Double ={
+  def testSimple(graph:graph, testsource : String, targetLabel: String): Double ={
     var csvData = testsource
 
     val target = targetLabel;
@@ -237,9 +124,8 @@ class ModelMultivariateGuassianCSV extends Model{
       var maxValue = - Double.MaxValue
 
       for (targetValue <- categoricalPossibleValues.get(target).get){
-        val prob = test(target,targetValue, cols)
+        val prob = test(graph, target,targetValue, cols)
 
-        println("  predict "+target+" = "+prob)
         if(prob > maxValue){
           maxLabel = targetValue;
           maxValue = prob;
@@ -258,32 +144,29 @@ class ModelMultivariateGuassianCSV extends Model{
     return (count.toDouble/total.toDouble)
   }
 
-  def test(targetLabel: String, targetValue: String, attr_values: List[String]): Double={
+  def test(graph:graph, targetLabel: String, targetValue: String, attr_values: List[String]): Double={
     var totalProb = 1.0
-    (0 until allNodes.length).foreach {
+    (0 until graph.nodes.length).foreach {
       nodeIndex => print(nodeIndex)
 
-        if(!allNodes(nodeIndex).disable) {
+        if(!graph.nodes(nodeIndex).disable) {
 
           val categoryLabelList = collection.mutable.ListBuffer[String]();
           val realLabelList = collection.mutable.ListBuffer[String]();
 
           val dependentIndices = collection.mutable.ListBuffer[Int]();
-          (0 until allEdges.length).foreach {
+          (0 until graph.edges.length).foreach {
             edgeIndex =>
 
-              if (allEdges(edgeIndex).label2 == allNodes(nodeIndex).label) {
-                distributionMap.get(allEdges(edgeIndex).label1).get match {
+              if (graph.edges(edgeIndex).label2 == graph.nodes(nodeIndex).label) {
+                distributionMap.get(graph.edges(edgeIndex).label1).get match {
                   case "categorical" =>
-                    categoryLabelList += (allEdges(edgeIndex).label1)
+                    categoryLabelList += (graph.edges(edgeIndex).label1)
                   case "real" =>
-                    realLabelList += (allEdges(edgeIndex).label1)
+                    realLabelList += (graph.edges(edgeIndex).label1)
                 }
               }
           }
-
-          //        println("categorical Label List : "+categoryLabelList.mkString(","))
-          //        println("real Label List : "+realLabelList.mkString(","))
 
           val dependentCategoryValues = mutable.Map[String, String]()
           for (category <- categoryLabelList) {
@@ -297,13 +180,13 @@ class ModelMultivariateGuassianCSV extends Model{
 
 
           // 1. Calculation for Numerator, e.g. P(A,B,C)
-          var nodeValue = if (allNodes(nodeIndex).label == targetLabel) targetValue else attr_values(nodeIndex)
+          val nodeValue = if (graph.nodes(nodeIndex).label == targetLabel) targetValue else attr_values(nodeIndex)
 
           var numerator = 0.0
-          if (distributionMap.get(allNodes(nodeIndex).label).get == "categorical") {
-            numerator = predict((dependentCategoryValues + (allNodes(nodeIndex).label -> nodeValue)).toMap, realLabelList.toList, attr_values)
+          if (distributionMap.get(graph.nodes(nodeIndex).label).get == "categorical") {
+            numerator = predict((dependentCategoryValues + (graph.nodes(nodeIndex).label -> nodeValue)).toMap, realLabelList.toList, attr_values)
           } else {
-            numerator = predict(dependentCategoryValues.toMap, realLabelList.toList :+ allNodes(nodeIndex).label, attr_values)
+            numerator = predict(dependentCategoryValues.toMap, realLabelList.toList :+ graph.nodes(nodeIndex).label, attr_values)
           }
 
 
@@ -317,8 +200,10 @@ class ModelMultivariateGuassianCSV extends Model{
     return totalProb
   }
 
+  def getJointId(nodesLabel: List[String]): String=nodesLabel.sorted.mkString(".")
+
   def predict(categoryValues: Map[String, String], realLabelIndices:List[String], attr_values: List[String]): Double ={
-    var jointIdentity = getJointId(categoryValues.map(d => d._2).toList ++ realLabelIndices)
+    val jointIdentity = getJointId(categoryValues.map(d => d._2).toList ++ realLabelIndices)
 
     if(guassianHyperParam.contains(jointIdentity)) {
       val guassian: MultivariateGaussian = guassianHyperParam.get(jointIdentity).get

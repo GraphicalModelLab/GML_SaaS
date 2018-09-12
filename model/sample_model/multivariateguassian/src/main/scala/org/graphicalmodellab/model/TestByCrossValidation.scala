@@ -1,7 +1,6 @@
 package org.graphicalmodellab.model
 
 import org.apache.log4j.LogManager
-import org.apache.spark.SparkConf
 import org.apache.spark.mllib.linalg.{Matrix, Vectors}
 import org.apache.spark.mllib.linalg.distributed.RowMatrix
 import org.apache.spark.mllib.stat.distribution.MultivariateGaussian
@@ -9,16 +8,47 @@ import org.apache.spark.mllib.stat.{MultivariateStatisticalSummary, Statistics}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
 import org.graphicalmodellab.api.graph_api._
-import org.slf4j.LoggerFactory
-import play.api.libs.json.Json
-
+import com.typesafe.config.{Config, ConfigFactory}
+import org.apache.spark.{SparkConf, SparkContext}
+import spark.jobserver._
+import spark.jobserver.api.{JobEnvironment, SingleProblem, ValidationProblem}
+import org.scalactic._
+import play.api.libs.json._
 import scala.collection.mutable
+import scala.util.Try
+import org.graphicalmodellab.model._
+
+import scalaj.http.Base64
 
 /**
-  * /Users/itomao/OSS/spark-2.2.0-bin-hadoop2.7/bin/spark-submit --master local --class org.graphicalmodellab.model.TestByCrossValidation /Users/itomao/.ivy2/local/org.graphicalmodel/multivariateguassian_2.11/0.1-SNAPSHOT/jars/multivariateguassian_2.11.jar
+  * This is SparkJobSever Job
+  * https://medium.com/@jwhitebear/beginners-guide-to-getting-started-with-spark-jobserver-2e3d4362ee6e
+  *
+  * cd /Users/itomao/OSS/spark-jobserver-master/
+  * sbt
+  * > job-server-extras/reStart
+  *
+  * Sample :
+  *  curl --data-binary @job-server-tests/target/scala-2.11/job-server-tests_2.11-0.8.1-SNAPSHOT.jar localhost:8090/jars/test
+  *  curl -d "input.string = a b c a b see" "localhost:8090/jobs?appName=test&classPath=spark.jobserver.WordCountExample"
+  *
+  * Generate jar file:
+  *  sbt package # under this project
+  *
+  * Generate Context:
+  *  curl -d "" 'http://localhost:8090/contexts/multi?num-cpu-cores=1&memory-per-node=512m&spark.executor.instances=1&context-factory=spark.jobserver.context.SessionContextFactory'
+  *
+  * Register:
+  *  curl --data-binary @/Users/itomao/git/GML_SaaS/model/sample_model/multivariateguassian/target/scala-2.11/multivariateguassian_2.11-0.1-SNAPSHOT.jar localhost:8090/jars/why
+  *
+  * Execute:
+  *  curl -d "input.string = a b c a b see" "localhost:8090/jobs?appName=why&context=multi&classPath=org.graphicalmodellab.model.TestByCrossValidation"
+  *
   * Created by itomao on 9/11/18.
   */
-object TestByCrossValidation {
+
+
+object TestByCrossValidation extends SparkSessionJob{
   // Setup Logger for Spark, /Users/itomao/OSS/spark-2.2.0-bin-hadoop2.7/conf/log4j.properties
   val log = LogManager.getRootLogger
 
@@ -70,23 +100,22 @@ object TestByCrossValidation {
     println(categoricalPossibleValues)
   }
 
-  def main(args : Array[String]): Unit = {
-    log.info("Launch Multivariate Guassian Based Analysis... "+args.mkString(","))
+  type JobData = String
+  type JobOutput = collection.Map[String, String]
 
-    val graph = Json.fromJson[graph](Json.parse(args(1)))
-    val datasource = args(2)
-    val targetLabel = args(3)
-    val numOfSplit = args(4).toInt
+  override def runJob(sparkSession: SparkSession, runtime: JobEnvironment, data: JobData): JobOutput = {
+    val json = new String(Base64.decode(data))
 
+    val request: request = Json.fromJson[request](Json.parse(json)).get
 
-    log.info("Parsed Graph:"+graph.get.algorithm)
-
-    val sparkConf: SparkConf = new SparkConf().setAppName("Model").setMaster("local")
-    val sparkSession: SparkSession = SparkSession.builder().config(sparkConf).getOrCreate()
+    val graph = request.graph
+    val datasource = request.datasource
+    val targetLabel = request.targetLabel
+    val numOfSplit = request.numOfSplit
 
     val csvData = sparkSession.read.csv(datasource)
 
-    setup(graph.get.edges,graph.get.nodes,graph.get.commonProperties)
+    setup(graph.edges,graph.nodes,graph.commonProperties)
 
     initCategoryMap(csvData)
 
@@ -101,71 +130,81 @@ object TestByCrossValidation {
     var averagedAccuracy = 0.0
     (0 until numOfSplit).foreach{
       index=>
-        val testDF = splittedDf(index);
-        var trainingDF:Dataset[Row] = null
+            val testDF = splittedDf(index);
+            var trainingDF:Dataset[Row] = null
 
-        var firstIndex = -1;
-        if(index == 0){
-          trainingDF = splittedDf(index+1)
-          firstIndex = index + 1
-        }else{
-          trainingDF = splittedDf(index-1)
-          firstIndex = index - 1
-        }
-
-
-        (0 until numOfSplit).foreach{
-          index2 =>
-            if(index != index2 && firstIndex != index2){
-              trainingDF.union(splittedDf(index2))
+            var firstIndex = -1;
+            if(index == 0){
+              trainingDF = splittedDf(index+1)
+              firstIndex = index + 1
+            }else{
+              trainingDF = splittedDf(index-1)
+              firstIndex = index - 1
             }
-        }
 
-        training(trainingDF)
 
-        // Calculate accuracy for this fold
-        var count = 0;
-        var total = 0;
-
-        for(row <- testDF.collect().toList){
-          val cols = row.toSeq.toList.asInstanceOf[List[String]]
-          var maxLabel = ""
-          var maxValue = - Double.MaxValue
-
-          for (targetValue <- categoricalPossibleValues.get(target).get){
-            val prob = test(target,targetValue, cols)
-
-            println("  predict "+target+" = "+prob)
-            if(prob > maxValue){
-              maxLabel = targetValue;
-              maxValue = prob;
+            (0 until numOfSplit).foreach{
+              index2 =>
+                if(index != index2 && firstIndex != index2){
+                  trainingDF.union(splittedDf(index2))
+                }
             }
-          }
 
-          println("  selected "+maxLabel+" , "+maxValue)
-          if(cols(targetIndex) == maxLabel){
-            count += 1
-          }
-          total += 1
-        }
+            training(trainingDF)
 
-        println("acurracy("+index+")="+(count.toDouble/total.toDouble))
+            // Calculate accuracy for this fold
+            var count = 0;
+            var total = 0;
 
-        averagedAccuracy += (count.toDouble/total.toDouble)
+            for(row <- testDF.collect().toList){
+              val cols = row.toSeq.toList.asInstanceOf[List[String]]
+              var maxLabel = ""
+              var maxValue = - Double.MaxValue
+
+              for (targetValue <- categoricalPossibleValues.get(target).get){
+                val prob = test(target,targetValue, cols)
+
+    //            println("  predict "+target+" = "+prob)
+                if(prob > maxValue){
+                  maxLabel = targetValue;
+                  maxValue = prob;
+                }
+              }
+
+    //          println("  selected "+maxLabel+" , "+maxValue)
+              if(cols(targetIndex) == maxLabel){
+                count += 1
+              }
+              total += 1
+            }
+
+    //        println("acurracy("+index+")="+(count.toDouble/total.toDouble))
+
+            averagedAccuracy += (count.toDouble/total.toDouble)
     }
 
 
     (0 until numOfSplit).foreach {
       index =>
-        val testDF = splittedDf(index);
+            val testDF = splittedDf(index);
 
-        println("testDF(" + index + ") size : " + testDF.collect().size)
+    //        println("testDF(" + index + ") size : " + testDF.collect().size)
 
     }
 
     log.info("accuray : "+averagedAccuracy/numOfSplit)
 
-    println(averagedAccuracy/numOfSplit)
+    Map(
+       "accurarcy" -> (averagedAccuracy/numOfSplit).toString
+    )
+  }
+
+  override def validate(sparkSession: SparkSession, runtime: JobEnvironment, config: Config):
+  JobData Or Every[ValidationProblem] = {
+    println(config)
+    Try(config.getString("input.string"))
+      .map(words => Good(words))
+      .getOrElse(Bad(One(SingleProblem("No input.string param"))))
   }
 
   def training(csvData: DataFrame): Unit ={
@@ -298,7 +337,7 @@ object TestByCrossValidation {
 
 
           // 1. Calculation for Numerator, e.g. P(A,B,C)
-          var nodeValue = if (allNodes(nodeIndex).label == targetLabel) targetValue else attr_values(nodeIndex)
+          val nodeValue = if (allNodes(nodeIndex).label == targetLabel) targetValue else attr_values(nodeIndex)
 
           var numerator = 0.0
           if (distributionMap.get(allNodes(nodeIndex).label).get == "categorical") {
@@ -309,7 +348,7 @@ object TestByCrossValidation {
 
 
           // 2. Calculation for Denominator, e.g. P(B,C)
-          var denominator = predict(dependentCategoryValues.toMap, realLabelList.toList, attr_values)
+          val denominator = predict(dependentCategoryValues.toMap, realLabelList.toList, attr_values)
 
           totalProb *= (numerator / denominator)
         }
@@ -319,7 +358,7 @@ object TestByCrossValidation {
   }
 
   def predict(categoryValues: Map[String, String], realLabelIndices:List[String], attr_values: List[String]): Double ={
-    var jointIdentity = getJointId(categoryValues.map(d => d._2).toList ++ realLabelIndices)
+    val jointIdentity = getJointId(categoryValues.map(d => d._2).toList ++ realLabelIndices)
 
     if(guassianHyperParam.contains(jointIdentity)) {
       val guassian: MultivariateGaussian = guassianHyperParam.get(jointIdentity).get

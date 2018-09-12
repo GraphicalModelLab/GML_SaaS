@@ -117,7 +117,8 @@ object Dependencies {
   )
 
   val playDependencies = Seq(
-    json
+    json,
+    ws
   )
 
   val sparkDependencies = Seq(

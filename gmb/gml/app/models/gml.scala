@@ -222,4 +222,13 @@ package object gml {
       "modelAlgorithmIds" -> Json.toJson(o.modelAlgorithmIds)
     ).filter(_._2 != JsNull))
   }
+
+  //
+  case class sparkJobContextRequest(context: List[String])
+
+  implicit lazy val sparkJobContextRequestReads: Reads[sparkJobContextRequest] = Reads[sparkJobContextRequest] {
+    json => JsSuccess(sparkJobContextRequest(
+      (json).as[List[String]]
+    ))
+  }
 }

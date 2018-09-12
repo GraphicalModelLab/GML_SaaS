@@ -67,10 +67,11 @@ object Dependencies {
   val scala_reflect = "org.scala-lang" % "scala-reflect" % "2.10.2"
 
   // Spark Mllib
-  val de_unkrig_jdisasm = "de.unkrig.jdisasm" % "jdisasm" % "1.0.0"
-  val spark_core = "org.apache.spark" %% "spark-core" % "2.2.0"
-  val spark_sql = "org.apache.spark" %% "spark-sql"  % "2.2.0"
-  val spark_mllib = "org.apache.spark" %% "spark-mllib"  % "2.2.0"
+  val spark_core = "org.apache.spark" %% "spark-core" % "2.2.0" % "provided"
+  val spark_sql = "org.apache.spark" %% "spark-sql"  % "2.2.0" % "provided"
+  val spark_mllib = "org.apache.spark" %% "spark-mllib"  % "2.2.0" % "provided"
+  val spark_jobserver = "spark.jobserver" %% "job-server-api" % "0.8.0" % "provided"
+  val spark_jobserver_extra = "spark.jobserver" %% "job-server-extras" % "0.8.0" % "provided"
 
   // Elastic
   val elasticsearch = "org.elasticsearch" % "elasticsearch" % "6.3.1"
@@ -93,20 +94,7 @@ object Dependencies {
   )
 
   val backendDependencies = Seq(
-    scalaLoggingSlf4j,
-    jon4s,
-    scalaj,
-    netty,
-    jodaTime,
-    jodaConvert,
-    cassandraDriver,
-    jacksonCore,
-    jacksonAnnotation,
-    jacksonDatabind,
-    jacksonDataformatYaml,
-    jacksonModule,
-    jettison,
-    scala_reflect
+    scalaj
   )
 
   val dl4jDependencies = Seq(
@@ -127,7 +115,8 @@ object Dependencies {
     spark_core,
     spark_mllib,
     spark_sql,
-    de_unkrig_jdisasm
+    spark_jobserver,
+    spark_jobserver_extra
   )
 
   val gmlDependencies = Seq(

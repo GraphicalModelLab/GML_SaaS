@@ -33,8 +33,7 @@ class GraphicalModelLabService {
 
           val model: Model = modelMap.get(getModelId(request.userid,request.graph.algorithm)).get
 
-          model.setup(SparkContext.sparkConf,SparkContext.sparkSession,request.graph.edges,request.graph.nodes,request.graph.commonProperties)
-          model.training(request.datasource)
+          model.training(request.graph,request.datasource)
 
           GmlDBClient.saveTrainingHistory(request)
         }else{
@@ -55,16 +54,14 @@ class GraphicalModelLabService {
 
           val model: Model = modelMap.get(getModelId(request.userid,request.graph.algorithm)).get
           if(request.evaluationMethod == "simple") {
-            val accuracy = model.testSimple(request.testsource, request.targetLabel)
+            val accuracy = model.testSimple(request.graph,request.testsource, request.targetLabel)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
 
             return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
           }else if(request.evaluationMethod == "cross-validation"){
             val K = 10;
 
-            model.setup(request.userid, SparkContext.sparkProcessManager, request.graph)
-
-            val accuracy = model.testByCrossValidation(request.testsource, request.targetLabel,K)
+            val accuracy = model.testByCrossValidation(request.graph,request.testsource, request.targetLabel,K)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
 
             print("Cross validated result:"+ accuracy)
@@ -205,10 +202,11 @@ class GraphicalModelLabService {
   def getListOfModels(token:String, companyId: String, request: Option[getListOfAvailableModelsRequest]): getListOfAvailableModelsResponse={
     if(listOfModel == null) {
       var list = mutable.ListBuffer[String]()
-      val ws = (ServiceLoader load classOf[Model]).asScala
+      val services = (ServiceLoader load classOf[Model]).asScala
 
-      for (w <- ws) {
+      for (w <- services) {
         list += w.getModelName
+        w.init()
         modelMap.put(getModelId(request.get.userid,w.getModelName),w)
       }
       listOfModel = list.to
