@@ -118,7 +118,7 @@ package object gml {
 
   // 3. get models
   case class getModelParameterRequest(code: Int, userid:String, companyid: String, algorithm: String)
-  case class getModelParameterResponse(code: Int, listSuccessCode: Int, algorithm: String, parameter: List[String])
+  case class getModelParameterResponse(code: Int, listSuccessCode: Int, algorithm: String, parameter: List[String], evaluationMethod: List[String])
 
   implicit lazy val getModelParameterRequestReads: Reads[getModelParameterRequest] = Reads[getModelParameterRequest] {
     json => JsSuccess(getModelParameterRequest(
@@ -134,7 +134,8 @@ package object gml {
       "code" -> Json.toJson(o.code),
       "listSuccessCode" -> Json.toJson(o.listSuccessCode),
       "algorithm" -> Json.toJson(o.algorithm),
-      "parameter" -> Json.toJson(o.parameter)
+      "parameter" -> Json.toJson(o.parameter),
+      "evaluationMethod" -> Json.toJson(o.evaluationMethod)
     ).filter(_._2 != JsNull))
   }
 

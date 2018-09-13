@@ -23,7 +23,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.state = {
             downloadLink: "",
             downloadContent: "",
-            evaluationMethod: ["simple", "cross-validation", "precision-recall", "ROC"],
             analyzingTarget: [],
             algorithms: [],
 
@@ -33,6 +32,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             modeldescription: "",
 
             modelparameter: [
+            ],
+            evaluationMethod: [
             ]
         };
 
@@ -151,6 +152,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         if(graph){
             if(graphInfo.algorithm){
                 this.refs.algorithm.value = graphInfo.algorithm;
+                this.changeAlgorithm();
             }
             var self = this;
             graphInfo.nodes.forEach(function(entry) { self.addNode(entry.label, entry.x, entry.y, entry.disable, entry.properties); });
@@ -425,6 +427,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             auth.logout();
                         }
                         var modelparameter = [];
+                        var modelEvaluationMethod = [];
 
                         response.body.parameter.forEach(function(entry) {
                             modelparameter.push({
@@ -432,8 +435,15 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             });
                         });
 
+                        response.body.evaluationMethod.forEach(function(entry) {
+                            modelEvaluationMethod.push(entry);
+                        });
+
+                        console.log("setup params");
+                        console.log(modelEvaluationMethod);
                         self.setState({
-                            modelparameter : modelparameter
+                            modelparameter : modelparameter,
+                            evaluationMethod: modelEvaluationMethod
                         });
                     },
                     error: function (request, status, error) {

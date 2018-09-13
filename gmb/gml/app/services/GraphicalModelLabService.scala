@@ -53,12 +53,12 @@ class GraphicalModelLabService {
         if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
           val model: Model = modelMap.get(getModelId(request.userid,request.graph.algorithm)).get
-          if(request.evaluationMethod == "simple") {
+          if(request.evaluationMethod == Model.EVALUATION_METHOD_SIMPLE) {
             val accuracy = model.testSimple(request.graph,request.testsource, request.targetLabel)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
 
             return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
-          }else if(request.evaluationMethod == "cross-validation"){
+          }else if(request.evaluationMethod == Model.EVALUATION_METHOD_CROSS_VALIDATION){
             val K = 10;
 
             val accuracy = model.testByCrossValidation(request.graph,request.testsource, request.targetLabel,K)
@@ -138,14 +138,14 @@ class GraphicalModelLabService {
           val model: Model = modelMap.get(getModelId(request.userid,request.algorithm)).get
 
           return getModelParameterResponse(
-              Status.OK, 1, request.algorithm, model.getModelParameterInfo)
+              Status.OK, 1, request.algorithm, model.getModelParameterInfo,model.getSupportedEvaluationMethod)
         }else{
-          return getModelParameterResponse(Status.UNAUTHORIZED, 1, null, List[String]())
+          return getModelParameterResponse(Status.UNAUTHORIZED, 1, null, List[String](),List[String]())
         }
       case None =>
         println("No request")
     }
-    return getModelParameterResponse(Status.INTERNAL_SERVER_ERROR, 1, null, List[String]())
+    return getModelParameterResponse(Status.INTERNAL_SERVER_ERROR, 1, null, List[String](),List[String]())
   }
 
   def search(token:String, companyId:String,request: Option[searchRequest]): searchResponse = {

@@ -40,6 +40,11 @@ class ModelMultivariateGuassianCSV extends Model{
 
   def getModelName: String = "Freq_and_Multi"
 
+  def getSupportedEvaluationMethod: List[String] = List[String] (
+//    Model.EVALUATION_METHOD_SIMPLE,
+    Model.EVALUATION_METHOD_CROSS_VALIDATION
+  )
+
   def getModelParameterInfo: List[String] = List[String](
     "distribution"
   )

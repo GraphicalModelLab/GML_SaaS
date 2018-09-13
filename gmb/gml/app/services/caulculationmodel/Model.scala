@@ -7,9 +7,15 @@ import org.apache.spark.sql.SparkSession
 /**
   * Created by itomao on 6/15/18.
   */
+object Model{
+  val EVALUATION_METHOD_SIMPLE = "simple"
+  val EVALUATION_METHOD_CROSS_VALIDATION = "cross_validation"
+}
+
 trait Model{
   def getModelName: String
   def getModelParameterInfo: List[String]
+  def getSupportedEvaluationMethod: List[String]
 
   def init(): Unit
   def training(graph:graph, datasource: String): Unit

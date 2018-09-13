@@ -41371,7 +41371,6 @@
 	        _this.state = {
 	            downloadLink: "",
 	            downloadContent: "",
-	            evaluationMethod: ["simple", "cross-validation", "precision-recall", "ROC"],
 	            analyzingTarget: [],
 	            algorithms: [],
 	
@@ -41380,7 +41379,8 @@
 	            modeltag: "",
 	            modeldescription: "",
 	
-	            modelparameter: []
+	            modelparameter: [],
+	            evaluationMethod: []
 	        };
 	
 	        _this.onDropAttributeImport = _this.onDropAttributeImport.bind(_this);
@@ -41510,6 +41510,7 @@
 	            if (graph) {
 	                if (graphInfo.algorithm) {
 	                    this.refs.algorithm.value = graphInfo.algorithm;
+	                    this.changeAlgorithm();
 	                }
 	                var self = this;
 	                graphInfo.nodes.forEach(function (entry) {
@@ -41783,6 +41784,7 @@
 	                        _auth2.default.logout();
 	                    }
 	                    var modelparameter = [];
+	                    var modelEvaluationMethod = [];
 	
 	                    response.body.parameter.forEach(function (entry) {
 	                        modelparameter.push({
@@ -41790,8 +41792,15 @@
 	                        });
 	                    });
 	
+	                    response.body.evaluationMethod.forEach(function (entry) {
+	                        modelEvaluationMethod.push(entry);
+	                    });
+	
+	                    console.log("setup params");
+	                    console.log(modelEvaluationMethod);
 	                    self.setState({
-	                        modelparameter: modelparameter
+	                        modelparameter: modelparameter,
+	                        evaluationMethod: modelEvaluationMethod
 	                    });
 	                },
 	                error: function error(request, status, _error7) {
