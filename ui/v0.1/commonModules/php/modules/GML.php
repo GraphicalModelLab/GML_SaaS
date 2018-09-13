@@ -6,6 +6,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 $GMLService = new Silex\Application();
 
+function warmup()
+{
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, "http://localhost:9098/helloworld");
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+ 	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: '.$authorization));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,false);
+
+    $response = curl_exec($curl);
+    //$result = json_decode($response, true);
+
+    curl_close($curl);
+    return $response;
+}
+
 function getTestHistoryList($data,$authorization)
 {
     $curl = curl_init();
@@ -363,6 +380,17 @@ $GMLService->get('/gml/model/algorithm/list', function (Request $request) use ($
                    "success"=>true,
                    "body" =>$decodeJSON,
                    "request"=>$data_request),201);
+});
+
+$GMLService->get('/gml/warmup', function (Request $request) use ($GMLService) {
+     mb_internal_encoding('UTF-8');
+
+     $content = warmup();
+
+     return $GMLService->json(array(
+                   "success"=>true,
+                   "body" => $content
+     ),201);
 });
 
 $GMLService->run();

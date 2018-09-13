@@ -8,6 +8,14 @@ package object gml {
    val STATUS_NOT_VALIDATED = 901;
    val STATUS_PASSWORD_INVALID = 902;
 
+  // 1. Warmup
+  case class warmupResponse(code: Int)
+  implicit lazy val warmupRequestWrites: Writes[warmupResponse] = Writes[warmupResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code)
+    ).filter(_._2 != JsNull))
+  }
+
    // 1. Registering Engineer
   case class trainingRequest(code: Int, userid:String, companyid: String, graph: graph, datasource: String)
   case class trainingResponse(code: Int, trainingSuccessCode: Int, modelId: String)

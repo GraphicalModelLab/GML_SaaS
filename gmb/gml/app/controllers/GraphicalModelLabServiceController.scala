@@ -8,7 +8,8 @@ import org.graphicalmodellab.auth.AuthDBClient
 import org.graphicalmodellab.elastic.ElasticSearchClient
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
-import services.{GraphicalModelLabService}
+import services.GraphicalModelLabService
+import play.api.Logger
 
 
 /**
@@ -21,7 +22,7 @@ object GraphicalModelLabServiceController extends Controller {
   //http://localhost:9098/helloworld
   def helloworld() = {
     Action(request =>
-      Ok("helloworld")
+      Ok(Json.toJson[warmupResponse](gmlService.warmup()))
     )
   }
 
@@ -215,9 +216,9 @@ object GraphicalModelLabServiceController extends Controller {
     Action(request =>
       try
         Ok(Json.toJson[getListOfAvailableModelsResponse](gmlService.getListOfModels(
-          request.headers.get("Authorization").get.substring(7),
-          companyId,
-          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+//          request.headers.get("Authorization").get.substring(7),
+//          companyId,
+//          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
 //          Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt
         )))
       catch {

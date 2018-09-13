@@ -5,10 +5,11 @@ import java.util.ServiceLoader
 import gml._
 import org.graphicalmodellab.auth.AuthDBClient
 import play.Play
+import play.api.Logger
 import play.api.http.Status
 import services.caulculationmodel.Model
-import scala.collection.JavaConverters._
 
+import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 /**
@@ -19,11 +20,21 @@ class GraphicalModelLabService {
   var listOfModel: List[String] = null
   var modelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
 
+  Logger.info("Setup Connection to DB and Elastic Search..")
   GmlDBClient.init(List[String]("localhost"));
   AuthDBClient.init(List[String]("localhost"));
   GmlElasticSearchClient.init("localhost");
 
-  def getModelId(userid: String, algorithm: String): String = userid+algorithm;
+  def getModelId(algorithm: String): String = algorithm;
+
+  def warmup(): warmupResponse = {
+
+    // Initialize Availabe Models
+    Logger.info("Loading/Initialize Available Models..")
+    getListOfModels()
+
+    return warmupResponse(Status.OK)
+  }
 
   def training(token:String, companyId:String,request: Option[trainingRequest]): trainingResponse = {
 
@@ -31,7 +42,7 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
-          val model: Model = modelMap.get(getModelId(request.userid,request.graph.algorithm)).get
+          val model: Model = modelMap.get(getModelId(request.graph.algorithm)).get
 
           model.training(request.graph,request.datasource)
 
@@ -52,7 +63,7 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
-          val model: Model = modelMap.get(getModelId(request.userid,request.graph.algorithm)).get
+          val model: Model = modelMap.get(getModelId(request.graph.algorithm)).get
           if(request.evaluationMethod == Model.EVALUATION_METHOD_SIMPLE) {
             val accuracy = model.testSimple(request.graph,request.testsource, request.targetLabel)
             val accuracySummary = GmlDBClient.saveTestHistory(request, accuracy)
@@ -135,7 +146,7 @@ class GraphicalModelLabService {
       case Some(request)=>
         if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
 
-          val model: Model = modelMap.get(getModelId(request.userid,request.algorithm)).get
+          val model: Model = modelMap.get(getModelId(request.algorithm)).get
 
           return getModelParameterResponse(
               Status.OK, 1, request.algorithm, model.getModelParameterInfo,model.getSupportedEvaluationMethod)
@@ -199,7 +210,7 @@ class GraphicalModelLabService {
     return getModelInHistoryResponse(Status.INTERNAL_SERVER_ERROR, 1, null)
   }
 
-  def getListOfModels(token:String, companyId: String, request: Option[getListOfAvailableModelsRequest]): getListOfAvailableModelsResponse={
+  def getListOfModels(): getListOfAvailableModelsResponse={
     if(listOfModel == null) {
       var list = mutable.ListBuffer[String]()
       val services = (ServiceLoader load classOf[Model]).asScala
@@ -207,7 +218,7 @@ class GraphicalModelLabService {
       for (w <- services) {
         list += w.getModelName
         w.init()
-        modelMap.put(getModelId(request.get.userid,w.getModelName),w)
+        modelMap.put(getModelId(w.getModelName),w)
       }
       listOfModel = list.to
     }

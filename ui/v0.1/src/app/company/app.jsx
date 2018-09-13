@@ -43,6 +43,16 @@ export default class App extends React.Component<Props, {}> {
         if(!this.state.loggedIn){
             this.context.router.push('/'+"topNoLogin")
         }
+        $.ajax({
+                type:"get",
+                url:"../commonModules/php/modules/GML.php/gml/warmup",
+                success: function(json_data) {
+                },
+                error: function (request, status, error) {
+                },
+                complete: function() {
+                }
+        });
       }
 
       onOpenChange(openKeys) {
