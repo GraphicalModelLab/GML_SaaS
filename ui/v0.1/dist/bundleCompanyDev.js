@@ -41843,11 +41843,9 @@
 	                    if (response.body.code == 401) {
 	                        _auth2.default.logout();
 	                    }
-	                    console.log("explore");
-	                    console.log(response);
+	
 	                    var graph = JSON.parse(response.body.graph);
-	                    alert("explored graph");
-	                    console.log(graph);
+	
 	                    self.clear();
 	                    self.setup(graph);
 	
