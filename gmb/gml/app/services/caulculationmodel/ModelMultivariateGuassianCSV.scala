@@ -238,4 +238,33 @@ class ModelMultivariateGuassianCSV extends Model{
       return 1;
     }
   }
+
+  var exploreCount = 0;
+  var exploreAccuracy = -1;
+
+  override def exploreStructure(graphInfo: graph,targetLabel: String, datasource: String): graph = {
+
+    val edges = mutable.ListBuffer[edge]();
+
+    (0 until graphInfo.edges.length-2).foreach{
+      index =>
+        edges += graphInfo.edges(index)
+    }
+
+    val newGraph = graph(
+      graphInfo.modelid,
+      graphInfo.modelname,
+      graphInfo.modeltag,
+      graphInfo.modeldescription,
+      graphInfo.userid,
+      graphInfo.algorithm,
+      graphInfo.nodes,
+      edges.toList,
+      graphInfo.commonProperties
+    )
+
+    val accuracy = testByCrossValidation(newGraph,datasource,targetLabel,10)
+
+    return newGraph
+  }
 }

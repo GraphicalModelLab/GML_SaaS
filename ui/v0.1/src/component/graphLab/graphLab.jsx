@@ -40,6 +40,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.onDropAttributeImport = this.onDropAttributeImport.bind(this);
         this.onDropAnalyzing = this.onDropAnalyzing.bind(this);
         this.onDropTraining = this.onDropTraining.bind(this);
+        this.onDropExplore = this.onDropExplore.bind(this);
+        this.exploreGraph = this.exploreGraph.bind(this);
         this.showNodePropertyView = this.showNodePropertyView.bind(this);
         this.save = this.save.bind(this);
         this.saveCallBack = this.saveCallBack.bind(this);
@@ -458,6 +460,88 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         alert("updated Color");
     }
 
+    exploreGraph(self, graph, targetLabel, datasource){
+        var data = {
+                    companyid: auth.getCompanyid(),
+                    userid:auth.getUserid(),
+                    graph: graph,
+                    targetLabel: targetLabel,
+                    datasource: datasource,
+                    code:10
+        };
+
+        $.ajax({
+                            url  : "../commonModules/php/modules/GML.php/gml/graph/explore",
+                            type : "post",
+                            data : JSON.stringify(data),
+                            contentType: 'application/json',
+                            dataType: "json",
+                            headers : {
+                                Authorization: "Bearer "+auth.getToken()
+                            },
+                            success: function(response) {
+                                if(response.body.code == 401){
+                                    auth.logout();
+                                }
+                                console.log("explore");
+                                console.log(response);
+                                var graph = JSON.parse(response.body.graph);
+                                alert("explored graph");
+                                console.log(graph);
+                                self.clear();
+                                self.setup(graph);
+
+                                self.exploreGraph(self, graph, targetLabel, datasource);
+                            },
+                            error: function (request, status, error) {
+                                alert("failed to do testing. Contact Administrator");
+                                console.log(status);
+                                console.log(error);
+                            },
+        }).done((data, textStatus, jqXHR) => {
+        })
+    }
+
+    onDropExplore(acceptedFiles, rejectedFiles){
+        var self = this;
+
+        var formData = new FormData();
+        formData.append('file_1', acceptedFiles[0]);
+        var targetLabel = this.refs.analyzingTarget.value;
+        var evaluationMethod = this.refs.evaluationMethod.value;
+
+        var graph = {
+                modelid: self.state.modelid,
+                modelname: self.state.modelname,
+                modeltag: self.state.modeltag,
+                modeldescription: self.state.modeldescription,
+                userid: auth.getUserid(),
+                algorithm: self.refs.algorithm.value,
+                nodes: self.refs.graph.getNodes(),
+                edges: self.refs.graph.getEdges(),
+                commonProperties: self.refs.nodePropertyView.getProperties()
+        };
+
+        $.ajax({
+                    url  : "../commonModules/php/modules/Uploader.php",
+                    type : "POST",
+                    data : formData,
+                    cache       : false,
+                    contentType : false,
+                    processData : false,
+                    dataType    : "text",
+                    success: function() {
+                    },
+                    error: function (request, status, error) {
+                        alert("failed to upload files for testing");
+                        console.log(status);
+                        console.log(error);
+                    },
+        }).done((data, textStatus, jqXHR) => {
+            self.exploreGraph(self,graph, targetLabel,data);
+        })
+    }
+
     render() {
         return (
             <div>
@@ -515,6 +599,15 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             </select>
                             </div>
                         </div>
+                        <Dropzone
+                            className={styles.graphLabMenuItem}
+                            onDrop={this.onDropExplore}
+                            accept="text/csv" >
+                            <div>
+                                Explore
+                            </div>
+                        </Dropzone>
+
                         <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
                         <AddCustomNodeDialog addCustomNode={this.addCustomNodeToCanvas} ref="addCustomNodeToCanvas" />
 

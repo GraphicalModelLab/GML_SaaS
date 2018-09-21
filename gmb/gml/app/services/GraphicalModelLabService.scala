@@ -4,10 +4,12 @@ import java.util.ServiceLoader
 
 import gml._
 import org.graphicalmodellab.api.Model
+import org.graphicalmodellab.api.graph_api.graph
 import org.graphicalmodellab.auth.AuthDBClient
 import play.Play
 import play.api.Logger
 import play.api.http.Status
+import play.api.libs.json.Json
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
@@ -224,5 +226,28 @@ class GraphicalModelLabService {
     }
 
     return getListOfAvailableModelsResponse(Status.OK,listOfModel.toList)
+  }
+
+  def getExploredGraph(token:String, companyId:String,request: Option[exploreGraphRequest]): exploreGraphResponse={
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val model: Model = modelMap.get(getModelId(request.graph.algorithm)).get
+
+          val newGraph: graph = model.exploreStructure(request.graph, request.targetLabel,request.datasource);
+
+          val string =  Json.stringify(Json.toJson(newGraph))
+          return exploreGraphResponse(Status.OK, 1, string)
+        }else{
+          return exploreGraphResponse(Status.UNAUTHORIZED, 1, "")
+        }
+      case None =>
+        println("No request")
+    }
+
+
+    return exploreGraphResponse(Status.INTERNAL_SERVER_ERROR, 1, "")
   }
 }

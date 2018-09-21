@@ -10,6 +10,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.GraphicalModelLabService
 import play.api.Logger
+import org.graphicalmodellab.api.graph_api._
 
 /**
  * Created by ito_m on 8/25/16.
@@ -233,4 +234,26 @@ object GraphicalModelLabServiceController extends Controller {
     )
   }
 
+
+  def getExploredGraph(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[exploreGraphResponse](gmlService.getExploredGraph(
+                    request.headers.get("Authorization").get.substring(7),
+                    companyId,
+          //          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+                    Json.fromJson[exploreGraphRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
 }

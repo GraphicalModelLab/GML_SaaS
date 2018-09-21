@@ -106,4 +106,8 @@ class ModelKernelDensityCSV extends Model{
 
     return -1;
   }
+
+  override def exploreStructure(graph: graph,targetLabel: String, datasource: String): graph = {
+    return graph
+  }
 }
