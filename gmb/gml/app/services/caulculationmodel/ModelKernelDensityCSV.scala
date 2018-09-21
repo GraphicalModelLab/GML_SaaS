@@ -4,7 +4,7 @@ import java.nio.file.{Files, Paths}
 import gml.sparkJobContextRequest
 import org.apache.commons.lang3.StringEscapeUtils
 import play.api.libs.json._
-import org.graphicalmodellab.api.graph_api._
+import org.graphicalmodellab.api.graph_api.{graph, _}
 import org.apache.spark.SparkConf
 import org.apache.spark.mllib.linalg.distributed.RowMatrix
 import org.apache.spark.mllib.linalg.{Matrix, Vectors}
@@ -107,7 +107,7 @@ class ModelKernelDensityCSV extends Model{
     return -1;
   }
 
-  override def exploreStructure(graph: graph,targetLabel: String, datasource: String): graph = {
-    return graph
+  override def exploreStructure(graph: graph,targetLabel: String, datasource: String): (graph, Double) = {
+    return (graph, -1)
   }
 }

@@ -244,7 +244,7 @@ package object gml {
 
   // 2. Explore Structure
   case class exploreGraphRequest(code: Int, userid:String, companyid: String, graph: graph, targetLabel: String, datasource: String)
-  case class exploreGraphResponse(code: Int, exploreSuccessCode: Int, graph: String )
+  case class exploreGraphResponse(code: Int, exploreSuccessCode: Int, graph: String, accuracy: Double )
 
   implicit lazy val exploreGraphRequestReads: Reads[exploreGraphRequest] = Reads[exploreGraphRequest] {
     json => JsSuccess(exploreGraphRequest(
@@ -261,7 +261,8 @@ package object gml {
     o => JsObject(Seq(
       "code" -> Json.toJson(o.code),
       "exploreSuccessCode" -> Json.toJson(o.exploreSuccessCode),
-      "graph" -> Json.toJson(o.graph)
+      "graph" -> Json.toJson(o.graph),
+      "accuracy" -> Json.toJson(o.accuracy)
     ).filter(_._2 != JsNull))
   }
 }

@@ -580,7 +580,41 @@ a:active {
     display: block;
     margin: 0 auto;
 }
+.popupMessageSmallBox{
+  position:absolute;
+  top: 77px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 
+  z-index: 50;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
+  padding: 2 2 2 2;
+  font-size: 15px;
+  text-align: center;
+  height: 15px;
+  width: 200px;
+}
+
+.popupMessageCloseSmallBox{
+  position:absolute;
+  top: 77px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
+  z-index: 50;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
+  padding: 2 2 2 2;
+  font-size: 15px;
+  text-align: center;
+  height: 15px;
+  width: 200px;
+}
 
 .popupMessage{
   position:absolute;

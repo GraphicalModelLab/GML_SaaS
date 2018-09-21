@@ -242,7 +242,7 @@ class ModelMultivariateGuassianCSV extends Model{
   var exploreCount = 0;
   var exploreAccuracy = -1;
 
-  override def exploreStructure(graphInfo: graph,targetLabel: String, datasource: String): graph = {
+  override def exploreStructure(graphInfo: graph,targetLabel: String, datasource: String): (graph, Double) = {
 
     val edges = mutable.ListBuffer[edge]();
 
@@ -265,6 +265,6 @@ class ModelMultivariateGuassianCSV extends Model{
 
     val accuracy = testByCrossValidation(newGraph,datasource,targetLabel,10)
 
-    return newGraph
+    return (newGraph, accuracy)
   }
 }

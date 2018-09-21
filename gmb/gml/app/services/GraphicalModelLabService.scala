@@ -236,18 +236,17 @@ class GraphicalModelLabService {
 
           val model: Model = modelMap.get(getModelId(request.graph.algorithm)).get
 
-          val newGraph: graph = model.exploreStructure(request.graph, request.targetLabel,request.datasource);
+          val newGraph: (graph, Double) = model.exploreStructure(request.graph, request.targetLabel,request.datasource);
 
-          val string =  Json.stringify(Json.toJson(newGraph))
-          return exploreGraphResponse(Status.OK, 1, string)
+          return exploreGraphResponse(Status.OK, 1, Json.stringify(Json.toJson(newGraph._1)), newGraph._2)
         }else{
-          return exploreGraphResponse(Status.UNAUTHORIZED, 1, "")
+          return exploreGraphResponse(Status.UNAUTHORIZED, 1, "", 0.0)
         }
       case None =>
         println("No request")
     }
 
 
-    return exploreGraphResponse(Status.INTERNAL_SERVER_ERROR, 1, "")
+    return exploreGraphResponse(Status.INTERNAL_SERVER_ERROR, 1, "", 0.0 )
   }
 }

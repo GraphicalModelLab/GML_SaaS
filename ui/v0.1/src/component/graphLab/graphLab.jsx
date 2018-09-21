@@ -6,6 +6,7 @@ import auth from "./../auth/auth";
 import $ from 'jquery';
 import Loading from './../loader/loading';
 import PopupMessage from './../popupMessage/popupMessage';
+import PopupMessageSmallBox from './../popupMessage/popupMessageSmallBox';
 import Graph from './graph';
 import NodePropertyView from './graphProperty/nodePropertyView';
 import GraphSaveView from './graphSave/graphSaveView';
@@ -484,6 +485,12 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                     auth.logout();
                                 }
 
+                                console.log("response");
+                                console.log(response);
+
+                                alert("Got response");
+                                self.refs.popupMessageSmallBox.showMessage("accuracy..."+response.body.accuracy, 10000);
+
                                 var graph = JSON.parse(response.body.graph);
 
                                 self.clear();
@@ -617,6 +624,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                 </div>
                 <Loading ref="loading"/>
                 <PopupMessage ref="popupMessage"/>
+                <PopupMessageSmallBox ref="popupMessageSmallBox"/>
                 <ModelHistoryDialogWithSearch ref="modelHistoryDialogWithSearch" setup={this.setup} clear={this.clear}/>
                 <ReactTooltip />
                 <GraphTestResult ref="testResult"/>
