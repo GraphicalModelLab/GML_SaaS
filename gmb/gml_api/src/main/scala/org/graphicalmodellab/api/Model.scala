@@ -1,8 +1,6 @@
-package services.caulculationmodel
+package org.graphicalmodellab.api
 
 import org.graphicalmodellab.api.graph_api._
-import org.apache.spark.SparkConf
-import org.apache.spark.sql.SparkSession
 
 /**
   * Created by itomao on 6/15/18.

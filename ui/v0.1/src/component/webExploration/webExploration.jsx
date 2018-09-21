@@ -15,7 +15,7 @@ export default class WebExploration extends React.Component<Props, {}> {
         return (
             <div>
                 <div>
-                    <div className={styles.accountRoleChangeTitle}> Web探索 </div>
+                    <div className={styles.accountRoleChangeTitle}> Querying/Exploring Web </div>
                     <div className={styles.accountRoleChangeItemBox}>
                     <div className={styles.accountRoleChangeItemName}>
                         W

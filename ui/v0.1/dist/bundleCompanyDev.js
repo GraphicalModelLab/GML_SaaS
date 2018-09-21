@@ -60965,7 +60965,7 @@
 	                    React.createElement(
 	                        'div',
 	                        { className: styles.accountRoleChangeTitle },
-	                        ' Web\u63A2\u7D22 '
+	                        ' Querying/Exploring Web '
 	                    ),
 	                    React.createElement(
 	                        'div',

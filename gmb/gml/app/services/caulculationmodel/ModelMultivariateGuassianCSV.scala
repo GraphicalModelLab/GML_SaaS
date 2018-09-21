@@ -13,6 +13,7 @@ import org.apache.spark.mllib.stat.{MultivariateStatisticalSummary, Statistics}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
 import org.codehaus.jettison.json.{JSONArray, JSONObject}
+import org.graphicalmodellab.api.Model
 import play.api.libs.ws._
 
 import scala.collection.mutable
@@ -20,6 +21,7 @@ import scala.concurrent.Future
 import scala.io.Source
 import scalaj.http
 import scalaj.http.{Base64, Http, MultiPart}
+import play.api.Logger
 
 /**
   * Created by itomao on 6/15/18.
@@ -30,6 +32,7 @@ class ModelMultivariateGuassianCSV extends Model{
   val contextName = "multi"
   val appNameSparkJob = "multi"
   val appJar = "/Users/itomao/git/GML_SaaS/model/sample_model/multivariateguassian/target/scala-2.11/multivariateguassian-assembly-0.1-SNAPSHOT.jar";
+  val classPath = "org.graphicalmodellab.model.TestByCrossValidation"
 
   // Parameters for TestSimple & Training Methods
   var invertedIndex: Map[String, Int] = null;
@@ -78,18 +81,20 @@ class ModelMultivariateGuassianCSV extends Model{
       "{"+ "\"datasource\":\""+datasource+"\","+"\"targetLabel\":\""+targetLabel+"\","+"\"numOfSplit\":"+numOfSplit+",\"graph\":"+ jsonString+"}"
     val base64Encoded = Base64.encodeString(requestString)
 
-    val responseJson = new JSONObject(Http("http://localhost:8090/jobs?appName="+appNameSparkJob+"&context="+contextName+"&classPath=org.graphicalmodellab.model.TestByCrossValidation")
+    val responseJson = new JSONObject(Http("http://localhost:8090/jobs?appName="+appNameSparkJob+"&context="+contextName+"&classPath="+classPath)
                     .timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 )
                     .postData("input.string = \""+base64Encoded+"\"")
                     .asString.body)
 
+    Logger.logger.info("First response");
+    Logger.logger.info(responseJson.toString());
     if(responseJson.get("status") == "ERROR") return -1;
 
     val jobId = responseJson.get("jobId")
 
-    val finished = false;
-
-    while(!finished){
+    // Sometimes, if we try to get job status just right after registering, you get Error, "No such job ID...". Thus, put a sleep before getting status
+    Thread.sleep(5000);
+    while(true){
       val statusResponse = new JSONObject(Http("http://localhost:8090/jobs/"+jobId)
         .asString.body)
 

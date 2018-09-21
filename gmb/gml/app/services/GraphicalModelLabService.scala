@@ -3,11 +3,11 @@ package services
 import java.util.ServiceLoader
 
 import gml._
+import org.graphicalmodellab.api.Model
 import org.graphicalmodellab.auth.AuthDBClient
 import play.Play
 import play.api.Logger
 import play.api.http.Status
-import services.caulculationmodel.Model
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
@@ -213,7 +213,7 @@ class GraphicalModelLabService {
   def getListOfModels(): getListOfAvailableModelsResponse={
     if(listOfModel == null) {
       var list = mutable.ListBuffer[String]()
-      val services = (ServiceLoader load classOf[Model]).asScala
+      val services = (ServiceLoader load classOf[org.graphicalmodellab.api.Model]).asScala
 
       for (w <- services) {
         list += w.getModelName

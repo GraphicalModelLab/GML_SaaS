@@ -33,7 +33,7 @@ import scalaj.http.Base64
   *  curl -d "input.string = a b c a b see" "localhost:8090/jobs?appName=test&classPath=spark.jobserver.WordCountExample"
   *
   * Generate jar file:
-  *  sbt package # under this project
+  *  sbt assembly # under this project
   *
   * Generate Context:
   *  curl -d "" 'http://localhost:8090/contexts/multi?num-cpu-cores=1&memory-per-node=512m&spark.executor.instances=1&context-factory=spark.jobserver.context.SessionContextFactory'

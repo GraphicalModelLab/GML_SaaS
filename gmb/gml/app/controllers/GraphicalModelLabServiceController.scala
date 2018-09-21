@@ -11,7 +11,6 @@ import play.api.mvc.{Action, Controller}
 import services.GraphicalModelLabService
 import play.api.Logger
 
-
 /**
  * Created by ito_m on 8/25/16.
  */
