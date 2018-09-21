@@ -343,7 +343,7 @@ a:active {
 
 .graphLabMenu{
   display: block;
-  width: 705px;
+  width: 755px;
   height: 45px;
   padding-top: 5px;
   background-color: #000088;
@@ -481,6 +481,46 @@ a:active {
 }
 .graphLabMenuItemAnalyzingTargetBox{
     margin-top:2px;
+}
+
+
+.graphLabMenuItemDropGraphSearch{
+  padding-left: 5px;
+  width : 35px;
+  height: 40px;
+  float: left;
+  background-color: #ffffff;
+}
+
+.graphLabMenuItemDropGraphSearch:hover {
+     background:#808080;
+     border-color:#808080;
+}
+
+.graphLabMenuIconStopSearchIcon{
+    zoom: 60%;
+    margin-left: 5px;
+    margin-top: 14px;
+}
+
+.graphLabMenuItemStopSearch{
+    float: left;
+
+    width: 30px;
+    height: 40px;
+}
+
+.graphLabMenuItemStopSearch:hover {
+    background:#808080;
+    border-color:#808080;
+}
+
+.graphLabMenuItemGraphSearch{
+  width : 70px;
+  height : 40px;
+  float: left;
+  margin-right: 5px;
+  background-color: #ffffff;
 }
 
 .saveModelViewTitle{
@@ -770,6 +810,8 @@ a:active {
 .socialConnectionIcon:hover {
 	opacity: 0.5 ;
 }
+
+
 
 .graphLabMenuIcon{
     paddinig-top:50px;

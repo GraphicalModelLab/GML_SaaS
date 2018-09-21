@@ -35,7 +35,8 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             modelparameter: [
             ],
             evaluationMethod: [
-            ]
+            ],
+            exploreGraph: true
         };
 
         this.onDropAttributeImport = this.onDropAttributeImport.bind(this);
@@ -43,6 +44,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         this.onDropTraining = this.onDropTraining.bind(this);
         this.onDropExplore = this.onDropExplore.bind(this);
         this.exploreGraph = this.exploreGraph.bind(this);
+        this.stopExploringGraph = this.stopExploringGraph.bind(this);
         this.showNodePropertyView = this.showNodePropertyView.bind(this);
         this.save = this.save.bind(this);
         this.saveCallBack = this.saveCallBack.bind(this);
@@ -485,10 +487,6 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                     auth.logout();
                                 }
 
-                                console.log("response");
-                                console.log(response);
-
-                                alert("Got response");
                                 self.refs.popupMessageSmallBox.showMessage("accuracy..."+response.body.accuracy, 10000);
 
                                 var graph = JSON.parse(response.body.graph);
@@ -496,7 +494,13 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                                 self.clear();
                                 self.setup(graph);
 
-                                self.exploreGraph(self, graph, targetLabel, datasource);
+                                if(self.state.exploreGraph){
+                                    self.exploreGraph(self, graph, targetLabel, datasource);
+                                }else{
+                                    self.setState({
+                                        exploreGraph: true
+                                    });
+                                }
                             },
                             error: function (request, status, error) {
                                 alert("failed to do testing. Contact Administrator");
@@ -507,6 +511,12 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         })
     }
 
+    stopExploringGraph(){
+        this.setState({
+            exploreGraph: false
+        });
+    }
+
     onDropExplore(acceptedFiles, rejectedFiles){
         var self = this;
 
@@ -514,6 +524,10 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         formData.append('file_1', acceptedFiles[0]);
         var targetLabel = this.refs.analyzingTarget.value;
         var evaluationMethod = this.refs.evaluationMethod.value;
+
+        self.setState({
+            exploreGraph: true
+        });
 
         var graph = {
                 modelid: self.state.modelid,
@@ -604,14 +618,19 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                             </select>
                             </div>
                         </div>
-                        <Dropzone
-                            className={styles.graphLabMenuItem}
-                            onDrop={this.onDropExplore}
-                            accept="text/csv" >
-                            <div>
-                                Explore
+                        <div className={styles.graphLabMenuItemGraphSearch}>
+                            <Dropzone
+                                className={styles.graphLabMenuItemDropGraphSearch}
+                                onDrop={this.onDropExplore}
+                                accept="text/csv" >
+                                <div>
+                                    <img src="./../icon/graphlab_menu_icons/exploreGraph.png" className={styles.graphLabMenuIcon} data-tip="Start Exploring Graph. Drop File Here or Click"/>
+                                </div>
+                            </Dropzone>
+                            <div className={styles.graphLabMenuItemStopSearch} onClick={this.stopExploringGraph} data-tip="Stop Graph Exploration.">
+                                <img src="./../icon/graphlab_menu_icons/stopSearch.png" className={styles.graphLabMenuIconStopSearchIcon} />
                             </div>
-                        </Dropzone>
+                        </div>
 
                         <GraphSaveView saveCallBack={this.saveCallBack} ref="graphSaveView" />
                         <AddCustomNodeDialog addCustomNode={this.addCustomNodeToCanvas} ref="addCustomNodeToCanvas" />
