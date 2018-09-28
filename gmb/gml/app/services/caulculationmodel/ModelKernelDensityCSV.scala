@@ -90,7 +90,8 @@ class ModelKernelDensityCSV extends Model{
 
     val jobId = responseJson.get("jobId")
 
-
+    // Sometimes, if we try to get job status just right after registering, you get Error, "No such job ID...". Thus, put a sleep before getting status
+    Thread.sleep(5000);
     while(true){
       val statusResponse = new JSONObject(Http("http://localhost:8090/jobs/"+jobId)
         .asString.body)
