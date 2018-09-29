@@ -19,6 +19,7 @@ import scala.collection.mutable
  */
 class GraphicalModelLabService {
   val config = Play.application().configuration()
+
   var listOfModel: List[String] = null
   var modelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
 
