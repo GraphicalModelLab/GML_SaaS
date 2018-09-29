@@ -1,0 +1,62 @@
+$parser BVH_Parser;
+
+$token NUMBER = '0'..'9'+ ;
+$token REAL = ('0'..'9')*'.'('0'..'9')+;
+$token IDENTIFIER          = (IDENTIFIER_START IDENTIFIER_PART*) - KEYWORDS;  
+$subtoken IDENTIFIER_START = '$' | 'A'..'Z' | '_' | 'a'..'z' | '\u0080'..'\uffff' ;
+$subtoken IDENTIFIER_PART  = '0'..'9' | IDENTIFIER_START ;
+$token NUMBERS = (|'-') (NUMBER | REAL) (| ('e'|'E') ( (|'-') NUMBER|REAL)) ( SPACE (|'-') (NUMBER | REAL) (| ('e' | 'E') ( (|'-') NUMBER|REAL)))+;
+$white $token SPACE   = ( ' ' | '\t' | '\n' | '\r')+ ; 
+
+$subtoken KEYWORDS = "HIERARCHY" | "ROOT" | "OFFSET" | "CHANNELS" | "JOINT" | "End" | "Site" | "MOTION" | "Frames" | "Frame" | "Time";
+
+$token HIERARCHY = "HIERARCHY";
+$token ROOT = "ROOT";
+$token OFFSET = "OFFSET";
+$token CHANNELS = "CHANNELS";
+$token JOINT = "JOINT";
+$token END = "End";
+$token SITE = "Site";
+$token MOTION = "MOTION";
+$token FRAMES = "Frames";
+$token FRAME = "Frame";
+$token TIME = "Time";
+
+$parsable
+Bvh { HIERARCHY root:root motion:motion}
+
+root = Root{ROOT name:IDENTIFIER "{" coms:components "}" }
+	;
+
+components = Components{offset:offset channels:channel joints:joints}
+	;
+offset = Offset{OFFSET numbers:numbers}
+	;
+channel = Channels{CHANNELS d:data kinds:kindsOfChannel }
+	;
+kindsOfChannel = KindsOfChannel{ d1:IDENTIFIER next:kindsOfChannel }
+			 	|
+			 	;
+joints = Joints{joint:kindsOfJoint next:joints}
+		|
+		;
+kindsOfJoint = joint
+			| endsite
+			;
+joint = Joint{JOINT name:IDENTIFIER "{" coms:components "}"}
+	;
+endsite = EndSite{ END SITE "{" offset:offset "}"}
+	;
+
+motion = Motion{ MOTION FRAMES ":" frame:data FRAME TIME ":" numbers:numbers}
+	;
+numbers = Numbers{ d:NUMBERS}
+	 ;
+data = Minus{ "-" data:kindsOfData }
+	  | Plus{ data:kindsOfData}
+	;
+kindsOfData = NUMBER
+			| REAL
+			;
+
+
