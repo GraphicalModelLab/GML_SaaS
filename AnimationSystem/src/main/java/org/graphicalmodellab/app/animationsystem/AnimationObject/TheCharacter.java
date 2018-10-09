@@ -118,6 +118,7 @@ public class TheCharacter extends Drawable {
 			this.draw_position[0] += this.root.position[1][0] - this.root.position[0][0];
 			this.draw_position[1] = this.root.position[0][1];
 			this.draw_position[2] += this.root.position[1][2] - this.root.position[0][2];
+
 		}else{
 			this.draw_position[0] += this.root.position[frame][0] - this.root.position[frame-1][0];
 			this.draw_position[1] = this.root.position[frame][1];

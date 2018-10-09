@@ -14,6 +14,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
 import org.codehaus.jettison.json.{JSONArray, JSONObject}
 import org.graphicalmodellab.api.Model
+import play.Play
 import play.api.libs.ws._
 
 import scala.collection.mutable
@@ -21,15 +22,21 @@ import scala.concurrent.Future
 import scala.io.Source
 import scalaj.http
 import scalaj.http.{Base64, Http, MultiPart}
+import java.io.File
+import com.typesafe.config.{ Config, ConfigFactory }
+
 /**
   * Created by itomao on 9/13/18.
   */
 class ModelKernelDensityCSV extends Model{
+  val config = ConfigFactory.load("model_kernel_density.conf")
+
   // Three Parameters for spark-job-server
-  val contextName = "kerneldensity"
-  val appNameSparkJob = "kerneldensity"
-  val appJar = "/Users/itomao/git/GML_SaaS/model/sample_model/kerneldensity/target/scala-2.11/kerneldensity-assembly-0.1-SNAPSHOT.jar";
+  val contextName = "model_kernel_density_context"
+  val appNameSparkJob = "model_kernel_density_app"
+  val appJar = config.getString("app.jar")
   val classPath = "org.graphicalmodellab.model.TestByCrossValidation"
+  val sparkJobServerHost = config.getString("spark.job.server.host")
 
   override def getModelName: String = "KernelDensity"
 
@@ -45,19 +52,19 @@ class ModelKernelDensityCSV extends Model{
 
   override def init(): Unit ={
     // 1. Generate Context
-    val existingSparkContext = Json.fromJson[sparkJobContextRequest](Json.parse(Http("http://localhost:8090/contexts").timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 ).asString.body))
+    val existingSparkContext = Json.fromJson[sparkJobContextRequest](Json.parse(Http("http://"+sparkJobServerHost+":8090/contexts").timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 ).asString.body))
 
     if(!existingSparkContext.get.context.contains(contextName)) {
-      val response1 = Http("http://localhost:8090/contexts/"+contextName+"?num-cpu-cores=1&memory-per-node=512m&spark.executor.instances=1&context-factory=spark.jobserver.context.SessionContextFactory")
-        .timeout(connTimeoutMs = 4000, readTimeoutMs = 90000 ).postData("").asString
+      val response1 = Http("http://"+sparkJobServerHost+":8090/contexts/"+contextName+"?num-cpu-cores=1&memory-per-node=512m&spark.executor.instances=1&context-factory=spark.jobserver.context.SessionContextFactory&timeout=200")
+        .timeout(connTimeoutMs = 40000, readTimeoutMs = 90000 ).postData("").asString
 
       println(response1)
     }
 
     // 2. Upload Jar
     val bytes: Array[Byte] = Files.readAllBytes(Paths.get(appJar))
-    val response2 = Http("http://localhost:8090/jars/"+appNameSparkJob)
-      .timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 )
+    val response2 = Http("http://"+sparkJobServerHost+":8090/jars/"+appNameSparkJob)
+      .timeout(connTimeoutMs = 40000, readTimeoutMs = 90000 )
       .header("Content-Type", "application/java-archive")
       .postData(bytes)
       .asString
@@ -81,7 +88,7 @@ class ModelKernelDensityCSV extends Model{
       "{"+ "\"datasource\":\""+datasource+"\","+"\"targetLabel\":\""+targetLabel+"\","+"\"numOfSplit\":"+numOfSplit+",\"graph\":"+ jsonString+"}"
     val base64Encoded = Base64.encodeString(requestString)
 
-    val responseJson = new JSONObject(Http("http://localhost:8090/jobs?appName="+appNameSparkJob+"&context="+contextName+"&classPath="+classPath)
+    val responseJson = new JSONObject(Http("http://"+sparkJobServerHost+":8090/jobs?appName="+appNameSparkJob+"&context="+contextName+"&classPath="+classPath)
       .timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 )
       .postData("input.string = \""+base64Encoded+"\"")
       .asString.body)
@@ -93,7 +100,7 @@ class ModelKernelDensityCSV extends Model{
     // Sometimes, if we try to get job status just right after registering, you get Error, "No such job ID...". Thus, put a sleep before getting status
     Thread.sleep(5000);
     while(true){
-      val statusResponse = new JSONObject(Http("http://localhost:8090/jobs/"+jobId)
+      val statusResponse = new JSONObject(Http("http://"+sparkJobServerHost+":8090/jobs/"+jobId)
         .asString.body)
 
       statusResponse.get("status") match {

@@ -18,9 +18,7 @@ import scala.collection.mutable
  * Created by ito_m on 9/11/16.
  */
 class GraphicalModelLabService {
-  val config = Play.application().configuration()
-
-  var listOfModel: List[String] = null
+  var listOfModel: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
   var modelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
 
   Logger.info("Setup Connection to DB and Elastic Search..")
@@ -30,11 +28,20 @@ class GraphicalModelLabService {
 
   def getModelId(algorithm: String): String = algorithm;
 
+  // Call http://localhost:9098/helloworld to warmup this service
   def warmup(): warmupResponse = {
 
     // Initialize Availabe Models
     Logger.info("Loading/Initialize Available Models..")
-    getListOfModels()
+    var list = mutable.ListBuffer[String]()
+    val services = (ServiceLoader load classOf[org.graphicalmodellab.api.Model]).asScala
+
+    for (w <- services) {
+      list += w.getModelName
+      w.init()
+      modelMap.put(getModelId(w.getModelName),w)
+    }
+    listOfModel = list
 
     return warmupResponse(Status.OK)
   }
@@ -214,18 +221,6 @@ class GraphicalModelLabService {
   }
 
   def getListOfModels(): getListOfAvailableModelsResponse={
-    if(listOfModel == null) {
-      var list = mutable.ListBuffer[String]()
-      val services = (ServiceLoader load classOf[org.graphicalmodellab.api.Model]).asScala
-
-      for (w <- services) {
-        list += w.getModelName
-        w.init()
-        modelMap.put(getModelId(w.getModelName),w)
-      }
-      listOfModel = list.to
-    }
-
     return getListOfAvailableModelsResponse(Status.OK,listOfModel.toList)
   }
 

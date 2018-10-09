@@ -23,6 +23,9 @@ public class MotionViewer extends JFrame implements GLEventListener, ActionListe
   /* light position */
   private float LIGHT_POSITION[] = { 3.0f, 4.0f, 5.0f, 1.0f };
   private Animator animator;
+
+  /* Initial Frame Position */
+  private final int INITIAL_FRAME_POSITION = 1;
   
   /* Characters */
   private Drawable[] characters;
@@ -80,7 +83,7 @@ public class MotionViewer extends JFrame implements GLEventListener, ActionListe
   }
   private void initMotionViewer(int numOfFrame, int frameTime){
 	    this.setTitle("Motion Capture");
-	    this.currentFrame = 0;
+	    this.currentFrame = INITIAL_FRAME_POSITION;
 	    this.numOfFrame = numOfFrame;
 	    this.frameTime = frameTime;
 	   
@@ -217,7 +220,7 @@ public class MotionViewer extends JFrame implements GLEventListener, ActionListe
     	/** go to the next frame **/
     	this.currentFrame++;
     	if(this.currentFrame >= this.numOfFrame){
-        	this.currentFrame = 0;
+        	this.currentFrame = INITIAL_FRAME_POSITION;
         }
     }else{
     	/** display the motion captured data **/
@@ -277,7 +280,7 @@ public class MotionViewer extends JFrame implements GLEventListener, ActionListe
     }
     public void setNumOfFrame(int numOfFrame){
   	  this.numOfFrame = numOfFrame;
-  	  this.currentFrame = 0;
+  	  this.currentFrame = INITIAL_FRAME_POSITION;
     }
     public void setFrameTime(int frameTime){
   	  this.frameTime = frameTime;

@@ -50,7 +50,6 @@ public class Joint {
 		    Obj bone = new Bone(0,0,0,offset[0],offset[1],offset[2]);
 		    bone.Draw(color,drawable);
 		    
-		    
 		    /** Move the current bone into the appropriate position **/
 	    	gl.glTranslatef(offset[0], offset[1],offset[2]);
 	  

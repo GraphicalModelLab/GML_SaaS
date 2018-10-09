@@ -62828,13 +62828,6 @@
 	            if (!this.state.loggedIn) {
 	                this.context.router.push('/' + "topNoLogin");
 	            }
-	            _jquery2.default.ajax({
-	                type: "get",
-	                url: "../commonModules/php/modules/GML.php/gml/warmup",
-	                success: function success(json_data) {},
-	                error: function error(request, status, _error) {},
-	                complete: function complete() {}
-	            });
 	        }
 	    }, {
 	        key: 'onOpenChange',
@@ -62892,7 +62885,7 @@
 	                        });
 	                    }
 	                },
-	                error: function error(request, status, _error2) {},
+	                error: function error(request, status, _error) {},
 	                complete: function complete() {}
 	            });
 	        }
