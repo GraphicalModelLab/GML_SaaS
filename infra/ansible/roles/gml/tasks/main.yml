@@ -1,0 +1,151 @@
+---
+- name: Configure apache site
+  template:
+    src: apache/000-default.conf
+    dest: "/etc/apache2/sites-available/000-default.conf"
+
+#- name: Configure apache for allowing http_authorization header
+
+- name: Restart Apache2
+  service:
+    name: apache2
+    state: restarted
+
+- name: copy Cassandra Space cql script
+  template:
+    src: cassandra/init.cql.j2
+    dest: "/tmp/init.cql"
+  when: gml.init_cassandra == "y"
+
+- name: Init Cassandra Space
+  command: cqlsh -f /tmp/init.cql localhost
+  when: gml.init_cassandra == "y"
+
+- name: "Copy commonData to remote location"
+  unarchive:
+    src: "commonData.zip"
+    dest: "/var/www/html"
+  when: gml.commonData_install == "y"
+
+- name: "Copy commonLibs to remote location"
+  unarchive:
+    src: "commonLibs.zip"
+    dest: "/var/www/html"
+  when: gml.commonLibs_install == "y"
+
+- name: "Copy commonModules to remote location"
+  unarchive:
+    src: "commonModules.zip"
+    dest: "/var/www/html"
+  when: gml.commonModules_install == "y"
+
+- name: Configure MailApp.ini
+  template:
+    src: commonModules/php/config/MailApp.ini.j2
+    dest: "/var/www/html/commonModules/php/config/MailApp.ini"
+  when: gml.commonModules_install == "y"
+
+- name: Configure FacebookApp.ini.j2
+  template:
+    src: commonModules/php/config/OpenIDConnect/FacebookApps.ini.j2
+    dest: "/var/www/html/commonModules/php/config/OpenIDConnect/FacebookApps.ini"
+  when: gml.commonModules_install == "y"
+
+- name: Configure GoogleApps.ini.j2
+  template:
+    src: commonModules/php/config/OpenIDConnect/GoogleApps.ini.j2
+    dest: "/var/www/html/commonModules/php/config/OpenIDConnect/GoogleApps.ini"
+  when: gml.commonModules_install == "y"
+
+- name: "Copy dist to remote location"
+  unarchive:
+    src: "dist.zip"
+    dest: "/var/www/html"
+  when: gml.dist_install == "y"
+
+- name: "Copy icon to remote location"
+  unarchive:
+    src: "icon.zip"
+    dest: "/var/www/html"
+  when: gml.icon_install == "y"
+
+- name: "Copy company ui to remote location"
+  unarchive:
+    src: "company_ui.zip"
+    dest: "/var/www/html"
+  when: gml.company_ui_install == "y"
+
+- supervisorctl:
+    name: gml-auth
+    state: stopped
+  when: gml.auth_re_install == "y"
+
+- name: delete auth dir
+  file: path='/opt/auth' state=absent
+  when: gml.auth_install == "y"
+
+- name: "Copy auth to remote location"
+  unarchive:
+    src: "auth.zip"
+    dest: "/opt/"
+  when: gml.auth_install == "y"
+
+- name: Rename it to auth
+  command: mv /opt/api-0.1-SNAPSHOT /opt/auth
+  when: gml.auth_install == "y"
+
+- name: Configure auth application.conf
+  template:
+    src: auth_application.conf.j2
+    dest: "/opt/auth/conf/application.conf"
+  when: gml.auth_install == "y"
+
+- name: Configure auth service supervisor conf
+  template:
+    src: supervisor/gml-auth.conf
+    dest: "/etc/supervisor/conf.d/gml-auth.conf"
+  when: gml.auth_install == "y"
+
+- supervisorctl:
+    name: gml-company
+    state: stopped
+  when: gml.company_re_install == "y"
+
+- name: delete company dir
+  file: path='/opt/company' state=absent
+  when: gml.company_install == "y"
+
+- name: "Copy company to remote location"
+  unarchive:
+    src: "company.zip"
+    dest: "/opt/"
+  when: gml.company_install == "y"
+
+- name: Rename it to company
+  command: mv /opt/api-0.1-SNAPSHOT /opt/company
+  when: gml.company_install == "y"
+
+- name: Configure company application.conf
+  template:
+    src: company_application.conf.j2
+    dest: "/opt/company/conf/application.conf"
+  when: gml.company_install == "y"
+
+- name: Configure company service supervisor conf
+  template:
+    src: supervisor/gml-company.conf
+    dest: "/etc/supervisor/conf.d/gml-company.conf"
+  when: gml.company_install == "y"
+
+- name: Update Supervisor
+  command: supervisorctl update
+
+- supervisorctl:
+    name: gml-auth
+    state: started
+  when: gml.auth_install == "y"
+
+- supervisorctl:
+    name: gml-company
+    state: started
+  when: gml.company_install == "y"

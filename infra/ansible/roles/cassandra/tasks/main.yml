@@ -1,0 +1,12 @@
+---
+- name: Add apt-key
+  shell: "curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -"
+
+- name: Add repo
+  shell: "sudo sh -c 'echo \"deb http://debian.datastax.com/community/ stable main\" >> /etc/apt/sources.list.d/datastax.list'"
+
+- name: "Install Cassandra"
+  apt:
+    name: "dsc30"
+    update_cache: yes
+    state: present
