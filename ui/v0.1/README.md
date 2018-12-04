@@ -1,3 +1,20 @@
+# How to develop UI
+
+## 1. install npm command
+
+## 2. install the required modules
+
+```
+cd <Your Path>/ui/v0.1
+./init_npm_modules.sh
+```
+
+## 3. compile UI
+```
+cd <Your Path>/ui/v0.1
+npm run build:company-dev
+```
+
 # Setup HTTPs for Apache side (i.e. PHP)
 
 Recently, Facebook Federated Login becomes strict about https stuff.
