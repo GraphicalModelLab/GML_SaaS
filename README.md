@@ -3,7 +3,7 @@
 ## Directory
 
 ### doc
-Slide, e.g. Meetup Slide
+Documentation, e.g. meetup slide
 
 ### gmb
 Backend Web Server (REST API)
@@ -12,10 +12,11 @@ Backend Web Server (REST API)
 UI (React)
 
 ### model
-Calculation Models for an arbitrary Graph
+Calculation Models for an arbitrary Graph.
+Currently, Spark Job Source code is here.
 
 ### infra
-Ansible + Terraform
+Ansible + Terraform to deploy GML Service in Cloud
 
 ### sample_demo
 This includes some programs related for demo stuff
