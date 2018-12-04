@@ -1,9 +1,0 @@
-1. SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1 in httpd.conf of Apache
-
-If you dont setup this in apache, Symfony framework cannot get Authorization header from ajax
-
-$request->headers->get('Authorization')
-
-2. Run npm for dev mode
-
-npm run build:company-dev
