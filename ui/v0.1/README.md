@@ -1,4 +1,4 @@
-# How to develop UI
+# How to Develop UI
 
 ## 1. install npm command
 
@@ -13,6 +13,53 @@ cd <Your Path>/ui/v0.1
 ```
 cd <Your Path>/ui/v0.1
 npm run build:company-dev
+```
+
+# How to Deploy UI
+"infra" directory also shows how to deploy UI.
+
+The following is an example httpd vhosts conf file pointing to UI:
+
+```
+[ /etc/apache2/vhosts/servers.conf in OSX ]
+<VirtualHost *:443>
+   ServerAdmin webmaster@dummy-host.example.com
+   DocumentRoot "/Users/itomao/git/GML_SaaS/ui"
+   ServerName local.graphicalmodellab.org
+   SSLCertificateFile /private/etc/apache2/server.crt
+   SSLCertificateKeyFile /private/etc/apache2/server.key
+   ErrorLog "/private/var/log/apache2/dummy-host.example.com-error_log"
+   CustomLog "/private/var/log/apache2/dummy-host.example.com-access_log" common
+
+   <Directory /Users/itomao/git/GML_SaaS/ui>
+        AllowOverride None
+        Require all granted
+   </Directory>
+
+   <FilesMatch "\.(php|html|htm|js|css|json)$">
+    FileETag None
+
+    <IfModule mod_headers.c>
+      Header unset ETag
+      Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+      Header set Pragma "no-cache"
+      Header set Note "CACHING IS DISABLED ON LOCALHOST"
+      Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+    </IfModule>
+   </FilesMatch>
+
+   RewriteEngine on
+   RewriteCond %{REQUEST_URI} =/v0.1/company/test
+   RewriteRule ^ /v0.1/company/indexDev.php?companyid=test&%{QUERY_STRING}
+
+   RewriteCond %{REQUEST_URI} =/v0.1/company/good
+   RewriteRule ^ /v0.1/company/indexDev.php?companyid=good&%{QUERY_STRING}
+
+   RewriteCond %{REQUEST_URI} =/v0.1/company/magicword
+   RewriteRule ^ /v0.1/company/indexDev.php?companyid=magicword&%{QUERY_STRING}
+
+
+</VirtualHost>
 ```
 
 # Setup HTTPs for Apache side (i.e. PHP)
