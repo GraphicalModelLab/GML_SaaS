@@ -2,12 +2,17 @@
 
 ## Directory
 
-doc : Slide, e.g. Meetup Slide
+### doc
+Slide, e.g. Meetup Slide
 
-gmb : Backend Web Server (REST API)
+### gmb
+Backend Web Server (REST API)
 
-ui  : UI (React)
+### ui
+UI (React)
 
-model : Calculation Models for an arbitrary Graph
+### model
+Calculation Models for an arbitrary Graph
 
-infra : Ansible + Terraform
+### infra
+Ansible + Terraform
