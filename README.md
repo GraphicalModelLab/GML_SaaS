@@ -9,33 +9,28 @@ https://graphicalmodeling.com/
 ![top-page](https://github.com/GraphicalModelLab/GML_SaaS/blob/master-with-infra/doc/Architecture.png)
 
 
-## Directory
-
 ### doc
 Documentation, e.g. meetup slide
 
 ### gmb
-Backend Web Server (REST API)
+This directory corresponds to (1) gmb in the architecture image.
+This directory contains backend web server programs (Play Framework)
 
 ### ui
-UI (React)
+This directory corresponds to (2) ui in the architecture image.
+This directory contains Front-end Side (React) with a bit of backend side (PHP).
 
 ### model
-Calculation Models for an arbitrary Graph.
-Currently, Spark Job Source code is here.
+This directory corresponds to (4) model where Spark Job application source codes are placed.
+These Spark Job applications are launched via ModelMultivariateGuassianCSV and ModelKernelDensityCSV plugins which are implemented as a part of gmb core service.
+These plugins can be defined apart from gmb core service.
+sample_plugin shows a set of examples.
 
 ### infra
-Ansible + Terraform to deploy GML Service in Cloud
-
-### sample_demo
-This includes some programs related for demo stuff
+This directory contains Ansible + Terraform to deploy/configure GML service in Cloud.
 
 ### sample_plugin
-This includes example plugins for calculating graph stuff.
-So, this is similar to "model" directory.
+This directory corresponds to (3) sample_plugin.
+In GML Service, a new algorithm for calculating a graph can be imported as a plugin.
+This directory contains some example about how to import such new algorithm.
 
-But, Basically, "sample_plugin" launches spark application "model" directory has.
-
-In the flow,
-
-UI => gml service => sample_plugin => model
