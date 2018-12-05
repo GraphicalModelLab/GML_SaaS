@@ -6,6 +6,7 @@ https://graphicalmodeling.com/
 
 ## Structure of Project
 
+![top-page](https://github.com/GraphicalModelLab/GML_SaaS/blob/master-with-infra/doc/Architecture.png)
 
 
 ## Directory
