@@ -1,7 +1,7 @@
 # GML_SaaS
 GML (Graphical Model Lab) is an open source SaaS.
 
-Goal of this system is to make graph based machine learning experiment easy in a user friendly manner.
+Goal of this system is to make graph based machine learning experiment easy in a user friendly manner with Big Data.
 
 ## Tech Blog
 
