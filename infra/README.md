@@ -1,5 +1,5 @@
 
-# How to deploy GML in Cloud ?
+# How to deploy GML in Cloud
 
 Check README.md of "terraform" directory.
 
