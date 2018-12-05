@@ -1,5 +1,13 @@
 # GML_SaaS
 
+## Tech Blog
+
+https://graphicalmodeling.com/
+
+## Structure of Project
+
+
+
 ## Directory
 
 ### doc
