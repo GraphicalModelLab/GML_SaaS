@@ -1,5 +1,7 @@
 import CommonSettings._
 import Dependencies._
+import com.typesafe.sbt.packager.Keys.scriptClasspath
+import com.typesafe.sbt.packager.Keys.bashScriptDefines
 
 lazy val common = project.in(file("common"))
   .settings(commonSettings: _*)
@@ -41,6 +43,10 @@ lazy val gml = project.in(file("gml"))
   .settings(libraryDependencies ++= backendDependencies)
 //  .settings(libraryDependencies ++= dl4jDependencies)
   .settings(libraryDependencies ++= sparkDependencies)
+  .settings(Seq(
+      // This is for making start up script to include this folder in the classpath as well
+      scriptClasspath ~= (cp => "../extra_lib/*" +:cp)
+    ))
   .settings(assemblyMergeStrategy in assembly := {
           case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first
           case PathList(ps @ _*) if ps.last endsWith ".properties" => MergeStrategy.first

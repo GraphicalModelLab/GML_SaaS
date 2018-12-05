@@ -20,3 +20,13 @@ Ansible + Terraform to deploy GML Service in Cloud
 
 ### sample_demo
 This includes some programs related for demo stuff
+
+### sample_plugin
+This includes example plugins for calculating graph stuff.
+So, this is similar to "model" directory.
+
+But, Basically, "sample_plugin" launches spark application "model" directory has.
+
+In the flow,
+
+UI => gml service => sample_plugin => model

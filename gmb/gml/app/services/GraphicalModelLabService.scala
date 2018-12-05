@@ -37,6 +37,7 @@ class GraphicalModelLabService {
     val services = (ServiceLoader load classOf[org.graphicalmodellab.api.Model]).asScala
 
     for (w <- services) {
+      println("Loading "+w.getModelName+"..")
       list += w.getModelName
       w.init()
       modelMap.put(getModelId(w.getModelName),w)
