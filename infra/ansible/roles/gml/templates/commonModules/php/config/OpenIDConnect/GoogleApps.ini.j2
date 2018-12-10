@@ -1,0 +1,8 @@
+[login]
+client_id=561449541886-1laped8umba8ra7836e936j58fkqu0c5.apps.googleusercontent.com
+
+scope=openid%20email
+response_type=code
+
+redirect_uri={{ federated_login.redirect_base_uri}}/commonModules/php/modules/Auth.php/auth/googleAppsLogin/authenticate
+loginCallback={{ federated_login.redirect_base_uri}}

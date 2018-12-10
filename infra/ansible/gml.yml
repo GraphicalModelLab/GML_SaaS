@@ -1,0 +1,44 @@
+---
+- hosts: gml
+  vars:
+    tmp_dir: /tmp
+    downloads_dir: ./downloads
+
+    gml:
+      commonData_install: "n"
+      commonLibs_install: "n"
+      commonModules_install: "n"
+      dist_install: "y"
+      icon_install: "n"
+      company_ui_install: "n"
+      auth_install: "n"
+      company_install: "n"
+
+      auth_re_install: "n"
+      company_re_install: "n"
+      init_cassandra: "n"
+
+    elasticsearch:
+      version: 2.4.0
+      install_user: elasticsearch
+      install_user_group: elasticsearch
+      cluster_name: ccs-es
+      host: localhost
+      http_port: 9200
+
+    sendgrid:
+      apikey: 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
+
+    federated_login:
+      redirect_base_uri: http://cloudcareersheetv4.japaneast.cloudapp.azure.com
+
+  roles:
+    #- common
+    #- cassandra
+    #- elasticsearch
+    #- apache
+    #- php
+    - gml
+
+  become: True
+  become_method: sudo
