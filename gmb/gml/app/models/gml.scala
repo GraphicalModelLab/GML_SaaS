@@ -271,4 +271,24 @@ package object gml {
       "accuracy" -> Json.toJson(o.accuracy)
     ).filter(_._2 != JsNull))
   }
+
+  // 4. get list of available extractors
+  case class getListOfAvailableExtractorsRequest(code: Int, userid:String, companyid: String)
+  case class getListOfAvailableExtractorsResponse(code: Int, extractorIds: List[String], extractorParams: Map[String,List[String]])
+
+  implicit lazy val getListOfAvailableExtractorsRequestReads: Reads[getListOfAvailableExtractorsRequest] = Reads[getListOfAvailableExtractorsRequest] {
+    json => JsSuccess(getListOfAvailableExtractorsRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String]
+    ))
+  }
+
+  implicit lazy val getListOfAvailableExtractorsResponseWrites: Writes[getListOfAvailableExtractorsResponse] = Writes[getListOfAvailableExtractorsResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "extractorIds" -> Json.toJson(o.extractorIds),
+      "extractorParamMap" -> Json.toJson(o.extractorParams)
+    ).filter(_._2 != JsNull))
+  }
 }

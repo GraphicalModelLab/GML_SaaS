@@ -19,7 +19,7 @@ package services
 import java.util.ServiceLoader
 
 import gml._
-import org.graphicalmodellab.api.Model
+import org.graphicalmodellab.api.{DataExtractor, Model}
 import org.graphicalmodellab.api.graph_api.graph
 import org.graphicalmodellab.auth.AuthDBClient
 import play.Play
@@ -32,7 +32,9 @@ import scala.collection.mutable
 
 class GraphicalModelLabService {
   var listOfModel: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
+  var listOfExtractors: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
   var modelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
+  var extractorMap: mutable.Map[String,DataExtractor] = mutable.Map[String,DataExtractor]()
 
   Logger.info("Setup Connection to DB and Elastic Search..")
   GmlDBClient.init(List[String]("localhost"));
@@ -40,22 +42,36 @@ class GraphicalModelLabService {
   GmlElasticSearchClient.init("localhost");
 
   def getModelId(algorithm: String): String = algorithm;
+  def getExtractorId(extractorName: String): String = extractorName;
 
   // Call http://localhost:9098/helloworld to warmup this service
   def warmup(): warmupResponse = {
 
-    // Initialize Availabe Models
+    // Initialize Available Models
     Logger.info("Loading/Initialize Available Models..")
-    var list = mutable.ListBuffer[String]()
-    val services = (ServiceLoader load classOf[org.graphicalmodellab.api.Model]).asScala
+    var modelList = mutable.ListBuffer[String]()
+    val models = (ServiceLoader load classOf[org.graphicalmodellab.api.Model]).asScala
 
-    for (w <- services) {
-      println("Loading "+w.getModelName+"..")
-      list += w.getModelName
+    for (w <- models) {
+      println("Loading Model : "+w.getModelName+"..")
+      modelList += w.getModelName
       w.init()
       modelMap.put(getModelId(w.getModelName),w)
     }
-    listOfModel = list
+    listOfModel = modelList
+
+    // Initialize Available Extractors
+    Logger.info("Loading/Initialize Available Extractors..")
+    var extractorList = mutable.ListBuffer[String]()
+    val extractors = (ServiceLoader load classOf[org.graphicalmodellab.api.DataExtractor]).asScala
+
+    for (w <- extractors) {
+      println("Loading Extractor : "+w.getExtractorName+"..")
+      extractorList += w.getExtractorName
+      w.init()
+      extractorMap.put(getExtractorId(w.getExtractorName),w)
+    }
+    listOfExtractors = extractorList
 
     return warmupResponse(Status.OK)
   }
@@ -258,5 +274,15 @@ class GraphicalModelLabService {
 
 
     return exploreGraphResponse(Status.INTERNAL_SERVER_ERROR, 1, "", 0.0 )
+  }
+
+  def getListOfExtractors(): getListOfAvailableExtractorsResponse={
+    val extractorParamMap = collection.mutable.Map[String,List[String]]()
+    listOfExtractors.toList.foreach{
+      id=>
+        extractorParamMap.put(id,extractorMap.get(id).get.getExtractorParameterInfo)
+
+    }
+    return getListOfAvailableExtractorsResponse(Status.OK,listOfExtractors.toList,extractorParamMap.toMap)
   }
 }

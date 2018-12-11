@@ -25,7 +25,7 @@ import GraphLab from "./../../component/graphLab/graphLab";
 import GraphLabLocalRepository from "./../../component/graphLabLocalRepository/graphLabLocalRepository";
 import SearchResult1 from  "./../../component/searchResult/searchResult1";
 import SearchResult2 from  "./../../component/searchResult/searchResult2";
-import WebExploration from "./../../component/webExploration/webExploration";
+import DataExtractor from "./../../component/dataExtractor/dataExtractor";
 import SocialConnect from "./../../component/socialConnect/socialConnect";
 import AccountManagementIndividual from "./../../component/accountManagementIndividual/accountManagementIndividual";
 import AccountManagement from "./../../component/accountManagement/accountManagement";
@@ -45,7 +45,7 @@ ReactDOM.render(<Router history={hashHistory}>
                       <Route path="graphLabLocalRepository" component={GraphLabLocalRepository} editable="true"/>
                       <Route path="searchResult1" component={SearchResult1} editable="true"/>
                       <Route path="searchResult2" component={SearchResult2} editable="true"/>
-                      <Route path="webExploration" component={WebExploration} editable="true"/>
+                      <Route path="dataExtractor" component={DataExtractor} editable="true"/>
                       <Route path="socialConnect" component={SocialConnect} editable="true"/>
                       <Route path="accountManagementIndividual" component={AccountManagementIndividual} />
                       <Route path="accountManagement" component={AccountManagement} />

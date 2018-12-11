@@ -269,4 +269,26 @@ object GraphicalModelLabServiceController extends Controller {
       }
     )
   }
+
+  def getListOfAvailableExtractors(companyId:String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getListOfAvailableExtractorsResponse](gmlService.getListOfExtractors(
+          //          request.headers.get("Authorization").get.substring(7),
+          //          companyId,
+          //          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+          //          Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
 }

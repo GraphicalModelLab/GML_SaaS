@@ -13,3 +13,4 @@ GET                /gml/:companyId/model/search     controllers.GraphicalModelLa
 GET                /gml/:companyId/model/test/history/list     controllers.GraphicalModelLabServiceController.getTestHistory(companyId:String)
 GET                /gml/:companyId/model/test/history    controllers.GraphicalModelLabServiceController.getModelInTestHistory(companyId:String)
 GET                /gml/:companyId/model/algorithm/list     controllers.GraphicalModelLabServiceController.getListOfAvailableModels(companyId:String)
+GET                /gml/:companyId/data/extractor/list     controllers.GraphicalModelLabServiceController.getListOfAvailableExtractors(companyId:String)

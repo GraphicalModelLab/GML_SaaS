@@ -937,3 +937,34 @@ a:active {
     width: 190px;
     float:left;
 }
+
+.dataExplorationBox{
+    height: 200px;
+}
+
+.dataExtractorBox{
+    height: 500px;
+}
+
+.extractorPanel{
+    background-color: #99cc00;
+    height: 90px;
+    width: 150px;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 60px;
+    float:left;
+}
+
+.extractorPanel:hover {
+    background:#808080;
+    border-color:#808080;
+}
+
+.dataExtractorTitleHeader{
+   font-size: 20px;
+}
+
+.dataExplorationTitleHeader{
+   font-size: 20px;
+}
