@@ -54,9 +54,9 @@ This directory corresponds to (2) ui in the architecture image.
 
 This directory contains Front-end Side (React) with a bit of backend side (PHP).
 
-### plugin
+### model_plugin
 
-This directory corresponds to (3) plugin.
+This directory corresponds to (3) model_plugin.
 
 In default, GML does not include any new algorithm for calculating graph.
 
