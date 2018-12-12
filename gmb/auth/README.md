@@ -17,9 +17,9 @@ You can create an account in https://developers.facebook.com.
 ### Configuration for PHP Side
 You also need to change some configuration for PHP side, i.e. ui/v0.1/commonModules/php/config/FacebookApps.ini.
 
-PHP is the endpoint which is exposed to Google like Facebook.
+PHP is the endpoint which is exposed to Facebook.
 
-So, when users login through Google Web Site, Google redirect your browser to this PHP endpoint.
+So, when users login through Facebook Web Site, Facebook redirect your browser to this PHP endpoint.
 
 Then, PHP calls this Auth Service to validate the token.
 
@@ -57,7 +57,7 @@ You can create an account in https://console.cloud.google.com.
 ### Configuration for PHP Side
 You also need to change some configuration for PHP side, i.e. ui/v0.1/commonModules/php/config/GoogleApps.ini.
 
-PHP is the endpoint which is exposed to Google like Facebook.
+PHP is the endpoint which is exposed to Google.
 
 So, when users login through Google Web Site, Google redirect your browser to this PHP endpoint.
 
