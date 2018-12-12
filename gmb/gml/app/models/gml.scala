@@ -291,4 +291,39 @@ package object gml {
       "extractorParamMap" -> Json.toJson(o.extractorParams)
     ).filter(_._2 != JsNull))
   }
+
+  // 5. execute extractor request/response
+  case class executeExtractorProperty(name: String, value: String)
+  case class executeExtractorRequest(code: Int, userid:String, companyid: String, extractorId: String, extractorParamValues: List[executeExtractorProperty])
+  case class executeExtractorResponse(code: Int)
+
+  implicit lazy val executeExtractorRequestReads: Reads[executeExtractorRequest] = Reads[executeExtractorRequest] {
+    json => JsSuccess(executeExtractorRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String],
+      (json \ "extractorId").as[String],
+      (json \ "extractorParamValues").as[List[executeExtractorProperty]]
+    ))
+  }
+
+  implicit lazy val executeExtractorResponseWrites: Writes[executeExtractorResponse] = Writes[executeExtractorResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code)
+    ).filter(_._2 != JsNull))
+  }
+
+  implicit lazy val executeExtractorPropertyReads: Reads[executeExtractorProperty] = Reads[executeExtractorProperty] {
+    json => JsSuccess(executeExtractorProperty(
+      (json \ "name").as[String],
+      (json \ "value").as[String]
+    ))
+  }
+
+  implicit lazy val executeExtractorPropertyWrites: Writes[executeExtractorProperty] = Writes[executeExtractorProperty] {
+    o => JsObject(Seq(
+      "name" -> Json.toJson(o.name),
+      "value" -> Json.toJson(o.value)
+    ).filter(_._2 != JsNull))
+  }
 }

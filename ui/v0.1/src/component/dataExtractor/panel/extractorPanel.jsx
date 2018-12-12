@@ -55,7 +55,7 @@ export default class ExtractorPanel extends React.Component<Props, {}> {
             <div className={styles.extractorPanel} onClick={this.showDataExtractorPropertyView} >
                 {this.props.panelTitle}
 
-                <DataExtractorPropertyView label="Settings for Extractor" ref="dataExtractorPropertyView" modelparameter={this.state.modelparameter} />
+                <DataExtractorPropertyView label="Settings for Extractor" ref="dataExtractorPropertyView" modelparameter={this.state.modelparameter} extractorId={this.props.panelTitle} />
 
             </div>
            )

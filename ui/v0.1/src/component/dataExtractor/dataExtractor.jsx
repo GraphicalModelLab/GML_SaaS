@@ -74,7 +74,7 @@ export default class DataExtractor extends React.Component<Props, {}> {
 
                 </div>
                 <div className={styles.dataExtractorBox}>
-                    <div className={styles.dataExtractorTitleHeader}>The List Of Data Extractor</div>
+                    <div className={styles.dataExtractorTitleHeader}>The List Of Data Extractors</div>
 
                     { this.state.extractors.map((d, idx) => {
                         return <ExtractorPanel panelTitle={d} key={"evaluation"+d} params={this.state.extractorParamMap[d]}>{d}</ExtractorPanel>

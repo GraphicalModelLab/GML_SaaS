@@ -285,4 +285,27 @@ class GraphicalModelLabService {
     }
     return getListOfAvailableExtractorsResponse(Status.OK,listOfExtractors.toList,extractorParamMap.toMap)
   }
+
+  def executeExtractor(token:String, companyId:String,request: Option[executeExtractorRequest]): executeExtractorResponse={
+
+    request match {
+      case Some(request)=>
+        if(AuthDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val extractor: DataExtractor = extractorMap.get(request.extractorId).get
+
+          extractor.process(companyId,request.userid)
+
+          return executeExtractorResponse(Status.OK)
+        }else{
+          return executeExtractorResponse(Status.UNAUTHORIZED)
+        }
+      case None =>
+        println("No request")
+    }
+
+
+    return executeExtractorResponse(Status.INTERNAL_SERVER_ERROR)
+  }
+
 }

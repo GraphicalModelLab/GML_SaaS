@@ -19,6 +19,8 @@ import * as ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import * as styles from './../../../css/structure.css';
 import DataExtractorProperty from './dataExtractorProperty';
+import auth from "./../../auth/auth";
+import $ from 'jquery';
 
 const customStyles = {
   content : {
@@ -112,7 +114,39 @@ export default class DataExtractorPropertyView extends React.Component<Props, {}
     }
 
     executeExtractor(){
-        alert("execute extractor");
+        this.syncProperty();
+        var data = {
+            code:10,
+            userid:auth.getUserid(),
+            companyid: auth.getCompanyid(),
+            extractorId: this.props.extractorId,
+            extractorParamValues: this.state.properties
+        };
+
+        var self = this;
+        $.ajax({
+            url  : "../commonModules/php/modules/GML.php/gml/data/extractor",
+            type : "post",
+            data : JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: "json",
+            headers : {
+                Authorization: "Bearer "+auth.getToken()
+            },
+            success: function(response) {
+                console.log("success for save");
+                console.log(response);
+                if(response.body.code == 401){
+                    auth.logout();
+                }
+            },
+            error: function(request, status, error) {
+                alert("error");
+                console.log(request);
+                console.log(status);
+                console.log(error);
+            }
+        });
     }
 
     render() {
@@ -137,7 +171,7 @@ export default class DataExtractorPropertyView extends React.Component<Props, {}
                             }) }
                         </div>
                         <div onClick={this.executeExtractor} className={styles.saveButtonBox}>
-                            Execute Extractor
+                            Execute
                         </div>
                     </Modal>
               </div>
