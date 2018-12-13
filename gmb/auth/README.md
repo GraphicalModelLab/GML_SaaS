@@ -7,7 +7,7 @@ facebookapps.client_id="XXXX"
 facebookapps.client_secret="XXXX"
 facebookapps.redirect_uri="https://local.graphicalmodellab.org/v0.1/commonModules/php/modules/Auth.php/auth/facebookAppsLogin/authenticate"
 # get it by https://graph.facebook.com/oauth/access_token?client_id=XXXX&client_secret=XXX&grant_type=client_credentials
-facebookapps.application_accesstoken="1564451690249349|KA02-70YURgagvZC6TXLjpTt9Tg"
+facebookapps.application_accesstoken="XXXXX"
 
 ```
 
