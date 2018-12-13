@@ -4,7 +4,7 @@ import sbt._
 object CommonSettings {
 
   val commonSettings = Seq(
-    organization := "org.graphicalmodel",
+    organization := "org.graphicalmodellab",
     scalaVersion := "2.11.8",
     resolvers ++= Dependencies.resolvers,
     fork in Test := true,

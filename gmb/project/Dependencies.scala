@@ -28,7 +28,7 @@ object Dependencies {
   val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.7.4"
   val jacksonDataformatYaml = "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % "2.7.4"
   val jacksonModule = "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.7.4"
-  val jettison =  "org.codehaus.jettison" % "jettison" % "1.3.7"
+  val jettison = "org.codehaus.jettison" % "jettison" % "1.3.7"
 
   // Time Operation
   val jodaTime = "joda-time" % "joda-time" % "2.3"
@@ -70,8 +70,8 @@ object Dependencies {
   // Spark Mllib
   val de_unkrig_jdisasm = "de.unkrig.jdisasm" % "jdisasm" % "1.0.0"
   val spark_core = "org.apache.spark" %% "spark-core" % "2.2.0"
-  val spark_sql = "org.apache.spark" %% "spark-sql"  % "2.2.0"
-  val spark_mllib = "org.apache.spark" %% "spark-mllib"  % "2.2.0"
+  val spark_sql = "org.apache.spark" %% "spark-sql" % "2.2.0"
+  val spark_mllib = "org.apache.spark" %% "spark-mllib" % "2.2.0"
 
   // Elastic
   val elasticsearch = "org.elasticsearch" % "elasticsearch" % "6.3.1"
@@ -107,11 +107,11 @@ object Dependencies {
   )
 
   val dl4jDependencies = Seq(
-//    dl4j_core,
-//    dl4j_nlp,
-//    dl4j_ui,
+    //    dl4j_core,
+    //    dl4j_nlp,
+    //    dl4j_ui,
     jblas,
-//    canova,
+    //    canova,
     nd4j,
     datavec_api
   )
@@ -127,4 +127,5 @@ object Dependencies {
     spark_sql,
     de_unkrig_jdisasm
   )
+
 }

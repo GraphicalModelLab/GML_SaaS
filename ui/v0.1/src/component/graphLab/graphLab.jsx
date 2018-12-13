@@ -77,6 +77,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
 
         this.changeAlgorithm = this.changeAlgorithm.bind(this);
         this.updateColor = this.updateColor.bind(this);
+        this.validateParameters = this.validateParameters.bind(this);
     }
 
     showAddCustomNodeDialog(){
@@ -190,7 +191,65 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
         });
     }
 
+    validateParameters(){
+
+        console.log("Validate parameters");
+        console.log(this.state.modelparameter);
+        console.log(this.refs.nodePropertyView.getProperties());
+        console.log(this.refs.graph.getNodes());
+
+        // 1. Initialize Required Properties
+        var requiredProperties = new Set();
+        for(var index in this.state.modelparameter){
+
+            requiredProperties.add(this.state.modelparameter[index].label);
+        }
+
+        console.log("initizalize common properties");
+        console.log(requiredProperties);
+
+        // 2. Check Common Properties
+        var commonProperties = this.refs.nodePropertyView.getProperties();
+        for(var index in commonProperties){
+            console.log("common property");
+            console.log(commonProperties[index].name);
+            requiredProperties.delete(commonProperties[index].name);
+        }
+
+        // 3. Check all nodes to see if they have the required properties
+        console.log("has ? "+requiredProperties.has());
+        console.log(requiredProperties);
+        if(requiredProperties.size > 0){
+            console.log("required properties has still remained");
+            //3. Check Properties of All Nodes
+            var nodes = this.refs.graph.getNodes();
+
+            for(var index in nodes){
+                var count = 0;
+                var nodeProperty = nodes[index].properties;
+                console.log("index ? "+index);
+                console.log(nodes[index]);
+                for(var propertyIndex in nodeProperty){
+                    if(requiredProperties.has(nodeProperty[propertyIndex].name)){
+                        count ++;
+                    }
+                }
+                console.log("check each node: "+count+" vs "+requiredProperties.size);
+                if(count < requiredProperties.size){
+                    return false;
+                }
+            }
+
+        }
+
+        return true;
+    }
+
     onDropTraining(acceptedFiles, rejectedFiles){
+
+        if(!this.validateParameters()){
+            this.refs.popupMessageSmallBox.showMessage("Could not train the model due to the lack of the required properties. Please set them up !", 20000);
+        }else{
 
         if(this.state.modelid.length > 0){
             var formData = new FormData();
@@ -267,9 +326,14 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             //please give a name to a graph at first
             this.refs.graphSaveView.openModal("Save the model before training","","","");
         }
+        }
     }
 
     onDropAnalyzing(acceptedFiles, rejectedFiles){
+        if(!this.validateParameters()){
+            this.refs.popupMessageSmallBox.showMessage("Could not analyze the data due to the lack of the required properties for the chosen model. Please set them up !", 20000);
+        }else{
+
             var self = this;
 
             self.refs.loading.openModal();
@@ -354,6 +418,7 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
                  })
             })
         }
+    }
 
     showNodePropertyView(){
        this.refs.nodePropertyView.openModal();

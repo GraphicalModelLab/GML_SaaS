@@ -52,7 +52,7 @@ sbt clean publishLocal
 You can check this configuration from gmb/build.sbt.
 
 ### (2) Configure conf file
-Each plugin has configuration file, e.g. generative_plugin/kernel_density_algorithm_plugin/src/main/resources/model_kernel_density.conf.
+Each plugin has configuration file, e.g. generative_plugin/kernel_density_algorithm_plugin/src/test/resources/model_kernel_density.conf.
 
 #### (2.1) app.jar
 This app.jar is created from generative_model folder.

@@ -639,7 +639,7 @@ a:active {
 .popupMessageSmallBox{
   position:absolute;
   top: 77px;
-  left: 0px;
+  left: 7px;
   right: 0px;
   bottom: 0px;
 
@@ -649,15 +649,14 @@ a:active {
 
   padding: 2 2 2 2;
   font-size: 15px;
-  text-align: center;
   height: 15px;
-  width: 200px;
+  width: 800px;
 }
 
 .popupMessageCloseSmallBox{
   position:absolute;
   top: 77px;
-  left: 0px;
+  left: 7px;
   right: 0px;
   bottom: 0px;
 
@@ -667,9 +666,8 @@ a:active {
 
   padding: 2 2 2 2;
   font-size: 15px;
-  text-align: center;
   height: 15px;
-  width: 200px;
+  width: 800px;
 }
 
 .popupMessage{
