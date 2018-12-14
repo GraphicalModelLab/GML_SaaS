@@ -20,27 +20,29 @@ import * as styles from './../../css/structure.css';
 import Modal from 'react-modal';
 
 export default class Top extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-    }
+  componentDidMount() {}
 
-    openModal() {
-        this.setState({modalIsOpen: true});
-    }
+  openModal() {
+    this.setState({
+      modalIsOpen: true
+    });
+  }
 
-    afterOpenModal() {
-    }
+  afterOpenModal() {}
 
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
+  closeModal() {
+    this.setState({
+      modalIsOpen: false
+    });
+  }
 
-    render() {
-        return <div>
-                    <div> New Arrivals !</div>
-               </div>
-    }
+  render() {
+    return <div>
+             <div> New Arrivals !</div>
+           </div>
+  }
 }

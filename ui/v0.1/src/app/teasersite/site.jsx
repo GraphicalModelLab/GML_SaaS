@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import React    from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {SectionsContainer, Section, Header, Footer} from 'react-fullpage';
+import { SectionsContainer, Section, Header, Footer } from 'react-fullpage';
 import ChatBox from "./../../component/chatBox/chatBox";
 
 const app = document.querySelector('#app');
@@ -25,14 +25,14 @@ const app = document.querySelector('#app');
 const Site = React.createClass({
   render() {
     let options = {
-      sectionClassName:     'section',
-      anchors:              ['sectionOne', 'sectionTwo', 'sectionThree'],
-      scrollBar:            false,
-      navigation:           true,
-      verticalAlign:        false,
-      sectionPaddingTop:    '50px',
+      sectionClassName: 'section',
+      anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
+      scrollBar: false,
+      navigation: true,
+      verticalAlign: false,
+      sectionPaddingTop: '50px',
       sectionPaddingBottom: '50px',
-      arrowNavigation:      true
+      arrowNavigation: true
     };
 
     return (
@@ -46,16 +46,15 @@ const Site = React.createClass({
           <a href="">Dcoumentation</a>
           <a href="">Example Source</a>
           <a href="">About</a>
-        <ChatBox/>
+          <ChatBox/>
         </Footer>
         <SectionsContainer className="container" {...options}>
           <Section className="custom-section" verticalAlign="true" color="#69D2E7">Page 1</Section>
           <Section color="#A7DBD8">Page 2</Section>
           <Section color="#E0E4CC">Page 3</Section>
         </SectionsContainer>
-
       </div>
-    );
+      );
   }
 });
 

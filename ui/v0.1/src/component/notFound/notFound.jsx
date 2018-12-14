@@ -23,15 +23,15 @@ import Loading from './../loader/loading';
 
 export default class NotFound extends React.Component<Props, {}> {
 
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <div className={styles.notFound}>
-                                Not Found
-            </div>
-           )
-    }
+  render() {
+    return (
+      <div className={ styles.notFound }>
+        Not Found
+      </div>
+    )
+  }
 }

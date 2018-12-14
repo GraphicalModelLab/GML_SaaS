@@ -24,65 +24,64 @@ import ExtractorPanel from './panel/extractorPanel';
 
 export default class DataExtractor extends React.Component<Props, {}> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            extractors: [],
-            extractorParamMap: {}
-        };
+    this.state = {
+      extractors: [],
+      extractorParamMap: {}
+    };
 
-    }
+  }
 
-    componentDidMount() {
-        console.log("component Did mount ");
-        console.log(this.props.location);
+  componentDidMount() {
+    console.log("component Did mount ");
+    console.log(this.props.location);
 
-        var self = this;
-        $.ajax({
-                    url  : "../commonModules/php/modules/GML.php/gml/data/extractor/list?companyid="+auth.getCompanyid()+"&userid="+auth.getUserid(),
-                    type : "get",
-                    headers : {
-                        Authorization: "Bearer "+auth.getToken()
-                    },
-                    success: function(response) {
-                        console.log("extractor list");
-                        console.log(response);
-                        if(response.body.code == 401){
-                            auth.logout();
-                        }
+    var self = this;
+    $.ajax({
+      url: "../commonModules/php/modules/GML.php/gml/data/extractor/list?companyid=" + auth.getCompanyid() + "&userid=" + auth.getUserid(),
+      type: "get",
+      headers: {
+        Authorization: "Bearer " + auth.getToken()
+      },
+      success: function(response) {
+        console.log("extractor list");
+        console.log(response);
+        if (response.body.code == 401) {
+          auth.logout();
+        }
 
-                        self.setState({
-                            extractors : response.body.extractorIds,
-                            extractorParamMap : response.body.extractorParamMap
-                        });
-                    },
-                    error: function (request, status, error) {
-                        alert("error");
-                    console.log(request.responseText);
-                        console.log(status);
-                        console.log(error);
-                    }
+        self.setState({
+          extractors: response.body.extractorIds,
+          extractorParamMap: response.body.extractorParamMap
         });
-    }
+      },
+      error: function(request, status, error) {
+        alert("error");
+        console.log(request.responseText);
+        console.log(status);
+        console.log(error);
+      }
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <div className={styles.dataExplorationBox}>
-                    <div className={styles.dataExplorationTitleHeader}>Data Exploration</div>
-
-                </div>
-                <div className={styles.dataExtractorBox}>
-                    <div className={styles.dataExtractorTitleHeader}>The List Of Data Extractors</div>
-
-                    { this.state.extractors.map((d, idx) => {
-                        return <ExtractorPanel panelTitle={d} key={"evaluation"+d} params={this.state.extractorParamMap[d]}>{d}</ExtractorPanel>
-                    })}
-                </div>
-
-                 <Loading ref="loading"/>
-            </div>
-           )
-    }
+  render() {
+    return (
+      <div>
+        <div className={ styles.dataExplorationBox }>
+          <div className={ styles.dataExplorationTitleHeader }>Data Exploration</div>
+        </div>
+        <div className={ styles.dataExtractorBox }>
+          <div className={ styles.dataExtractorTitleHeader }>The List Of Data Extractors</div>
+          { this.state.extractors.map((d, idx) => {
+              return <ExtractorPanel panelTitle={ d } key={ "evaluation" + d } params={ this.state.extractorParamMap[d] }>
+                       { d }
+                     </ExtractorPanel>
+            }) }
+        </div>
+        <Loading ref="loading" />
+      </div>
+    )
+  }
 }

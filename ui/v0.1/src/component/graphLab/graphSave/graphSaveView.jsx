@@ -20,90 +20,88 @@ import Modal from 'react-modal';
 import * as styles from './../../../css/structure.css';
 
 const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    height                : '250px',
-    width                 : '300px'
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    height: '250px',
+    width: '300px'
   }
 };
 
 export default class GraphSaveView extends React.Component<Props, {}> {
 
-   constructor(props) {
-        super(props);
-        this.state = {
-                modalIsOpen: false,
-                message: "",
-                properties: []
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalIsOpen: false,
+      message: "",
+      properties: []
+    };
 
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.afterOpenModal = this.afterOpenModal.bind(this);
-        this.save = this.save.bind(this);
-   }
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.save = this.save.bind(this);
+  }
 
-    openModal(message, modelname, modeltag, modeldescription) {
-        var self = this;
-        // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-        this.setState({modalIsOpen: true, message: message},function(){
-            self.refs.modelName.focus();
-            self.refs.modelName.value = modelname;
-            self.refs.modelTag.value = modeltag;
-            self.refs.modelDescription.value = modeldescription;
-        });
-    }
+  openModal(message, modelname, modeltag, modeldescription) {
+    var self = this;
+    // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+    this.setState({
+      modalIsOpen: true,
+      message: message
+    }, function() {
+      self.refs.modelName.focus();
+      self.refs.modelName.value = modelname;
+      self.refs.modelTag.value = modeltag;
+      self.refs.modelDescription.value = modeldescription;
+    });
+  }
 
-    afterOpenModal() {
-    }
+  afterOpenModal() {}
 
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
+  closeModal() {
+    this.setState({
+      modalIsOpen: false
+    });
+  }
 
-    save(){
-        this.props.saveCallBack(this.refs.modelName.value, this.refs.modelTag.value, this.refs.modelDescription.value);
+  save() {
+    this.props.saveCallBack(this.refs.modelName.value, this.refs.modelTag.value, this.refs.modelDescription.value);
 
-        this.closeModal();
-    }
+    this.closeModal();
+  }
 
-    render() {
-        return <div>
-                    <Modal
-                        contentLabel="Model Property"
-                        isOpen={this.state.modalIsOpen}
-                        onAfterOpen={this.afterOpenModal}
-                        style={customStyles} ref="modal">
-
-                        <div className={styles.saveModelViewTitle}>
-                            {this.state.message}
-                            <h2 ref="subtitle"><div className={styles.modalTitle}>Model Information</div></h2> <div onClick={this.closeModal} className={styles.closeButtonGraphSaveView}><img src="../icon/mono_icons/stop32.png" className={styles.icon}/></div>
-                        </div>
-                        <div className={styles.saveModelViewContent} ref="content">
-                            <div className={styles.saveProp}>
-                                <div className={styles.savePropName}>Model Name</div>
-                                <input className={styles.savePropValue} ref="modelName" type="text" />
-                            </div>
-
-                            <div className={styles.saveProp}>
-                                <div className={styles.savePropName}>Model Tag</div>
-                                <input className={styles.savePropValue} ref="modelTag" type="text" />
-                            </div>
-                            <div className={styles.saveProp}>
-                                <div className={styles.savePropName}>Model Description</div>
-                                <input className={styles.savePropValue} ref="modelDescription" type="text" />
-                            </div>
-                        </div>
-
-                        <div onClick={this.save} className={styles.saveButtonBox}>
-                            Save
-                        </div>
-                    </Modal>
-              </div>
-    }
+  render() {
+    return <div>
+             <Modal contentLabel="Model Property" isOpen={ this.state.modalIsOpen } onAfterOpen={ this.afterOpenModal } style={ customStyles } ref="modal">
+               <div className={ styles.saveModelViewTitle }>
+                 { this.state.message }
+                 <h2 ref="subtitle"><div className={ styles.modalTitle }>Model Information</div></h2>
+                 <div onClick={ this.closeModal } className={ styles.closeButtonGraphSaveView }><img src="../icon/mono_icons/stop32.png" className={ styles.icon } /></div>
+               </div>
+               <div className={ styles.saveModelViewContent } ref="content">
+                 <div className={ styles.saveProp }>
+                   <div className={ styles.savePropName }>Model Name</div>
+                   <input className={ styles.savePropValue } ref="modelName" type="text" />
+                 </div>
+                 <div className={ styles.saveProp }>
+                   <div className={ styles.savePropName }>Model Tag</div>
+                   <input className={ styles.savePropValue } ref="modelTag" type="text" />
+                 </div>
+                 <div className={ styles.saveProp }>
+                   <div className={ styles.savePropName }>Model Description</div>
+                   <input className={ styles.savePropValue } ref="modelDescription" type="text" />
+                 </div>
+               </div>
+               <div onClick={ this.save } className={ styles.saveButtonBox }>
+                 Save
+               </div>
+             </Modal>
+           </div>
+  }
 }

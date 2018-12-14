@@ -20,21 +20,21 @@ import * as styles from './../../css/structure.css';
 import Modal from 'react-modal';
 
 export default class TopNoLogin extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-      this.context.router.push('/'+localStorage.companyId+"/login")
-    }
+  componentDidMount() {
+    this.context.router.push('/' + localStorage.companyId + "/login")
+  }
 
-    render() {
-        return <div>
-                    <div> Login first / Register !</div>
-               </div>
-    }
+  render() {
+    return <div>
+             <div> Login first / Register !</div>
+           </div>
+  }
 }
 
 TopNoLogin.contextTypes = {
-            router: React.PropTypes.object
+  router: React.PropTypes.object
 };

@@ -28298,7 +28298,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28352,188 +28352,190 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-	        height: '500px',
-	        width: '500px'
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+	    height: '500px',
+	    width: '500px'
 	
-	    },
-	    overlay: {
-	        backgroundImage: 'url(../icon/LoginBack.jpg)'
-	    }
+	  },
+	  overlay: {
+	    backgroundImage: 'url(../icon/LoginBack.jpg)'
+	  }
 	};
 	
 	var LoginModal = function (_React$Component) {
-	    _inherits(LoginModal, _React$Component);
+	  _inherits(LoginModal, _React$Component);
 	
-	    function LoginModal(props) {
-	        _classCallCheck(this, LoginModal);
+	  function LoginModal(props) {
+	    _classCallCheck(this, LoginModal);
 	
-	        var _this = _possibleConstructorReturn(this, (LoginModal.__proto__ || Object.getPrototypeOf(LoginModal)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (LoginModal.__proto__ || Object.getPrototypeOf(LoginModal)).call(this, props));
 	
-	        _this.state = { modalIsOpen: false };
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        _this.goToRegistration = _this.goToRegistration.bind(_this);
+	    _this.state = {
+	      modalIsOpen: false
+	    };
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    _this.goToRegistration = _this.goToRegistration.bind(_this);
 	
-	        _this.goToGoogleAppsLogin = _this.goToGoogleAppsLogin.bind(_this);
-	        _this.goToFacebookAppsLogin = _this.goToFacebookAppsLogin.bind(_this);
-	        return _this;
+	    _this.goToGoogleAppsLogin = _this.goToGoogleAppsLogin.bind(_this);
+	    _this.goToFacebookAppsLogin = _this.goToFacebookAppsLogin.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(LoginModal, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'openModal',
+	    value: function openModal(userid) {
+	
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true
+	      }, function () {
+	        var email = ReactDOM.findDOMNode(this.refs.email);
+	        email.focus();
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
 	
-	    _createClass(LoginModal, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'openModal',
-	        value: function openModal(userid) {
+	      var email = ReactDOM.findDOMNode(this.refs.email).value.trim();
+	      var password = ReactDOM.findDOMNode(this.refs.password).value.trim();
+	      if (!email || !password) {
+	        return;
+	      }
 	
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true }, function () {
-	                var email = ReactDOM.findDOMNode(this.refs.email);
-	                email.focus();
-	            });
+	      var parent = this;
+	
+	      _auth2.default.login(email, password, function (response) {
+	        if (response.code == 900) {
+	          parent.refs.message.innerText = email + " has not been registered yet. Plrease register your account at first.";
+	        } else if (response.code == 901) {
+	          parent.refs.message.innerText = email + " has not completed being registered yet. When you tried registering, you should have had an confirmation e-mail from us. If the e-mail has not been sent to you, please try registering from the beginning again.";
+	        } else if (response.code == 902) {
+	          parent.refs.message.innerText = "The give password is different from the registered password. Please give the correct password";
+	        } else if (response.code == -1) {
+	          parent.refs.message.innerText = "Unfortunately, the authentication system has not been up/running. Please contact the system administrator.";
 	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
+	
+	        if (parent.refs.loading) {
+	          parent.refs.loading.closeModal();
 	        }
-	    }, {
-	        key: 'handleSubmit',
-	        value: function handleSubmit(e) {
-	            e.preventDefault();
 	
-	            var email = ReactDOM.findDOMNode(this.refs.email).value.trim();
-	            var password = ReactDOM.findDOMNode(this.refs.password).value.trim();
-	            if (!email || !password) {
-	                return;
-	            }
+	        if (!response.authenticated) return;
 	
-	            var parent = this;
-	
-	            _auth2.default.login(email, password, function (response) {
-	                if (response.code == 900) {
-	                    parent.refs.message.innerText = email + " has not been registered yet. Plrease register your account at first.";
-	                } else if (response.code == 901) {
-	                    parent.refs.message.innerText = email + " has not completed being registered yet. When you tried registering, you should have had an confirmation e-mail from us. If the e-mail has not been sent to you, please try registering from the beginning again.";
-	                } else if (response.code == 902) {
-	                    parent.refs.message.innerText = "The give password is different from the registered password. Please give the correct password";
-	                } else if (response.code == -1) {
-	                    parent.refs.message.innerText = "Unfortunately, the authentication system has not been up/running. Please contact the system administrator.";
-	                }
-	
-	                if (parent.refs.loading) {
-	                    parent.refs.loading.closeModal();
-	                }
-	
-	                if (!response.authenticated) return;
-	
-	                if (parent.state && parent.state.nextPathname) {
-	                    parent.context.router.push(parent.state.nextPathname);
-	                } else {
-	                    parent.context.router.push('/top');
-	                }
-	            });
-	
-	            this.refs.loading.openModal();
+	        if (parent.state && parent.state.nextPathname) {
+	          parent.context.router.push(parent.state.nextPathname);
+	        } else {
+	          parent.context.router.push('/top');
 	        }
-	    }, {
-	        key: 'goToRegistration',
-	        value: function goToRegistration() {
-	            this.context.router.push("/register");
-	        }
-	    }, {
-	        key: 'goToGoogleAppsLogin',
-	        value: function goToGoogleAppsLogin(e) {
-	            e.preventDefault();
-	            window.location.href = '../commonModules/php/modules/Auth.php/auth/googleAppsLogin/login?companyid=' + _auth2.default.getCompanyid();
-	        }
-	    }, {
-	        key: 'goToFacebookAppsLogin',
-	        value: function goToFacebookAppsLogin(e) {
-	            e.preventDefault();
+	      });
 	
-	            window.location.href = '../commonModules/php/modules/Auth.php/auth/facebookAppsLogin/login?companyid=' + _auth2.default.getCompanyid();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'login',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.loginBox },
-	                        React.createElement('img', { className: styles.loginLogo, src: '../icon/infographic/ccs_logo.png' }),
-	                        React.createElement(
-	                            'div',
-	                            null,
-	                            React.createElement('input', { type: 'text', placeholder: 'e-mail address', ref: 'email', className: styles.loginInput })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            null,
-	                            React.createElement('input', { type: 'password', placeholder: 'password', ref: 'password', className: styles.loginInput })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.handleSubmit.bind(this), className: styles.loginButton },
-	                            'Sign in'
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.loginRegistration },
-	                            'If you are not a member, ',
-	                            React.createElement(
-	                                'span',
-	                                { onClick: this.goToRegistration.bind(this), className: styles.loginRegistrationTitle },
-	                                'Register from here'
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.goToGoogleAppsLogin, className: styles.loginFederationBox },
-	                            React.createElement('img', { className: styles.loginFederationGoogle, src: '../icon/openId_icons/googleapps/btn_google_signin_dark_pressed_web@2x.png' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.goToFacebookAppsLogin, className: styles.loginFederationBox },
-	                            React.createElement('img', { className: styles.loginFederationFacebook, src: '../icon/openId_icons/facebookapps/SignUpFB.png' })
-	                        ),
-	                        React.createElement('div', { className: styles.loginMessage, ref: 'message' })
-	                    )
-	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' })
-	            );
-	        }
-	    }]);
+	      this.refs.loading.openModal();
+	    }
+	  }, {
+	    key: 'goToRegistration',
+	    value: function goToRegistration() {
+	      this.context.router.push("/register");
+	    }
+	  }, {
+	    key: 'goToGoogleAppsLogin',
+	    value: function goToGoogleAppsLogin(e) {
+	      e.preventDefault();
+	      window.location.href = '../commonModules/php/modules/Auth.php/auth/googleAppsLogin/login?companyid=' + _auth2.default.getCompanyid();
+	    }
+	  }, {
+	    key: 'goToFacebookAppsLogin',
+	    value: function goToFacebookAppsLogin(e) {
+	      e.preventDefault();
 	
-	    return LoginModal;
+	      window.location.href = '../commonModules/php/modules/Auth.php/auth/facebookAppsLogin/login?companyid=' + _auth2.default.getCompanyid();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'login', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.loginBox },
+	            React.createElement('img', { className: styles.loginLogo, src: '../icon/infographic/ccs_logo.png' }),
+	            React.createElement(
+	              'div',
+	              null,
+	              React.createElement('input', { type: 'text', placeholder: 'e-mail address', ref: 'email', className: styles.loginInput })
+	            ),
+	            React.createElement(
+	              'div',
+	              null,
+	              React.createElement('input', { type: 'password', placeholder: 'password', ref: 'password', className: styles.loginInput })
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.handleSubmit.bind(this), className: styles.loginButton },
+	              'Sign in'
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.loginRegistration },
+	              'If you are not a member, ',
+	              React.createElement(
+	                'span',
+	                { onClick: this.goToRegistration.bind(this), className: styles.loginRegistrationTitle },
+	                'Register from here'
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.goToGoogleAppsLogin, className: styles.loginFederationBox },
+	              React.createElement('img', { className: styles.loginFederationGoogle, src: '../icon/openId_icons/googleapps/btn_google_signin_dark_pressed_web@2x.png' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.goToFacebookAppsLogin, className: styles.loginFederationBox },
+	              React.createElement('img', { className: styles.loginFederationFacebook, src: '../icon/openId_icons/facebookapps/SignUpFB.png' })
+	            ),
+	            React.createElement('div', { className: styles.loginMessage, ref: 'message' })
+	          )
+	        ),
+	        React.createElement(_loading2.default, { ref: 'loading' })
+	      );
+	    }
+	  }]);
+	
+	  return LoginModal;
 	}(React.Component);
 	
 	exports.default = LoginModal;
 	
 	
 	LoginModal.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -40820,7 +40822,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -40866,73 +40868,75 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '25%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        backgroundColor: 'rgba(255, 255, 255, 0)',
-	        border: 'none'
-	    },
-	    overlay: {
-	        position: 'fixed',
-	        top: 0,
-	        left: 0,
-	        right: 0,
-	        bottom: 0,
-	        backgroundColor: 'rgba(255, 255, 255, 0.5)'
-	    }
+	  content: {
+	    top: '25%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    backgroundColor: 'rgba(255, 255, 255, 0)',
+	    border: 'none'
+	  },
+	  overlay: {
+	    position: 'fixed',
+	    top: 0,
+	    left: 0,
+	    right: 0,
+	    bottom: 0,
+	    backgroundColor: 'rgba(255, 255, 255, 0.5)'
+	  }
 	};
 	
 	var Loading = function (_React$Component) {
-	    _inherits(Loading, _React$Component);
+	  _inherits(Loading, _React$Component);
 	
-	    function Loading(props) {
-	        _classCallCheck(this, Loading);
+	  function Loading(props) {
+	    _classCallCheck(this, Loading);
 	
-	        var _this = _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, props));
 	
-	        _this.state = { modalIsOpen: false };
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        return _this;
+	    _this.state = {
+	      modalIsOpen: false
+	    };
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Loading, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({
+	        modalIsOpen: true
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(_reactModal2.default, { contentLabel: 'Loading', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles })
+	      );
+	    }
+	  }]);
 	
-	    _createClass(Loading, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'openModal',
-	        value: function openModal() {
-	            this.setState({ modalIsOpen: true });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(_reactModal2.default, {
-	                    contentLabel: 'Loading',
-	                    isOpen: this.state.modalIsOpen,
-	                    onAfterOpen: this.afterOpenModal,
-	                    style: customStyles })
-	            );
-	        }
-	    }]);
-	
-	    return Loading;
+	  return Loading;
 	}(React.Component);
 	
 	exports.default = Loading;
@@ -41047,7 +41051,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -41101,140 +41105,143 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        backgroundColor: 'rgba(227, 224, 224, 0.9)',
-	        height: '320px',
-	        width: '500px'
-	    },
-	    overlay: {
-	        backgroundImage: 'url(../icon/LoginBack.jpg)'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    backgroundColor: 'rgba(227, 224, 224, 0.9)',
+	    height: '320px',
+	    width: '500px'
+	  },
+	  overlay: {
+	    backgroundImage: 'url(../icon/LoginBack.jpg)'
+	  }
 	};
 	
 	var RegistrationModal = function (_React$Component) {
-	    _inherits(RegistrationModal, _React$Component);
+	  _inherits(RegistrationModal, _React$Component);
 	
-	    function RegistrationModal(props) {
-	        _classCallCheck(this, RegistrationModal);
+	  function RegistrationModal(props) {
+	    _classCallCheck(this, RegistrationModal);
 	
-	        var _this = _possibleConstructorReturn(this, (RegistrationModal.__proto__ || Object.getPrototypeOf(RegistrationModal)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (RegistrationModal.__proto__ || Object.getPrototypeOf(RegistrationModal)).call(this, props));
 	
-	        _this.state = { modalIsOpen: false };
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        return _this;
+	    _this.state = {
+	      modalIsOpen: false
+	    };
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(RegistrationModal, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'openModal',
+	    value: function openModal(userid) {
+	
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true
+	      }, function () {
+	        var email = ReactDOM.findDOMNode(this.refs.email);
+	        email.focus();
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      var email = ReactDOM.findDOMNode(this.refs.email).value.trim();
+	      var password = ReactDOM.findDOMNode(this.refs.password).value.trim();
+	      if (!email || !password) {
+	        return;
+	      }
 	
-	    _createClass(RegistrationModal, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'openModal',
-	        value: function openModal(userid) {
+	      var parent = this;
 	
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true }, function () {
-	                var email = ReactDOM.findDOMNode(this.refs.email);
-	                email.focus();
-	            });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'handleSubmit',
-	        value: function handleSubmit(e) {
-	            var email = ReactDOM.findDOMNode(this.refs.email).value.trim();
-	            var password = ReactDOM.findDOMNode(this.refs.password).value.trim();
-	            if (!email || !password) {
-	                return;
-	            }
-	
-	            var parent = this;
-	
-	            _auth2.default.register(email, password, this.props.type, function (response) {
-	                parent.refs.message.innerText = "A confirmation e-mail has been sent to " + email + ". Please check the e-mail";
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	      _auth2.default.register(email, password, this.props.type, function (response) {
+	        parent.refs.message.innerText = "A confirmation e-mail has been sent to " + email + ". Please check the e-mail";
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'h2',
+	            { className: styles.projectInfoModalTitle, ref: 'subtitle' },
+	            ' ',
+	            React.createElement('span', { ref: 'titleText' }),
+	            ' ',
+	            React.createElement(
+	              'div',
+	              { onClick: this.closeModal, className: styles.closeButton },
+	              React.createElement(
 	                'div',
 	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'h2',
-	                        { className: styles.projectInfoModalTitle, ref: 'subtitle' },
-	                        ' ',
-	                        React.createElement('span', { ref: 'titleText' }),
-	                        ' ',
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.closeModal, className: styles.closeButton },
-	                            React.createElement(
-	                                'div',
-	                                null,
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.loginBox },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.loginTitle },
-	                            'Graphical Model Lab'
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            null,
-	                            React.createElement('input', { type: 'text', placeholder: 'e-mail address', ref: 'email', className: styles.loginInput })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            null,
-	                            React.createElement('input', { type: 'password', placeholder: 'password', ref: 'password', className: styles.loginInput })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.handleSubmit.bind(this), className: styles.loginButton },
-	                            'Register'
-	                        ),
-	                        React.createElement('div', { className: styles.loginMessage, ref: 'message' })
-	                    )
-	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' })
-	            );
-	        }
-	    }]);
+	                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.loginBox },
+	            React.createElement(
+	              'div',
+	              { className: styles.loginTitle },
+	              'Graphical Model Lab'
+	            ),
+	            React.createElement(
+	              'div',
+	              null,
+	              React.createElement('input', { type: 'text', placeholder: 'e-mail address', ref: 'email', className: styles.loginInput })
+	            ),
+	            React.createElement(
+	              'div',
+	              null,
+	              React.createElement('input', { type: 'password', placeholder: 'password', ref: 'password', className: styles.loginInput })
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.handleSubmit.bind(this), className: styles.loginButton },
+	              'Register'
+	            ),
+	            React.createElement('div', { className: styles.loginMessage, ref: 'message' })
+	          )
+	        ),
+	        React.createElement(_loading2.default, { ref: 'loading' })
+	      );
+	    }
+	  }]);
 	
-	    return RegistrationModal;
+	  return RegistrationModal;
 	}(React.Component);
 	
 	exports.default = RegistrationModal;
 	
 	
 	RegistrationModal.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -41244,7 +41251,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -41286,45 +41293,45 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var logout = function (_React$Component) {
-	    _inherits(logout, _React$Component);
+	  _inherits(logout, _React$Component);
 	
-	    function logout() {
-	        _classCallCheck(this, logout);
+	  function logout() {
+	    _classCallCheck(this, logout);
 	
-	        return _possibleConstructorReturn(this, (logout.__proto__ || Object.getPrototypeOf(logout)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (logout.__proto__ || Object.getPrototypeOf(logout)).apply(this, arguments));
+	  }
+	
+	  _createClass(logout, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      _auth2.default.logout();
+	      this.context.router.push('/login');
 	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _auth2.default.logout();
+	      this.context.router.push('/login');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'p',
+	        null,
+	        'Log out'
+	      );
+	    }
+	  }]);
 	
-	    _createClass(logout, [{
-	        key: 'componentDidUpdate',
-	        value: function componentDidUpdate() {
-	            _auth2.default.logout();
-	            this.context.router.push('/login');
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            _auth2.default.logout();
-	            this.context.router.push('/login');
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'p',
-	                null,
-	                'Log out'
-	            );
-	        }
-	    }]);
-	
-	    return logout;
+	  return logout;
 	}(React.Component);
 	
 	exports.default = logout;
 	
 	
 	logout.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -41334,7 +41341,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -41388,26 +41395,26 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var NotFound = function (_React$Component) {
-	    _inherits(NotFound, _React$Component);
+	  _inherits(NotFound, _React$Component);
 	
-	    function NotFound(props) {
-	        _classCallCheck(this, NotFound);
+	  function NotFound(props) {
+	    _classCallCheck(this, NotFound);
 	
-	        return _possibleConstructorReturn(this, (NotFound.__proto__ || Object.getPrototypeOf(NotFound)).call(this, props));
+	    return _possibleConstructorReturn(this, (NotFound.__proto__ || Object.getPrototypeOf(NotFound)).call(this, props));
+	  }
+	
+	  _createClass(NotFound, [{
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: styles.notFound },
+	        'Not Found'
+	      );
 	    }
+	  }]);
 	
-	    _createClass(NotFound, [{
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: styles.notFound },
-	                'Not Found'
-	            );
-	        }
-	    }]);
-	
-	    return NotFound;
+	  return NotFound;
 	}(React.Component);
 	
 	exports.default = NotFound;
@@ -41419,7 +41426,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -41515,786 +41522,782 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var GraphicalDesign = function (_React$Component) {
-	    _inherits(GraphicalDesign, _React$Component);
+	  _inherits(GraphicalDesign, _React$Component);
 	
-	    function GraphicalDesign(props) {
-	        _classCallCheck(this, GraphicalDesign);
+	  function GraphicalDesign(props) {
+	    _classCallCheck(this, GraphicalDesign);
 	
-	        // downloadLink
-	        var _this = _possibleConstructorReturn(this, (GraphicalDesign.__proto__ || Object.getPrototypeOf(GraphicalDesign)).call(this, props));
+	    // downloadLink
+	    var _this = _possibleConstructorReturn(this, (GraphicalDesign.__proto__ || Object.getPrototypeOf(GraphicalDesign)).call(this, props));
 	
-	        _this.state = {
-	            downloadLink: "",
-	            downloadContent: "",
-	            analyzingTarget: [],
-	            algorithms: [],
+	    _this.state = {
+	      downloadLink: "",
+	      downloadContent: "",
+	      analyzingTarget: [],
+	      algorithms: [],
 	
-	            modelid: "",
-	            modelname: "",
-	            modeltag: "",
-	            modeldescription: "",
+	      modelid: "",
+	      modelname: "",
+	      modeltag: "",
+	      modeldescription: "",
 	
-	            modelparameter: [],
-	            evaluationMethod: [],
-	            exploreGraph: true
-	        };
+	      modelparameter: [],
+	      evaluationMethod: [],
+	      exploreGraph: true
+	    };
 	
-	        _this.onDropAttributeImport = _this.onDropAttributeImport.bind(_this);
-	        _this.onDropAnalyzing = _this.onDropAnalyzing.bind(_this);
-	        _this.onDropTraining = _this.onDropTraining.bind(_this);
-	        _this.onDropExplore = _this.onDropExplore.bind(_this);
-	        _this.exploreGraph = _this.exploreGraph.bind(_this);
-	        _this.stopExploringGraph = _this.stopExploringGraph.bind(_this);
-	        _this.showNodePropertyView = _this.showNodePropertyView.bind(_this);
-	        _this.save = _this.save.bind(_this);
-	        _this.saveCallBack = _this.saveCallBack.bind(_this);
-	        _this.setup = _this.setup.bind(_this);
-	        _this.clear = _this.clear.bind(_this);
+	    _this.onDropAttributeImport = _this.onDropAttributeImport.bind(_this);
+	    _this.onDropAnalyzing = _this.onDropAnalyzing.bind(_this);
+	    _this.onDropTraining = _this.onDropTraining.bind(_this);
+	    _this.onDropExplore = _this.onDropExplore.bind(_this);
+	    _this.exploreGraph = _this.exploreGraph.bind(_this);
+	    _this.stopExploringGraph = _this.stopExploringGraph.bind(_this);
+	    _this.showNodePropertyView = _this.showNodePropertyView.bind(_this);
+	    _this.save = _this.save.bind(_this);
+	    _this.saveCallBack = _this.saveCallBack.bind(_this);
+	    _this.setup = _this.setup.bind(_this);
+	    _this.clear = _this.clear.bind(_this);
 	
-	        _this.addNode = _this.addNode.bind(_this);
-	        _this.addEdge = _this.addEdge.bind(_this);
+	    _this.addNode = _this.addNode.bind(_this);
+	    _this.addEdge = _this.addEdge.bind(_this);
 	
-	        _this.openPreviousTestedGraph = _this.openPreviousTestedGraph.bind(_this);
-	        _this.addCustomNodeToCanvas = _this.addCustomNodeToCanvas.bind(_this);
+	    _this.openPreviousTestedGraph = _this.openPreviousTestedGraph.bind(_this);
+	    _this.addCustomNodeToCanvas = _this.addCustomNodeToCanvas.bind(_this);
 	
-	        _this.showAddCustomNodeDialog = _this.showAddCustomNodeDialog.bind(_this);
+	    _this.showAddCustomNodeDialog = _this.showAddCustomNodeDialog.bind(_this);
 	
-	        _this.changeAlgorithm = _this.changeAlgorithm.bind(_this);
-	        _this.updateColor = _this.updateColor.bind(_this);
-	        _this.validateParameters = _this.validateParameters.bind(_this);
-	        return _this;
+	    _this.changeAlgorithm = _this.changeAlgorithm.bind(_this);
+	    _this.updateColor = _this.updateColor.bind(_this);
+	    _this.validateParameters = _this.validateParameters.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(GraphicalDesign, [{
+	    key: 'showAddCustomNodeDialog',
+	    value: function showAddCustomNodeDialog() {
+	      this.refs.addCustomNodeToCanvas.openModal();
 	    }
+	  }, {
+	    key: 'addCustomNodeToCanvas',
+	    value: function addCustomNodeToCanvas(label, x, y) {
+	      this.refs.graph.addNode(label, x, y, false, []);
+	    }
+	  }, {
+	    key: 'addNode',
+	    value: function addNode(label, x, y, disable, properties) {
+	      this.refs.graph.addNode(label, x, y, disable, properties);
 	
-	    _createClass(GraphicalDesign, [{
-	        key: 'showAddCustomNodeDialog',
-	        value: function showAddCustomNodeDialog() {
-	            this.refs.addCustomNodeToCanvas.openModal();
+	      this.state.analyzingTarget.push(label);
+	      this.setState({
+	        analyzingTarget: this.state.analyzingTarget
+	      });
+	    }
+	  }, {
+	    key: 'addEdge',
+	    value: function addEdge(label1, label2, x1, y1, x2, y2, disable) {
+	      this.refs.graph.addEdge(label1, label2, x1, y1, x2, y2, disable);
+	    }
+	  }, {
+	    key: 'onDropAttributeImport',
+	    value: function onDropAttributeImport(acceptedFiles, rejectedFiles) {
+	      var reader = new FileReader();
+	
+	      this.clear();
+	      var self = this;
+	      reader.onload = function (e) {
+	        var text = reader.result; // the entire file
+	
+	        var firstLine = text.split(/\r\n|\r|\n/); // first line
+	
+	        console.log("add attributes:" + firstLine[0]);
+	        var index = 0;
+	        firstLine[0].split(',').forEach(function (entry) {
+	          self.addNode(entry, index * 100 + 20, 100, false, []);
+	
+	          index += 1;
+	        });
+	      };
+	
+	      reader.readAsText(acceptedFiles[0], 'UTF-8');
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log("component Did mount ");
+	      console.log(this.props.location);
+	
+	      var self = this;
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/model/algorithm/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
+	        type: "get",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          console.log("algorithm list");
+	          console.log(response);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	
+	          self.setState({
+	            algorithms: response.body.modelAlgorithmIds
+	          });
+	
+	          if (self.props.location.state) {
+	            if (self.props.location.state.graphInfo) {
+	              //alert("Found Graph Info");
+	              self.setup(self.props.location.state.graphInfo);
+	            }
+	          }
+	        },
+	        error: function error(request, status, _error) {
+	          alert("error");
+	          console.log(request.responseText);
+	          console.log(status);
+	          console.log(_error);
 	        }
-	    }, {
-	        key: 'addCustomNodeToCanvas',
-	        value: function addCustomNodeToCanvas(label, x, y) {
-	            this.refs.graph.addNode(label, x, y, false, []);
+	      });
+	    }
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      var graph = this.refs.graph;
+	      graph.clearSvgPane();
+	
+	      this.setState({
+	        analyzingTarget: []
+	      });
+	    }
+	  }, {
+	    key: 'setup',
+	    value: function setup(graphInfo) {
+	      var graph = this.refs.graph;
+	
+	      if (graph) {
+	        if (graphInfo.algorithm) {
+	          this.refs.algorithm.value = graphInfo.algorithm;
+	          this.changeAlgorithm();
 	        }
-	    }, {
-	        key: 'addNode',
-	        value: function addNode(label, x, y, disable, properties) {
-	            this.refs.graph.addNode(label, x, y, disable, properties);
+	        var self = this;
+	        graphInfo.nodes.forEach(function (entry) {
+	          self.addNode(entry.label, entry.x, entry.y, entry.disable, entry.properties);
+	        });
+	        graphInfo.edges.forEach(function (entry) {
+	          self.addEdge(entry.label1, entry.label2, entry.x1, entry.y1, entry.x2, entry.y2, false);
+	        });
 	
-	            this.state.analyzingTarget.push(label);
-	            this.setState({
-	                analyzingTarget: this.state.analyzingTarget
-	            });
+	        this.refs.nodePropertyView.addProperties(graphInfo.commonProperties);
+	      }
+	
+	      this.setState({
+	        modelid: graphInfo.modelid,
+	        modelname: graphInfo.modelname,
+	        modeltag: graphInfo.modeltag,
+	        modeldescription: graphInfo.modeldescription
+	      });
+	    }
+	  }, {
+	    key: 'validateParameters',
+	    value: function validateParameters() {
+	      // 1. Initialize Required Properties
+	      var requiredProperties = new Set();
+	      for (var index in this.state.modelparameter) {
+	        requiredProperties.add(this.state.modelparameter[index].label);
+	      }
+	
+	      // 2. Check Common Properties
+	      var commonProperties = this.refs.nodePropertyView.getProperties();
+	      for (var index in commonProperties) {
+	        requiredProperties.delete(commonProperties[index].name);
+	      }
+	
+	      // 3. Check all nodes to see if they have the required properties
+	      if (requiredProperties.size > 0) {
+	        //3. Check Properties of All Nodes
+	        var nodes = this.refs.graph.getNodes();
+	
+	        for (var index in nodes) {
+	          var count = 0;
+	          var nodeProperty = nodes[index].properties;
+	          for (var propertyIndex in nodeProperty) {
+	            if (requiredProperties.has(nodeProperty[propertyIndex].name)) {
+	              count++;
+	            }
+	          }
+	          if (count < requiredProperties.size) {
+	            return false;
+	          }
 	        }
-	    }, {
-	        key: 'addEdge',
-	        value: function addEdge(label1, label2, x1, y1, x2, y2, disable) {
-	            this.refs.graph.addEdge(label1, label2, x1, y1, x2, y2, disable);
+	      }
+	
+	      return true;
+	    }
+	  }, {
+	    key: 'onDropTraining',
+	    value: function onDropTraining(acceptedFiles, rejectedFiles) {
+	
+	      if (!this.refs.algorithm.value) {
+	        this.refs.popupMessageSmallBox.showMessage("Could not train the model because an algorithm is not chosen. Please set them up !", 20000);
+	        return;
+	      }
+	
+	      if (!this.validateParameters()) {
+	        this.refs.popupMessageSmallBox.showMessage("Could not train the model due to the lack of the required properties. Please set them up !", 20000);
+	        return;
+	      }
+	
+	      if (this.state.modelid.length > 0) {
+	        var formData = new FormData();
+	        formData.append('file_1', acceptedFiles[0]);
+	
+	        var self = this;
+	
+	        self.refs.loading.openModal();
+	        self.refs.popupMessage.showMessage("now training...");
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/Uploader.php",
+	          type: "POST",
+	          data: formData,
+	          cache: false,
+	          contentType: false,
+	          processData: false,
+	          dataType: "text",
+	          success: function success() {},
+	          error: function error(request, status, _error2) {
+	            alert("failed to upload csv file to server. Contact Administrator");
+	            console.log(status);
+	            console.log(_error2);
+	          }
+	        }).done(function (data, textStatus, jqXHR) {
+	          var _data;
+	
+	          var graph = {
+	            modelid: self.state.modelid,
+	            modelname: self.state.modelname,
+	            modeltag: self.state.modeltag,
+	            modeldescription: self.state.modeldescription,
+	            userid: _auth2.default.getUserid(),
+	            algorithm: self.refs.algorithm.value,
+	            nodes: self.refs.graph.getNodes(),
+	            edges: self.refs.graph.getEdges(),
+	            commonProperties: self.refs.nodePropertyView.getProperties()
+	          };
+	
+	          var data = (_data = {
+	            companyid: _auth2.default.getCompanyid(),
+	            userid: _auth2.default.getUserid()
+	          }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'graph', graph), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'code', 10), _data);
+	
+	          _jquery2.default.ajax({
+	            url: "../commonModules/php/modules/GML.php/gml/training",
+	            type: "post",
+	            data: JSON.stringify(data),
+	            contentType: 'application/json',
+	            dataType: "json",
+	            headers: {
+	              Authorization: "Bearer " + _auth2.default.getToken()
+	            },
+	            success: function success(response) {
+	              if (response.body.code == 401) {
+	                _auth2.default.logout();
+	              }
+	            },
+	            error: function error(request, status, _error3) {
+	              alert("Failed to train the model. Contact Administrator");
+	              console.log(status);
+	              console.log(_error3);
+	            }
+	          }).done(function (data, textStatus, jqXHR) {
+	            self.refs.loading.closeModal();
+	            self.refs.popupMessage.closeMessage("finished training !");
+	          });
+	        });
+	      } else {
+	        //please give a name to a graph at first
+	        this.refs.graphSaveView.openModal("Save the model before training", "", "", "");
+	      }
+	    }
+	  }, {
+	    key: 'onDropAnalyzing',
+	    value: function onDropAnalyzing(acceptedFiles, rejectedFiles) {
+	      if (!this.refs.algorithm.value) {
+	        this.refs.popupMessageSmallBox.showMessage("Could not train the model because an algorithm is not chosen. Please set them up !", 20000);
+	        return;
+	      }
+	
+	      if (!this.validateParameters()) {
+	        this.refs.popupMessageSmallBox.showMessage("Could not analyze the data due to the lack of the required properties for the chosen model. Please set them up !", 20000);
+	        return;
+	      }
+	
+	      var self = this;
+	
+	      self.refs.loading.openModal();
+	      self.refs.popupMessage.showMessage("now testing...");
+	
+	      var formData = new FormData();
+	      formData.append('file_1', acceptedFiles[0]);
+	      var targetLabel = this.refs.analyzingTarget.value;
+	      var evaluationMethod = this.refs.evaluationMethod.value;
+	
+	      var graph = {
+	        modelid: self.state.modelid,
+	        modelname: self.state.modelname,
+	        modeltag: self.state.modeltag,
+	        modeldescription: self.state.modeldescription,
+	        userid: _auth2.default.getUserid(),
+	        algorithm: self.refs.algorithm.value,
+	        nodes: self.refs.graph.getNodes(),
+	        edges: self.refs.graph.getEdges(),
+	        commonProperties: self.refs.nodePropertyView.getProperties()
+	      };
+	
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/Uploader.php",
+	        type: "POST",
+	        data: formData,
+	        cache: false,
+	        contentType: false,
+	        processData: false,
+	        dataType: "text",
+	        success: function success() {},
+	        error: function error(request, status, _error4) {
+	          alert("failed to upload files for testing");
+	          console.log(status);
+	          console.log(_error4);
 	        }
-	    }, {
-	        key: 'onDropAttributeImport',
-	        value: function onDropAttributeImport(acceptedFiles, rejectedFiles) {
-	            var reader = new FileReader();
+	      }).done(function (data, textStatus, jqXHR) {
+	        var _data2;
 	
-	            this.clear();
-	            var self = this;
-	            reader.onload = function (e) {
-	                var text = reader.result; // the entire file
+	        var data = (_data2 = {
+	          companyid: _auth2.default.getCompanyid(),
+	          userid: _auth2.default.getUserid()
+	        }, _defineProperty(_data2, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data2, 'graph', graph), _defineProperty(_data2, 'evaluationMethod', evaluationMethod), _defineProperty(_data2, 'testsource', data), _defineProperty(_data2, 'targetLabel', targetLabel), _defineProperty(_data2, 'code', 10), _data2);
 	
-	                var firstLine = text.split(/\r\n|\r|\n/); // first line
-	
-	                console.log("add attributes:" + firstLine[0]);
-	                var index = 0;
-	                firstLine[0].split(',').forEach(function (entry) {
-	                    self.addNode(entry, index * 100 + 20, 100, false, []);
-	
-	                    index += 1;
-	                });
-	            };
-	
-	            reader.readAsText(acceptedFiles[0], 'UTF-8');
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            console.log("component Did mount ");
-	            console.log(this.props.location);
-	
-	            var self = this;
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/model/algorithm/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
-	                type: "get",
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(response) {
-	                    console.log("algorithm list");
-	                    console.log(response);
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
-	
-	                    self.setState({
-	                        algorithms: response.body.modelAlgorithmIds
-	                    });
-	
-	                    if (self.props.location.state) {
-	                        if (self.props.location.state.graphInfo) {
-	                            //alert("Found Graph Info");
-	                            self.setup(self.props.location.state.graphInfo);
-	                        }
-	                    }
-	                },
-	                error: function error(request, status, _error) {
-	                    alert("error");
-	                    console.log(request.responseText);
-	                    console.log(status);
-	                    console.log(_error);
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            var graph = this.refs.graph;
-	            graph.clearSvgPane();
-	
-	            this.setState({
-	                analyzingTarget: []
-	            });
-	        }
-	    }, {
-	        key: 'setup',
-	        value: function setup(graphInfo) {
-	            var graph = this.refs.graph;
-	
-	            if (graph) {
-	                if (graphInfo.algorithm) {
-	                    this.refs.algorithm.value = graphInfo.algorithm;
-	                    this.changeAlgorithm();
-	                }
-	                var self = this;
-	                graphInfo.nodes.forEach(function (entry) {
-	                    self.addNode(entry.label, entry.x, entry.y, entry.disable, entry.properties);
-	                });
-	                graphInfo.edges.forEach(function (entry) {
-	                    self.addEdge(entry.label1, entry.label2, entry.x1, entry.y1, entry.x2, entry.y2, false);
-	                });
-	
-	                this.refs.nodePropertyView.addProperties(graphInfo.commonProperties);
+	        console.log("Training start");
+	        console.log(JSON.stringify(data));
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/GML.php/gml/test",
+	          type: "post",
+	          data: JSON.stringify(data),
+	          contentType: 'application/json',
+	          dataType: "json",
+	          headers: {
+	            Authorization: "Bearer " + _auth2.default.getToken()
+	          },
+	          success: function success(response) {
+	            if (response.body.code == 401) {
+	              _auth2.default.logout();
 	            }
 	
-	            this.setState({
-	                modelid: graphInfo.modelid,
-	                modelname: graphInfo.modelname,
-	                modeltag: graphInfo.modeltag,
-	                modeldescription: graphInfo.modeldescription
+	            var jsonResponse = JSON.parse(response.body.accuracy);
+	
+	            self.refs.testResult.openModal(jsonResponse.accuracy, jsonResponse.evaluationMethod);
+	          },
+	          error: function error(request, status, _error5) {
+	            alert("failed to do testing. Contact Administrator");
+	            console.log(status);
+	            console.log(_error5);
+	          }
+	        }).done(function (data, textStatus, jqXHR) {
+	          self.refs.loading.closeModal();
+	          self.refs.popupMessage.closeMessage("finished testing !");
+	
+	          console.log("done testing");
+	          console.log(data);
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'showNodePropertyView',
+	    value: function showNodePropertyView() {
+	      this.refs.nodePropertyView.openModal();
+	    }
+	  }, {
+	    key: 'save',
+	    value: function save() {
+	      this.refs.graphSaveView.openModal("", this.state.modelname, this.state.modeltag, this.state.modeldescription);
+	    }
+	  }, {
+	    key: 'saveCallBack',
+	    value: function saveCallBack(modelname, modeltag, modeldescription) {
+	
+	      var graph = {
+	        modelid: modelname,
+	        modelname: modelname,
+	        modeltag: modeltag,
+	        modeldescription: modeldescription,
+	        userid: _auth2.default.getUserid(),
+	        algorithm: this.refs.algorithm.value,
+	        nodes: this.refs.graph.getNodes(),
+	        edges: this.refs.graph.getEdges(),
+	        commonProperties: this.refs.nodePropertyView.getProperties()
+	      };
+	
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid(),
+	        graph: graph,
+	        code: 10
+	      };
+	
+	      this.setState({
+	        downloadLink: "DownloadLink",
+	        downloadContent: "data:text/csv;charset=utf-8," + JSON.stringify(graph),
+	        modelid: graph.modelid,
+	        modelname: graph.modelname,
+	        modeltag: graph.modeltag,
+	        modeldescription: graph.modeldescription
+	      });
+	
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/model/save",
+	        type: "post",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          console.log("success for save");
+	          console.log(response);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	        },
+	        error: function error(request, status, _error6) {
+	          alert("error");
+	          console.log(request);
+	          console.log(status);
+	          console.log(_error6);
+	        }
+	      });
+	
+	      var self = this;
+	      setTimeout(function () {
+	        self.setState({
+	          downloadLink: "",
+	          downloadContent: ""
+	        });
+	      }, 5000);
+	    }
+	  }, {
+	    key: 'openPreviousTestedGraph',
+	    value: function openPreviousTestedGraph() {
+	
+	      this.refs.modelHistoryDialogWithSearch.openModal(_auth2.default.getUserid(), this.state.modelid);
+	    }
+	  }, {
+	    key: 'changeAlgorithm',
+	    value: function changeAlgorithm() {
+	
+	      var self = this;
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/model/parameter?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&userid=" + _auth2.default.getUserid() + "&algorithm=" + this.refs.algorithm.value,
+	        type: "get",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          console.log("fetch parameter");
+	          console.log(response);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	          var modelparameter = [];
+	          var modelEvaluationMethod = [];
+	
+	          response.body.parameter.forEach(function (entry) {
+	            modelparameter.push({
+	              label: entry
 	            });
+	          });
+	
+	          response.body.evaluationMethod.forEach(function (entry) {
+	            modelEvaluationMethod.push(entry);
+	          });
+	
+	          console.log("setup params");
+	          console.log(modelEvaluationMethod);
+	          self.setState({
+	            modelparameter: modelparameter,
+	            evaluationMethod: modelEvaluationMethod
+	          });
+	        },
+	        error: function error(request, status, _error7) {
+	          alert("error");
+	          console.log(request.responseText);
+	          console.log(status);
+	          console.log(_error7);
 	        }
-	    }, {
-	        key: 'validateParameters',
-	        value: function validateParameters() {
-	            // 1. Initialize Required Properties
-	            var requiredProperties = new Set();
-	            for (var index in this.state.modelparameter) {
-	                requiredProperties.add(this.state.modelparameter[index].label);
-	            }
+	      });
+	    }
+	  }, {
+	    key: 'updateColor',
+	    value: function updateColor() {
+	      alert("updated Color");
+	    }
+	  }, {
+	    key: 'exploreGraph',
+	    value: function exploreGraph(self, graph, targetLabel, datasource) {
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid(),
+	        graph: graph,
+	        targetLabel: targetLabel,
+	        datasource: datasource,
+	        code: 10
+	      };
 	
-	            // 2. Check Common Properties
-	            var commonProperties = this.refs.nodePropertyView.getProperties();
-	            for (var index in commonProperties) {
-	                requiredProperties.delete(commonProperties[index].name);
-	            }
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/graph/explore",
+	        type: "post",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
 	
-	            // 3. Check all nodes to see if they have the required properties
-	            if (requiredProperties.size > 0) {
-	                //3. Check Properties of All Nodes
-	                var nodes = this.refs.graph.getNodes();
+	          self.refs.popupMessageSmallBox.showMessage("accuracy..." + response.body.accuracy, 10000);
 	
-	                for (var index in nodes) {
-	                    var count = 0;
-	                    var nodeProperty = nodes[index].properties;
-	                    for (var propertyIndex in nodeProperty) {
-	                        if (requiredProperties.has(nodeProperty[propertyIndex].name)) {
-	                            count++;
-	                        }
-	                    }
-	                    if (count < requiredProperties.size) {
-	                        return false;
-	                    }
-	                }
-	            }
+	          var graph = JSON.parse(response.body.graph);
 	
-	            return true;
-	        }
-	    }, {
-	        key: 'onDropTraining',
-	        value: function onDropTraining(acceptedFiles, rejectedFiles) {
+	          self.clear();
+	          self.setup(graph);
 	
-	            if (!this.validateParameters()) {
-	                this.refs.popupMessageSmallBox.showMessage("Could not train the model due to the lack of the required properties. Please set them up !", 20000);
-	            } else {
-	
-	                if (this.state.modelid.length > 0) {
-	                    var formData = new FormData();
-	                    formData.append('file_1', acceptedFiles[0]);
-	
-	                    var self = this;
-	
-	                    self.refs.loading.openModal();
-	                    self.refs.popupMessage.showMessage("now training...");
-	                    _jquery2.default.ajax({
-	                        url: "../commonModules/php/modules/Uploader.php",
-	                        type: "POST",
-	                        data: formData,
-	                        cache: false,
-	                        contentType: false,
-	                        processData: false,
-	                        dataType: "text",
-	                        success: function success() {},
-	                        error: function error(request, status, _error2) {
-	                            alert("failed to upload csv file to server. Contact Administrator");
-	                            console.log(status);
-	                            console.log(_error2);
-	                        }
-	                    }).done(function (data, textStatus, jqXHR) {
-	                        var _data;
-	
-	                        var graph = {
-	                            modelid: self.state.modelid,
-	                            modelname: self.state.modelname,
-	                            modeltag: self.state.modeltag,
-	                            modeldescription: self.state.modeldescription,
-	                            userid: _auth2.default.getUserid(),
-	                            algorithm: self.refs.algorithm.value,
-	                            nodes: self.refs.graph.getNodes(),
-	                            edges: self.refs.graph.getEdges(),
-	                            commonProperties: self.refs.nodePropertyView.getProperties()
-	                        };
-	
-	                        var data = (_data = {
-	                            companyid: _auth2.default.getCompanyid(),
-	                            userid: _auth2.default.getUserid()
-	                        }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'graph', graph), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'code', 10), _data);
-	
-	                        _jquery2.default.ajax({
-	                            url: "../commonModules/php/modules/GML.php/gml/training",
-	                            type: "post",
-	                            data: JSON.stringify(data),
-	                            contentType: 'application/json',
-	                            dataType: "json",
-	                            headers: {
-	                                Authorization: "Bearer " + _auth2.default.getToken()
-	                            },
-	                            success: function success(response) {
-	                                if (response.body.code == 401) {
-	                                    _auth2.default.logout();
-	                                }
-	                            },
-	                            error: function error(request, status, _error3) {
-	                                alert("Failed to train the model. Contact Administrator");
-	                                console.log(status);
-	                                console.log(_error3);
-	                            }
-	                        }).done(function (data, textStatus, jqXHR) {
-	                            self.refs.loading.closeModal();
-	                            self.refs.popupMessage.closeMessage("finished training !");
-	                        });
-	                    });
-	                } else {
-	                    //please give a name to a graph at first
-	                    this.refs.graphSaveView.openModal("Save the model before training", "", "", "");
-	                }
-	            }
-	        }
-	    }, {
-	        key: 'onDropAnalyzing',
-	        value: function onDropAnalyzing(acceptedFiles, rejectedFiles) {
-	            if (!this.validateParameters()) {
-	                this.refs.popupMessageSmallBox.showMessage("Could not analyze the data due to the lack of the required properties for the chosen model. Please set them up !", 20000);
-	            } else {
-	
-	                var self = this;
-	
-	                self.refs.loading.openModal();
-	                self.refs.popupMessage.showMessage("now testing...");
-	
-	                var formData = new FormData();
-	                formData.append('file_1', acceptedFiles[0]);
-	                var targetLabel = this.refs.analyzingTarget.value;
-	                var evaluationMethod = this.refs.evaluationMethod.value;
-	
-	                var graph = {
-	                    modelid: self.state.modelid,
-	                    modelname: self.state.modelname,
-	                    modeltag: self.state.modeltag,
-	                    modeldescription: self.state.modeldescription,
-	                    userid: _auth2.default.getUserid(),
-	                    algorithm: self.refs.algorithm.value,
-	                    nodes: self.refs.graph.getNodes(),
-	                    edges: self.refs.graph.getEdges(),
-	                    commonProperties: self.refs.nodePropertyView.getProperties()
-	                };
-	
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/Uploader.php",
-	                    type: "POST",
-	                    data: formData,
-	                    cache: false,
-	                    contentType: false,
-	                    processData: false,
-	                    dataType: "text",
-	                    success: function success() {},
-	                    error: function error(request, status, _error4) {
-	                        alert("failed to upload files for testing");
-	                        console.log(status);
-	                        console.log(_error4);
-	                    }
-	                }).done(function (data, textStatus, jqXHR) {
-	                    var _data2;
-	
-	                    var data = (_data2 = {
-	                        companyid: _auth2.default.getCompanyid(),
-	                        userid: _auth2.default.getUserid()
-	                    }, _defineProperty(_data2, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data2, 'graph', graph), _defineProperty(_data2, 'evaluationMethod', evaluationMethod), _defineProperty(_data2, 'testsource', data), _defineProperty(_data2, 'targetLabel', targetLabel), _defineProperty(_data2, 'code', 10), _data2);
-	
-	                    console.log("Training start");
-	                    console.log(JSON.stringify(data));
-	                    _jquery2.default.ajax({
-	                        url: "../commonModules/php/modules/GML.php/gml/test",
-	                        type: "post",
-	                        data: JSON.stringify(data),
-	                        contentType: 'application/json',
-	                        dataType: "json",
-	                        headers: {
-	                            Authorization: "Bearer " + _auth2.default.getToken()
-	                        },
-	                        success: function success(response) {
-	                            if (response.body.code == 401) {
-	                                _auth2.default.logout();
-	                            }
-	
-	                            var jsonResponse = JSON.parse(response.body.accuracy);
-	
-	                            self.refs.testResult.openModal(jsonResponse.accuracy, jsonResponse.evaluationMethod);
-	                        },
-	                        error: function error(request, status, _error5) {
-	                            alert("failed to do testing. Contact Administrator");
-	                            console.log(status);
-	                            console.log(_error5);
-	                        }
-	                    }).done(function (data, textStatus, jqXHR) {
-	                        self.refs.loading.closeModal();
-	                        self.refs.popupMessage.closeMessage("finished testing !");
-	
-	                        console.log("done testing");
-	                        console.log(data);
-	                    });
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'showNodePropertyView',
-	        value: function showNodePropertyView() {
-	            this.refs.nodePropertyView.openModal();
-	        }
-	    }, {
-	        key: 'save',
-	        value: function save() {
-	            this.refs.graphSaveView.openModal("", this.state.modelname, this.state.modeltag, this.state.modeldescription);
-	        }
-	    }, {
-	        key: 'saveCallBack',
-	        value: function saveCallBack(modelname, modeltag, modeldescription) {
-	
-	            var graph = {
-	                modelid: modelname,
-	                modelname: modelname,
-	                modeltag: modeltag,
-	                modeldescription: modeldescription,
-	                userid: _auth2.default.getUserid(),
-	                algorithm: this.refs.algorithm.value,
-	                nodes: this.refs.graph.getNodes(),
-	                edges: this.refs.graph.getEdges(),
-	                commonProperties: this.refs.nodePropertyView.getProperties()
-	            };
-	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                graph: graph,
-	                code: 10
-	            };
-	
-	            this.setState({
-	                downloadLink: "DownloadLink",
-	                downloadContent: "data:text/csv;charset=utf-8," + JSON.stringify(graph),
-	                modelid: graph.modelid,
-	                modelname: graph.modelname,
-	                modeltag: graph.modeltag,
-	                modeldescription: graph.modeldescription
-	            });
-	
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/model/save",
-	                type: "post",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(response) {
-	                    console.log("success for save");
-	                    console.log(response);
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
-	                },
-	                error: function error(request, status, _error6) {
-	                    alert("error");
-	                    console.log(request);
-	                    console.log(status);
-	                    console.log(_error6);
-	                }
-	            });
-	
-	            var self = this;
-	            setTimeout(function () {
-	                self.setState({
-	                    downloadLink: "",
-	                    downloadContent: ""
-	                });
-	            }, 5000);
-	        }
-	    }, {
-	        key: 'openPreviousTestedGraph',
-	        value: function openPreviousTestedGraph() {
-	
-	            this.refs.modelHistoryDialogWithSearch.openModal(_auth2.default.getUserid(), this.state.modelid);
-	        }
-	    }, {
-	        key: 'changeAlgorithm',
-	        value: function changeAlgorithm() {
-	
-	            var self = this;
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/model/parameter?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&userid=" + _auth2.default.getUserid() + "&algorithm=" + this.refs.algorithm.value,
-	                type: "get",
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(response) {
-	                    console.log("fetch parameter");
-	                    console.log(response);
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
-	                    var modelparameter = [];
-	                    var modelEvaluationMethod = [];
-	
-	                    response.body.parameter.forEach(function (entry) {
-	                        modelparameter.push({
-	                            label: entry
-	                        });
-	                    });
-	
-	                    response.body.evaluationMethod.forEach(function (entry) {
-	                        modelEvaluationMethod.push(entry);
-	                    });
-	
-	                    console.log("setup params");
-	                    console.log(modelEvaluationMethod);
-	                    self.setState({
-	                        modelparameter: modelparameter,
-	                        evaluationMethod: modelEvaluationMethod
-	                    });
-	                },
-	                error: function error(request, status, _error7) {
-	                    alert("error");
-	                    console.log(request.responseText);
-	                    console.log(status);
-	                    console.log(_error7);
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'updateColor',
-	        value: function updateColor() {
-	            alert("updated Color");
-	        }
-	    }, {
-	        key: 'exploreGraph',
-	        value: function exploreGraph(self, graph, targetLabel, datasource) {
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                graph: graph,
-	                targetLabel: targetLabel,
-	                datasource: datasource,
-	                code: 10
-	            };
-	
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/graph/explore",
-	                type: "post",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(response) {
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
-	
-	                    self.refs.popupMessageSmallBox.showMessage("accuracy..." + response.body.accuracy, 10000);
-	
-	                    var graph = JSON.parse(response.body.graph);
-	
-	                    self.clear();
-	                    self.setup(graph);
-	
-	                    if (self.state.exploreGraph) {
-	                        self.exploreGraph(self, graph, targetLabel, datasource);
-	                    } else {
-	                        self.setState({
-	                            exploreGraph: true
-	                        });
-	                    }
-	                },
-	                error: function error(request, status, _error8) {
-	                    alert("failed to do testing. Contact Administrator");
-	                    console.log(status);
-	                    console.log(_error8);
-	                }
-	            }).done(function (data, textStatus, jqXHR) {});
-	        }
-	    }, {
-	        key: 'stopExploringGraph',
-	        value: function stopExploringGraph() {
-	            this.setState({
-	                exploreGraph: false
-	            });
-	        }
-	    }, {
-	        key: 'onDropExplore',
-	        value: function onDropExplore(acceptedFiles, rejectedFiles) {
-	            var self = this;
-	
-	            var formData = new FormData();
-	            formData.append('file_1', acceptedFiles[0]);
-	            var targetLabel = this.refs.analyzingTarget.value;
-	            var evaluationMethod = this.refs.evaluationMethod.value;
-	
+	          if (self.state.exploreGraph) {
+	            self.exploreGraph(self, graph, targetLabel, datasource);
+	          } else {
 	            self.setState({
-	                exploreGraph: true
+	              exploreGraph: true
 	            });
-	
-	            var graph = {
-	                modelid: self.state.modelid,
-	                modelname: self.state.modelname,
-	                modeltag: self.state.modeltag,
-	                modeldescription: self.state.modeldescription,
-	                userid: _auth2.default.getUserid(),
-	                algorithm: self.refs.algorithm.value,
-	                nodes: self.refs.graph.getNodes(),
-	                edges: self.refs.graph.getEdges(),
-	                commonProperties: self.refs.nodePropertyView.getProperties()
-	            };
-	
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/Uploader.php",
-	                type: "POST",
-	                data: formData,
-	                cache: false,
-	                contentType: false,
-	                processData: false,
-	                dataType: "text",
-	                success: function success() {},
-	                error: function error(request, status, _error9) {
-	                    alert("failed to upload files for testing");
-	                    console.log(status);
-	                    console.log(_error9);
-	                }
-	            }).done(function (data, textStatus, jqXHR) {
-	                self.exploreGraph(self, graph, targetLabel, data);
-	            });
+	          }
+	        },
+	        error: function error(request, status, _error8) {
+	          alert("failed to do testing. Contact Administrator");
+	          console.log(status);
+	          console.log(_error8);
 	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	      }).done(function (data, textStatus, jqXHR) {});
+	    }
+	  }, {
+	    key: 'stopExploringGraph',
+	    value: function stopExploringGraph() {
+	      this.setState({
+	        exploreGraph: false
+	      });
+	    }
+	  }, {
+	    key: 'onDropExplore',
+	    value: function onDropExplore(acceptedFiles, rejectedFiles) {
+	      var self = this;
+	
+	      var formData = new FormData();
+	      formData.append('file_1', acceptedFiles[0]);
+	      var targetLabel = this.refs.analyzingTarget.value;
+	      var evaluationMethod = this.refs.evaluationMethod.value;
+	
+	      self.setState({
+	        exploreGraph: true
+	      });
+	
+	      var graph = {
+	        modelid: self.state.modelid,
+	        modelname: self.state.modelname,
+	        modeltag: self.state.modeltag,
+	        modeldescription: self.state.modeldescription,
+	        userid: _auth2.default.getUserid(),
+	        algorithm: self.refs.algorithm.value,
+	        nodes: self.refs.graph.getNodes(),
+	        edges: self.refs.graph.getEdges(),
+	        commonProperties: self.refs.nodePropertyView.getProperties()
+	      };
+	
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/Uploader.php",
+	        type: "POST",
+	        data: formData,
+	        cache: false,
+	        contentType: false,
+	        processData: false,
+	        dataType: "text",
+	        success: function success() {},
+	        error: function error(request, status, _error9) {
+	          alert("failed to upload files for testing");
+	          console.log(status);
+	          console.log(_error9);
+	        }
+	      }).done(function (data, textStatus, jqXHR) {
+	        self.exploreGraph(self, graph, targetLabel, data);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'div',
+	            { className: styles.graphLabMenu },
+	            React.createElement(
+	              'div',
+	              { className: styles.graphLabMenuCalculationModelItem },
+	              React.createElement(
+	                'select',
+	                { ref: 'algorithm', className: styles.graphLabMenuItemCalculationSelect, onChange: this.changeAlgorithm },
+	                React.createElement(
+	                  'option',
+	                  { value: '', disabled: true, selected: true },
+	                  'Select your model'
+	                ),
+	                this.state.algorithms.map(function (d, idx) {
+	                  return React.createElement(
+	                    'option',
+	                    { value: d, key: "evaluation" + d },
+	                    d
+	                  );
+	                })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.showNodePropertyView, className: styles.graphLabMenuItem },
+	              React.createElement('img', { src: './../icon/graphlab_menu_icons/commonSetting.png', className: styles.graphLabMenuIcon, 'data-tip': 'Setup Common Property for all nodes' })
+	            ),
+	            React.createElement(_nodePropertyView2.default, { label: 'All Nodes', ref: 'nodePropertyView', modelparameter: this.state.modelparameter }),
+	            React.createElement(
+	              _reactDropzone2.default,
+	              { className: styles.graphLabMenuItem, onDrop: this.onDropAttributeImport, accept: 'text/csv' },
+	              React.createElement(
 	                'div',
 	                null,
+	                React.createElement('img', { src: './../icon/graphlab_menu_icons/importAttrs.png', className: styles.graphLabMenuIcon, 'data-tip': 'Import Attribute Information from CSV file' })
+	              )
+	            ),
+	            React.createElement(
+	              _reactDropzone2.default,
+	              { className: styles.graphLabMenuItemTraining, onDrop: this.onDropTraining, accept: 'text/csv' },
+	              React.createElement(
+	                'div',
+	                null,
+	                React.createElement('img', { src: './../icon/graphlab_menu_icons/training.jpg', className: styles.graphLabMenuIcon, 'data-tip': 'Training Model. Drop File Here or Click' })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.graphLabMenuItemDropAnalyzingBox },
+	              React.createElement(
+	                _reactDropzone2.default,
+	                { className: styles.graphLabMenuItemDropAnalyzing, onDrop: this.onDropAnalyzing, accept: 'text/csv', 'data-tip': 'Evaluate Model. Drop File Here Or Click' },
 	                React.createElement(
-	                    'div',
-	                    null,
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.graphLabMenu },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.graphLabMenuCalculationModelItem },
-	                            React.createElement(
-	                                'select',
-	                                { ref: 'algorithm', className: styles.graphLabMenuItemCalculationSelect, onChange: this.changeAlgorithm },
-	                                React.createElement(
-	                                    'option',
-	                                    { value: '', disabled: true, selected: true },
-	                                    'Select your model'
-	                                ),
-	                                this.state.algorithms.map(function (d, idx) {
-	                                    return React.createElement(
-	                                        'option',
-	                                        { value: d, key: "evaluation" + d },
-	                                        d
-	                                    );
-	                                })
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.showNodePropertyView, className: styles.graphLabMenuItem },
-	                            React.createElement('img', { src: './../icon/graphlab_menu_icons/commonSetting.png', className: styles.graphLabMenuIcon, 'data-tip': 'Setup Common Property for all nodes' })
-	                        ),
-	                        React.createElement(_nodePropertyView2.default, { label: 'All Nodes', ref: 'nodePropertyView', modelparameter: this.state.modelparameter }),
-	                        React.createElement(
-	                            _reactDropzone2.default,
-	                            {
-	                                className: styles.graphLabMenuItem,
-	                                onDrop: this.onDropAttributeImport,
-	                                accept: 'text/csv' },
-	                            React.createElement(
-	                                'div',
-	                                null,
-	                                React.createElement('img', { src: './../icon/graphlab_menu_icons/importAttrs.png', className: styles.graphLabMenuIcon, 'data-tip': 'Import Attribute Information from CSV file' })
-	                            )
-	                        ),
-	                        React.createElement(
-	                            _reactDropzone2.default,
-	                            {
-	                                className: styles.graphLabMenuItemTraining,
-	                                onDrop: this.onDropTraining,
-	                                accept: 'text/csv' },
-	                            React.createElement(
-	                                'div',
-	                                null,
-	                                React.createElement('img', { src: './../icon/graphlab_menu_icons/training.jpg', className: styles.graphLabMenuIcon, 'data-tip': 'Training Model. Drop File Here or Click' })
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.graphLabMenuItemDropAnalyzingBox },
-	                            React.createElement(
-	                                _reactDropzone2.default,
-	                                {
-	                                    className: styles.graphLabMenuItemDropAnalyzing,
-	                                    onDrop: this.onDropAnalyzing,
-	                                    accept: 'text/csv',
-	                                    'data-tip': 'Evaluate Model. Drop File Here Or Click'
-	                                },
-	                                React.createElement(
-	                                    'div',
-	                                    null,
-	                                    React.createElement('img', { src: './../icon/graphlab_menu_icons/test.png', className: styles.graphLabMenuIcon })
-	                                )
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.graphLabMenuItemAnalyzingTargetBox },
-	                                React.createElement(
-	                                    'select',
-	                                    { ref: 'evaluationMethod', className: styles.graphLabMenuItemAnalyzingTarget },
-	                                    React.createElement(
-	                                        'option',
-	                                        { value: '', disabled: true, selected: true },
-	                                        'Select Evaluation Method'
-	                                    ),
-	                                    this.state.evaluationMethod.map(function (d, idx) {
-	                                        return React.createElement(
-	                                            'option',
-	                                            { value: d, key: "evaluation" + d },
-	                                            d
-	                                        );
-	                                    })
-	                                ),
-	                                React.createElement(
-	                                    'select',
-	                                    { ref: 'analyzingTarget', className: styles.graphLabMenuItemAnalyzingTarget },
-	                                    React.createElement(
-	                                        'option',
-	                                        { value: '', disabled: true, selected: true },
-	                                        'Select Target'
-	                                    ),
-	                                    this.state.analyzingTarget.map(function (d, idx) {
-	                                        return React.createElement(
-	                                            'option',
-	                                            { value: d, key: "option" + d },
-	                                            d
-	                                        );
-	                                    })
-	                                )
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.graphLabMenuItemGraphSearch },
-	                            React.createElement(
-	                                _reactDropzone2.default,
-	                                {
-	                                    className: styles.graphLabMenuItemDropGraphSearch,
-	                                    onDrop: this.onDropExplore,
-	                                    accept: 'text/csv' },
-	                                React.createElement(
-	                                    'div',
-	                                    null,
-	                                    React.createElement('img', { src: './../icon/graphlab_menu_icons/exploreGraph.png', className: styles.graphLabMenuIcon, 'data-tip': 'Start Exploring Graph. Drop File Here or Click' })
-	                                )
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.graphLabMenuItemStopSearch, onClick: this.stopExploringGraph, 'data-tip': 'Stop Graph Exploration.' },
-	                                React.createElement('img', { src: './../icon/graphlab_menu_icons/stopSearch.png', className: styles.graphLabMenuIconStopSearchIcon })
-	                            )
-	                        ),
-	                        React.createElement(_graphSaveView2.default, { saveCallBack: this.saveCallBack, ref: 'graphSaveView' }),
-	                        React.createElement(_addCustomNodeDialog2.default, { addCustomNode: this.addCustomNodeToCanvas, ref: 'addCustomNodeToCanvas' }),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.save, className: styles.graphLabMenuItemSave },
-	                            React.createElement('img', { src: './../icon/graphlab_menu_icons/save.png', className: styles.graphLabMenuIcon, 'data-tip': 'Save Model' }),
-	                            React.createElement('br', null),
-	                            React.createElement(
-	                                'a',
-	                                { className: styles.graphLabMenuItemDownloadLink, href: this.state.downloadContent, download: 'graph.json' },
-	                                this.state.downloadLink
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.openPreviousTestedGraph, className: styles.graphLabMenuItem },
-	                            React.createElement('img', { src: './../icon/graphlab_menu_icons/testHistory.png', className: styles.graphLabMenuIcon, 'data-tip': 'History of Testing Model' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.showAddCustomNodeDialog, className: styles.graphLabMenuItemLast },
-	                            React.createElement('img', { src: './../icon/graphlab_menu_icons/addNode.png', className: styles.graphLabMenuIcon, 'data-tip': 'Add Node to Canvas' })
-	                        )
-	                    ),
-	                    React.createElement(_graph2.default, { ref: 'graph', items: [], modelparameter: this.state.modelparameter })
+	                  'div',
+	                  null,
+	                  React.createElement('img', { src: './../icon/graphlab_menu_icons/test.png', className: styles.graphLabMenuIcon })
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: styles.graphLabMenuItemAnalyzingTargetBox },
+	                React.createElement(
+	                  'select',
+	                  { ref: 'evaluationMethod', className: styles.graphLabMenuItemAnalyzingTarget },
+	                  React.createElement(
+	                    'option',
+	                    { value: '', disabled: true, selected: true },
+	                    'Select Evaluation Method'
+	                  ),
+	                  this.state.evaluationMethod.map(function (d, idx) {
+	                    return React.createElement(
+	                      'option',
+	                      { value: d, key: "evaluation" + d },
+	                      d
+	                    );
+	                  })
 	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' }),
-	                React.createElement(_popupMessage2.default, { ref: 'popupMessage' }),
-	                React.createElement(_popupMessageSmallBox2.default, { ref: 'popupMessageSmallBox' }),
-	                React.createElement(_modelHistoryDialogWithSearch2.default, { ref: 'modelHistoryDialogWithSearch', setup: this.setup, clear: this.clear }),
-	                React.createElement(_reactTooltip2.default, null),
-	                React.createElement(_graphTestResult2.default, { ref: 'testResult' })
-	            );
-	        }
-	    }]);
+	                React.createElement(
+	                  'select',
+	                  { ref: 'analyzingTarget', className: styles.graphLabMenuItemAnalyzingTarget },
+	                  React.createElement(
+	                    'option',
+	                    { value: '', disabled: true, selected: true },
+	                    'Select Target'
+	                  ),
+	                  this.state.analyzingTarget.map(function (d, idx) {
+	                    return React.createElement(
+	                      'option',
+	                      { value: d, key: "option" + d },
+	                      d
+	                    );
+	                  })
+	                )
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.graphLabMenuItemGraphSearch },
+	              React.createElement(
+	                _reactDropzone2.default,
+	                { className: styles.graphLabMenuItemDropGraphSearch, onDrop: this.onDropExplore, accept: 'text/csv' },
+	                React.createElement(
+	                  'div',
+	                  null,
+	                  React.createElement('img', { src: './../icon/graphlab_menu_icons/exploreGraph.png', className: styles.graphLabMenuIcon, 'data-tip': 'Start Exploring Graph. Drop File Here or Click' })
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: styles.graphLabMenuItemStopSearch, onClick: this.stopExploringGraph, 'data-tip': 'Stop Graph Exploration.' },
+	                React.createElement('img', { src: './../icon/graphlab_menu_icons/stopSearch.png', className: styles.graphLabMenuIconStopSearchIcon })
+	              )
+	            ),
+	            React.createElement(_graphSaveView2.default, { saveCallBack: this.saveCallBack, ref: 'graphSaveView' }),
+	            React.createElement(_addCustomNodeDialog2.default, { addCustomNode: this.addCustomNodeToCanvas, ref: 'addCustomNodeToCanvas' }),
+	            React.createElement(
+	              'div',
+	              { onClick: this.save, className: styles.graphLabMenuItemSave },
+	              React.createElement('img', { src: './../icon/graphlab_menu_icons/save.png', className: styles.graphLabMenuIcon, 'data-tip': 'Save Model' }),
+	              React.createElement('br', null),
+	              React.createElement(
+	                'a',
+	                { className: styles.graphLabMenuItemDownloadLink, href: this.state.downloadContent, download: 'graph.json' },
+	                this.state.downloadLink
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.openPreviousTestedGraph, className: styles.graphLabMenuItem },
+	              React.createElement('img', { src: './../icon/graphlab_menu_icons/testHistory.png', className: styles.graphLabMenuIcon, 'data-tip': 'History of Testing Model' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.showAddCustomNodeDialog, className: styles.graphLabMenuItemLast },
+	              React.createElement('img', { src: './../icon/graphlab_menu_icons/addNode.png', className: styles.graphLabMenuIcon, 'data-tip': 'Add Node to Canvas' })
+	            )
+	          ),
+	          React.createElement(_graph2.default, { ref: 'graph', items: [], modelparameter: this.state.modelparameter })
+	        ),
+	        React.createElement(_loading2.default, { ref: 'loading' }),
+	        React.createElement(_popupMessage2.default, { ref: 'popupMessage' }),
+	        React.createElement(_popupMessageSmallBox2.default, { ref: 'popupMessageSmallBox' }),
+	        React.createElement(_modelHistoryDialogWithSearch2.default, { ref: 'modelHistoryDialogWithSearch', setup: this.setup, clear: this.clear }),
+	        React.createElement(_reactTooltip2.default, null),
+	        React.createElement(_graphTestResult2.default, { ref: 'testResult' })
+	      );
+	    }
+	  }]);
 	
-	    return GraphicalDesign;
+	  return GraphicalDesign;
 	}(React.Component);
 	
 	exports.default = GraphicalDesign;
@@ -42313,7 +42316,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -42353,66 +42356,66 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var PopupMessage = function (_React$Component) {
-	    _inherits(PopupMessage, _React$Component);
+	  _inherits(PopupMessage, _React$Component);
 	
-	    function PopupMessage(props) {
-	        _classCallCheck(this, PopupMessage);
+	  function PopupMessage(props) {
+	    _classCallCheck(this, PopupMessage);
 	
-	        var _this = _possibleConstructorReturn(this, (PopupMessage.__proto__ || Object.getPrototypeOf(PopupMessage)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (PopupMessage.__proto__ || Object.getPrototypeOf(PopupMessage)).call(this, props));
 	
-	        _this.state = {
-	            show: false,
-	            message: "",
-	            closeStyle: false
-	        };
-	        return _this;
+	    _this.state = {
+	      show: false,
+	      message: "",
+	      closeStyle: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(PopupMessage, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'showMessage',
+	    value: function showMessage(message) {
+	      this.setState({
+	        show: true,
+	        message: message,
+	        closeStyle: false
+	      });
 	    }
+	  }, {
+	    key: 'closeMessage',
+	    value: function closeMessage(message) {
+	      this.setState({
+	        show: true,
+	        message: message,
+	        closeStyle: true
+	      });
+	      var self = this;
+	      setTimeout(function (message) {
+	        self.setState({
+	          show: false,
+	          message: "",
+	          closeStyle: false
+	        });
+	      }, 500, message);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        this.state.show ? React.createElement(
+	          'div',
+	          { className: this.state.closeStyle ? styles.popupMessageClose : styles.popupMessage },
+	          this.state.message
+	        ) : React.createElement('div', null)
+	      );
+	    }
+	  }]);
 	
-	    _createClass(PopupMessage, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'showMessage',
-	        value: function showMessage(message) {
-	            this.setState({
-	                show: true,
-	                message: message,
-	                closeStyle: false
-	            });
-	        }
-	    }, {
-	        key: 'closeMessage',
-	        value: function closeMessage(message) {
-	            this.setState({
-	                show: true,
-	                message: message,
-	                closeStyle: true
-	            });
-	            var self = this;
-	            setTimeout(function (message) {
-	                self.setState({
-	                    show: false,
-	                    message: "",
-	                    closeStyle: false
-	                });
-	            }, 500, message);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                this.state.show ? React.createElement(
-	                    'div',
-	                    { className: this.state.closeStyle ? styles.popupMessageClose : styles.popupMessage },
-	                    this.state.message
-	                ) : React.createElement('div', null)
-	            );
-	        }
-	    }]);
-	
-	    return PopupMessage;
+	  return PopupMessage;
 	}(React.Component);
 	
 	exports.default = PopupMessage;
@@ -42424,7 +42427,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -42464,75 +42467,75 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var PopupMessageSmallBox = function (_React$Component) {
-	    _inherits(PopupMessageSmallBox, _React$Component);
+	  _inherits(PopupMessageSmallBox, _React$Component);
 	
-	    function PopupMessageSmallBox(props) {
-	        _classCallCheck(this, PopupMessageSmallBox);
+	  function PopupMessageSmallBox(props) {
+	    _classCallCheck(this, PopupMessageSmallBox);
 	
-	        var _this = _possibleConstructorReturn(this, (PopupMessageSmallBox.__proto__ || Object.getPrototypeOf(PopupMessageSmallBox)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (PopupMessageSmallBox.__proto__ || Object.getPrototypeOf(PopupMessageSmallBox)).call(this, props));
 	
-	        _this.state = {
-	            show: false,
-	            message: "",
-	            closeStyle: false
-	        };
-	        return _this;
+	    _this.state = {
+	      show: false,
+	      message: "",
+	      closeStyle: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(PopupMessageSmallBox, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'showMessage',
+	    value: function showMessage(message, timeout) {
+	      this.setState({
+	        show: true,
+	        message: message,
+	        closeStyle: false
+	      });
+	
+	      var self = this;
+	      setTimeout(function (message) {
+	        self.setState({
+	          show: false,
+	          message: "",
+	          closeStyle: false
+	        });
+	      }, timeout, message);
 	    }
+	  }, {
+	    key: 'closeMessage',
+	    value: function closeMessage(message) {
+	      this.setState({
+	        show: true,
+	        message: message,
+	        closeStyle: true
+	      });
+	      var self = this;
+	      setTimeout(function (message) {
+	        self.setState({
+	          show: false,
+	          message: "",
+	          closeStyle: false
+	        });
+	      }, 500, message);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        this.state.show ? React.createElement(
+	          'div',
+	          { className: this.state.closeStyle ? styles.popupMessageCloseSmallBox : styles.popupMessageSmallBox },
+	          this.state.message
+	        ) : React.createElement('div', null)
+	      );
+	    }
+	  }]);
 	
-	    _createClass(PopupMessageSmallBox, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'showMessage',
-	        value: function showMessage(message, timeout) {
-	            this.setState({
-	                show: true,
-	                message: message,
-	                closeStyle: false
-	            });
-	
-	            var self = this;
-	            setTimeout(function (message) {
-	                self.setState({
-	                    show: false,
-	                    message: "",
-	                    closeStyle: false
-	                });
-	            }, timeout, message);
-	        }
-	    }, {
-	        key: 'closeMessage',
-	        value: function closeMessage(message) {
-	            this.setState({
-	                show: true,
-	                message: message,
-	                closeStyle: true
-	            });
-	            var self = this;
-	            setTimeout(function (message) {
-	                self.setState({
-	                    show: false,
-	                    message: "",
-	                    closeStyle: false
-	                });
-	            }, 500, message);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                this.state.show ? React.createElement(
-	                    'div',
-	                    { className: this.state.closeStyle ? styles.popupMessageCloseSmallBox : styles.popupMessageSmallBox },
-	                    this.state.message
-	                ) : React.createElement('div', null)
-	            );
-	        }
-	    }]);
-	
-	    return PopupMessageSmallBox;
+	  return PopupMessageSmallBox;
 	}(React.Component);
 	
 	exports.default = PopupMessageSmallBox;
@@ -42544,7 +42547,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -42614,429 +42617,430 @@
 	//  1. Deleting nodes & Edge put "disable=true" in stead of removing element from an array
 	//     => React cannot re-render the components correctly.
 	var Graph = function (_React$Component) {
-	    _inherits(Graph, _React$Component);
+	  _inherits(Graph, _React$Component);
 	
-	    function Graph(props) {
-	        _classCallCheck(this, Graph);
+	  function Graph(props) {
+	    _classCallCheck(this, Graph);
 	
-	        var _this = _possibleConstructorReturn(this, (Graph.__proto__ || Object.getPrototypeOf(Graph)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Graph.__proto__ || Object.getPrototypeOf(Graph)).call(this, props));
 	
-	        _this.state = {
-	            nodes: _this.props.items,
-	            currentChosenNode: null,
-	            edges: [],
-	            edgesDeletion: [],
-	            newEdge: false,
-	            prevLabel: null,
-	            transformMatrix: [1, 0, 0, 1, 0, 0],
-	            centerX: 250,
-	            centerY: 250,
-	            zoom: 1.0,
-	            svg_width: window.innerWidth - 17,
-	            svg_height: window.innerHeight - 150
-	        };
-	        _this.entryPointCallBack = _this.entryPointCallBack.bind(_this);
-	        _this.moveCircleCallBack = _this.moveCircleCallBack.bind(_this);
-	        _this.updateMatrix = _this.updateMatrix.bind(_this);
-	        _this.pan = _this.pan.bind(_this);
-	        _this.panRight = _this.panRight.bind(_this);
-	        _this.panLeft = _this.panLeft.bind(_this);
-	        _this.panTop = _this.panTop.bind(_this);
-	        _this.panBottom = _this.panBottom.bind(_this);
-	        _this.zoom = _this.zoom.bind(_this);
-	        _this.zoomIn = _this.zoomIn.bind(_this);
-	        _this.zoomOut = _this.zoomOut.bind(_this);
-	        _this.addNode = _this.addNode.bind(_this);
-	        _this.addEdge = _this.addEdge.bind(_this);
-	        _this.getEdges = _this.getEdges.bind(_this);
-	        _this.getNodes = _this.getNodes.bind(_this);
-	        _this.updateDimensions = _this.updateDimensions.bind(_this);
-	        _this.deleteEdgeCallBack = _this.deleteEdgeCallBack.bind(_this);
-	        _this.deleteNodeCallBack = _this.deleteNodeCallBack.bind(_this);
-	        _this.handleMouseDown = _this.handleMouseDown.bind(_this);
-	        _this.handleMouseUp = _this.handleMouseUp.bind(_this);
-	        _this.onScroll = _this.onScroll.bind(_this);
-	        _this.visibleEdge = _this.visibleEdge.bind(_this);
-	        return _this;
+	    _this.state = {
+	      nodes: _this.props.items,
+	      currentChosenNode: null,
+	      edges: [],
+	      edgesDeletion: [],
+	      newEdge: false,
+	      prevLabel: null,
+	      transformMatrix: [1, 0, 0, 1, 0, 0],
+	      centerX: 250,
+	      centerY: 250,
+	      zoom: 1.0,
+	      svg_width: window.innerWidth - 17,
+	      svg_height: window.innerHeight - 150
+	    };
+	    _this.entryPointCallBack = _this.entryPointCallBack.bind(_this);
+	    _this.moveCircleCallBack = _this.moveCircleCallBack.bind(_this);
+	    _this.updateMatrix = _this.updateMatrix.bind(_this);
+	    _this.pan = _this.pan.bind(_this);
+	    _this.panRight = _this.panRight.bind(_this);
+	    _this.panLeft = _this.panLeft.bind(_this);
+	    _this.panTop = _this.panTop.bind(_this);
+	    _this.panBottom = _this.panBottom.bind(_this);
+	    _this.zoom = _this.zoom.bind(_this);
+	    _this.zoomIn = _this.zoomIn.bind(_this);
+	    _this.zoomOut = _this.zoomOut.bind(_this);
+	    _this.addNode = _this.addNode.bind(_this);
+	    _this.addEdge = _this.addEdge.bind(_this);
+	    _this.getEdges = _this.getEdges.bind(_this);
+	    _this.getNodes = _this.getNodes.bind(_this);
+	    _this.updateDimensions = _this.updateDimensions.bind(_this);
+	    _this.deleteEdgeCallBack = _this.deleteEdgeCallBack.bind(_this);
+	    _this.deleteNodeCallBack = _this.deleteNodeCallBack.bind(_this);
+	    _this.handleMouseDown = _this.handleMouseDown.bind(_this);
+	    _this.handleMouseUp = _this.handleMouseUp.bind(_this);
+	    _this.onScroll = _this.onScroll.bind(_this);
+	    _this.visibleEdge = _this.visibleEdge.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Graph, [{
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      window.removeEventListener("resize", this.updateDimensions);
 	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.updateMatrix();
+	      window.addEventListener("resize", this.updateDimensions);
 	
-	    _createClass(Graph, [{
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("resize", this.updateDimensions);
+	      this.zoomIn();
+	    }
+	  }, {
+	    key: 'updateDimensions',
+	    value: function updateDimensions() {
+	      this.setState({
+	        svg_width: window.innerWidth - 17,
+	        svg_height: window.innerHeight - 150
+	      });
+	    }
+	  }, {
+	    key: 'entryPointCallBack',
+	    value: function entryPointCallBack(label) {
+	      if (this.state.newEdge == true && this.state.prevLabel != label) {
+	        // Create new Edge
+	        var prevPosition = this.refs[this.state.prevLabel].getCurrentPosition();
+	        var currPosition = this.refs[label].getCurrentPosition();
+	
+	        this.addEdge(label, this.state.prevLabel, currPosition.x, currPosition.y, prevPosition.x, prevPosition.y, false);
+	      } else if (this.state.prevLabel == label) {
+	        this.state.prevLabel = null;
+	        this.state.newEdge = false;
+	
+	        this.setState({
+	          currentChosenNode: null
+	        });
+	      } else {
+	        // Not Create new Edge
+	        this.state.prevLabel = label;
+	        this.state.newEdge = true;
+	
+	        this.setState({
+	          currentChosenNode: label
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'moveCircleCallBack',
+	    value: function moveCircleCallBack(label, x, y) {
+	      for (var i = 0; i < this.state.edges.length; i++) {
+	        if (this.state.edges[i].label1 == label && !this.state.edges[i].disable) {
+	
+	          this.state.edges[i] = {
+	            x1: x,
+	            y1: y,
+	            x2: this.state.edges[i].x2,
+	            y2: this.state.edges[i].y2,
+	            label1: label,
+	            label2: this.state.edges[i].label2
+	          };
+	
+	          this.refs["edge" + i].update1(x, y);
+	          this.refs["edgeDeletion" + i].update((x + this.state.edges[i].x2) / 2, (y + this.state.edges[i].y2) / 2);
+	        } else if (this.state.edges[i].label2 == label && !this.state.edges[i].disable) {
+	          this.state.edges[i] = {
+	            x1: this.state.edges[i].x1,
+	            y1: this.state.edges[i].y1,
+	            x2: x,
+	            y2: y,
+	            label1: this.state.edges[i].label1,
+	            label2: label
+	          };
+	          this.refs["edge" + i].update2(x, y);
+	          this.refs["edgeDeletion" + i].update((x + this.state.edges[i].x1) / 2, (y + this.state.edges[i].y1) / 2);
 	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.updateMatrix();
-	            window.addEventListener("resize", this.updateDimensions);
+	      }
+	    }
+	  }, {
+	    key: 'updateMatrix',
+	    value: function updateMatrix() {
+	      if (ReactDOM.findDOMNode(this.refs.canvas)) {
+	        ReactDOM.findDOMNode(this.refs.canvas).setAttribute("transform", "matrix(" + this.state.transformMatrix.join(' ') + ")");
+	      }
+	    }
+	  }, {
+	    key: 'pan',
+	    value: function pan(dx, dy) {
+	      this.state.transformMatrix[4] += dx;
+	      this.state.transformMatrix[5] += dy;
 	
-	            this.zoomIn();
+	      this.updateMatrix();
+	    }
+	  }, {
+	    key: 'panRight',
+	    value: function panRight() {
+	      this.pan(-25, 0);
+	    }
+	  }, {
+	    key: 'panLeft',
+	    value: function panLeft() {
+	      this.pan(25, 0);
+	    }
+	  }, {
+	    key: 'panTop',
+	    value: function panTop() {
+	      this.pan(0, 25);
+	    }
+	  }, {
+	    key: 'panBottom',
+	    value: function panBottom() {
+	      this.pan(0, -25);
+	    }
+	  }, {
+	    key: 'zoom',
+	    value: function zoom(scale) {
+	      for (var i = 0; i < 4; i++) {
+	        this.state.transformMatrix[i] = this.state.transformMatrix[i] * scale;
+	      }
+	
+	      this.state.transformMatrix[4] += parseInt((1 - scale) * this.state.centerX);
+	      this.state.transformMatrix[5] += parseInt((1 - scale) * this.state.centerY);
+	
+	      this.updateMatrix();
+	
+	      this.setState({
+	        zoom: this.state.zoom * scale
+	      });
+	    }
+	  }, {
+	    key: 'zoomIn',
+	    value: function zoomIn() {
+	      this.zoom(0.8);
+	    }
+	  }, {
+	    key: 'zoomOut',
+	    value: function zoomOut() {
+	      this.zoom(1.25);
+	    }
+	  }, {
+	    key: 'getEdges',
+	    value: function getEdges() {
+	      var edges = [];
+	      for (var index in this.state.edges) {
+	        if (!this.state.edges[index].disable) {
+	          edges.push(this.state.edges[index]);
 	        }
-	    }, {
-	        key: 'updateDimensions',
-	        value: function updateDimensions() {
-	            this.setState({
-	                svg_width: window.innerWidth - 17,
-	                svg_height: window.innerHeight - 150
-	            });
+	      }
+	
+	      return edges;
+	    }
+	  }, {
+	    key: 'getNodes',
+	    value: function getNodes() {
+	      var nodes = [];
+	      for (var index in this.state.nodes) {
+	        nodes.push({
+	          label: this.state.nodes[index].label,
+	          disable: this.state.nodes[index].disable,
+	          x: this.refs[this.state.nodes[index].label].state.x,
+	          y: this.refs[this.state.nodes[index].label].state.y,
+	          properties: this.refs[this.state.nodes[index].label].getProperties()
+	        });
+	      }
+	
+	      return nodes;
+	    }
+	  }, {
+	    key: 'addEdge',
+	    value: function addEdge(label1, label2, x1, y1, x2, y2, disable) {
+	      var existingEdgeIndex = this.state.edges.findIndex(function (edge) {
+	        return edge.label1 == label1 && edge.label2 == label2;
+	      });
+	
+	      if (existingEdgeIndex < 0) {
+	
+	        var newEdge = {
+	          x1: x1,
+	          y1: y1,
+	          x2: x2,
+	          y2: y2,
+	          label1: label1,
+	          label2: label2,
+	          disable: disable
+	        };
+	
+	        var newEdgeDeletion = {
+	          x: (x1 + x2) / 2,
+	          y: (y1 + y2) / 2,
+	          label1: label1,
+	          label2: label2,
+	          disable: disable
+	        };
+	
+	        this.state.edges.push(newEdge);
+	        this.state.edgesDeletion.push(newEdgeDeletion);
+	
+	        this.setState({
+	          nodes: this.state.nodes,
+	          edges: this.state.edges,
+	          edgesDeletion: this.state.edgesDeletion,
+	          newEdge: false,
+	          prevLabel: null,
+	          currentChosenNode: null
+	        });
+	      } else {
+	        this.visibleEdge(label1, label2, x1, y1, x2, y2, false);
+	      }
+	    }
+	  }, {
+	    key: 'addNode',
+	    value: function addNode(label, x, y, disable, properties) {
+	      var nodes = this.state.nodes;
+	
+	      nodes.push({
+	        label: label,
+	        x: x,
+	        y: y,
+	        disable: disable,
+	        properties: properties
+	      });
+	
+	      this.setState({
+	        nodes: nodes
+	      });
+	    }
+	  }, {
+	    key: 'visibleEdge',
+	    value: function visibleEdge(label1, label2, x1, y1, x2, y2, disable) {
+	      var disableIndex = this.state.edges.findIndex(function (edge) {
+	        return edge.label1 == label1 && edge.label2 == label2;
+	      });
+	      this.state.edges[disableIndex].disable = disable;
+	      if (!disable) {
+	        this.state.edges[disableIndex].x1 = x1;
+	        this.state.edges[disableIndex].x2 = x2;
+	        this.state.edges[disableIndex].y1 = y1;
+	        this.state.edges[disableIndex].y2 = y2;
+	      }
+	
+	      var disableEdgeMarkIndex = this.state.edgesDeletion.findIndex(function (mark) {
+	        return mark.label1 == label1 && mark.label2 == label2;
+	      });
+	      this.state.edgesDeletion[disableEdgeMarkIndex].disable = disable;
+	      if (!disable) {
+	        this.state.edgesDeletion[disableEdgeMarkIndex].x = (x1 + x2) / 2;
+	        this.state.edgesDeletion[disableEdgeMarkIndex].y = (y1 + y2) / 2;
+	      }
+	
+	      this.setState({
+	        edges: this.state.edges
+	      });
+	    }
+	  }, {
+	    key: 'deleteEdgeCallBack',
+	    value: function deleteEdgeCallBack(label1, label2) {
+	      this.visibleEdge(label1, label2, 0, 0, 0, 0, true);
+	    }
+	  }, {
+	    key: 'deleteNodeCallBack',
+	    value: function deleteNodeCallBack(label) {
+	      for (var index in this.state.edges) {
+	        if (this.state.edges[index].label1 == label || this.state.edges[index].label2 == label) {
+	          this.state.edges[index].disable = true;
 	        }
-	    }, {
-	        key: 'entryPointCallBack',
-	        value: function entryPointCallBack(label) {
-	            if (this.state.newEdge == true && this.state.prevLabel != label) {
-	                // Create new Edge
-	                var prevPosition = this.refs[this.state.prevLabel].getCurrentPosition();
-	                var currPosition = this.refs[label].getCurrentPosition();
+	      }
+	      for (var _index in this.state.edgesDeletion) {
+	        if (this.state.edgesDeletion[_index].label1 == label || this.state.edgesDeletion[_index].label2 == label) {
+	          this.state.edgesDeletion[_index].disable = true;
+	        }
+	      }
 	
-	                this.addEdge(label, this.state.prevLabel, currPosition.x, currPosition.y, prevPosition.x, prevPosition.y, false);
-	            } else if (this.state.prevLabel == label) {
-	                this.state.prevLabel = null;
-	                this.state.newEdge = false;
+	      var deletedNodeIndex = this.state.nodes.findIndex(function (node) {
+	        return node.label == label;
+	      });
+	      this.state.nodes[deletedNodeIndex].disable = true;
+	      this.refs[label].setDisable(true);
 	
-	                this.setState({
-	                    currentChosenNode: null
-	                });
-	            } else {
-	                // Not Create new Edge
-	                this.state.prevLabel = label;
-	                this.state.newEdge = true;
+	      this.setState({
+	        edges: this.state.edges,
+	        edgesDeletion: this.state.edgesDeletion,
+	        nodes: this.state.nodes,
+	        currentChosenNode: null,
+	        prevLabel: null,
+	        newEdge: false
+	      });
+	    }
+	  }, {
+	    key: 'handleMouseDown',
+	    value: function handleMouseDown(e) {
+	      e.stopPropagation();
 	
-	                this.setState({
-	                    currentChosenNode: label
-	                });
+	      this.coords = {
+	        x: e.pageX,
+	        y: e.pageY
+	      };
+	    }
+	  }, {
+	    key: 'handleMouseUp',
+	    value: function handleMouseUp(e) {
+	      e.stopPropagation();
+	
+	      // Move Coordinate
+	      var xDiff = e.pageX - this.coords.x;
+	      var yDiff = e.pageY - this.coords.y;
+	
+	      if (xDiff > 0) this.pan(xDiff, 0);else this.pan(xDiff, 0);
+	
+	      if (yDiff > 0) this.pan(0, yDiff);else this.pan(0, yDiff);
+	    }
+	  }, {
+	    key: 'onScroll',
+	    value: function onScroll(e) {
+	      e.stopPropagation();
+	    }
+	  }, {
+	    key: 'clearSvgPane',
+	    value: function clearSvgPane() {
+	      this.setState({
+	        nodes: [],
+	        currentChosenNode: null,
+	        edges: [],
+	        edgesDeletion: [],
+	        prevLabel: null
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return React.createElement(
+	        'svg',
+	        { className: styles.svgPane, id: 'svg-graph', width: this.state.svg_width, height: this.state.svg_height, xmlns: 'http://www.w3.org/2000/svg', version: '1.1', onMouseDown: this.handleMouseDown,
+	          onMouseUp: this.handleMouseUp, onScroll: this.onScroll },
+	        React.createElement(
+	          'g',
+	          null,
+	          React.createElement(
+	            'g',
+	            { onClick: this.zoomIn },
+	            React.createElement('circle', { cx: '25', cy: '20.5', r: '8', fill: 'white' }),
+	            React.createElement('line', { stroke: '#000088', x1: 21.5, y1: 20.5, x2: 28.5, y2: 20.5 })
+	          ),
+	          React.createElement(
+	            'g',
+	            { onClick: this.zoomOut },
+	            React.createElement('circle', { cx: '25', cy: '39.5', r: '8', fill: 'white' }),
+	            React.createElement('line', { stroke: '#000088', x1: 21.5, y1: 39.5, x2: 28.5, y2: 39.5 }),
+	            React.createElement('line', { stroke: '#000088', x1: 25, y1: 35.5, x2: 25, y2: 43.5 })
+	          )
+	        ),
+	        React.createElement(
+	          'g',
+	          { ref: 'canvas' },
+	          this.state.nodes.map(function (d, idx) {
+	            return React.createElement(_node2.default, { key: d.label, modelparameter: _this2.props.modelparameter, zoom: _this2.state.zoom, ref: d.label, disable: d.disable, label: d.label,
+	              x: d.x, y: d.y, properties: d.properties, entryPointCallBack: _this2.entryPointCallBack, moveCircleCallBack: _this2.moveCircleCallBack, currentChosenNode: _this2.state.currentChosenNode,
+	              deleteNodeCallBack: _this2.deleteNodeCallBack });
+	          }),
+	          this.state.edges.map(function (d, idx) {
+	            if (!d.disable) {
+	              return React.createElement(_edge2.default, { key: "edge" + idx, ref: "edge" + idx, x1: d.x1, y1: d.y1, x2: d.x2, y2: d.y2, label1: d.label1,
+	                label2: d.label2 });
 	            }
-	        }
-	    }, {
-	        key: 'moveCircleCallBack',
-	        value: function moveCircleCallBack(label, x, y) {
-	            for (var i = 0; i < this.state.edges.length; i++) {
-	                if (this.state.edges[i].label1 == label && !this.state.edges[i].disable) {
-	
-	                    this.state.edges[i] = {
-	                        x1: x,
-	                        y1: y,
-	                        x2: this.state.edges[i].x2,
-	                        y2: this.state.edges[i].y2,
-	                        label1: label,
-	                        label2: this.state.edges[i].label2
-	                    };
-	
-	                    this.refs["edge" + i].update1(x, y);
-	                    this.refs["edgeDeletion" + i].update((x + this.state.edges[i].x2) / 2, (y + this.state.edges[i].y2) / 2);
-	                } else if (this.state.edges[i].label2 == label && !this.state.edges[i].disable) {
-	                    this.state.edges[i] = {
-	                        x1: this.state.edges[i].x1,
-	                        y1: this.state.edges[i].y1,
-	                        x2: x,
-	                        y2: y,
-	                        label1: this.state.edges[i].label1,
-	                        label2: label
-	                    };
-	                    this.refs["edge" + i].update2(x, y);
-	                    this.refs["edgeDeletion" + i].update((x + this.state.edges[i].x1) / 2, (y + this.state.edges[i].y1) / 2);
-	                }
+	          }),
+	          this.state.edgesDeletion.map(function (d, idx) {
+	            if (!d.disable) {
+	              return React.createElement(_edgeDeletion2.default, { key: "edgeDeletion" + idx, ref: "edgeDeletion" + idx, x: d.x, y: d.y, label1: d.label1, label2: d.label2,
+	                deleteEdgeCallBack: _this2.deleteEdgeCallBack });
 	            }
-	        }
-	    }, {
-	        key: 'updateMatrix',
-	        value: function updateMatrix() {
-	            if (ReactDOM.findDOMNode(this.refs.canvas)) {
-	                ReactDOM.findDOMNode(this.refs.canvas).setAttribute("transform", "matrix(" + this.state.transformMatrix.join(' ') + ")");
-	            }
-	        }
-	    }, {
-	        key: 'pan',
-	        value: function pan(dx, dy) {
-	            this.state.transformMatrix[4] += dx;
-	            this.state.transformMatrix[5] += dy;
+	          })
+	        )
+	      );
+	    }
+	  }]);
 	
-	            this.updateMatrix();
-	        }
-	    }, {
-	        key: 'panRight',
-	        value: function panRight() {
-	            this.pan(-25, 0);
-	        }
-	    }, {
-	        key: 'panLeft',
-	        value: function panLeft() {
-	            this.pan(25, 0);
-	        }
-	    }, {
-	        key: 'panTop',
-	        value: function panTop() {
-	            this.pan(0, 25);
-	        }
-	    }, {
-	        key: 'panBottom',
-	        value: function panBottom() {
-	            this.pan(0, -25);
-	        }
-	    }, {
-	        key: 'zoom',
-	        value: function zoom(scale) {
-	            for (var i = 0; i < 4; i++) {
-	                this.state.transformMatrix[i] = this.state.transformMatrix[i] * scale;
-	            }
-	
-	            this.state.transformMatrix[4] += parseInt((1 - scale) * this.state.centerX);
-	            this.state.transformMatrix[5] += parseInt((1 - scale) * this.state.centerY);
-	
-	            this.updateMatrix();
-	
-	            this.setState({
-	                zoom: this.state.zoom * scale
-	            });
-	        }
-	    }, {
-	        key: 'zoomIn',
-	        value: function zoomIn() {
-	            this.zoom(0.8);
-	        }
-	    }, {
-	        key: 'zoomOut',
-	        value: function zoomOut() {
-	            this.zoom(1.25);
-	        }
-	    }, {
-	        key: 'getEdges',
-	        value: function getEdges() {
-	            var edges = [];
-	            for (var index in this.state.edges) {
-	                if (!this.state.edges[index].disable) {
-	                    edges.push(this.state.edges[index]);
-	                }
-	            }
-	
-	            return edges;
-	        }
-	    }, {
-	        key: 'getNodes',
-	        value: function getNodes() {
-	            var nodes = [];
-	            for (var index in this.state.nodes) {
-	                nodes.push({
-	                    label: this.state.nodes[index].label,
-	                    disable: this.state.nodes[index].disable,
-	                    x: this.refs[this.state.nodes[index].label].state.x,
-	                    y: this.refs[this.state.nodes[index].label].state.y,
-	                    properties: this.refs[this.state.nodes[index].label].getProperties()
-	                });
-	            }
-	
-	            return nodes;
-	        }
-	    }, {
-	        key: 'addEdge',
-	        value: function addEdge(label1, label2, x1, y1, x2, y2, disable) {
-	            var existingEdgeIndex = this.state.edges.findIndex(function (edge) {
-	                return edge.label1 == label1 && edge.label2 == label2;
-	            });
-	
-	            if (existingEdgeIndex < 0) {
-	
-	                var newEdge = {
-	                    x1: x1,
-	                    y1: y1,
-	                    x2: x2,
-	                    y2: y2,
-	                    label1: label1,
-	                    label2: label2,
-	                    disable: disable
-	                };
-	
-	                var newEdgeDeletion = {
-	                    x: (x1 + x2) / 2,
-	                    y: (y1 + y2) / 2,
-	                    label1: label1,
-	                    label2: label2,
-	                    disable: disable
-	                };
-	
-	                this.state.edges.push(newEdge);
-	                this.state.edgesDeletion.push(newEdgeDeletion);
-	
-	                this.setState({
-	                    nodes: this.state.nodes,
-	                    edges: this.state.edges,
-	                    edgesDeletion: this.state.edgesDeletion,
-	                    newEdge: false,
-	                    prevLabel: null,
-	                    currentChosenNode: null
-	                });
-	            } else {
-	                this.visibleEdge(label1, label2, x1, y1, x2, y2, false);
-	            }
-	        }
-	    }, {
-	        key: 'addNode',
-	        value: function addNode(label, x, y, disable, properties) {
-	            var nodes = this.state.nodes;
-	
-	            nodes.push({
-	                label: label,
-	                x: x,
-	                y: y,
-	                disable: disable,
-	                properties: properties
-	            });
-	
-	            this.setState({
-	                nodes: nodes
-	            });
-	        }
-	    }, {
-	        key: 'visibleEdge',
-	        value: function visibleEdge(label1, label2, x1, y1, x2, y2, disable) {
-	            var disableIndex = this.state.edges.findIndex(function (edge) {
-	                return edge.label1 == label1 && edge.label2 == label2;
-	            });
-	            this.state.edges[disableIndex].disable = disable;
-	            if (!disable) {
-	                this.state.edges[disableIndex].x1 = x1;
-	                this.state.edges[disableIndex].x2 = x2;
-	                this.state.edges[disableIndex].y1 = y1;
-	                this.state.edges[disableIndex].y2 = y2;
-	            }
-	
-	            var disableEdgeMarkIndex = this.state.edgesDeletion.findIndex(function (mark) {
-	                return mark.label1 == label1 && mark.label2 == label2;
-	            });
-	            this.state.edgesDeletion[disableEdgeMarkIndex].disable = disable;
-	            if (!disable) {
-	                this.state.edgesDeletion[disableEdgeMarkIndex].x = (x1 + x2) / 2;
-	                this.state.edgesDeletion[disableEdgeMarkIndex].y = (y1 + y2) / 2;
-	            }
-	
-	            this.setState({
-	                edges: this.state.edges
-	            });
-	        }
-	    }, {
-	        key: 'deleteEdgeCallBack',
-	        value: function deleteEdgeCallBack(label1, label2) {
-	            this.visibleEdge(label1, label2, 0, 0, 0, 0, true);
-	        }
-	    }, {
-	        key: 'deleteNodeCallBack',
-	        value: function deleteNodeCallBack(label) {
-	            for (var index in this.state.edges) {
-	                if (this.state.edges[index].label1 == label || this.state.edges[index].label2 == label) {
-	                    this.state.edges[index].disable = true;
-	                }
-	            }
-	            for (var _index in this.state.edgesDeletion) {
-	                if (this.state.edgesDeletion[_index].label1 == label || this.state.edgesDeletion[_index].label2 == label) {
-	                    this.state.edgesDeletion[_index].disable = true;
-	                }
-	            }
-	
-	            var deletedNodeIndex = this.state.nodes.findIndex(function (node) {
-	                return node.label == label;
-	            });
-	            this.state.nodes[deletedNodeIndex].disable = true;
-	            this.refs[label].setDisable(true);
-	
-	            this.setState({
-	                edges: this.state.edges,
-	                edgesDeletion: this.state.edgesDeletion,
-	                nodes: this.state.nodes,
-	                currentChosenNode: null,
-	                prevLabel: null,
-	                newEdge: false
-	            });
-	        }
-	    }, {
-	        key: 'handleMouseDown',
-	        value: function handleMouseDown(e) {
-	            e.stopPropagation();
-	
-	            this.coords = {
-	                x: e.pageX,
-	                y: e.pageY
-	            };
-	        }
-	    }, {
-	        key: 'handleMouseUp',
-	        value: function handleMouseUp(e) {
-	            e.stopPropagation();
-	
-	            // Move Coordinate
-	            var xDiff = e.pageX - this.coords.x;
-	            var yDiff = e.pageY - this.coords.y;
-	
-	            if (xDiff > 0) this.pan(xDiff, 0);else this.pan(xDiff, 0);
-	
-	            if (yDiff > 0) this.pan(0, yDiff);else this.pan(0, yDiff);
-	        }
-	    }, {
-	        key: 'onScroll',
-	        value: function onScroll(e) {
-	            e.stopPropagation();
-	        }
-	    }, {
-	        key: 'clearSvgPane',
-	        value: function clearSvgPane() {
-	            this.setState({
-	                nodes: [],
-	                currentChosenNode: null,
-	                edges: [],
-	                edgesDeletion: [],
-	                prevLabel: null
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-	
-	            return React.createElement(
-	                'svg',
-	                { className: styles.svgPane, id: 'svg-graph', width: this.state.svg_width, height: this.state.svg_height, xmlns: 'http://www.w3.org/2000/svg', version: '1.1',
-	                    onMouseDown: this.handleMouseDown,
-	                    onMouseUp: this.handleMouseUp,
-	                    onScroll: this.onScroll
-	                },
-	                React.createElement(
-	                    'g',
-	                    null,
-	                    React.createElement(
-	                        'g',
-	                        { onClick: this.zoomIn },
-	                        React.createElement('circle', { cx: '25', cy: '20.5', r: '8', fill: 'white' }),
-	                        React.createElement('line', { stroke: '#000088', x1: 21.5, y1: 20.5, x2: 28.5, y2: 20.5 })
-	                    ),
-	                    React.createElement(
-	                        'g',
-	                        { onClick: this.zoomOut },
-	                        React.createElement('circle', { cx: '25', cy: '39.5', r: '8', fill: 'white' }),
-	                        React.createElement('line', { stroke: '#000088', x1: 21.5, y1: 39.5, x2: 28.5, y2: 39.5 }),
-	                        React.createElement('line', { stroke: '#000088', x1: 25, y1: 35.5, x2: 25, y2: 43.5 })
-	                    )
-	                ),
-	                React.createElement(
-	                    'g',
-	                    { ref: 'canvas' },
-	                    this.state.nodes.map(function (d, idx) {
-	                        return React.createElement(_node2.default, { key: d.label, modelparameter: _this2.props.modelparameter, zoom: _this2.state.zoom, ref: d.label, disable: d.disable, label: d.label, x: d.x, y: d.y, properties: d.properties, entryPointCallBack: _this2.entryPointCallBack, moveCircleCallBack: _this2.moveCircleCallBack, currentChosenNode: _this2.state.currentChosenNode, deleteNodeCallBack: _this2.deleteNodeCallBack });
-	                    }),
-	                    this.state.edges.map(function (d, idx) {
-	                        if (!d.disable) {
-	                            return React.createElement(_edge2.default, { key: "edge" + idx, ref: "edge" + idx, x1: d.x1, y1: d.y1, x2: d.x2, y2: d.y2, label1: d.label1, label2: d.label2 });
-	                        }
-	                    }),
-	                    this.state.edgesDeletion.map(function (d, idx) {
-	                        if (!d.disable) {
-	                            return React.createElement(_edgeDeletion2.default, { key: "edgeDeletion" + idx, ref: "edgeDeletion" + idx, x: d.x, y: d.y, label1: d.label1, label2: d.label2, deleteEdgeCallBack: _this2.deleteEdgeCallBack });
-	                        }
-	                    })
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return Graph;
+	  return Graph;
 	}(React.Component);
 	
 	exports.default = Graph;
@@ -43048,7 +43052,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -43094,175 +43098,160 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var Node = function (_React$Component) {
-	    _inherits(Node, _React$Component);
+	  _inherits(Node, _React$Component);
 	
-	    function Node(props) {
-	        _classCallCheck(this, Node);
+	  function Node(props) {
+	    _classCallCheck(this, Node);
 	
-	        var _this = _possibleConstructorReturn(this, (Node.__proto__ || Object.getPrototypeOf(Node)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Node.__proto__ || Object.getPrototypeOf(Node)).call(this, props));
 	
-	        _this.state = {
-	            x: _this.props.x,
-	            y: _this.props.y,
-	            disable: _this.props.disable
-	        };
+	    _this.state = {
+	      x: _this.props.x,
+	      y: _this.props.y,
+	      disable: _this.props.disable
+	    };
 	
-	        _this.handleMouseMove = _this.handleMouseMove.bind(_this);
-	        _this.handleMouseDown = _this.handleMouseDown.bind(_this);
-	        _this.handleMouseUp = _this.handleMouseUp.bind(_this);
-	        _this.handleMouseEnterConnectedPoint = _this.handleMouseEnterConnectedPoint.bind(_this);
-	        _this.clickNode = _this.clickNode.bind(_this);
-	        _this.setDisable = _this.setDisable.bind(_this);
-	        _this.getProperties = _this.getProperties.bind(_this);
-	        _this.addProperties = _this.addProperties.bind(_this);
-	        _this.resetMove = _this.resetMove.bind(_this);
-	        return _this;
+	    _this.handleMouseMove = _this.handleMouseMove.bind(_this);
+	    _this.handleMouseDown = _this.handleMouseDown.bind(_this);
+	    _this.handleMouseUp = _this.handleMouseUp.bind(_this);
+	    _this.handleMouseEnterConnectedPoint = _this.handleMouseEnterConnectedPoint.bind(_this);
+	    _this.clickNode = _this.clickNode.bind(_this);
+	    _this.setDisable = _this.setDisable.bind(_this);
+	    _this.getProperties = _this.getProperties.bind(_this);
+	    _this.addProperties = _this.addProperties.bind(_this);
+	    _this.resetMove = _this.resetMove.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Node, [{
+	    key: 'handleMouseMove',
+	    value: function handleMouseMove(e) {
+	      e.stopPropagation();
+	      var xDiff = this.coords.x - e.pageX;
+	      var yDiff = this.coords.y - e.pageY;
+	
+	      this.coords.x = e.pageX;
+	      this.coords.y = e.pageY;
+	
+	      this.setState({
+	        x: this.state.x - xDiff * (1 / this.props.zoom),
+	        y: this.state.y - yDiff * (1 / this.props.zoom)
+	      });
+	
+	      this.props.moveCircleCallBack(this.props.label, this.state.x, this.state.y);
+	
+	      /*console.log("mouse:"+this.state.x+","+this.state.y+","+e.pageX+","+e.pageY)
+	       if(Math.abs(this.state.x - e.pageX) > 30 || Math.abs(this.state.y - e.pageY)){
+	        console.log("off from the cursor");
+	        //this.resetMove();
+	      }
+	      */
 	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (this.props.properties) {
+	        this.addProperties(this.props.properties);
+	      }
+	    }
+	  }, {
+	    key: 'handleMouseDown',
+	    value: function handleMouseDown(e) {
+	      e.stopPropagation();
+	      this.coords = {
+	        x: e.pageX,
+	        y: e.pageY
+	      };
 	
-	    _createClass(Node, [{
-	        key: 'handleMouseMove',
-	        value: function handleMouseMove(e) {
-	            e.stopPropagation();
-	            var xDiff = this.coords.x - e.pageX;
-	            var yDiff = this.coords.y - e.pageY;
+	      this.mouseDownCoords = {
+	        x: e.pageX,
+	        y: e.pageY
+	      };
 	
-	            this.coords.x = e.pageX;
-	            this.coords.y = e.pageY;
+	      document.addEventListener('mousemove', this.handleMouseMove);
+	    }
+	  }, {
+	    key: 'handleMouseUp',
+	    value: function handleMouseUp(e) {
+	      e.stopPropagation();
 	
-	            this.setState({
-	                x: this.state.x - xDiff * (1 / this.props.zoom),
-	                y: this.state.y - yDiff * (1 / this.props.zoom)
-	            });
+	      // Check if this event is click
+	      if (e.pageX == this.mouseDownCoords.x && e.pageY == this.mouseDownCoords.y) {
+	        this.refs["nodePropertyView" + this.props.label].openModal();
+	      }
 	
-	            this.props.moveCircleCallBack(this.props.label, this.state.x, this.state.y);
+	      this.resetMove();
+	    }
+	  }, {
+	    key: 'resetMove',
+	    value: function resetMove() {
+	      document.removeEventListener('mousemove', this.handleMouseMove);
+	      this.coords = {};
+	    }
+	  }, {
+	    key: 'handleMouseEnterConnectedPoint',
+	    value: function handleMouseEnterConnectedPoint() {
+	      if (!this.state.disable) this.props.entryPointCallBack(this.props.label, this.state.x, this.state.y);
+	    }
+	  }, {
+	    key: 'getCurrentPosition',
+	    value: function getCurrentPosition() {
+	      return {
+	        x: this.state.x,
+	        y: this.state.y
+	      };
+	    }
+	  }, {
+	    key: 'clickNode',
+	    value: function clickNode() {
+	      if (this.state.disable) {
+	        this.setDisable(false);
+	      } else {
+	        this.props.deleteNodeCallBack(this.props.label);
+	      }
+	    }
+	  }, {
+	    key: 'setDisable',
+	    value: function setDisable(disable) {
+	      this.setState({
+	        disable: disable
+	      });
+	    }
+	  }, {
+	    key: 'getProperties',
+	    value: function getProperties() {
+	      return this.refs["nodePropertyView" + this.props.label].getProperties();
+	    }
+	  }, {
+	    key: 'addProperties',
+	    value: function addProperties(properties) {
+	      return this.refs["nodePropertyView" + this.props.label].addProperties(properties);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'g',
+	        null,
+	        React.createElement(_nodePropertyView2.default, { modelparameter: this.props.modelparameter, label: this.props.label, properties: this.props.properties, ref: "nodePropertyView" + this.props.label }),
+	        React.createElement('circle', { r: 30, cx: this.state.x, cy: this.state.y, onMouseDown: this.handleMouseDown, onMouseUp: this.handleMouseUp, fill: this.state.disable ? "#E0E0E0" : _color2.default.get() }),
+	        React.createElement(
+	          'g',
+	          { onMouseEnter: this.handleMouseEnterConnectedPoint, onClick: this.clickNode },
+	          React.createElement('circle', { r: '10', cx: this.state.x, cy: this.state.y, fill: this.props.currentChosenNode == this.props.label ? "yellow" : "white" }),
+	          React.createElement('line', { stroke: 'black', x1: this.state.disable ? this.state.x : this.state.x - 5, y1: this.state.y - 5, x2: this.state.disable ? this.state.x : this.state.x + 5, y2: this.state.y + 5 }),
+	          React.createElement('line', { stroke: 'black', x1: this.state.x + 5, y1: this.state.disable ? this.state.y : this.state.y - 5, x2: this.state.x - 5, y2: this.state.disable ? this.state.y : this.state.y + 5 })
+	        ),
+	        React.createElement(
+	          'text',
+	          { x: this.state.x - 20, y: this.state.y + 40, lengthAdjust: 'spacingAndGlyphs' },
+	          this.props.label
+	        )
+	      );
+	    }
+	  }]);
 	
-	            /*console.log("mouse:"+this.state.x+","+this.state.y+","+e.pageX+","+e.pageY)
-	             if(Math.abs(this.state.x - e.pageX) > 30 || Math.abs(this.state.y - e.pageY)){
-	              console.log("off from the cursor");
-	              //this.resetMove();
-	            }
-	            */
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            if (this.props.properties) {
-	                this.addProperties(this.props.properties);
-	            }
-	        }
-	    }, {
-	        key: 'handleMouseDown',
-	        value: function handleMouseDown(e) {
-	            e.stopPropagation();
-	            this.coords = {
-	                x: e.pageX,
-	                y: e.pageY
-	            };
-	
-	            this.mouseDownCoords = {
-	                x: e.pageX,
-	                y: e.pageY
-	            };
-	
-	            document.addEventListener('mousemove', this.handleMouseMove);
-	        }
-	    }, {
-	        key: 'handleMouseUp',
-	        value: function handleMouseUp(e) {
-	            e.stopPropagation();
-	
-	            // Check if this event is click
-	            if (e.pageX == this.mouseDownCoords.x && e.pageY == this.mouseDownCoords.y) {
-	                this.refs["nodePropertyView" + this.props.label].openModal();
-	            }
-	
-	            this.resetMove();
-	        }
-	    }, {
-	        key: 'resetMove',
-	        value: function resetMove() {
-	            document.removeEventListener('mousemove', this.handleMouseMove);
-	            this.coords = {};
-	        }
-	    }, {
-	        key: 'handleMouseEnterConnectedPoint',
-	        value: function handleMouseEnterConnectedPoint() {
-	            if (!this.state.disable) this.props.entryPointCallBack(this.props.label, this.state.x, this.state.y);
-	        }
-	    }, {
-	        key: 'getCurrentPosition',
-	        value: function getCurrentPosition() {
-	            return {
-	                x: this.state.x,
-	                y: this.state.y
-	            };
-	        }
-	    }, {
-	        key: 'clickNode',
-	        value: function clickNode() {
-	            if (this.state.disable) {
-	                this.setDisable(false);
-	            } else {
-	                this.props.deleteNodeCallBack(this.props.label);
-	            }
-	        }
-	    }, {
-	        key: 'setDisable',
-	        value: function setDisable(disable) {
-	            this.setState({
-	                disable: disable
-	            });
-	        }
-	    }, {
-	        key: 'getProperties',
-	        value: function getProperties() {
-	            return this.refs["nodePropertyView" + this.props.label].getProperties();
-	        }
-	    }, {
-	        key: 'addProperties',
-	        value: function addProperties(properties) {
-	            return this.refs["nodePropertyView" + this.props.label].addProperties(properties);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'g',
-	                null,
-	                React.createElement(_nodePropertyView2.default, { modelparameter: this.props.modelparameter, label: this.props.label, properties: this.props.properties, ref: "nodePropertyView" + this.props.label }),
-	                React.createElement('circle', {
-	                    r: 30,
-	                    cx: this.state.x,
-	                    cy: this.state.y,
-	                    onMouseDown: this.handleMouseDown,
-	                    onMouseUp: this.handleMouseUp,
-	                    fill: this.state.disable ? "#E0E0E0" : _color2.default.get()
-	                }),
-	                React.createElement(
-	                    'g',
-	                    { onMouseEnter: this.handleMouseEnterConnectedPoint, onClick: this.clickNode },
-	                    React.createElement('circle', {
-	                        r: '10',
-	                        cx: this.state.x,
-	                        cy: this.state.y,
-	                        fill: this.props.currentChosenNode == this.props.label ? "yellow" : "white"
-	
-	                    }),
-	                    React.createElement('line', { stroke: 'black', x1: this.state.disable ? this.state.x : this.state.x - 5, y1: this.state.y - 5, x2: this.state.disable ? this.state.x : this.state.x + 5, y2: this.state.y + 5 }),
-	                    React.createElement('line', { stroke: 'black', x1: this.state.x + 5, y1: this.state.disable ? this.state.y : this.state.y - 5, x2: this.state.x - 5, y2: this.state.disable ? this.state.y : this.state.y + 5 })
-	                ),
-	                React.createElement(
-	                    'text',
-	                    {
-	                        x: this.state.x - 20,
-	                        y: this.state.y + 40, lengthAdjust: 'spacingAndGlyphs' },
-	                    this.props.label
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return Node;
+	  return Node;
 	}(React.Component);
 	
 	exports.default = Node;
@@ -43274,7 +43263,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -43324,175 +43313,185 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '400px',
-	        width: '300px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '400px',
+	    width: '300px'
+	  }
 	};
 	
 	var NodePropertyView = function (_React$Component) {
-	    _inherits(NodePropertyView, _React$Component);
+	  _inherits(NodePropertyView, _React$Component);
 	
-	    function NodePropertyView(props) {
-	        _classCallCheck(this, NodePropertyView);
+	  function NodePropertyView(props) {
+	    _classCallCheck(this, NodePropertyView);
 	
-	        var _this = _possibleConstructorReturn(this, (NodePropertyView.__proto__ || Object.getPrototypeOf(NodePropertyView)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (NodePropertyView.__proto__ || Object.getPrototypeOf(NodePropertyView)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false,
-	            properties: [],
-	            count: 0
-	        };
+	    _this.state = {
+	      modalIsOpen: false,
+	      properties: [],
+	      count: 0
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.syncProperty = _this.syncProperty.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        _this.addProperty = _this.addProperty.bind(_this);
-	        _this.getProperties = _this.getProperties.bind(_this);
-	        _this.addProperties = _this.addProperties.bind(_this);
-	        _this.deleteCallBack = _this.deleteCallBack.bind(_this);
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.syncProperty = _this.syncProperty.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    _this.addProperty = _this.addProperty.bind(_this);
+	    _this.getProperties = _this.getProperties.bind(_this);
+	    _this.addProperties = _this.addProperties.bind(_this);
+	    _this.deleteCallBack = _this.deleteCallBack.bind(_this);
 	
-	        return _this;
+	    return _this;
+	  }
+	
+	  _createClass(NodePropertyView, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.syncProperty();
 	
-	    _createClass(NodePropertyView, [{
-	        key: 'openModal',
-	        value: function openModal() {
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.syncProperty();
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'syncProperty',
+	    value: function syncProperty() {
+	      var _this2 = this;
 	
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'syncProperty',
-	        value: function syncProperty() {
-	            var _this2 = this;
+	      this.state.properties.map(function (d, idx) {
+	        _this2.state.properties[idx].name = _this2.refs["prop" + idx].state.propAutoCompletedValue;
+	        _this2.state.properties[idx].value = _this2.refs["prop" + idx].refs.propValue.value;
+	      });
+	    }
+	  }, {
+	    key: 'addProperty',
+	    value: function addProperty() {
+	      this.state.properties.push({
+	        name: "",
+	        value: "",
+	        key: this.state.count
+	      });
 	
-	            this.state.properties.map(function (d, idx) {
-	                _this2.state.properties[idx].name = _this2.refs["prop" + idx].state.propAutoCompletedValue;
-	                _this2.state.properties[idx].value = _this2.refs["prop" + idx].refs.propValue.value;
-	            });
-	        }
-	    }, {
-	        key: 'addProperty',
-	        value: function addProperty() {
-	            this.state.properties.push({ name: "", value: "", key: this.state.count });
+	      this.setState({
+	        properties: this.state.properties,
+	        count: this.state.count + 1
+	      });
+	    }
+	  }, {
+	    key: 'getProperties',
+	    value: function getProperties() {
+	      return this.state.properties;
+	    }
+	  }, {
+	    key: 'addProperties',
+	    value: function addProperties(properties) {
+	      this.setState({
+	        properties: properties
+	      });
+	    }
+	  }, {
+	    key: 'deleteCallBack',
+	    value: function deleteCallBack(removedKey) {
+	      this.syncProperty();
 	
-	            this.setState({ properties: this.state.properties, count: this.state.count + 1 });
+	      var newProps = [];
+	      for (var index in this.state.properties) {
+	        if (this.state.properties[index].key != removedKey) {
+	          newProps.push(this.state.properties[index]);
 	        }
-	    }, {
-	        key: 'getProperties',
-	        value: function getProperties() {
-	            return this.state.properties;
-	        }
-	    }, {
-	        key: 'addProperties',
-	        value: function addProperties(properties) {
-	            this.setState({ properties: properties });
-	        }
-	    }, {
-	        key: 'deleteCallBack',
-	        value: function deleteCallBack(removedKey) {
-	            this.syncProperty();
+	      }
 	
-	            var newProps = [];
-	            for (var index in this.state.properties) {
-	                if (this.state.properties[index].key != removedKey) {
-	                    newProps.push(this.state.properties[index]);
-	                }
-	            }
+	      var self = this;
+	      this.setState({
+	        properties: []
+	      }, function () {
+	        self.setState({
+	          properties: newProps
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
 	
-	            var self = this;
-	            this.setState({
-	                properties: []
-	            }, function () {
-	                self.setState({
-	                    properties: newProps
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this3 = this;
-	
-	            return React.createElement(
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Property View', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.nodePropertyViewTitle },
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Property View',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.modalTitle },
-	                                'Property - ',
-	                                this.props.label,
-	                                ' '
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.closeModal, className: styles.closeButton },
-	                            React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewContent, ref: 'content' },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.nodeProp },
-	                            React.createElement(
-	                                'span',
-	                                { className: styles.nodePropAdd, onClick: this.addProperty },
-	                                React.createElement('img', { src: './../icon/mono_icons/plus32.png', className: styles.icon })
-	                            ),
-	                            React.createElement(
-	                                'span',
-	                                { className: styles.nodePropNameHeader },
-	                                'property'
-	                            ),
-	                            React.createElement(
-	                                'span',
-	                                { className: styles.nodePropValueHeader },
-	                                'value'
-	                            )
-	                        ),
-	                        this.state.properties.map(function (d, idx) {
-	                            return React.createElement(_nodeProperty2.default, { key: "nodeprop" + idx, ref: "prop" + idx, deleteCallBack: _this3.deleteCallBack, indexKey: d.key, name: d.name, value: d.value, modelparameter: _this3.props.modelparameter });
-	                        })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	                { className: styles.modalTitle },
+	                'Property - ',
+	                this.props.label,
+	                ' '
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.closeModal, className: styles.closeButton },
+	              React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.nodePropertyViewContent, ref: 'content' },
+	            React.createElement(
+	              'div',
+	              { className: styles.nodeProp },
+	              React.createElement(
+	                'span',
+	                { className: styles.nodePropAdd, onClick: this.addProperty },
+	                React.createElement('img', { src: './../icon/mono_icons/plus32.png', className: styles.icon })
+	              ),
+	              React.createElement(
+	                'span',
+	                { className: styles.nodePropNameHeader },
+	                'property'
+	              ),
+	              React.createElement(
+	                'span',
+	                { className: styles.nodePropValueHeader },
+	                'value'
+	              )
+	            ),
+	            this.state.properties.map(function (d, idx) {
+	              return React.createElement(_nodeProperty2.default, { key: "nodeprop" + idx, ref: "prop" + idx, deleteCallBack: _this3.deleteCallBack, indexKey: d.key, name: d.name, value: d.value,
+	                modelparameter: _this3.props.modelparameter });
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return NodePropertyView;
+	  return NodePropertyView;
 	}(React.Component);
 	
 	exports.default = NodePropertyView;
@@ -43615,35 +43614,26 @@
 	          { className: styles.nodePropDelete, onClick: this.deleteProperty },
 	          React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.icon })
 	        ),
-	        React.createElement(_reactAutocomplete2.default, {
-	          ref: 'propName',
-	          className: styles.nodePropName,
-	          items: this.state.propItems,
-	          shouldItemRender: function shouldItemRender(item, value) {
+	        React.createElement(_reactAutocomplete2.default, { ref: 'propName', className: styles.nodePropName, items: this.state.propItems, shouldItemRender: function shouldItemRender(item, value) {
 	            return item.label.toLowerCase().indexOf(value.toLowerCase()) > -1;
-	          },
-	          getItemValue: function getItemValue(item) {
+	          }, getItemValue: function getItemValue(item) {
 	            return item.label;
 	          },
-	          menuStyle: menuStyleContent,
-	          renderItem: function renderItem(item, highlighted) {
+	          menuStyle: menuStyleContent, renderItem: function renderItem(item, highlighted) {
 	            return React.createElement(
 	              'div',
-	              {
-	                key: item.id,
-	                style: { backgroundColor: highlighted ? '#eee' : 'transparent', "zIndex": 2000 }
-	              },
+	              { key: item.id, style: { backgroundColor: highlighted ? '#eee' : 'transparent', "zIndex": 2000 } },
 	              item.label
 	            );
-	          },
-	          value: this.state.propAutoCompletedValue,
-	          onChange: function onChange(e) {
-	            return _this2.setState({ propAutoCompletedValue: e.target.value });
-	          },
-	          onSelect: function onSelect(value) {
-	            return _this2.setState({ propAutoCompletedValue: value });
-	          }
-	        }),
+	          }, value: this.state.propAutoCompletedValue, onChange: function onChange(e) {
+	            return _this2.setState({
+	              propAutoCompletedValue: e.target.value
+	            });
+	          }, onSelect: function onSelect(value) {
+	            return _this2.setState({
+	              propAutoCompletedValue: value
+	            });
+	          } }),
 	        React.createElement('input', { className: styles.nodePropValue, ref: 'propValue', type: 'text' })
 	      );
 	    }
@@ -44921,7 +44911,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -44957,176 +44947,211 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var Circle = function (_React$Component) {
-	    _inherits(Circle, _React$Component);
+	  _inherits(Circle, _React$Component);
 	
-	    function Circle(props) {
-	        _classCallCheck(this, Circle);
+	  function Circle(props) {
+	    _classCallCheck(this, Circle);
 	
-	        var _this = _possibleConstructorReturn(this, (Circle.__proto__ || Object.getPrototypeOf(Circle)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Circle.__proto__ || Object.getPrototypeOf(Circle)).call(this, props));
 	
-	        _this.calculateCircleEdgePoint = _this.calculateCircleEdgePoint.bind(_this);
-	        _this.trimForMarkerEnd = _this.trimForMarkerEnd.bind(_this);
-	        _this.update1 = _this.update1.bind(_this);
-	        _this.update2 = _this.update2.bind(_this);
+	    _this.calculateCircleEdgePoint = _this.calculateCircleEdgePoint.bind(_this);
+	    _this.trimForMarkerEnd = _this.trimForMarkerEnd.bind(_this);
+	    _this.update1 = _this.update1.bind(_this);
+	    _this.update2 = _this.update2.bind(_this);
 	
-	        var new_x_y_2 = _this.calculateCircleEdgePoint({ x: _this.props.x1, y: _this.props.y1 }, { x: _this.props.x2, y: _this.props.y2 }, 30, 8);
-	        var new_x_y_1 = _this.calculateCircleEdgePoint({ x: _this.props.x1, y: _this.props.y1 }, { x: _this.props.x2, y: _this.props.y2 }, 30, 0);
+	    var new_x_y_2 = _this.calculateCircleEdgePoint({
+	      x: _this.props.x1,
+	      y: _this.props.y1
+	    }, {
+	      x: _this.props.x2,
+	      y: _this.props.y2
+	    }, 30, 8);
+	    var new_x_y_1 = _this.calculateCircleEdgePoint({
+	      x: _this.props.x1,
+	      y: _this.props.y1
+	    }, {
+	      x: _this.props.x2,
+	      y: _this.props.y2
+	    }, 30, 0);
 	
-	        _this.state = {
-	            x1: _this.props.x1,
-	            y1: _this.props.y1,
-	            x2: _this.props.x2,
-	            y2: _this.props.y2,
+	    _this.state = {
+	      x1: _this.props.x1,
+	      y1: _this.props.y1,
+	      x2: _this.props.x2,
+	      y2: _this.props.y2,
 	
-	            fixed_x1: _this.props.x1 - new_x_y_1.new_x,
-	            fixed_y1: _this.props.y1 - new_x_y_1.new_y,
-	            fixed_x2: _this.props.x2 + new_x_y_2.new_x,
-	            fixed_y2: _this.props.y2 + new_x_y_2.new_y,
+	      fixed_x1: _this.props.x1 - new_x_y_1.new_x,
+	      fixed_y1: _this.props.y1 - new_x_y_1.new_y,
+	      fixed_x2: _this.props.x2 + new_x_y_2.new_x,
+	      fixed_y2: _this.props.y2 + new_x_y_2.new_y,
 	
-	            label1: _this.props.label1,
-	            label2: _this.props.label2
-	        };
+	      label1: _this.props.label1,
+	      label2: _this.props.label2
+	    };
 	
-	        return _this;
+	    return _this;
+	  }
+	
+	  _createClass(Circle, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var markerLine = ReactDOM.findDOMNode(this.refs[this.state.label1 + ":" + this.state.label2]);
+	
+	      markerLine.setAttribute('marker-end', "url(#" + this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2) + ")");
 	    }
+	  }, {
+	    key: 'trimForMarkerEnd',
+	    value: function trimForMarkerEnd(str) {
+	      return str.replace(/\s/g, '');
+	    }
+	  }, {
+	    key: 'isLabel1',
+	    value: function isLabel1(label) {
+	      return label == this.state.label1;
+	    }
+	  }, {
+	    key: 'isLabel2',
+	    value: function isLabel2(label) {
+	      return label == this.state.label2;
+	    }
+	  }, {
+	    key: 'calculateCircleEdgePoint',
+	    value: function calculateCircleEdgePoint(currPosition, prevPosition, r, r_diff) {
+	      r = r + r_diff;
+	      var a = (prevPosition.y - currPosition.y) / (prevPosition.x - currPosition.x);
 	
-	    _createClass(Circle, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var markerLine = ReactDOM.findDOMNode(this.refs[this.state.label1 + ":" + this.state.label2]);
+	      var x_diff = Math.sqrt(r * r / (1 + a * a));
+	      var y_diff = Math.sqrt(a * a * r * r / (1 + a * a));
 	
-	            markerLine.setAttribute('marker-end', "url(#" + this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2) + ")");
-	        }
-	    }, {
-	        key: 'trimForMarkerEnd',
-	        value: function trimForMarkerEnd(str) {
-	            return str.replace(/\s/g, '');
-	        }
-	    }, {
-	        key: 'isLabel1',
-	        value: function isLabel1(label) {
-	            return label == this.state.label1;
-	        }
-	    }, {
-	        key: 'isLabel2',
-	        value: function isLabel2(label) {
-	            return label == this.state.label2;
-	        }
-	    }, {
-	        key: 'calculateCircleEdgePoint',
-	        value: function calculateCircleEdgePoint(currPosition, prevPosition, r, r_diff) {
-	            r = r + r_diff;
-	            var a = (prevPosition.y - currPosition.y) / (prevPosition.x - currPosition.x);
+	      if (currPosition.x < prevPosition.x && currPosition.y < prevPosition.y) {
+	        return {
+	          new_x: -Math.sqrt(r * r / (1 + a * a)),
+	          new_y: -Math.sqrt(a * a * r * r / (1 + a * a))
+	        };
+	      } else if (currPosition.x < prevPosition.x && currPosition.y > prevPosition.y) {
+	        return {
+	          new_x: -Math.sqrt(r * r / (1 + a * a)),
+	          new_y: Math.sqrt(a * a * r * r / (1 + a * a))
+	        };
+	      }
+	      if (currPosition.x > prevPosition.x && currPosition.y < prevPosition.y) {
+	        return {
+	          new_x: Math.sqrt(r * r / (1 + a * a)),
+	          new_y: -Math.sqrt(a * a * r * r / (1 + a * a))
+	        };
+	      } else if (currPosition.x > prevPosition.x && currPosition.y > prevPosition.y) {
+	        return {
+	          new_x: Math.sqrt(r * r / (1 + a * a)),
+	          new_y: Math.sqrt(a * a * r * r / (1 + a * a))
+	        };
+	      } else if (currPosition.x == prevPosition.x && currPosition.y < prevPosition.y) {
+	        return {
+	          new_x: 0,
+	          new_y: -r
+	        };
+	      } else if (currPosition.x == prevPosition.x && currPosition.y > prevPosition.y) {
+	        return {
+	          new_x: 0,
+	          new_y: r
+	        };
+	      } else if (currPosition.x < prevPosition.x && currPosition.y == prevPosition.y) {
+	        return {
+	          new_x: -r,
+	          new_y: 0
+	        };
+	      } else if (currPosition.x > prevPosition.x && currPosition.y == prevPosition.y) {
+	        return {
+	          new_x: r,
+	          new_y: 0
+	        };
+	      }
 	
-	            var x_diff = Math.sqrt(r * r / (1 + a * a));
-	            var y_diff = Math.sqrt(a * a * r * r / (1 + a * a));
+	      return {
+	        new_x: 0,
+	        new_y: 0
+	      };
+	    }
+	  }, {
+	    key: 'update1',
+	    value: function update1(x1, y1) {
+	      var new_x_y_1 = this.calculateCircleEdgePoint({
+	        x: x1,
+	        y: y1
+	      }, {
+	        x: this.state.x2,
+	        y: this.state.y2
+	      }, 30, 0);
+	      var new_x_y_2 = this.calculateCircleEdgePoint({
+	        x: x1,
+	        y: y1
+	      }, {
+	        x: this.state.x2,
+	        y: this.state.y2
+	      }, 30, 8);
+	      this.setState({
+	        x1: x1,
+	        y1: y1,
+	        x2: this.state.x2,
+	        y2: this.state.y2,
+	        fixed_x1: x1 - new_x_y_1.new_x,
+	        fixed_y1: y1 - new_x_y_1.new_y,
+	        fixed_x2: this.state.x2 + new_x_y_2.new_x,
+	        fixed_y2: this.state.y2 + new_x_y_2.new_y,
+	        label1: this.state.label1,
+	        label2: this.state.label2
+	      });
+	    }
+	  }, {
+	    key: 'update2',
+	    value: function update2(x2, y2) {
+	      var new_x_y_1 = this.calculateCircleEdgePoint({
+	        x: this.state.x1,
+	        y: this.state.y1
+	      }, {
+	        x: x2,
+	        y: y2
+	      }, 30, 0);
+	      var new_x_y_2 = this.calculateCircleEdgePoint({
+	        x: this.state.x1,
+	        y: this.state.y1
+	      }, {
+	        x: x2,
+	        y: y2
+	      }, 30, 8);
+	      this.setState({
+	        x1: this.state.x1,
+	        y1: this.state.y1,
+	        x2: x2,
+	        y2: y2,
+	        fixed_x1: this.state.x1 - new_x_y_1.new_x,
+	        fixed_y1: this.state.y1 - new_x_y_1.new_y,
+	        fixed_x2: x2 + new_x_y_2.new_x,
+	        fixed_y2: y2 + new_x_y_2.new_y,
+	        label1: this.state.label1,
+	        label2: this.state.label2
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'g',
+	        null,
+	        React.createElement(
+	          'defs',
+	          null,
+	          React.createElement(
+	            'marker',
+	            { id: this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2), orient: 'auto', markerWidth: '8', markerHeight: '16', refX: '0.1', refY: '8' },
+	            React.createElement('path', { d: 'M0,0 V16 L8,8 Z' })
+	          )
+	        ),
+	        React.createElement('line', { ref: this.state.label1 + ":" + this.state.label2, stroke: 'black', x1: this.state.fixed_x1, y1: this.state.fixed_y1, x2: this.state.fixed_x2, y2: this.state.fixed_y2 })
+	      );
+	    }
+	  }]);
 	
-	            if (currPosition.x < prevPosition.x && currPosition.y < prevPosition.y) {
-	                return {
-	                    new_x: -Math.sqrt(r * r / (1 + a * a)),
-	                    new_y: -Math.sqrt(a * a * r * r / (1 + a * a))
-	                };
-	            } else if (currPosition.x < prevPosition.x && currPosition.y > prevPosition.y) {
-	                return {
-	                    new_x: -Math.sqrt(r * r / (1 + a * a)),
-	                    new_y: Math.sqrt(a * a * r * r / (1 + a * a))
-	                };
-	            }if (currPosition.x > prevPosition.x && currPosition.y < prevPosition.y) {
-	                return {
-	                    new_x: Math.sqrt(r * r / (1 + a * a)),
-	                    new_y: -Math.sqrt(a * a * r * r / (1 + a * a))
-	                };
-	            } else if (currPosition.x > prevPosition.x && currPosition.y > prevPosition.y) {
-	                return {
-	                    new_x: Math.sqrt(r * r / (1 + a * a)),
-	                    new_y: Math.sqrt(a * a * r * r / (1 + a * a))
-	                };
-	            } else if (currPosition.x == prevPosition.x && currPosition.y < prevPosition.y) {
-	                return {
-	                    new_x: 0,
-	                    new_y: -r
-	                };
-	            } else if (currPosition.x == prevPosition.x && currPosition.y > prevPosition.y) {
-	                return {
-	                    new_x: 0,
-	                    new_y: r
-	                };
-	            } else if (currPosition.x < prevPosition.x && currPosition.y == prevPosition.y) {
-	                return {
-	                    new_x: -r,
-	                    new_y: 0
-	                };
-	            } else if (currPosition.x > prevPosition.x && currPosition.y == prevPosition.y) {
-	                return {
-	                    new_x: r,
-	                    new_y: 0
-	                };
-	            }
-	
-	            return {
-	                new_x: 0,
-	                new_y: 0
-	            };
-	        }
-	    }, {
-	        key: 'update1',
-	        value: function update1(x1, y1) {
-	            var new_x_y_1 = this.calculateCircleEdgePoint({ x: x1, y: y1 }, { x: this.state.x2, y: this.state.y2 }, 30, 0);
-	            var new_x_y_2 = this.calculateCircleEdgePoint({ x: x1, y: y1 }, { x: this.state.x2, y: this.state.y2 }, 30, 8);
-	            this.setState({
-	                x1: x1,
-	                y1: y1,
-	                x2: this.state.x2,
-	                y2: this.state.y2,
-	                fixed_x1: x1 - new_x_y_1.new_x,
-	                fixed_y1: y1 - new_x_y_1.new_y,
-	                fixed_x2: this.state.x2 + new_x_y_2.new_x,
-	                fixed_y2: this.state.y2 + new_x_y_2.new_y,
-	                label1: this.state.label1,
-	                label2: this.state.label2
-	            });
-	        }
-	    }, {
-	        key: 'update2',
-	        value: function update2(x2, y2) {
-	            var new_x_y_1 = this.calculateCircleEdgePoint({ x: this.state.x1, y: this.state.y1 }, { x: x2, y: y2 }, 30, 0);
-	            var new_x_y_2 = this.calculateCircleEdgePoint({ x: this.state.x1, y: this.state.y1 }, { x: x2, y: y2 }, 30, 8);
-	            this.setState({
-	                x1: this.state.x1,
-	                y1: this.state.y1,
-	                x2: x2,
-	                y2: y2,
-	                fixed_x1: this.state.x1 - new_x_y_1.new_x,
-	                fixed_y1: this.state.y1 - new_x_y_1.new_y,
-	                fixed_x2: x2 + new_x_y_2.new_x,
-	                fixed_y2: y2 + new_x_y_2.new_y,
-	                label1: this.state.label1,
-	                label2: this.state.label2
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'g',
-	                null,
-	                React.createElement(
-	                    'defs',
-	                    null,
-	                    React.createElement(
-	                        'marker',
-	                        { id: this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2), orient: 'auto',
-	                            markerWidth: '8', markerHeight: '16',
-	                            refX: '0.1', refY: '8' },
-	                        React.createElement('path', { d: 'M0,0 V16 L8,8 Z' })
-	                    )
-	                ),
-	                React.createElement('line', { ref: this.state.label1 + ":" + this.state.label2, stroke: 'black', x1: this.state.fixed_x1, y1: this.state.fixed_y1, x2: this.state.fixed_x2, y2: this.state.fixed_y2 })
-	            );
-	        }
-	    }]);
-	
-	    return Circle;
+	  return Circle;
 	}(React.Component);
 	
 	exports.default = Circle;
@@ -45138,7 +45163,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	     value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45184,58 +45209,53 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var EdgeDeletion = function (_React$Component) {
-	     _inherits(EdgeDeletion, _React$Component);
+	  _inherits(EdgeDeletion, _React$Component);
 	
-	     function EdgeDeletion(props) {
-	          _classCallCheck(this, EdgeDeletion);
+	  function EdgeDeletion(props) {
+	    _classCallCheck(this, EdgeDeletion);
 	
-	          var _this = _possibleConstructorReturn(this, (EdgeDeletion.__proto__ || Object.getPrototypeOf(EdgeDeletion)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (EdgeDeletion.__proto__ || Object.getPrototypeOf(EdgeDeletion)).call(this, props));
 	
-	          _this.state = {
-	               x: _this.props.x,
-	               y: _this.props.y
-	          };
+	    _this.state = {
+	      x: _this.props.x,
+	      y: _this.props.y
+	    };
 	
-	          _this.deleteEdge = _this.deleteEdge.bind(_this);
-	          _this.update = _this.update.bind(_this);
-	          _this.deleteEdge = _this.deleteEdge.bind(_this);
-	          return _this;
-	     }
+	    _this.deleteEdge = _this.deleteEdge.bind(_this);
+	    _this.update = _this.update.bind(_this);
+	    _this.deleteEdge = _this.deleteEdge.bind(_this);
+	    return _this;
+	  }
 	
-	     _createClass(EdgeDeletion, [{
-	          key: 'update',
-	          value: function update(x, y) {
-	               this.setState({
-	                    x: x,
-	                    y: y
-	               });
-	          }
-	     }, {
-	          key: 'deleteEdge',
-	          value: function deleteEdge(e) {
-	               e.stopPropagation();
+	  _createClass(EdgeDeletion, [{
+	    key: 'update',
+	    value: function update(x, y) {
+	      this.setState({
+	        x: x,
+	        y: y
+	      });
+	    }
+	  }, {
+	    key: 'deleteEdge',
+	    value: function deleteEdge(e) {
+	      e.stopPropagation();
 	
-	               this.props.deleteEdgeCallBack(this.props.label1, this.props.label2);
-	          }
-	     }, {
-	          key: 'render',
-	          value: function render() {
-	               return React.createElement(
-	                    'g',
-	                    { onClick: this.deleteEdge },
-	                    React.createElement('circle', {
-	                         r: '8',
-	                         cx: this.state.x,
-	                         cy: this.state.y,
-	                         fill: _color2.default.get()
-	                    }),
-	                    React.createElement('line', { stroke: 'white', x1: this.state.x - 3, y1: this.state.y - 3, x2: this.state.x + 3, y2: this.state.y + 3 }),
-	                    React.createElement('line', { stroke: 'white', x1: this.state.x + 3, y1: this.state.y - 3, x2: this.state.x - 3, y2: this.state.y + 3 })
-	               );
-	          }
-	     }]);
+	      this.props.deleteEdgeCallBack(this.props.label1, this.props.label2);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'g',
+	        { onClick: this.deleteEdge },
+	        React.createElement('circle', { r: '8', cx: this.state.x, cy: this.state.y, fill: _color2.default.get() }),
+	        React.createElement('line', { stroke: 'white', x1: this.state.x - 3, y1: this.state.y - 3, x2: this.state.x + 3, y2: this.state.y + 3 }),
+	        React.createElement('line', { stroke: 'white', x1: this.state.x + 3, y1: this.state.y - 3, x2: this.state.x - 3, y2: this.state.y + 3 })
+	      );
+	    }
+	  }]);
 	
-	     return EdgeDeletion;
+	  return EdgeDeletion;
 	}(React.Component);
 	
 	exports.default = EdgeDeletion;
@@ -45247,7 +45267,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45293,144 +45313,144 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '250px',
-	        width: '300px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '250px',
+	    width: '300px'
+	  }
 	};
 	
 	var GraphSaveView = function (_React$Component) {
-	    _inherits(GraphSaveView, _React$Component);
+	  _inherits(GraphSaveView, _React$Component);
 	
-	    function GraphSaveView(props) {
-	        _classCallCheck(this, GraphSaveView);
+	  function GraphSaveView(props) {
+	    _classCallCheck(this, GraphSaveView);
 	
-	        var _this = _possibleConstructorReturn(this, (GraphSaveView.__proto__ || Object.getPrototypeOf(GraphSaveView)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (GraphSaveView.__proto__ || Object.getPrototypeOf(GraphSaveView)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false,
-	            message: "",
-	            properties: []
-	        };
+	    _this.state = {
+	      modalIsOpen: false,
+	      message: "",
+	      properties: []
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        _this.save = _this.save.bind(_this);
-	        return _this;
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    _this.save = _this.save.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(GraphSaveView, [{
+	    key: 'openModal',
+	    value: function openModal(message, modelname, modeltag, modeldescription) {
+	      var self = this;
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true,
+	        message: message
+	      }, function () {
+	        self.refs.modelName.focus();
+	        self.refs.modelName.value = modelname;
+	        self.refs.modelTag.value = modeltag;
+	        self.refs.modelDescription.value = modeldescription;
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'save',
+	    value: function save() {
+	      this.props.saveCallBack(this.refs.modelName.value, this.refs.modelTag.value, this.refs.modelDescription.value);
 	
-	    _createClass(GraphSaveView, [{
-	        key: 'openModal',
-	        value: function openModal(message, modelname, modeltag, modeldescription) {
-	            var self = this;
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true, message: message }, function () {
-	                self.refs.modelName.focus();
-	                self.refs.modelName.value = modelname;
-	                self.refs.modelTag.value = modeltag;
-	                self.refs.modelDescription.value = modeldescription;
-	            });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'save',
-	        value: function save() {
-	            this.props.saveCallBack(this.refs.modelName.value, this.refs.modelTag.value, this.refs.modelDescription.value);
-	
-	            this.closeModal();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	      this.closeModal();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Model Property', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.saveModelViewTitle },
+	            this.state.message,
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Model Property',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.saveModelViewTitle },
-	                        this.state.message,
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.modalTitle },
-	                                'Model Information'
-	                            )
-	                        ),
-	                        ' ',
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.closeModal, className: styles.closeButtonGraphSaveView },
-	                            React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.saveModelViewContent, ref: 'content' },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'Model Name'
-	                            ),
-	                            React.createElement('input', { className: styles.savePropValue, ref: 'modelName', type: 'text' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'Model Tag'
-	                            ),
-	                            React.createElement('input', { className: styles.savePropValue, ref: 'modelTag', type: 'text' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'Model Description'
-	                            ),
-	                            React.createElement('input', { className: styles.savePropValue, ref: 'modelDescription', type: 'text' })
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { onClick: this.save, className: styles.saveButtonBox },
-	                        'Save'
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	                { className: styles.modalTitle },
+	                'Model Information'
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.closeModal, className: styles.closeButtonGraphSaveView },
+	              React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.saveModelViewContent, ref: 'content' },
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'Model Name'
+	              ),
+	              React.createElement('input', { className: styles.savePropValue, ref: 'modelName', type: 'text' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'Model Tag'
+	              ),
+	              React.createElement('input', { className: styles.savePropValue, ref: 'modelTag', type: 'text' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'Model Description'
+	              ),
+	              React.createElement('input', { className: styles.savePropValue, ref: 'modelDescription', type: 'text' })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { onClick: this.save, className: styles.saveButtonBox },
+	            'Save'
+	          )
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return GraphSaveView;
+	  return GraphSaveView;
 	}(React.Component);
 	
 	exports.default = GraphSaveView;
@@ -45442,7 +45462,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45502,218 +45522,217 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '500px',
-	        width: '800px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '500px',
+	    width: '800px'
+	  }
 	};
 	
 	var ModelHistoryDialogWithSearch = function (_React$Component) {
-	    _inherits(ModelHistoryDialogWithSearch, _React$Component);
+	  _inherits(ModelHistoryDialogWithSearch, _React$Component);
 	
-	    function ModelHistoryDialogWithSearch(props) {
-	        _classCallCheck(this, ModelHistoryDialogWithSearch);
+	  function ModelHistoryDialogWithSearch(props) {
+	    _classCallCheck(this, ModelHistoryDialogWithSearch);
 	
-	        var _this = _possibleConstructorReturn(this, (ModelHistoryDialogWithSearch.__proto__ || Object.getPrototypeOf(ModelHistoryDialogWithSearch)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ModelHistoryDialogWithSearch.__proto__ || Object.getPrototypeOf(ModelHistoryDialogWithSearch)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false,
-	            plotTestHistory: false,
-	            records: []
-	        };
+	    _this.state = {
+	      modalIsOpen: false,
+	      plotTestHistory: false,
+	      records: []
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.tooltipScatter = _this.tooltipScatter.bind(_this);
-	        _this.openGraph = _this.openGraph.bind(_this);
-	        return _this;
-	    }
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.tooltipScatter = _this.tooltipScatter.bind(_this);
+	    _this.openGraph = _this.openGraph.bind(_this);
+	    return _this;
+	  }
 	
-	    _createClass(ModelHistoryDialogWithSearch, [{
-	        key: 'openModal',
-	        value: function openModal(model_userid, modelid) {
-	            var self = this;
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true }, function () {
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&model_userid=" + model_userid + "&modelid=" + modelid,
-	                    type: "get",
-	                    headers: {
-	                        Authorization: "Bearer " + _auth2.default.getToken()
-	                    },
-	                    success: function success(response) {
+	  _createClass(ModelHistoryDialogWithSearch, [{
+	    key: 'openModal',
+	    value: function openModal(model_userid, modelid) {
+	      var self = this;
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true
+	      }, function () {
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&model_userid=" + model_userid + "&modelid=" + modelid,
+	          type: "get",
+	          headers: {
+	            Authorization: "Bearer " + _auth2.default.getToken()
+	          },
+	          success: function success(response) {
 	
-	                        var values = [];
-	                        var records = [];
-	                        var oldestDate = new Date();
+	            var values = [];
+	            var records = [];
+	            var oldestDate = new Date();
 	
-	                        // JSON.parse(response.body.model)
-	                        console.log("success for save");
-	                        console.log(response);
+	            // JSON.parse(response.body.model)
+	            console.log("success for save");
+	            console.log(response);
 	
-	                        if (response.body.history.length > 0) {
-	                            var n = 4;
-	                            for (var index in response.body.history) {
-	                                var json = JSON.parse(response.body.history[index]);
-	                                json.info.accuracy = Math.floor(json.info.accuracy * Math.pow(10, n)) / Math.pow(10, n);
+	            if (response.body.history.length > 0) {
+	              var n = 4;
+	              for (var index in response.body.history) {
+	                var json = JSON.parse(response.body.history[index]);
+	                json.info.accuracy = Math.floor(json.info.accuracy * Math.pow(10, n)) / Math.pow(10, n);
 	
-	                                var date = new Date(json.time);
+	                var date = new Date(json.time);
 	
-	                                var format_str = 'YYYY/MM/DD hh:mm:ss';
-	                                format_str = format_str.replace(/YYYY/g, date.getFullYear());
-	                                format_str = format_str.replace(/MM/g, date.getMonth());
-	                                format_str = format_str.replace(/DD/g, date.getDate());
-	                                format_str = format_str.replace(/hh/g, date.getHours());
-	                                format_str = format_str.replace(/mm/g, date.getMinutes());
-	                                format_str = format_str.replace(/ss/g, date.getSeconds());
+	                var format_str = 'YYYY/MM/DD hh:mm:ss';
+	                format_str = format_str.replace(/YYYY/g, date.getFullYear());
+	                format_str = format_str.replace(/MM/g, date.getMonth());
+	                format_str = format_str.replace(/DD/g, date.getDate());
+	                format_str = format_str.replace(/hh/g, date.getHours());
+	                format_str = format_str.replace(/mm/g, date.getMinutes());
+	                format_str = format_str.replace(/ss/g, date.getSeconds());
 	
-	                                json.model.formattedDate = format_str;
+	                json.model.formattedDate = format_str;
 	
-	                                records.push(json);
+	                records.push(json);
 	
-	                                values.push({
-	                                    x: date, y: json.info.accuracy
-	                                });
-	
-	                                if (date < oldestDate) {
-	                                    oldestDate = date;
-	                                }
-	                            }
-	
-	                            var earliestDate = oldestDate;
-	
-	                            for (var _index in values) {
-	                                if (values[_index].x > earliestDate) {
-	                                    earliestDate = values[_index].x;
-	                                }
-	                            }
-	
-	                            var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
-	                            var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
-	
-	                            self.setState({
-	                                plotTestHistory: true,
-	                                data: { label: 'test accuracy history', values: values },
-	                                xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-	                                xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-	                                records: records
-	                            });
-	
-	                            console.log(self.state.data);
-	                        }
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("error");
-	                        console.log(request.responseText);
-	                        console.log(status);
-	                        console.log(_error);
-	                    }
+	                values.push({
+	                  x: date,
+	                  y: json.info.accuracy
 	                });
-	            });
-	        }
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'tooltipScatter',
-	        value: function tooltipScatter(x, y) {
-	            var n = 2;
-	            return Math.floor(y * Math.pow(10, n)) / Math.pow(10, n) + ".., " + x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate() + " " + x.getHours() + ":" + x.getMinutes();
-	        }
-	    }, {
-	        key: 'openGraph',
-	        value: function openGraph(recordInfo) {
-	            console.log(recordInfo);
 	
-	            var self = this;
+	                if (date < oldestDate) {
+	                  oldestDate = date;
+	                }
+	              }
 	
-	            if (recordInfo.model.modelid) {
-	                console.log("open : " + recordInfo.model.modelid);
-	                console.log(recordInfo);
-	                var data = {
-	                    companyid: _auth2.default.getCompanyid(),
-	                    userid: _auth2.default.getUserid(),
-	                    code: 10,
-	                    modelid: recordInfo.model.modelid,
-	                    datetime: recordInfo.model.datetime
-	                };
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/test/history?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.model.modelid + "&datetime=" + recordInfo.model.datetime,
-	                    type: "get",
-	                    headers: {
-	                        Authorization: "Bearer " + _auth2.default.getToken()
-	                    },
-	                    success: function success(response) {
-	                        console.log("got graph");
-	                        console.log(response);
-	                        self.props.clear();
-	                        self.props.setup(JSON.parse(response.body.model));
-	                        self.closeModal();
-	                    },
-	                    error: function error(request, status, _error2) {
-	                        alert("error");
-	                        console.log(request);
-	                        console.log(status);
-	                        console.log(_error2);
-	                    }
-	                });
+	              var earliestDate = oldestDate;
+	
+	              for (var _index in values) {
+	                if (values[_index].x > earliestDate) {
+	                  earliestDate = values[_index].x;
+	                }
+	              }
+	
+	              var axisOldest = new Date(oldestDate.getTime());
+	              axisOldest.setDate(oldestDate.getDate() - 2);
+	              var axisEarliest = new Date(earliestDate.getTime());
+	              axisEarliest.setDate(earliestDate.getDate() + 2);
+	
+	              self.setState({
+	                plotTestHistory: true,
+	                data: {
+	                  label: 'test accuracy history',
+	                  values: values
+	                },
+	                xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                records: records
+	              });
+	
+	              console.log(self.state.data);
 	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
+	          },
+	          error: function error(request, status, _error) {
+	            alert("error");
+	            console.log(request.responseText);
+	            console.log(status);
+	            console.log(_error);
+	          }
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'tooltipScatter',
+	    value: function tooltipScatter(x, y) {
+	      var n = 2;
+	      return Math.floor(y * Math.pow(10, n)) / Math.pow(10, n) + ".., " + x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate() + " " + x.getHours() + ":" + x.getMinutes();
+	    }
+	  }, {
+	    key: 'openGraph',
+	    value: function openGraph(recordInfo) {
+	      console.log(recordInfo);
 	
-	            return React.createElement(
+	      var self = this;
+	
+	      if (recordInfo.model.modelid) {
+	        console.log("open : " + recordInfo.model.modelid);
+	        console.log(recordInfo);
+	        var data = {
+	          companyid: _auth2.default.getCompanyid(),
+	          userid: _auth2.default.getUserid(),
+	          code: 10,
+	          modelid: recordInfo.model.modelid,
+	          datetime: recordInfo.model.datetime
+	        };
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/GML.php/gml/model/test/history?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.model.modelid + "&datetime=" + recordInfo.model.datetime,
+	          type: "get",
+	          headers: {
+	            Authorization: "Bearer " + _auth2.default.getToken()
+	          },
+	          success: function success(response) {
+	            console.log("got graph");
+	            console.log(response);
+	            self.props.clear();
+	            self.props.setup(JSON.parse(response.body.model));
+	            self.closeModal();
+	          },
+	          error: function error(request, status, _error2) {
+	            alert("error");
+	            console.log(request);
+	            console.log(status);
+	            console.log(_error2);
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Model History', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.nodePropertyViewTitle },
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement('div', { className: styles.modalTitle }),
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Model History',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement('div', { className: styles.modalTitle }),
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.closeModal, className: styles.closeButton },
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                            )
-	                        )
-	                    ),
-	                    this.state.plotTestHistory ? React.createElement(_reactD3Components.ScatterPlot, {
-	                        data: this.state.data,
-	                        width: 1000,
-	                        height: 400,
-	                        tooltipHtml: this.tooltipScatter,
-	                        margin: { top: 10, bottom: 50, left: 50, right: 20 },
-	                        xScale: this.state.xScale,
-	                        xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") }
-	                    }) : React.createElement('div', null),
-	                    this.state.records.map(function (d, idx) {
-	                        return React.createElement(_testHistoryRecordLine2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d });
-	                    })
-	                )
-	            );
-	        }
-	    }]);
+	                { onClick: this.closeModal, className: styles.closeButton },
+	                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	              )
+	            )
+	          ),
+	          this.state.plotTestHistory ? React.createElement(_reactD3Components.ScatterPlot, { data: this.state.data, width: 1000, height: 400, tooltipHtml: this.tooltipScatter, margin: { top: 10, bottom: 50, left: 50, right: 20 }, xScale: this.state.xScale,
+	            xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") } }) : React.createElement('div', null),
+	          this.state.records.map(function (d, idx) {
+	            return React.createElement(_testHistoryRecordLine2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d });
+	          })
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return ModelHistoryDialogWithSearch;
+	  return ModelHistoryDialogWithSearch;
 	}(React.Component);
 	
 	exports.default = ModelHistoryDialogWithSearch;
@@ -58600,7 +58619,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -58658,56 +58677,56 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var TestHistoryRecordLine = function (_React$Component) {
-	    _inherits(TestHistoryRecordLine, _React$Component);
+	  _inherits(TestHistoryRecordLine, _React$Component);
 	
-	    function TestHistoryRecordLine(props) {
-	        _classCallCheck(this, TestHistoryRecordLine);
+	  function TestHistoryRecordLine(props) {
+	    _classCallCheck(this, TestHistoryRecordLine);
 	
-	        var _this = _possibleConstructorReturn(this, (TestHistoryRecordLine.__proto__ || Object.getPrototypeOf(TestHistoryRecordLine)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (TestHistoryRecordLine.__proto__ || Object.getPrototypeOf(TestHistoryRecordLine)).call(this, props));
 	
-	        _this.clickCallBack = _this.clickCallBack.bind(_this);
+	    _this.clickCallBack = _this.clickCallBack.bind(_this);
 	
-	        return _this;
+	    return _this;
+	  }
+	
+	  _createClass(TestHistoryRecordLine, [{
+	    key: 'clickCallBack',
+	    value: function clickCallBack() {
+	      this.props.clickCallBack(this.props.recordInfo);
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: styles.searchResultBoxHistory },
+	        React.createElement('img', { src: '../icon/flask.png', className: styles.searchResultBoxFlaskIcon }),
+	        React.createElement(
+	          'span',
+	          { className: styles.searchResultBoxTimeStamp },
+	          this.props.recordInfo.model.formattedDate
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: styles.searchResultBoxAlgorithm },
+	          this.props.recordInfo.model.algorithm
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: styles.searchResultBoxAccuracy },
+	          this.props.recordInfo.info.accuracy
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: styles.searchResultBoxEvaluationMethod },
+	          this.props.recordInfo.info.evaluationMethod
+	        ),
+	        React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon })
+	      );
+	    }
+	  }]);
 	
-	    _createClass(TestHistoryRecordLine, [{
-	        key: 'clickCallBack',
-	        value: function clickCallBack() {
-	            this.props.clickCallBack(this.props.recordInfo);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: styles.searchResultBoxHistory },
-	                React.createElement('img', { src: '../icon/flask.png', className: styles.searchResultBoxFlaskIcon }),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxTimeStamp },
-	                    this.props.recordInfo.model.formattedDate
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxAlgorithm },
-	                    this.props.recordInfo.model.algorithm
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxAccuracy },
-	                    this.props.recordInfo.info.accuracy
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxEvaluationMethod },
-	                    this.props.recordInfo.info.evaluationMethod
-	                ),
-	                React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon })
-	            );
-	        }
-	    }]);
-	
-	    return TestHistoryRecordLine;
+	  return TestHistoryRecordLine;
 	}(React.Component);
 	
 	exports.default = TestHistoryRecordLine;
@@ -58719,7 +58738,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -58773,131 +58792,131 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '250px',
-	        width: '300px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '250px',
+	    width: '300px'
+	  }
 	};
 	
 	var AddCustomNodeDialog = function (_React$Component) {
-	    _inherits(AddCustomNodeDialog, _React$Component);
+	  _inherits(AddCustomNodeDialog, _React$Component);
 	
-	    function AddCustomNodeDialog(props) {
-	        _classCallCheck(this, AddCustomNodeDialog);
+	  function AddCustomNodeDialog(props) {
+	    _classCallCheck(this, AddCustomNodeDialog);
 	
-	        var _this = _possibleConstructorReturn(this, (AddCustomNodeDialog.__proto__ || Object.getPrototypeOf(AddCustomNodeDialog)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (AddCustomNodeDialog.__proto__ || Object.getPrototypeOf(AddCustomNodeDialog)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false,
-	            plotTestHistory: false
+	    _this.state = {
+	      modalIsOpen: false,
+	      plotTestHistory: false
 	
-	        };
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.addCustomNode = _this.addCustomNode.bind(_this);
-	        return _this;
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.addCustomNode = _this.addCustomNode.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(AddCustomNodeDialog, [{
+	    key: 'openModal',
+	    value: function openModal(model_userid, modelid) {
+	      this.setState({
+	        modalIsOpen: true
+	      });
 	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'addCustomNode',
+	    value: function addCustomNode() {
+	      this.props.addCustomNode(this.refs.label.value, parseFloat(this.refs.x.value), parseFloat(this.refs.y.value));
 	
-	    _createClass(AddCustomNodeDialog, [{
-	        key: 'openModal',
-	        value: function openModal(model_userid, modelid) {
-	            this.setState({ modalIsOpen: true });
-	        }
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'addCustomNode',
-	        value: function addCustomNode() {
-	            this.props.addCustomNode(this.refs.label.value, parseFloat(this.refs.x.value), parseFloat(this.refs.y.value));
-	
-	            this.closeModal();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	      this.closeModal();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Model Property', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.nodePropertyViewTitle },
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Model Property',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.modalTitle },
-	                                'Node Information'
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.closeModal, className: styles.closeButton },
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.saveModelViewContent, ref: 'content' },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'Label'
-	                            ),
-	                            React.createElement('input', { className: styles.savePropValue, ref: 'label', type: 'text' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'X'
-	                            ),
-	                            React.createElement('input', { className: styles.savePropValue, ref: 'x', type: 'text' })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'Y'
-	                            ),
-	                            React.createElement('input', { className: styles.savePropValue, ref: 'y', type: 'text' })
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { onClick: this.addCustomNode, className: styles.addCustomNodeButton },
-	                        'Add To Canvas'
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	                { className: styles.modalTitle },
+	                'Node Information'
+	              ),
+	              React.createElement(
+	                'div',
+	                { onClick: this.closeModal, className: styles.closeButton },
+	                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.saveModelViewContent, ref: 'content' },
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'Label'
+	              ),
+	              React.createElement('input', { className: styles.savePropValue, ref: 'label', type: 'text' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'X'
+	              ),
+	              React.createElement('input', { className: styles.savePropValue, ref: 'x', type: 'text' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'Y'
+	              ),
+	              React.createElement('input', { className: styles.savePropValue, ref: 'y', type: 'text' })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { onClick: this.addCustomNode, className: styles.addCustomNodeButton },
+	            'Add To Canvas'
+	          )
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return AddCustomNodeDialog;
+	  return AddCustomNodeDialog;
 	}(React.Component);
 	
 	exports.default = AddCustomNodeDialog;
@@ -60398,7 +60417,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -60444,126 +60463,123 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '250px',
-	        width: '300px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '250px',
+	    width: '300px'
+	  }
 	};
 	
 	var GraphTestResult = function (_React$Component) {
-	    _inherits(GraphTestResult, _React$Component);
+	  _inherits(GraphTestResult, _React$Component);
 	
-	    function GraphTestResult(props) {
-	        _classCallCheck(this, GraphTestResult);
+	  function GraphTestResult(props) {
+	    _classCallCheck(this, GraphTestResult);
 	
-	        var _this = _possibleConstructorReturn(this, (GraphTestResult.__proto__ || Object.getPrototypeOf(GraphTestResult)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (GraphTestResult.__proto__ || Object.getPrototypeOf(GraphTestResult)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false,
-	            accuracy: "",
-	            evaluation_method: ""
-	        };
+	    _this.state = {
+	      modalIsOpen: false,
+	      accuracy: "",
+	      evaluation_method: ""
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        return _this;
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(GraphTestResult, [{
+	    key: 'openModal',
+	    value: function openModal(accuracy, evaluation_method) {
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true,
+	        accuracy: accuracy,
+	        evaluation_method: evaluation_method
+	      });
 	    }
-	
-	    _createClass(GraphTestResult, [{
-	        key: 'openModal',
-	        value: function openModal(accuracy, evaluation_method) {
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({
-	                modalIsOpen: true,
-	                accuracy: accuracy,
-	                evaluation_method: evaluation_method
-	            });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Model Property', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.saveModelViewTitle },
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Model Property',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.saveModelViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.modalTitle },
-	                                'Test Result'
-	                            )
-	                        ),
-	                        ' ',
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.closeModal, className: styles.closeButtonGraphSaveView },
-	                            React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.saveModelViewContent, ref: 'content' },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'Accuracy'
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropValue },
-	                                this.state.accuracy
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.saveProp },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropName },
-	                                'Evaluation Method '
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.savePropValue },
-	                                this.state.evaluation_method
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	                { className: styles.modalTitle },
+	                'Test Result'
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.closeModal, className: styles.closeButtonGraphSaveView },
+	              React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.saveModelViewContent, ref: 'content' },
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'Accuracy'
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropValue },
+	                this.state.accuracy
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.saveProp },
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropName },
+	                'Evaluation Method '
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: styles.savePropValue },
+	                this.state.evaluation_method
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return GraphTestResult;
+	  return GraphTestResult;
 	}(React.Component);
 	
 	exports.default = GraphTestResult;
@@ -60575,7 +60591,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -60639,217 +60655,218 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var GraphicalLabLocalRepository = function (_React$Component) {
-	    _inherits(GraphicalLabLocalRepository, _React$Component);
+	  _inherits(GraphicalLabLocalRepository, _React$Component);
 	
-	    function GraphicalLabLocalRepository(props) {
-	        _classCallCheck(this, GraphicalLabLocalRepository);
+	  function GraphicalLabLocalRepository(props) {
+	    _classCallCheck(this, GraphicalLabLocalRepository);
 	
-	        var _this = _possibleConstructorReturn(this, (GraphicalLabLocalRepository.__proto__ || Object.getPrototypeOf(GraphicalLabLocalRepository)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (GraphicalLabLocalRepository.__proto__ || Object.getPrototypeOf(GraphicalLabLocalRepository)).call(this, props));
 	
-	        _this.state = {
-	            records: [],
-	            notFound: false
-	        };
+	    _this.state = {
+	      records: [],
+	      notFound: false
+	    };
 	
-	        _this.openGraph = _this.openGraph.bind(_this);
-	        _this.setup = _this.setup.bind(_this);
-	        _this.clear = _this.clear.bind(_this);
-	        _this.showResult = _this.showResult.bind(_this);
-	        return _this;
+	    _this.openGraph = _this.openGraph.bind(_this);
+	    _this.setup = _this.setup.bind(_this);
+	    _this.clear = _this.clear.bind(_this);
+	    _this.showResult = _this.showResult.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(GraphicalLabLocalRepository, [{
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      window.removeEventListener("resize", this.updateDimensions);
 	    }
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      this.setState({
+	        records: []
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      //this.clear();
+	      this.showResult();
+	    }
+	  }, {
+	    key: 'showResult',
+	    value: function showResult() {
 	
-	    _createClass(GraphicalLabLocalRepository, [{
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("resize", this.updateDimensions);
-	        }
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            this.setState({
-	                records: []
-	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            //this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'showResult',
-	        value: function showResult() {
+	      var self = this;
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/model/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
+	        type: "get",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          var modelRecords = [];
 	
-	            var self = this;
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/model/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
-	                type: "get",
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(response) {
-	                    var modelRecords = [];
+	          console.log("local repository");
+	          console.log(response);
+	          var _iteratorNormalCompletion = true;
+	          var _didIteratorError = false;
+	          var _iteratorError = undefined;
 	
-	                    console.log("local repository");
-	                    console.log(response);
-	                    var _iteratorNormalCompletion = true;
-	                    var _didIteratorError = false;
-	                    var _iteratorError = undefined;
+	          try {
+	            for (var _iterator = response.body.models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	              var model = _step.value;
 	
-	                    try {
-	                        for (var _iterator = response.body.models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                            var model = _step.value;
+	              var modelInfo = JSON.parse(model);
 	
-	                            var modelInfo = JSON.parse(model);
+	              var date = new Date(modelInfo.datetime);
 	
-	                            var date = new Date(modelInfo.datetime);
+	              var format_str = 'YYYY/MM/DD hh:mm:ss';
+	              format_str = format_str.replace(/YYYY/g, date.getFullYear());
+	              format_str = format_str.replace(/MM/g, date.getMonth());
+	              format_str = format_str.replace(/DD/g, date.getDate());
+	              format_str = format_str.replace(/hh/g, date.getHours());
+	              format_str = format_str.replace(/mm/g, date.getMinutes());
+	              format_str = format_str.replace(/ss/g, date.getSeconds());
 	
-	                            var format_str = 'YYYY/MM/DD hh:mm:ss';
-	                            format_str = format_str.replace(/YYYY/g, date.getFullYear());
-	                            format_str = format_str.replace(/MM/g, date.getMonth());
-	                            format_str = format_str.replace(/DD/g, date.getDate());
-	                            format_str = format_str.replace(/hh/g, date.getHours());
-	                            format_str = format_str.replace(/mm/g, date.getMinutes());
-	                            format_str = format_str.replace(/ss/g, date.getSeconds());
-	
-	                            modelInfo.formattedDate = format_str;
-	                            console.log("model date:" + modelInfo.formattedDate + ":" + date + ":" + modelInfo.timestamp);
-	                            modelRecords.push(modelInfo);
-	                        }
-	                    } catch (err) {
-	                        _didIteratorError = true;
-	                        _iteratorError = err;
-	                    } finally {
-	                        try {
-	                            if (!_iteratorNormalCompletion && _iterator.return) {
-	                                _iterator.return();
-	                            }
-	                        } finally {
-	                            if (_didIteratorError) {
-	                                throw _iteratorError;
-	                            }
-	                        }
-	                    }
-	
-	                    console.log("recodes length ? " + modelRecords.length + ",," + modelRecords.size);
-	                    if (modelRecords.length > 0) {
-	                        self.setState({
-	                            records: modelRecords
-	                        });
-	                    } else {
-	                        self.context.router.push({
-	                            pathname: '/notFound',
-	                            state: {}
-	                        });
-	                    }
-	                },
-	                error: function error(request, status, _error) {
-	                    alert("error");
-	                    console.log(request.responseText);
-	                    console.log(request);
-	                    console.log(status);
-	                    console.log(_error);
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'setup',
-	        value: function setup(models) {
-	            var modelRecords = [];
-	            var _iteratorNormalCompletion2 = true;
-	            var _didIteratorError2 = false;
-	            var _iteratorError2 = undefined;
-	
+	              modelInfo.formattedDate = format_str;
+	              console.log("model date:" + modelInfo.formattedDate + ":" + date + ":" + modelInfo.timestamp);
+	              modelRecords.push(modelInfo);
+	            }
+	          } catch (err) {
+	            _didIteratorError = true;
+	            _iteratorError = err;
+	          } finally {
 	            try {
-	                for (var _iterator2 = models[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	                    var modelInfo = _step2.value;
-	
-	                    modelRecords.push(modelInfo);
-	                }
-	            } catch (err) {
-	                _didIteratorError2 = true;
-	                _iteratorError2 = err;
+	              if (!_iteratorNormalCompletion && _iterator.return) {
+	                _iterator.return();
+	              }
 	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	                        _iterator2.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError2) {
-	                        throw _iteratorError2;
-	                    }
-	                }
+	              if (_didIteratorError) {
+	                throw _iteratorError;
+	              }
 	            }
+	          }
 	
-	            this.setState({
-	                records: modelRecords
+	          console.log("recodes length ? " + modelRecords.length + ",," + modelRecords.size);
+	          if (modelRecords.length > 0) {
+	            self.setState({
+	              records: modelRecords
 	            });
+	          } else {
+	            self.context.router.push({
+	              pathname: '/notFound',
+	              state: {}
+	            });
+	          }
+	        },
+	        error: function error(request, status, _error) {
+	          alert("error");
+	          console.log(request.responseText);
+	          console.log(request);
+	          console.log(status);
+	          console.log(_error);
 	        }
-	    }, {
-	        key: 'openGraph',
-	        value: function openGraph(recordInfo) {
-	            var self = this;
+	      });
+	    }
+	  }, {
+	    key: 'setup',
+	    value: function setup(models) {
+	      var modelRecords = [];
+	      var _iteratorNormalCompletion2 = true;
+	      var _didIteratorError2 = false;
+	      var _iteratorError2 = undefined;
 	
-	            if (recordInfo.modelid) {
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
-	                    type: "get",
-	                    headers: {
-	                        Authorization: "Bearer " + _auth2.default.getToken()
-	                    },
-	                    success: function success(response) {
-	                        console.log("got response");
-	                        console.log(response);
-	                        if (response.body.code == 401) {
-	                            _auth2.default.logout();
-	                        }
+	      try {
+	        for (var _iterator2 = models[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	          var modelInfo = _step2.value;
 	
-	                        self.context.router.push({
-	                            pathname: '/graphLab',
-	                            state: {
-	                                graphInfo: JSON.parse(response.body.model)
-	                            }
-	                        });
-	                    },
-	                    error: function error(request, status, _error2) {
-	                        alert("error");
-	                        console.log(request.responseText);
-	                        console.log(status);
-	                        console.log(_error2);
-	                    }
-	                });
-	            } else {
-	                this.context.router.push({
-	                    pathname: '/graphLab',
-	                    state: {
-	                        graphInfo: recordInfo
-	                    }
-	                });
+	          modelRecords.push(modelInfo);
+	        }
+	      } catch (err) {
+	        _didIteratorError2 = true;
+	        _iteratorError2 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	            _iterator2.return();
+	          }
+	        } finally {
+	          if (_didIteratorError2) {
+	            throw _iteratorError2;
+	          }
+	        }
+	      }
+	
+	      this.setState({
+	        records: modelRecords
+	      });
+	    }
+	  }, {
+	    key: 'openGraph',
+	    value: function openGraph(recordInfo) {
+	      var self = this;
+	
+	      if (recordInfo.modelid) {
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
+	          type: "get",
+	          headers: {
+	            Authorization: "Bearer " + _auth2.default.getToken()
+	          },
+	          success: function success(response) {
+	            console.log("got response");
+	            console.log(response);
+	            if (response.body.code == 401) {
+	              _auth2.default.logout();
 	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
 	
-	            return React.createElement(
-	                'div',
-	                { className: styles.searchResults },
-	                this.state.records.map(function (d, idx) {
-	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
-	                })
-	            );
-	        }
-	    }]);
+	            self.context.router.push({
+	              pathname: '/graphLab',
+	              state: {
+	                graphInfo: JSON.parse(response.body.model)
+	              }
+	            });
+	          },
+	          error: function error(request, status, _error2) {
+	            alert("error");
+	            console.log(request.responseText);
+	            console.log(status);
+	            console.log(_error2);
+	          }
+	        });
+	      } else {
+	        this.context.router.push({
+	          pathname: '/graphLab',
+	          state: {
+	            graphInfo: recordInfo
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 	
-	    return GraphicalLabLocalRepository;
+	      return React.createElement(
+	        'div',
+	        { className: styles.searchResults },
+	        this.state.records.map(function (d, idx) {
+	          return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2,
+	            coordinate_y: _this2.state.tree_height / 2 });
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return GraphicalLabLocalRepository;
 	}(React.Component);
 	
 	exports.default = GraphicalLabLocalRepository;
 	
 	
 	GraphicalLabLocalRepository.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -60859,7 +60876,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -60921,58 +60938,58 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var GraphLabRecord = function (_React$Component) {
-	    _inherits(GraphLabRecord, _React$Component);
+	  _inherits(GraphLabRecord, _React$Component);
 	
-	    function GraphLabRecord(props) {
-	        _classCallCheck(this, GraphLabRecord);
+	  function GraphLabRecord(props) {
+	    _classCallCheck(this, GraphLabRecord);
 	
-	        var _this = _possibleConstructorReturn(this, (GraphLabRecord.__proto__ || Object.getPrototypeOf(GraphLabRecord)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (GraphLabRecord.__proto__ || Object.getPrototypeOf(GraphLabRecord)).call(this, props));
 	
-	        _this.clickCallBack = _this.clickCallBack.bind(_this);
-	        _this.showHistoryCallBack = _this.showHistoryCallBack.bind(_this);
-	        return _this;
+	    _this.clickCallBack = _this.clickCallBack.bind(_this);
+	    _this.showHistoryCallBack = _this.showHistoryCallBack.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(GraphLabRecord, [{
+	    key: 'clickCallBack',
+	    value: function clickCallBack() {
+	      this.props.clickCallBack(this.props.recordInfo);
 	    }
+	  }, {
+	    key: 'showHistoryCallBack',
+	    value: function showHistoryCallBack() {
+	      this.refs.modelHistoryDialog.openModal(this.props.recordInfo.userid, this.props.recordInfo.modelid);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: styles.searchResultBox },
+	        React.createElement('img', { src: '../icon/flask.png', className: styles.searchResultBoxFlaskIcon }),
+	        React.createElement(
+	          'span',
+	          { className: styles.searchResultBoxModelName },
+	          this.props.recordInfo.modelname
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: styles.searchResultBoxModelTag },
+	          this.props.recordInfo.modeltag
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: styles.searchResultBoxAlgorithm },
+	          this.props.recordInfo.algorithm
+	        ),
+	        React.createElement('img', { onClick: this.showHistoryCallBack, src: '../icon/history.png', className: styles.searchResultBoxHistoryIcon }),
+	        React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon }),
+	        React.createElement(_modelHistoryDialog2.default, { ref: 'modelHistoryDialog' })
+	      );
+	    }
+	  }]);
 	
-	    _createClass(GraphLabRecord, [{
-	        key: 'clickCallBack',
-	        value: function clickCallBack() {
-	            this.props.clickCallBack(this.props.recordInfo);
-	        }
-	    }, {
-	        key: 'showHistoryCallBack',
-	        value: function showHistoryCallBack() {
-	            this.refs.modelHistoryDialog.openModal(this.props.recordInfo.userid, this.props.recordInfo.modelid);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: styles.searchResultBox },
-	                React.createElement('img', { src: '../icon/flask.png', className: styles.searchResultBoxFlaskIcon }),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxModelName },
-	                    this.props.recordInfo.modelname
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxModelTag },
-	                    this.props.recordInfo.modeltag
-	                ),
-	                React.createElement(
-	                    'span',
-	                    { className: styles.searchResultBoxAlgorithm },
-	                    this.props.recordInfo.algorithm
-	                ),
-	                React.createElement('img', { onClick: this.showHistoryCallBack, src: '../icon/history.png', className: styles.searchResultBoxHistoryIcon }),
-	                React.createElement('img', { onClick: this.clickCallBack, src: '../icon/Right-Arrow-02.png', className: styles.searchResultBoxRightArrowIcon }),
-	                React.createElement(_modelHistoryDialog2.default, { ref: 'modelHistoryDialog' })
-	            );
-	        }
-	    }]);
-	
-	    return GraphLabRecord;
+	  return GraphLabRecord;
 	}(React.Component);
 	
 	exports.default = GraphLabRecord;
@@ -60984,7 +61001,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -61040,151 +61057,150 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '500px',
-	        width: '800px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '500px',
+	    width: '800px'
+	  }
 	};
 	
 	var ModelHistoryDialog = function (_React$Component) {
-	    _inherits(ModelHistoryDialog, _React$Component);
+	  _inherits(ModelHistoryDialog, _React$Component);
 	
-	    function ModelHistoryDialog(props) {
-	        _classCallCheck(this, ModelHistoryDialog);
+	  function ModelHistoryDialog(props) {
+	    _classCallCheck(this, ModelHistoryDialog);
 	
-	        var _this = _possibleConstructorReturn(this, (ModelHistoryDialog.__proto__ || Object.getPrototypeOf(ModelHistoryDialog)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ModelHistoryDialog.__proto__ || Object.getPrototypeOf(ModelHistoryDialog)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false,
-	            plotTestHistory: false
+	    _this.state = {
+	      modalIsOpen: false,
+	      plotTestHistory: false
 	
-	        };
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.tooltipScatter = _this.tooltipScatter.bind(_this);
-	        return _this;
-	    }
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.tooltipScatter = _this.tooltipScatter.bind(_this);
+	    return _this;
+	  }
 	
-	    _createClass(ModelHistoryDialog, [{
-	        key: 'openModal',
-	        value: function openModal(model_userid, modelid) {
-	            var self = this;
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true }, function () {
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&model_userid=" + model_userid + "&modelid=" + modelid,
-	                    type: "get",
-	                    headers: {
-	                        Authorization: "Bearer " + _auth2.default.getToken()
-	                    },
-	                    success: function success(response) {
+	  _createClass(ModelHistoryDialog, [{
+	    key: 'openModal',
+	    value: function openModal(model_userid, modelid) {
+	      var self = this;
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true
+	      }, function () {
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/GML.php/gml/model/test/history/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&model_userid=" + model_userid + "&modelid=" + modelid,
+	          type: "get",
+	          headers: {
+	            Authorization: "Bearer " + _auth2.default.getToken()
+	          },
+	          success: function success(response) {
 	
-	                        var values = [];
-	                        var oldestDate = new Date();
+	            var values = [];
+	            var oldestDate = new Date();
 	
-	                        if (response.body.history.length > 0) {
-	                            for (var index in response.body.history) {
-	                                var json = JSON.parse(response.body.history[index]);
-	                                var date = new Date(json.time);
-	                                values.push({
-	                                    x: date, y: json.info.accuracy
-	                                });
-	
-	                                if (date < oldestDate) {
-	                                    oldestDate = date;
-	                                }
-	                            }
-	
-	                            var earliestDate = oldestDate;
-	
-	                            for (var _index in values) {
-	                                if (values[_index].x > earliestDate) {
-	                                    earliestDate = values[_index].x;
-	                                }
-	                            }
-	
-	                            var axisOldest = new Date(oldestDate.getTime());axisOldest.setDate(oldestDate.getDate() - 2);
-	                            var axisEarliest = new Date(earliestDate.getTime());axisEarliest.setDate(earliestDate.getDate() + 2);
-	
-	                            self.setState({
-	                                plotTestHistory: true,
-	                                data: { label: 'test accuracy history', values: values },
-	                                xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
-	                                xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
-	                            });
-	
-	                            console.log(self.state.data);
-	                        }
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("error");
-	                        console.log(request);
-	                        console.log(status);
-	                        console.log(_error);
-	                    }
+	            if (response.body.history.length > 0) {
+	              for (var index in response.body.history) {
+	                var json = JSON.parse(response.body.history[index]);
+	                var date = new Date(json.time);
+	                values.push({
+	                  x: date,
+	                  y: json.info.accuracy
 	                });
-	            });
-	        }
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'tooltipScatter',
-	        value: function tooltipScatter(x, y) {
-	            var n = 2;
-	            return Math.floor(y * Math.pow(10, n)) / Math.pow(10, n) + ".., " + x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate() + " " + x.getHours() + ":" + x.getMinutes();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Model Property',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement('div', { className: styles.modalTitle }),
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.closeModal, className: styles.closeButton },
-	                                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                            )
-	                        )
-	                    ),
-	                    this.state.plotTestHistory ? React.createElement(_reactD3Components.ScatterPlot, {
-	                        data: this.state.data,
-	                        width: 1000,
-	                        height: 400,
-	                        tooltipHtml: this.tooltipScatter,
-	                        margin: { top: 10, bottom: 50, left: 50, right: 20 },
-	                        xScale: this.state.xScale,
-	                        xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") }
-	                    }) : React.createElement('div', null)
-	                )
-	            );
-	        }
-	    }]);
 	
-	    return ModelHistoryDialog;
+	                if (date < oldestDate) {
+	                  oldestDate = date;
+	                }
+	              }
+	
+	              var earliestDate = oldestDate;
+	
+	              for (var _index in values) {
+	                if (values[_index].x > earliestDate) {
+	                  earliestDate = values[_index].x;
+	                }
+	              }
+	
+	              var axisOldest = new Date(oldestDate.getTime());
+	              axisOldest.setDate(oldestDate.getDate() - 2);
+	              var axisEarliest = new Date(earliestDate.getTime());
+	              axisEarliest.setDate(earliestDate.getDate() + 2);
+	
+	              self.setState({
+	                plotTestHistory: true,
+	                data: {
+	                  label: 'test accuracy history',
+	                  values: values
+	                },
+	                xScale: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0]),
+	                xScaleBrush: d3.time.scale().domain([axisOldest, axisEarliest]).range([0, 1000 - 0])
+	              });
+	
+	              console.log(self.state.data);
+	            }
+	          },
+	          error: function error(request, status, _error) {
+	            alert("error");
+	            console.log(request);
+	            console.log(status);
+	            console.log(_error);
+	          }
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'tooltipScatter',
+	    value: function tooltipScatter(x, y) {
+	      var n = 2;
+	      return Math.floor(y * Math.pow(10, n)) / Math.pow(10, n) + ".., " + x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate() + " " + x.getHours() + ":" + x.getMinutes();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Model Property', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.nodePropertyViewTitle },
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement('div', { className: styles.modalTitle }),
+	              React.createElement(
+	                'div',
+	                { onClick: this.closeModal, className: styles.closeButton },
+	                React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	              )
+	            )
+	          ),
+	          this.state.plotTestHistory ? React.createElement(_reactD3Components.ScatterPlot, { data: this.state.data, width: 1000, height: 400, tooltipHtml: this.tooltipScatter, margin: { top: 10, bottom: 50, left: 50, right: 20 }, xScale: this.state.xScale,
+	            xAxis: { tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d") } }) : React.createElement('div', null)
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return ModelHistoryDialog;
 	}(React.Component);
 	
 	exports.default = ModelHistoryDialog;
@@ -61196,7 +61212,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -61262,136 +61278,137 @@
 	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
 	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
 	var SearchResult1 = function (_React$Component) {
-	    _inherits(SearchResult1, _React$Component);
+	  _inherits(SearchResult1, _React$Component);
 	
-	    function SearchResult1(props) {
-	        _classCallCheck(this, SearchResult1);
+	  function SearchResult1(props) {
+	    _classCallCheck(this, SearchResult1);
 	
-	        var _this = _possibleConstructorReturn(this, (SearchResult1.__proto__ || Object.getPrototypeOf(SearchResult1)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SearchResult1.__proto__ || Object.getPrototypeOf(SearchResult1)).call(this, props));
 	
-	        _this.state = {
-	            records: []
-	        };
+	    _this.state = {
+	      records: []
+	    };
 	
-	        _this.openGraph = _this.openGraph.bind(_this);
-	        _this.setup = _this.setup.bind(_this);
-	        _this.clear = _this.clear.bind(_this);
-	        _this.showResult = _this.showResult.bind(_this);
-	        return _this;
+	    _this.openGraph = _this.openGraph.bind(_this);
+	    _this.setup = _this.setup.bind(_this);
+	    _this.clear = _this.clear.bind(_this);
+	    _this.showResult = _this.showResult.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(SearchResult1, [{
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {}
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      this.setState({
+	        records: []
+	      });
 	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.clear();
+	      this.showResult();
+	    }
+	  }, {
+	    key: 'showResult',
+	    value: function showResult() {
+	      if (this.props.location.state.modelInfo) {
+	        this.setup(this.props.location.state.modelInfo);
+	      }
+	    }
+	  }, {
+	    key: 'setup',
+	    value: function setup(models) {
+	      var modelRecords = [];
+	      var _iteratorNormalCompletion = true;
+	      var _didIteratorError = false;
+	      var _iteratorError = undefined;
 	
-	    _createClass(SearchResult1, [{
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {}
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            this.setState({
-	                records: []
+	      try {
+	        for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          var modelInfo = _step.value;
+	
+	          modelRecords.push(modelInfo);
+	        }
+	      } catch (err) {
+	        _didIteratorError = true;
+	        _iteratorError = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion && _iterator.return) {
+	            _iterator.return();
+	          }
+	        } finally {
+	          if (_didIteratorError) {
+	            throw _iteratorError;
+	          }
+	        }
+	      }
+	
+	      this.setState({
+	        records: modelRecords
+	      });
+	    }
+	  }, {
+	    key: 'openGraph',
+	    value: function openGraph(recordInfo) {
+	      var self = this;
+	
+	      if (recordInfo.modelid) {
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
+	          type: "get",
+	          headers: {
+	            Authorization: "Bearer " + _auth2.default.getToken()
+	          },
+	          success: function success(response) {
+	            self.context.router.push({
+	              pathname: '/graphLab',
+	              state: {
+	                graphInfo: JSON.parse(response.body.model)
+	              }
 	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'showResult',
-	        value: function showResult() {
-	            if (this.props.location.state.modelInfo) {
-	                this.setup(this.props.location.state.modelInfo);
-	            }
-	        }
-	    }, {
-	        key: 'setup',
-	        value: function setup(models) {
-	            var modelRecords = [];
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
+	          },
+	          error: function error(request, status, _error) {
+	            alert("Failed to get Model Data. Contact Administrator");
+	          }
+	        });
+	      } else {
+	        this.context.router.push({
+	          pathname: '/graphLab',
+	          state: {
+	            graphInfo: recordInfo
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 	
-	            try {
-	                for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var modelInfo = _step.value;
+	      return React.createElement(
+	        'div',
+	        { className: styles.searchResults },
+	        this.state.records.map(function (d, idx) {
+	          return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2,
+	            coordinate_y: _this2.state.tree_height / 2 });
+	        })
+	      );
+	    }
+	  }]);
 	
-	                    modelRecords.push(modelInfo);
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
-	            }
-	
-	            this.setState({
-	                records: modelRecords
-	            });
-	        }
-	    }, {
-	        key: 'openGraph',
-	        value: function openGraph(recordInfo) {
-	            var self = this;
-	
-	            if (recordInfo.modelid) {
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
-	                    type: "get",
-	                    headers: {
-	                        Authorization: "Bearer " + _auth2.default.getToken()
-	                    },
-	                    success: function success(response) {
-	                        self.context.router.push({
-	                            pathname: '/graphLab',
-	                            state: {
-	                                graphInfo: JSON.parse(response.body.model)
-	                            }
-	                        });
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("Failed to get Model Data. Contact Administrator");
-	                    }
-	                });
-	            } else {
-	                this.context.router.push({
-	                    pathname: '/graphLab',
-	                    state: {
-	                        graphInfo: recordInfo
-	                    }
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-	
-	            return React.createElement(
-	                'div',
-	                { className: styles.searchResults },
-	                this.state.records.map(function (d, idx) {
-	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
-	                })
-	            );
-	        }
-	    }]);
-	
-	    return SearchResult1;
+	  return SearchResult1;
 	}(React.Component);
 	
 	exports.default = SearchResult1;
 	
 	
 	SearchResult1.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -61401,7 +61418,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -61467,136 +61484,137 @@
 	// Tree List  https://www.sozailab.jp/sozai/detail/6152/
 	//            https://www.google.co.jp/imgres?imgurl=https%3A%2F%2Fpds.exblog.jp%2Fpds%2F1%2F200810%2F13%2F45%2Fd0094245_1032524.gif&imgrefurl=https%3A%2F%2Fpopachi.exblog.jp%2F8757735%2F&docid=c13zelLPL4D8aM&tbnid=zFXSOSvu7c3ZTM%3A&vet=10ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA..i&w=416&h=414&bih=551&biw=1085&q=%E3%83%AA%E3%83%B3%E3%82%B4%E3%80%80%E7%B5%B5&ved=0ahUKEwjn44y9pf_bAhULoJQKHaUUBQwQMwiZASgAMAA&iact=mrc&uact=8
 	var SearchResult2 = function (_React$Component) {
-	    _inherits(SearchResult2, _React$Component);
+	  _inherits(SearchResult2, _React$Component);
 	
-	    function SearchResult2(props) {
-	        _classCallCheck(this, SearchResult2);
+	  function SearchResult2(props) {
+	    _classCallCheck(this, SearchResult2);
 	
-	        var _this = _possibleConstructorReturn(this, (SearchResult2.__proto__ || Object.getPrototypeOf(SearchResult2)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SearchResult2.__proto__ || Object.getPrototypeOf(SearchResult2)).call(this, props));
 	
-	        _this.state = {
-	            records: []
-	        };
+	    _this.state = {
+	      records: []
+	    };
 	
-	        _this.openGraph = _this.openGraph.bind(_this);
-	        _this.setup = _this.setup.bind(_this);
-	        _this.clear = _this.clear.bind(_this);
-	        _this.showResult = _this.showResult.bind(_this);
-	        return _this;
+	    _this.openGraph = _this.openGraph.bind(_this);
+	    _this.setup = _this.setup.bind(_this);
+	    _this.clear = _this.clear.bind(_this);
+	    _this.showResult = _this.showResult.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(SearchResult2, [{
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {}
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      this.setState({
+	        records: []
+	      });
 	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.clear();
+	      this.showResult();
+	    }
+	  }, {
+	    key: 'showResult',
+	    value: function showResult() {
+	      if (this.props.location.state.modelInfo) {
+	        this.setup(this.props.location.state.modelInfo);
+	      }
+	    }
+	  }, {
+	    key: 'setup',
+	    value: function setup(models) {
+	      var modelRecords = [];
+	      var _iteratorNormalCompletion = true;
+	      var _didIteratorError = false;
+	      var _iteratorError = undefined;
 	
-	    _createClass(SearchResult2, [{
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {}
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            this.setState({
-	                records: []
+	      try {
+	        for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          var modelInfo = _step.value;
+	
+	          modelRecords.push(modelInfo);
+	        }
+	      } catch (err) {
+	        _didIteratorError = true;
+	        _iteratorError = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion && _iterator.return) {
+	            _iterator.return();
+	          }
+	        } finally {
+	          if (_didIteratorError) {
+	            throw _iteratorError;
+	          }
+	        }
+	      }
+	
+	      this.setState({
+	        records: modelRecords
+	      });
+	    }
+	  }, {
+	    key: 'openGraph',
+	    value: function openGraph(recordInfo) {
+	      var self = this;
+	
+	      if (recordInfo.modelid) {
+	        _jquery2.default.ajax({
+	          url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
+	          type: "get",
+	          headers: {
+	            Authorization: "Bearer " + _auth2.default.getToken()
+	          },
+	          success: function success(response) {
+	            self.context.router.push({
+	              pathname: '/graphLab',
+	              state: {
+	                graphInfo: JSON.parse(response.body.model)
+	              }
 	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.clear();
-	            this.showResult();
-	        }
-	    }, {
-	        key: 'showResult',
-	        value: function showResult() {
-	            if (this.props.location.state.modelInfo) {
-	                this.setup(this.props.location.state.modelInfo);
-	            }
-	        }
-	    }, {
-	        key: 'setup',
-	        value: function setup(models) {
-	            var modelRecords = [];
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
+	          },
+	          error: function error(request, status, _error) {
+	            alert("Failed to get Model Data. Contact Administrator");
+	          }
+	        });
+	      } else {
+	        this.context.router.push({
+	          pathname: '/graphLab',
+	          state: {
+	            graphInfo: recordInfo
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 	
-	            try {
-	                for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var modelInfo = _step.value;
+	      return React.createElement(
+	        'div',
+	        { className: styles.searchResults },
+	        this.state.records.map(function (d, idx) {
+	          return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2,
+	            coordinate_y: _this2.state.tree_height / 2 });
+	        })
+	      );
+	    }
+	  }]);
 	
-	                    modelRecords.push(modelInfo);
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
-	            }
-	
-	            this.setState({
-	                records: modelRecords
-	            });
-	        }
-	    }, {
-	        key: 'openGraph',
-	        value: function openGraph(recordInfo) {
-	            var self = this;
-	
-	            if (recordInfo.modelid) {
-	                _jquery2.default.ajax({
-	                    url: "../commonModules/php/modules/GML.php/gml/model?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&modelid=" + recordInfo.modelid,
-	                    type: "get",
-	                    headers: {
-	                        Authorization: "Bearer " + _auth2.default.getToken()
-	                    },
-	                    success: function success(response) {
-	                        self.context.router.push({
-	                            pathname: '/graphLab',
-	                            state: {
-	                                graphInfo: JSON.parse(response.body.model)
-	                            }
-	                        });
-	                    },
-	                    error: function error(request, status, _error) {
-	                        alert("Failed to get Model Data. Contact Administrator");
-	                    }
-	                });
-	            } else {
-	                this.context.router.push({
-	                    pathname: '/graphLab',
-	                    state: {
-	                        graphInfo: recordInfo
-	                    }
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-	
-	            return React.createElement(
-	                'div',
-	                { className: styles.searchResults },
-	                this.state.records.map(function (d, idx) {
-	                    return React.createElement(_graphLabRecord2.default, { clickCallBack: _this2.openGraph, key: "record:" + idx, recordInfo: d, x: d.x, y: d.y, coordinate_x: _this2.state.svg_width - _this2.state.tree_width > 0 ? (_this2.state.svg_width - _this2.state.tree_width) / 2 + _this2.state.tree_width / 2 : _this2.state.tree_width / 2, coordinate_y: _this2.state.tree_height / 2 });
-	                })
-	            );
-	        }
-	    }]);
-	
-	    return SearchResult2;
+	  return SearchResult2;
 	}(React.Component);
 	
 	exports.default = SearchResult2;
 	
 	
 	SearchResult2.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -61606,7 +61624,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -61664,93 +61682,93 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var DataExtractor = function (_React$Component) {
-	    _inherits(DataExtractor, _React$Component);
+	  _inherits(DataExtractor, _React$Component);
 	
-	    function DataExtractor(props) {
-	        _classCallCheck(this, DataExtractor);
+	  function DataExtractor(props) {
+	    _classCallCheck(this, DataExtractor);
 	
-	        var _this = _possibleConstructorReturn(this, (DataExtractor.__proto__ || Object.getPrototypeOf(DataExtractor)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (DataExtractor.__proto__ || Object.getPrototypeOf(DataExtractor)).call(this, props));
 	
-	        _this.state = {
-	            extractors: [],
-	            extractorParamMap: {}
-	        };
+	    _this.state = {
+	      extractors: [],
+	      extractorParamMap: {}
+	    };
 	
-	        return _this;
+	    return _this;
+	  }
+	
+	  _createClass(DataExtractor, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log("component Did mount ");
+	      console.log(this.props.location);
+	
+	      var self = this;
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/data/extractor/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
+	        type: "get",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          console.log("extractor list");
+	          console.log(response);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	
+	          self.setState({
+	            extractors: response.body.extractorIds,
+	            extractorParamMap: response.body.extractorParamMap
+	          });
+	        },
+	        error: function error(request, status, _error) {
+	          alert("error");
+	          console.log(request.responseText);
+	          console.log(status);
+	          console.log(_error);
+	        }
+	      });
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 	
-	    _createClass(DataExtractor, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            console.log("component Did mount ");
-	            console.log(this.props.location);
-	
-	            var self = this;
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/data/extractor/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
-	                type: "get",
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(response) {
-	                    console.log("extractor list");
-	                    console.log(response);
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
-	
-	                    self.setState({
-	                        extractors: response.body.extractorIds,
-	                        extractorParamMap: response.body.extractorParamMap
-	                    });
-	                },
-	                error: function error(request, status, _error) {
-	                    alert("error");
-	                    console.log(request.responseText);
-	                    console.log(status);
-	                    console.log(_error);
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-	
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: styles.dataExplorationBox },
+	          React.createElement(
+	            'div',
+	            { className: styles.dataExplorationTitleHeader },
+	            'Data Exploration'
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: styles.dataExtractorBox },
+	          React.createElement(
+	            'div',
+	            { className: styles.dataExtractorTitleHeader },
+	            'The List Of Data Extractors'
+	          ),
+	          this.state.extractors.map(function (d, idx) {
 	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    { className: styles.dataExplorationBox },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.dataExplorationTitleHeader },
-	                        'Data Exploration'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: styles.dataExtractorBox },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.dataExtractorTitleHeader },
-	                        'The List Of Data Extractors'
-	                    ),
-	                    this.state.extractors.map(function (d, idx) {
-	                        return React.createElement(
-	                            _extractorPanel2.default,
-	                            { panelTitle: d, key: "evaluation" + d, params: _this2.state.extractorParamMap[d] },
-	                            d
-	                        );
-	                    })
-	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' })
+	              _extractorPanel2.default,
+	              { panelTitle: d, key: "evaluation" + d, params: _this2.state.extractorParamMap[d] },
+	              d
 	            );
-	        }
-	    }]);
+	          })
+	        ),
+	        React.createElement(_loading2.default, { ref: 'loading' })
+	      );
+	    }
+	  }]);
 	
-	    return DataExtractor;
+	  return DataExtractor;
 	}(React.Component);
 	
 	exports.default = DataExtractor;
@@ -61762,7 +61780,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -61816,52 +61834,52 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var ExtractorPanel = function (_React$Component) {
-	    _inherits(ExtractorPanel, _React$Component);
+	  _inherits(ExtractorPanel, _React$Component);
 	
-	    function ExtractorPanel(props) {
-	        _classCallCheck(this, ExtractorPanel);
+	  function ExtractorPanel(props) {
+	    _classCallCheck(this, ExtractorPanel);
 	
-	        var _this = _possibleConstructorReturn(this, (ExtractorPanel.__proto__ || Object.getPrototypeOf(ExtractorPanel)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ExtractorPanel.__proto__ || Object.getPrototypeOf(ExtractorPanel)).call(this, props));
 	
-	        _this.state = {
-	            modelparameter: []
-	        };
+	    _this.state = {
+	      modelparameter: []
+	    };
 	
-	        _this.showDataExtractorPropertyView = _this.showDataExtractorPropertyView.bind(_this);
-	        return _this;
+	    _this.showDataExtractorPropertyView = _this.showDataExtractorPropertyView.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(ExtractorPanel, [{
+	    key: 'showDataExtractorPropertyView',
+	    value: function showDataExtractorPropertyView() {
+	      console.log(this.props.params);
+	      var params = [];
+	
+	      this.props.params.forEach(function (entry) {
+	        params.push({
+	          label: entry
+	        });
+	      });
+	      this.setState({
+	        modelparameter: params
+	      });
+	
+	      this.refs.dataExtractorPropertyView.openModal();
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
 	
-	    _createClass(ExtractorPanel, [{
-	        key: 'showDataExtractorPropertyView',
-	        value: function showDataExtractorPropertyView() {
-	            console.log(this.props.params);
-	            var params = [];
+	      return React.createElement(
+	        'div',
+	        { className: styles.extractorPanel, onClick: this.showDataExtractorPropertyView },
+	        this.props.panelTitle,
+	        React.createElement(_dataExtractorPropertyView2.default, { label: 'Settings for Extractor', ref: 'dataExtractorPropertyView', modelparameter: this.state.modelparameter, extractorId: this.props.panelTitle })
+	      );
+	    }
+	  }]);
 	
-	            this.props.params.forEach(function (entry) {
-	                params.push({
-	                    label: entry
-	                });
-	            });
-	            this.setState({
-	                modelparameter: params
-	            });
-	
-	            this.refs.dataExtractorPropertyView.openModal();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	
-	            return React.createElement(
-	                'div',
-	                { className: styles.extractorPanel, onClick: this.showDataExtractorPropertyView },
-	                this.props.panelTitle,
-	                React.createElement(_dataExtractorPropertyView2.default, { label: 'Settings for Extractor', ref: 'dataExtractorPropertyView', modelparameter: this.state.modelparameter, extractorId: this.props.panelTitle })
-	            );
-	        }
-	    }]);
-	
-	    return ExtractorPanel;
+	  return ExtractorPanel;
 	}(React.Component);
 	
 	exports.default = ExtractorPanel;
@@ -61873,7 +61891,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -61931,217 +61949,227 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '400px',
-	        width: '300px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '400px',
+	    width: '300px'
+	  }
 	};
 	
 	var DataExtractorPropertyView = function (_React$Component) {
-	    _inherits(DataExtractorPropertyView, _React$Component);
+	  _inherits(DataExtractorPropertyView, _React$Component);
 	
-	    function DataExtractorPropertyView(props) {
-	        _classCallCheck(this, DataExtractorPropertyView);
+	  function DataExtractorPropertyView(props) {
+	    _classCallCheck(this, DataExtractorPropertyView);
 	
-	        var _this = _possibleConstructorReturn(this, (DataExtractorPropertyView.__proto__ || Object.getPrototypeOf(DataExtractorPropertyView)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (DataExtractorPropertyView.__proto__ || Object.getPrototypeOf(DataExtractorPropertyView)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false,
-	            properties: [],
-	            count: 0
-	        };
+	    _this.state = {
+	      modalIsOpen: false,
+	      properties: [],
+	      count: 0
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.syncProperty = _this.syncProperty.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        _this.addProperty = _this.addProperty.bind(_this);
-	        _this.getProperties = _this.getProperties.bind(_this);
-	        _this.addProperties = _this.addProperties.bind(_this);
-	        _this.deleteCallBack = _this.deleteCallBack.bind(_this);
-	        _this.executeExtractor = _this.executeExtractor.bind(_this);
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.syncProperty = _this.syncProperty.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    _this.addProperty = _this.addProperty.bind(_this);
+	    _this.getProperties = _this.getProperties.bind(_this);
+	    _this.addProperties = _this.addProperties.bind(_this);
+	    _this.deleteCallBack = _this.deleteCallBack.bind(_this);
+	    _this.executeExtractor = _this.executeExtractor.bind(_this);
 	
-	        return _this;
+	    return _this;
+	  }
+	
+	  _createClass(DataExtractorPropertyView, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
+	      this.setState({
+	        modalIsOpen: true
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.syncProperty();
 	
-	    _createClass(DataExtractorPropertyView, [{
-	        key: 'openModal',
-	        value: function openModal() {
-	            // setState is asynchnous. And, DOMs inside Modal are rendered after the completion of setState so that they can be manipulated after setState completion
-	            this.setState({ modalIsOpen: true });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.syncProperty();
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'syncProperty',
+	    value: function syncProperty() {
+	      var _this2 = this;
 	
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'syncProperty',
-	        value: function syncProperty() {
-	            var _this2 = this;
+	      this.state.properties.map(function (d, idx) {
+	        _this2.state.properties[idx].name = _this2.refs["prop" + idx].state.propAutoCompletedValue;
+	        _this2.state.properties[idx].value = _this2.refs["prop" + idx].refs.propValue.value;
+	      });
+	    }
+	  }, {
+	    key: 'addProperty',
+	    value: function addProperty() {
+	      this.state.properties.push({
+	        name: "",
+	        value: "",
+	        key: this.state.count
+	      });
 	
-	            this.state.properties.map(function (d, idx) {
-	                _this2.state.properties[idx].name = _this2.refs["prop" + idx].state.propAutoCompletedValue;
-	                _this2.state.properties[idx].value = _this2.refs["prop" + idx].refs.propValue.value;
-	            });
-	        }
-	    }, {
-	        key: 'addProperty',
-	        value: function addProperty() {
-	            this.state.properties.push({ name: "", value: "", key: this.state.count });
+	      this.setState({
+	        properties: this.state.properties,
+	        count: this.state.count + 1
+	      });
+	    }
+	  }, {
+	    key: 'getProperties',
+	    value: function getProperties() {
+	      return this.state.properties;
+	    }
+	  }, {
+	    key: 'addProperties',
+	    value: function addProperties(properties) {
+	      this.setState({
+	        properties: properties
+	      });
+	    }
+	  }, {
+	    key: 'deleteCallBack',
+	    value: function deleteCallBack(removedKey) {
+	      this.syncProperty();
 	
-	            this.setState({ properties: this.state.properties, count: this.state.count + 1 });
+	      var newProps = [];
+	      for (var index in this.state.properties) {
+	        if (this.state.properties[index].key != removedKey) {
+	          newProps.push(this.state.properties[index]);
 	        }
-	    }, {
-	        key: 'getProperties',
-	        value: function getProperties() {
-	            return this.state.properties;
-	        }
-	    }, {
-	        key: 'addProperties',
-	        value: function addProperties(properties) {
-	            this.setState({ properties: properties });
-	        }
-	    }, {
-	        key: 'deleteCallBack',
-	        value: function deleteCallBack(removedKey) {
-	            this.syncProperty();
+	      }
 	
-	            var newProps = [];
-	            for (var index in this.state.properties) {
-	                if (this.state.properties[index].key != removedKey) {
-	                    newProps.push(this.state.properties[index]);
-	                }
-	            }
+	      var self = this;
+	      this.setState({
+	        properties: []
+	      }, function () {
+	        self.setState({
+	          properties: newProps
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'executeExtractor',
+	    value: function executeExtractor() {
+	      this.syncProperty();
+	      var data = {
+	        code: 10,
+	        userid: _auth2.default.getUserid(),
+	        companyid: _auth2.default.getCompanyid(),
+	        extractorId: this.props.extractorId,
+	        extractorParamValues: this.state.properties
+	      };
 	
-	            var self = this;
-	            this.setState({
-	                properties: []
-	            }, function () {
-	                self.setState({
-	                    properties: newProps
-	                });
-	            });
+	      var self = this;
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/data/extractor",
+	        type: "post",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          console.log("success for save");
+	          console.log(response);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	        },
+	        error: function error(request, status, _error) {
+	          alert("error");
+	          console.log(request);
+	          console.log(status);
+	          console.log(_error);
 	        }
-	    }, {
-	        key: 'executeExtractor',
-	        value: function executeExtractor() {
-	            this.syncProperty();
-	            var data = {
-	                code: 10,
-	                userid: _auth2.default.getUserid(),
-	                companyid: _auth2.default.getCompanyid(),
-	                extractorId: this.props.extractorId,
-	                extractorParamValues: this.state.properties
-	            };
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
 	
-	            var self = this;
-	            _jquery2.default.ajax({
-	                url: "../commonModules/php/modules/GML.php/gml/data/extractor",
-	                type: "post",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(response) {
-	                    console.log("success for save");
-	                    console.log(response);
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
-	                },
-	                error: function error(request, status, _error) {
-	                    alert("error");
-	                    console.log(request);
-	                    console.log(status);
-	                    console.log(_error);
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this3 = this;
-	
-	            return React.createElement(
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Property View', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.nodePropertyViewTitle },
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Property View',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.modalTitle },
-	                                this.props.label,
-	                                ' '
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.closeModal, className: styles.closeButton },
-	                            React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.nodePropertyViewContent, ref: 'content' },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.nodeProp },
-	                            React.createElement(
-	                                'span',
-	                                { className: styles.nodePropAdd, onClick: this.addProperty },
-	                                React.createElement('img', { src: './../icon/mono_icons/plus32.png', className: styles.icon })
-	                            ),
-	                            React.createElement(
-	                                'span',
-	                                { className: styles.nodePropNameHeader },
-	                                'property'
-	                            ),
-	                            React.createElement(
-	                                'span',
-	                                { className: styles.nodePropValueHeader },
-	                                'value'
-	                            )
-	                        ),
-	                        this.state.properties.map(function (d, idx) {
-	                            return React.createElement(_dataExtractorProperty2.default, { key: "nodeprop" + idx, ref: "prop" + idx, deleteCallBack: _this3.deleteCallBack, indexKey: d.key, name: d.name, value: d.value, modelparameter: _this3.props.modelparameter });
-	                        })
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { onClick: this.executeExtractor, className: styles.saveButtonBox },
-	                        'Execute'
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	                { className: styles.modalTitle },
+	                this.props.label,
+	                ' '
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.closeModal, className: styles.closeButton },
+	              React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.nodePropertyViewContent, ref: 'content' },
+	            React.createElement(
+	              'div',
+	              { className: styles.nodeProp },
+	              React.createElement(
+	                'span',
+	                { className: styles.nodePropAdd, onClick: this.addProperty },
+	                React.createElement('img', { src: './../icon/mono_icons/plus32.png', className: styles.icon })
+	              ),
+	              React.createElement(
+	                'span',
+	                { className: styles.nodePropNameHeader },
+	                'property'
+	              ),
+	              React.createElement(
+	                'span',
+	                { className: styles.nodePropValueHeader },
+	                'value'
+	              )
+	            ),
+	            this.state.properties.map(function (d, idx) {
+	              return React.createElement(_dataExtractorProperty2.default, { key: "nodeprop" + idx, ref: "prop" + idx, deleteCallBack: _this3.deleteCallBack, indexKey: d.key, name: d.name,
+	                value: d.value, modelparameter: _this3.props.modelparameter });
+	            })
+	          ),
+	          React.createElement(
+	            'div',
+	            { onClick: this.executeExtractor, className: styles.saveButtonBox },
+	            'Execute'
+	          )
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return DataExtractorPropertyView;
+	  return DataExtractorPropertyView;
 	}(React.Component);
 	
 	exports.default = DataExtractorPropertyView;
@@ -62264,35 +62292,26 @@
 	          { className: styles.nodePropDelete, onClick: this.deleteProperty },
 	          React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.icon })
 	        ),
-	        React.createElement(_reactAutocomplete2.default, {
-	          ref: 'propName',
-	          className: styles.nodePropName,
-	          items: this.state.propItems,
-	          shouldItemRender: function shouldItemRender(item, value) {
+	        React.createElement(_reactAutocomplete2.default, { ref: 'propName', className: styles.nodePropName, items: this.state.propItems, shouldItemRender: function shouldItemRender(item, value) {
 	            return item.label.toLowerCase().indexOf(value.toLowerCase()) > -1;
-	          },
-	          getItemValue: function getItemValue(item) {
+	          }, getItemValue: function getItemValue(item) {
 	            return item.label;
 	          },
-	          menuStyle: menuStyleContent,
-	          renderItem: function renderItem(item, highlighted) {
+	          menuStyle: menuStyleContent, renderItem: function renderItem(item, highlighted) {
 	            return React.createElement(
 	              'div',
-	              {
-	                key: item.id,
-	                style: { backgroundColor: highlighted ? '#eee' : 'transparent', "zIndex": 2000 }
-	              },
+	              { key: item.id, style: { backgroundColor: highlighted ? '#eee' : 'transparent', "zIndex": 2000 } },
 	              item.label
 	            );
-	          },
-	          value: this.state.propAutoCompletedValue,
-	          onChange: function onChange(e) {
-	            return _this2.setState({ propAutoCompletedValue: e.target.value });
-	          },
-	          onSelect: function onSelect(value) {
-	            return _this2.setState({ propAutoCompletedValue: value });
-	          }
-	        }),
+	          }, value: this.state.propAutoCompletedValue, onChange: function onChange(e) {
+	            return _this2.setState({
+	              propAutoCompletedValue: e.target.value
+	            });
+	          }, onSelect: function onSelect(value) {
+	            return _this2.setState({
+	              propAutoCompletedValue: value
+	            });
+	          } }),
 	        React.createElement('input', { className: styles.nodePropValue, ref: 'propValue', type: 'text' })
 	      );
 	    }
@@ -62310,7 +62329,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -62364,354 +62383,354 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var SocialConnect = function (_React$Component) {
-	    _inherits(SocialConnect, _React$Component);
+	  _inherits(SocialConnect, _React$Component);
 	
-	    function SocialConnect(props) {
-	        _classCallCheck(this, SocialConnect);
+	  function SocialConnect(props) {
+	    _classCallCheck(this, SocialConnect);
 	
-	        var _this = _possibleConstructorReturn(this, (SocialConnect.__proto__ || Object.getPrototypeOf(SocialConnect)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SocialConnect.__proto__ || Object.getPrototypeOf(SocialConnect)).call(this, props));
 	
-	        _this.state = {
-	            facebookStatus: "none",
-	            facebookRemainingTimeDay: "",
-	            facebookRemainingTimeHour: "",
-	            facebookRemainingTimeMinute: "",
-	            facebookRemainingTimeSecond: "",
+	    _this.state = {
+	      facebookStatus: "none",
+	      facebookRemainingTimeDay: "",
+	      facebookRemainingTimeHour: "",
+	      facebookRemainingTimeMinute: "",
+	      facebookRemainingTimeSecond: "",
 	
-	            googleStatus: "none",
-	            googleRemainingTimeDay: "",
-	            googleRemainingTimeHour: "",
-	            googleRemainingTimeMinute: "",
-	            googleRemainingTimeSecond: "",
+	      googleStatus: "none",
+	      googleRemainingTimeDay: "",
+	      googleRemainingTimeHour: "",
+	      googleRemainingTimeMinute: "",
+	      googleRemainingTimeSecond: "",
 	
-	            twitterStatus: "unconnected"
-	        };
+	      twitterStatus: "unconnected"
+	    };
 	
-	        _this.goToFacebookAppsLogin = _this.goToFacebookAppsLogin.bind(_this);
-	        _this.goToGoogleAppsLogin = _this.goToGoogleAppsLogin.bind(_this);
-	        _this.disconnectFacebook = _this.disconnectFacebook.bind(_this);
-	        return _this;
+	    _this.goToFacebookAppsLogin = _this.goToFacebookAppsLogin.bind(_this);
+	    _this.goToGoogleAppsLogin = _this.goToGoogleAppsLogin.bind(_this);
+	    _this.disconnectFacebook = _this.disconnectFacebook.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(SocialConnect, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var self = this;
+	
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid(),
+	        token: _auth2.default.getToken(),
+	        code: 10
+	      };
+	
+	      _jquery2.default.ajax({
+	        type: "post",
+	        url: "../commonModules/php/modules/Auth.php/auth/social/connect/status",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        success: function success(response) {
+	
+	          console.log(response);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	
+	          var facebookStatus = "unconnected";
+	          var facebookRemainingTimeDay = "";
+	          var facebookRemainingTimeHour = "";
+	          var facebookRemainingTimeMinute = "";
+	          var facebookRemainingTimeSecond = "";
+	
+	          if (response.body.connectedWithFacebook) {
+	            facebookStatus = "active";
+	            var timeToRemain = response.body.facebookExpiresIn - response.body.facebookTimePassed;
+	
+	            var day = timeToRemain / (60 * 60 * 24) | 0;
+	            var hour = (timeToRemain - 60 * 60 * 24 * day) / (60 * 60) | 0;
+	
+	            var minute = (timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60) / 60 | 0;
+	            var second = timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60 - minute * 60;
+	
+	            facebookRemainingTimeDay = day;
+	            facebookRemainingTimeHour = hour;
+	            facebookRemainingTimeMinute = minute;
+	            facebookRemainingTimeSecond = second;
+	          } else {
+	            if (response.body.facebookExpired) {
+	              facebookStatus = "expired";
+	            } else {
+	              facebookStatus = "unconnected";
+	            }
+	          }
+	
+	          var googleStatus = "unconnected";
+	          var googleRemainingTimeDay = "";
+	          var googleRemainingTimeHour = "";
+	          var googleRemainingTimeMinute = "";
+	          var googleRemainingTimeSecond = "";
+	
+	          if (response.body.connectedWithGoogle) {
+	            googleStatus = "active";
+	            var timeToRemain = response.body.googleExpiresIn - response.body.googleTimePassed;
+	
+	            var day = timeToRemain / (60 * 60 * 24) | 0;
+	            var hour = (timeToRemain - 60 * 60 * 24 * day) / (60 * 60) | 0;
+	
+	            var minute = (timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60) / 60 | 0;
+	            var second = timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60 - minute * 60;
+	
+	            googleRemainingTimeDay = day;
+	            googleRemainingTimeHour = hour;
+	            googleRemainingTimeMinute = minute;
+	            googleRemainingTimeSecond = second;
+	          } else {
+	            if (response.body.googleExpired) {
+	              googleStatus = "expired";
+	            } else {
+	              googleStatus = "unconnected";
+	            }
+	          }
+	
+	          self.setState({
+	            facebookStatus: facebookStatus,
+	            facebookRemainingTimeDay: facebookRemainingTimeDay,
+	            facebookRemainingTimeHour: facebookRemainingTimeHour,
+	            facebookRemainingTimeMinute: facebookRemainingTimeMinute,
+	            facebookRemainingTimeSecond: facebookRemainingTimeSecond,
+	
+	            googleStatus: googleStatus,
+	            googleRemainingTimeDay: googleRemainingTimeDay,
+	            googleRemainingTimeHour: googleRemainingTimeHour,
+	            googleRemainingTimeMinute: googleRemainingTimeMinute,
+	            googleRemainingTimeSecond: googleRemainingTimeSecond
+	          });
+	        },
+	        error: function error(request, status, _error) {
+	          alert("Failed to get social connection status");
+	          alert(request.responseText);
+	        },
+	        complete: function complete() {}
+	      });
 	    }
+	  }, {
+	    key: 'goToGoogleAppsLogin',
+	    value: function goToGoogleAppsLogin(e) {
+	      e.preventDefault();
 	
-	    _createClass(SocialConnect, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var self = this;
+	      window.location.href = '../commonModules/php/modules/Auth.php/auth/googleAppsLogin/connect?companyid=' + _auth2.default.getCompanyid() + '&userid=' + _auth2.default.getUserid() + '&token=' + _auth2.default.getToken();
+	    }
+	  }, {
+	    key: 'goToFacebookAppsLogin',
+	    value: function goToFacebookAppsLogin(e) {
+	      e.preventDefault();
 	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                code: 10
-	            };
+	      window.location.href = '../commonModules/php/modules/Auth.php/auth/facebookAppsLogin/connect?companyid=' + _auth2.default.getCompanyid() + '&userid=' + _auth2.default.getUserid() + '&token=' + _auth2.default.getToken();
+	    }
+	  }, {
+	    key: 'disconnectFacebook',
+	    value: function disconnectFacebook() {
+	      var self = this;
 	
-	            _jquery2.default.ajax({
-	                type: "post",
-	                url: "../commonModules/php/modules/Auth.php/auth/social/connect/status",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                success: function success(response) {
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid(),
+	        token: _auth2.default.getToken(),
+	        code: 10
+	      };
 	
-	                    console.log(response);
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
+	      _jquery2.default.ajax({
+	        type: "post",
+	        url: "../commonModules/php/modules/Auth.php/auth/social/connect/facebook/disconnect",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        success: function success(json_data) {
+	          console.log(json_data);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
 	
-	                    var facebookStatus = "unconnected";
-	                    var facebookRemainingTimeDay = "";
-	                    var facebookRemainingTimeHour = "";
-	                    var facebookRemainingTimeMinute = "";
-	                    var facebookRemainingTimeSecond = "";
+	          self.setState({
+	            facebookStatus: "expired"
+	          });
+	        },
+	        error: function error(request, status, _error2) {
+	          alert("Failed to get social connection status");
+	          alert(request.responseText);
+	        },
+	        complete: function complete() {}
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 	
-	                    if (response.body.connectedWithFacebook) {
-	                        facebookStatus = "active";
-	                        var timeToRemain = response.body.facebookExpiresIn - response.body.facebookTimePassed;
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'div',
+	            { className: styles.accountRoleChangeTitle },
+	            ' Connect to Social Data Source '
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.socialConnectionBody },
+	            React.createElement(
+	              'div',
+	              { className: styles.socialConnectionRecord },
+	              React.createElement('img', { onClick: this.disconnectFacebook, src: './../icon/mono_icons/minus32.png', className: styles.socialConnectionDisconnectIcon }),
+	              React.createElement('img', { onClick: this.goToFacebookAppsLogin, src: '../icon/social_icons/facebook.jpg', className: styles.socialConnectionIcon }),
+	              function () {
+	                switch (_this2.state.facebookStatus) {
+	                  case "active":
+	                    return React.createElement(
+	                      'span',
+	                      null,
+	                      React.createElement(
+	                        'span',
+	                        { className: styles.socialConnectionRecordStatusActive },
+	                        'Active'
+	                      ),
+	                      React.createElement(
+	                        'span',
+	                        { className: styles.socialConnectionRecordStatusRemainingTime },
+	                        'Expire in',
+	                        React.createElement('br', null),
+	                        _this2.state.facebookRemainingTimeDay,
+	                        ' Day',
+	                        React.createElement('br', null),
+	                        _this2.state.facebookRemainingTimeHour,
+	                        ' Hour',
+	                        React.createElement('br', null),
+	                        _this2.state.facebookRemainingTimeMinute,
+	                        ' Minute',
+	                        React.createElement('br', null),
+	                        _this2.state.facebookRemainingTimeSecond,
+	                        ' Seconds'
+	                      )
+	                    );
+	                  case "expired":
+	                    return React.createElement(
+	                      'span',
+	                      { className: styles.socialConnectionRecordStatusExpired },
+	                      'Expired'
+	                    );
 	
-	                        var day = timeToRemain / (60 * 60 * 24) | 0;
-	                        var hour = (timeToRemain - 60 * 60 * 24 * day) / (60 * 60) | 0;
+	                  case "unconnected":
+	                    return React.createElement(
+	                      'span',
+	                      { className: styles.socialConnectionRecordStatusNotConnected },
+	                      'Unconnected'
+	                    );
+	                  case "none":
+	                    return React.createElement('span', { className: styles.socialConnectionRecordStatusNotConnected });
 	
-	                        var minute = (timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60) / 60 | 0;
-	                        var second = timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60 - minute * 60;
+	                }
+	              }()
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.socialConnectionBody },
+	            React.createElement(
+	              'div',
+	              { className: styles.socialConnectionRecord },
+	              React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.socialConnectionDisconnectIcon }),
+	              React.createElement('img', { onClick: this.goToGoogleAppsLogin, src: '../icon/social_icons/google.jpg', className: styles.socialConnectionIcon }),
+	              function () {
+	                switch (_this2.state.googleStatus) {
+	                  case "active":
+	                    return React.createElement(
+	                      'span',
+	                      null,
+	                      React.createElement(
+	                        'span',
+	                        { className: styles.socialConnectionRecordStatusActive },
+	                        'Active'
+	                      ),
+	                      React.createElement(
+	                        'span',
+	                        { className: styles.socialConnectionRecordStatusRemainingTime },
+	                        'Expire in',
+	                        React.createElement('br', null),
+	                        _this2.state.googleRemainingTimeDay,
+	                        ' Day',
+	                        React.createElement('br', null),
+	                        _this2.state.googleRemainingTimeHour,
+	                        ' Hour',
+	                        React.createElement('br', null),
+	                        _this2.state.googleRemainingTimeMinute,
+	                        ' Minute',
+	                        React.createElement('br', null),
+	                        _this2.state.googleRemainingTimeSecond,
+	                        ' Seconds'
+	                      )
+	                    );
 	
-	                        facebookRemainingTimeDay = day;
-	                        facebookRemainingTimeHour = hour;
-	                        facebookRemainingTimeMinute = minute;
-	                        facebookRemainingTimeSecond = second;
-	                    } else {
-	                        if (response.body.facebookExpired) {
-	                            facebookStatus = "expired";
-	                        } else {
-	                            facebookStatus = "unconnected";
-	                        }
-	                    }
+	                  case "expired":
+	                    return React.createElement(
+	                      'span',
+	                      { className: styles.socialConnectionRecordStatusExpired },
+	                      'Expired'
+	                    );
 	
-	                    var googleStatus = "unconnected";
-	                    var googleRemainingTimeDay = "";
-	                    var googleRemainingTimeHour = "";
-	                    var googleRemainingTimeMinute = "";
-	                    var googleRemainingTimeSecond = "";
+	                  case "unconnected":
+	                    return React.createElement(
+	                      'span',
+	                      { className: styles.socialConnectionRecordStatusNotConnected },
+	                      'Unconnected'
+	                    );
+	                }
+	              }()
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.socialConnectionBody },
+	            React.createElement(
+	              'div',
+	              { className: styles.socialConnectionRecord },
+	              React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.socialConnectionDisconnectIcon }),
+	              React.createElement('img', { src: '../icon/social_icons/twitter.png', className: styles.socialConnectionIcon }),
+	              function () {
+	                switch (_this2.state.twitterStatus) {
+	                  case "active":
+	                    return React.createElement(
+	                      'span',
+	                      { className: styles.socialConnectionRecordStatusActive },
+	                      'Active'
+	                    );
+	                  case "expired":
+	                    return React.createElement(
+	                      'span',
+	                      { className: styles.socialConnectionRecordStatusExpired },
+	                      'Expired'
+	                    );
 	
-	                    if (response.body.connectedWithGoogle) {
-	                        googleStatus = "active";
-	                        var timeToRemain = response.body.googleExpiresIn - response.body.googleTimePassed;
+	                  case "unconnected":
+	                    return React.createElement(
+	                      'span',
+	                      { className: styles.socialConnectionRecordStatusNotConnected },
+	                      'Unconnected'
+	                    );
+	                }
+	              }()
+	            )
+	          )
+	        ),
+	        React.createElement(_loading2.default, { ref: 'loading' })
+	      );
+	    }
+	  }]);
 	
-	                        var day = timeToRemain / (60 * 60 * 24) | 0;
-	                        var hour = (timeToRemain - 60 * 60 * 24 * day) / (60 * 60) | 0;
-	
-	                        var minute = (timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60) / 60 | 0;
-	                        var second = timeToRemain - 60 * 60 * 24 * day - hour * 60 * 60 - minute * 60;
-	
-	                        googleRemainingTimeDay = day;
-	                        googleRemainingTimeHour = hour;
-	                        googleRemainingTimeMinute = minute;
-	                        googleRemainingTimeSecond = second;
-	                    } else {
-	                        if (response.body.googleExpired) {
-	                            googleStatus = "expired";
-	                        } else {
-	                            googleStatus = "unconnected";
-	                        }
-	                    }
-	
-	                    self.setState({
-	                        facebookStatus: facebookStatus,
-	                        facebookRemainingTimeDay: facebookRemainingTimeDay,
-	                        facebookRemainingTimeHour: facebookRemainingTimeHour,
-	                        facebookRemainingTimeMinute: facebookRemainingTimeMinute,
-	                        facebookRemainingTimeSecond: facebookRemainingTimeSecond,
-	
-	                        googleStatus: googleStatus,
-	                        googleRemainingTimeDay: googleRemainingTimeDay,
-	                        googleRemainingTimeHour: googleRemainingTimeHour,
-	                        googleRemainingTimeMinute: googleRemainingTimeMinute,
-	                        googleRemainingTimeSecond: googleRemainingTimeSecond
-	                    });
-	                },
-	                error: function error(request, status, _error) {
-	                    alert("Failed to get social connection status");
-	                    alert(request.responseText);
-	                },
-	                complete: function complete() {}
-	            });
-	        }
-	    }, {
-	        key: 'goToGoogleAppsLogin',
-	        value: function goToGoogleAppsLogin(e) {
-	            e.preventDefault();
-	
-	            window.location.href = '../commonModules/php/modules/Auth.php/auth/googleAppsLogin/connect?companyid=' + _auth2.default.getCompanyid() + '&userid=' + _auth2.default.getUserid() + '&token=' + _auth2.default.getToken();
-	        }
-	    }, {
-	        key: 'goToFacebookAppsLogin',
-	        value: function goToFacebookAppsLogin(e) {
-	            e.preventDefault();
-	
-	            window.location.href = '../commonModules/php/modules/Auth.php/auth/facebookAppsLogin/connect?companyid=' + _auth2.default.getCompanyid() + '&userid=' + _auth2.default.getUserid() + '&token=' + _auth2.default.getToken();
-	        }
-	    }, {
-	        key: 'disconnectFacebook',
-	        value: function disconnectFacebook() {
-	            var self = this;
-	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                code: 10
-	            };
-	
-	            _jquery2.default.ajax({
-	                type: "post",
-	                url: "../commonModules/php/modules/Auth.php/auth/social/connect/facebook/disconnect",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                success: function success(json_data) {
-	                    console.log(json_data);
-	                    if (response.body.code == 401) {
-	                        _auth2.default.logout();
-	                    }
-	
-	                    self.setState({
-	                        facebookStatus: "expired"
-	                    });
-	                },
-	                error: function error(request, status, _error2) {
-	                    alert("Failed to get social connection status");
-	                    alert(request.responseText);
-	                },
-	                complete: function complete() {}
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-	
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    null,
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.accountRoleChangeTitle },
-	                        ' Connect to Social Data Source '
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.socialConnectionBody },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.socialConnectionRecord },
-	                            React.createElement('img', { onClick: this.disconnectFacebook, src: './../icon/mono_icons/minus32.png', className: styles.socialConnectionDisconnectIcon }),
-	                            React.createElement('img', { onClick: this.goToFacebookAppsLogin, src: '../icon/social_icons/facebook.jpg', className: styles.socialConnectionIcon }),
-	                            function () {
-	                                switch (_this2.state.facebookStatus) {
-	                                    case "active":
-	                                        return React.createElement(
-	                                            'span',
-	                                            null,
-	                                            React.createElement(
-	                                                'span',
-	                                                { className: styles.socialConnectionRecordStatusActive },
-	                                                'Active'
-	                                            ),
-	                                            React.createElement(
-	                                                'span',
-	                                                { className: styles.socialConnectionRecordStatusRemainingTime },
-	                                                'Expire in',
-	                                                React.createElement('br', null),
-	                                                _this2.state.facebookRemainingTimeDay,
-	                                                ' Day',
-	                                                React.createElement('br', null),
-	                                                _this2.state.facebookRemainingTimeHour,
-	                                                ' Hour',
-	                                                React.createElement('br', null),
-	                                                _this2.state.facebookRemainingTimeMinute,
-	                                                ' Minute',
-	                                                React.createElement('br', null),
-	                                                _this2.state.facebookRemainingTimeSecond,
-	                                                ' Seconds'
-	                                            )
-	                                        );
-	                                    case "expired":
-	                                        return React.createElement(
-	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusExpired },
-	                                            'Expired'
-	                                        );
-	
-	                                    case "unconnected":
-	                                        return React.createElement(
-	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusNotConnected },
-	                                            'Unconnected'
-	                                        );
-	                                    case "none":
-	                                        return React.createElement('span', { className: styles.socialConnectionRecordStatusNotConnected });
-	
-	                                }
-	                            }()
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.socialConnectionBody },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.socialConnectionRecord },
-	                            React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.socialConnectionDisconnectIcon }),
-	                            React.createElement('img', { onClick: this.goToGoogleAppsLogin, src: '../icon/social_icons/google.jpg', className: styles.socialConnectionIcon }),
-	                            function () {
-	                                switch (_this2.state.googleStatus) {
-	                                    case "active":
-	                                        return React.createElement(
-	                                            'span',
-	                                            null,
-	                                            React.createElement(
-	                                                'span',
-	                                                { className: styles.socialConnectionRecordStatusActive },
-	                                                'Active'
-	                                            ),
-	                                            React.createElement(
-	                                                'span',
-	                                                { className: styles.socialConnectionRecordStatusRemainingTime },
-	                                                'Expire in',
-	                                                React.createElement('br', null),
-	                                                _this2.state.googleRemainingTimeDay,
-	                                                ' Day',
-	                                                React.createElement('br', null),
-	                                                _this2.state.googleRemainingTimeHour,
-	                                                ' Hour',
-	                                                React.createElement('br', null),
-	                                                _this2.state.googleRemainingTimeMinute,
-	                                                ' Minute',
-	                                                React.createElement('br', null),
-	                                                _this2.state.googleRemainingTimeSecond,
-	                                                ' Seconds'
-	                                            )
-	                                        );
-	
-	                                    case "expired":
-	                                        return React.createElement(
-	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusExpired },
-	                                            'Expired'
-	                                        );
-	
-	                                    case "unconnected":
-	                                        return React.createElement(
-	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusNotConnected },
-	                                            'Unconnected'
-	                                        );
-	                                }
-	                            }()
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.socialConnectionBody },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.socialConnectionRecord },
-	                            React.createElement('img', { src: './../icon/mono_icons/minus32.png', className: styles.socialConnectionDisconnectIcon }),
-	                            React.createElement('img', { src: '../icon/social_icons/twitter.png', className: styles.socialConnectionIcon }),
-	                            function () {
-	                                switch (_this2.state.twitterStatus) {
-	                                    case "active":
-	                                        return React.createElement(
-	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusActive },
-	                                            'Active'
-	                                        );
-	                                    case "expired":
-	                                        return React.createElement(
-	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusExpired },
-	                                            'Expired'
-	                                        );
-	
-	                                    case "unconnected":
-	                                        return React.createElement(
-	                                            'span',
-	                                            { className: styles.socialConnectionRecordStatusNotConnected },
-	                                            'Unconnected'
-	                                        );
-	                                }
-	                            }()
-	                        )
-	                    )
-	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' })
-	            );
-	        }
-	    }]);
-	
-	    return SocialConnect;
+	  return SocialConnect;
 	}(React.Component);
 	
 	exports.default = SocialConnect;
@@ -62723,7 +62742,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -62777,275 +62796,275 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var AccountManagementIndividual = function (_React$Component) {
-	    _inherits(AccountManagementIndividual, _React$Component);
+	  _inherits(AccountManagementIndividual, _React$Component);
 	
-	    function AccountManagementIndividual(props) {
-	        _classCallCheck(this, AccountManagementIndividual);
+	  function AccountManagementIndividual(props) {
+	    _classCallCheck(this, AccountManagementIndividual);
 	
-	        var _this = _possibleConstructorReturn(this, (AccountManagementIndividual.__proto__ || Object.getPrototypeOf(AccountManagementIndividual)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (AccountManagementIndividual.__proto__ || Object.getPrototypeOf(AccountManagementIndividual)).call(this, props));
 	
-	        _this.accountPasswordChange = _this.accountPasswordChange.bind(_this);
-	        _this.removeAccount = _this.removeAccount.bind(_this);
-	        _this.accountRoleChange = _this.accountRoleChange.bind(_this);
-	        return _this;
+	    _this.accountPasswordChange = _this.accountPasswordChange.bind(_this);
+	    _this.removeAccount = _this.removeAccount.bind(_this);
+	    _this.accountRoleChange = _this.accountRoleChange.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(AccountManagementIndividual, [{
+	    key: 'accountRoleChange',
+	    value: function accountRoleChange(e) {
+	      e.preventDefault();
+	
+	      this.refs.loading.openModal();
+	
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        role: _auth2.default.getRole(),
+	        userid: _auth2.default.getUserid(),
+	        token: _auth2.default.getToken(),
+	        changingUserid: this.refs.roleEmail.value,
+	        changingUserCompany: "",
+	        newRole: (0, _jquery2.default)('input[name="newRole"]:checked').val(),
+	        code: 10
+	      };
+	
+	      var parent = this;
+	
+	      _jquery2.default.ajax({
+	        type: "post",
+	        url: "../commonModules/php/modules/Auth.php/auth/changeRole",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        success: function success(json_data) {
+	          parent.refs.message.innerText = "(権限を" + data.newRole + "へ変更しました)";
+	
+	          setTimeout(function () {
+	            parent.refs.message.innerText = "";
+	          }, 1000);
+	
+	          parent.refs.loading.closeModal();
+	        },
+	        error: function error(request, status, _error) {
+	          alert(request.responseText);
+	        },
+	        complete: function complete() {}
+	      });
 	    }
+	  }, {
+	    key: 'accountPasswordChange',
+	    value: function accountPasswordChange(e) {
+	      e.preventDefault();
 	
-	    _createClass(AccountManagementIndividual, [{
-	        key: 'accountRoleChange',
-	        value: function accountRoleChange(e) {
-	            e.preventDefault();
+	      this.refs.loading.openModal();
 	
-	            this.refs.loading.openModal();
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid(),
+	        token: _auth2.default.getToken(),
+	        newPassword: this.refs.newPassword.value,
+	        code: 10
+	      };
 	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                role: _auth2.default.getRole(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                changingUserid: this.refs.roleEmail.value,
-	                changingUserCompany: "",
-	                newRole: (0, _jquery2.default)('input[name="newRole"]:checked').val(),
-	                code: 10
-	            };
+	      var parent = this;
 	
-	            var parent = this;
+	      if (this.refs.newPassword.value == this.refs.newPasswordConfirmation.value) {
+	        _jquery2.default.ajax({
+	          type: "post",
+	          url: "../commonModules/php/modules/Auth.php/auth/changePassword",
+	          data: JSON.stringify(data),
+	          contentType: 'application/json',
+	          dataType: "json",
+	          success: function success(json_data) {
+	            parent.refs.messageChangePassword.innerText = "(パスワードを変更しました。)";
 	
-	            _jquery2.default.ajax({
-	                type: "post",
-	                url: "../commonModules/php/modules/Auth.php/auth/changeRole",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                success: function success(json_data) {
-	                    parent.refs.message.innerText = "(権限を" + data.newRole + "へ変更しました)";
+	            setTimeout(function () {
+	              parent.refs.messageChangePassword.innerText = "";
+	            }, 2000);
 	
-	                    setTimeout(function () {
-	                        parent.refs.message.innerText = "";
-	                    }, 1000);
+	            parent.refs.loading.closeModal();
+	          },
+	          error: function error(request, status, _error2) {
+	            alert(request.responseText);
+	          },
+	          complete: function complete() {}
+	        });
+	      } else {
+	        parent.refs.messageChangePassword.innerText = "(新しいパスワードと確認用のパスワードが一致しません。再度、入力をお願いします。)";
 	
-	                    parent.refs.loading.closeModal();
-	                },
-	                error: function error(request, status, _error) {
-	                    alert(request.responseText);
-	                },
-	                complete: function complete() {}
-	            });
-	        }
-	    }, {
-	        key: 'accountPasswordChange',
-	        value: function accountPasswordChange(e) {
-	            e.preventDefault();
+	        setTimeout(function () {
+	          parent.refs.messageChangePassword.innerText = "";
+	        }, 2000);
 	
-	            this.refs.loading.openModal();
+	        parent.refs.loading.closeModal();
+	      }
+	    }
+	  }, {
+	    key: 'removeAccount',
+	    value: function removeAccount(e) {
+	      e.preventDefault();
 	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                newPassword: this.refs.newPassword.value,
-	                code: 10
-	            };
+	      this.refs.loading.openModal();
 	
-	            var parent = this;
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid(),
+	        token: _auth2.default.getToken(),
+	        deletedUserid: _auth2.default.getUserid(),
+	        code: 10
+	      };
 	
-	            if (this.refs.newPassword.value == this.refs.newPasswordConfirmation.value) {
-	                _jquery2.default.ajax({
-	                    type: "post",
-	                    url: "../commonModules/php/modules/Auth.php/auth/changePassword",
-	                    data: JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    dataType: "json",
-	                    success: function success(json_data) {
-	                        parent.refs.messageChangePassword.innerText = "(パスワードを変更しました。)";
+	      var parent = this;
 	
-	                        setTimeout(function () {
-	                            parent.refs.messageChangePassword.innerText = "";
-	                        }, 2000);
+	      _jquery2.default.ajax({
+	        type: "post",
+	        url: "../commonModules/php/modules/Auth.php/auth/removeAccount",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        success: function success(json_data) {
+	          parent.refs.messageRemoveAccount.innerText = "(退会いたしました。再度入会するには、再度登録をお願い致します。)";
 	
-	                        parent.refs.loading.closeModal();
-	                    },
-	                    error: function error(request, status, _error2) {
-	                        alert(request.responseText);
-	                    },
-	                    complete: function complete() {}
-	                });
-	            } else {
-	                parent.refs.messageChangePassword.innerText = "(新しいパスワードと確認用のパスワードが一致しません。再度、入力をお願いします。)";
+	          setTimeout(function () {
+	            parent.refs.messageRemoveAccount.innerText = "";
+	          }, 1000);
 	
-	                setTimeout(function () {
-	                    parent.refs.messageChangePassword.innerText = "";
-	                }, 2000);
-	
-	                parent.refs.loading.closeModal();
-	            }
-	        }
-	    }, {
-	        key: 'removeAccount',
-	        value: function removeAccount(e) {
-	            e.preventDefault();
-	
-	            this.refs.loading.openModal();
-	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                deletedUserid: _auth2.default.getUserid(),
-	                code: 10
-	            };
-	
-	            var parent = this;
-	
-	            _jquery2.default.ajax({
-	                type: "post",
-	                url: "../commonModules/php/modules/Auth.php/auth/removeAccount",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                success: function success(json_data) {
-	                    parent.refs.messageRemoveAccount.innerText = "(退会いたしました。再度入会するには、再度登録をお願い致します。)";
-	
-	                    setTimeout(function () {
-	                        parent.refs.messageRemoveAccount.innerText = "";
-	                    }, 1000);
-	
-	                    parent.refs.loading.closeModal();
-	                },
-	                error: function error(request, status, _error3) {
-	                    alert(request.responseText);
-	                },
-	                complete: function complete() {}
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	          parent.refs.loading.closeModal();
+	        },
+	        error: function error(request, status, _error3) {
+	          alert(request.responseText);
+	        },
+	        complete: function complete() {}
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: styles.accountRoleChange },
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeTitle },
+	              ' Change Password '
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeItemBox },
+	              React.createElement(
 	                'div',
-	                null,
+	                { className: styles.accountRoleChangeItemName },
+	                React.createElement('input', { type: 'password', ref: 'oldPassword', placeholder: 'old password' })
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: styles.accountRoleChangeItemName },
+	                React.createElement('input', { type: 'password', ref: 'newPassword', placeholder: 'new password' })
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: styles.accountRoleChangeItemName },
+	                React.createElement('input', { type: 'password', ref: 'newPasswordConfirmation', placeholder: 'new password (confirmation)' })
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.accountRoleChangeButton },
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeButtonBox },
+	              React.createElement(
+	                'div',
+	                { onClick: this.accountPasswordChange.bind(this), width: '200' },
+	                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
+	                'Change Password ',
+	                React.createElement('span', { ref: 'messageChangePassword' })
+	              )
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: styles.accountRoleChange },
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeTitle },
+	              ' Delete The Account '
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeButton },
+	              React.createElement(
+	                'div',
+	                { className: styles.accountRoleChangeButtonBox },
 	                React.createElement(
-	                    'div',
-	                    { className: styles.accountRoleChange },
-	                    React.createElement(
-	                        'div',
-	                        null,
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeTitle },
-	                            ' Change Password '
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeItemBox },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.accountRoleChangeItemName },
-	                                React.createElement('input', { type: 'password', ref: 'oldPassword', placeholder: 'old password' })
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.accountRoleChangeItemName },
-	                                React.createElement('input', { type: 'password', ref: 'newPassword', placeholder: 'new password' })
-	                            ),
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.accountRoleChangeItemName },
-	                                React.createElement('input', { type: 'password', ref: 'newPasswordConfirmation', placeholder: 'new password (confirmation)' })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.accountRoleChangeButton },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeButtonBox },
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.accountPasswordChange.bind(this), width: '200' },
-	                                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
-	                                'Change Password ',
-	                                React.createElement('span', { ref: 'messageChangePassword' })
-	                            )
-	                        )
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: styles.accountRoleChange },
-	                    React.createElement(
-	                        'div',
-	                        null,
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeTitle },
-	                            ' Delete The Account '
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeButton },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.accountRoleChangeButtonBox },
-	                                React.createElement(
-	                                    'div',
-	                                    { onClick: this.removeAccount.bind(this), width: '200' },
-	                                    React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
-	                                    'Delete',
-	                                    React.createElement('span', { ref: 'messageRemoveAccount' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                ),
-	                _auth2.default.getRole() == 'administrator' ? React.createElement(
-	                    'div',
-	                    { className: styles.accountRoleChange },
-	                    React.createElement(
-	                        'div',
-	                        null,
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeTitle },
-	                            ' \u6A29\u9650\u5909\u66F4 '
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeItemBox },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.accountRoleChangeItemName },
-	                                '\u540C\u3058\u4F1A\u793E\u30B3\u30FC\u30C9\u3092\u6301\u3064\u30E6\u30FC\u30B6\u30FC\u306E\u6A29\u9650\u3092\u5909\u66F4\u3067\u304D\u307E\u3059\u3002E-mail\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3001\u201D\u4E00\u822C\u201D\u304B\u201D\u7BA1\u7406\u8005\u201D\u306E\u6A29\u9650\u3069\u3061\u3089\u304B\u3092\u304A\u9078\u3073\u304F\u3060\u3055\u3044\u3002'
-	                            ),
-	                            React.createElement('input', { type: 'text', ref: 'roleEmail', placeholder: 'E-mail\u30A2\u30C9\u30EC\u30B9' }),
-	                            React.createElement('input', { type: 'radio', name: 'newRole', value: 'none' }),
-	                            ' \u4E00\u822C',
-	                            React.createElement('input', { type: 'radio', name: 'newRole', value: 'administrator' }),
-	                            ' \u7BA1\u7406\u8005'
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.accountRoleChangeButton },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeButtonBox },
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.accountRoleChange.bind(this), width: '200' },
-	                                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
-	                                '\u5909\u66F4 ',
-	                                React.createElement('span', { ref: 'message' })
-	                            )
-	                        )
-	                    )
-	                ) : React.createElement('div', null),
-	                React.createElement(_loading2.default, { ref: 'loading' })
-	            );
-	        }
-	    }]);
+	                  'div',
+	                  { onClick: this.removeAccount.bind(this), width: '200' },
+	                  React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
+	                  'Delete',
+	                  React.createElement('span', { ref: 'messageRemoveAccount' })
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _auth2.default.getRole() == 'administrator' ? React.createElement(
+	          'div',
+	          { className: styles.accountRoleChange },
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeTitle },
+	              ' \u6A29\u9650\u5909\u66F4 '
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeItemBox },
+	              React.createElement(
+	                'div',
+	                { className: styles.accountRoleChangeItemName },
+	                '\u540C\u3058\u4F1A\u793E\u30B3\u30FC\u30C9\u3092\u6301\u3064\u30E6\u30FC\u30B6\u30FC\u306E\u6A29\u9650\u3092\u5909\u66F4\u3067\u304D\u307E\u3059\u3002E-mail\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3001\u201D\u4E00\u822C\u201D\u304B\u201D\u7BA1\u7406\u8005\u201D\u306E\u6A29\u9650\u3069\u3061\u3089\u304B\u3092\u304A\u9078\u3073\u304F\u3060\u3055\u3044\u3002'
+	              ),
+	              React.createElement('input', { type: 'text', ref: 'roleEmail', placeholder: 'E-mail\u30A2\u30C9\u30EC\u30B9' }),
+	              React.createElement('input', { type: 'radio', name: 'newRole', value: 'none' }),
+	              ' \u4E00\u822C',
+	              React.createElement('input', { type: 'radio', name: 'newRole', value: 'administrator' }),
+	              ' \u7BA1\u7406\u8005'
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.accountRoleChangeButton },
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeButtonBox },
+	              React.createElement(
+	                'div',
+	                { onClick: this.accountRoleChange.bind(this), width: '200' },
+	                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
+	                '\u5909\u66F4 ',
+	                React.createElement('span', { ref: 'message' })
+	              )
+	            )
+	          )
+	        ) : React.createElement('div', null),
+	        React.createElement(_loading2.default, { ref: 'loading' })
+	      );
+	    }
+	  }]);
 	
-	    return AccountManagementIndividual;
+	  return AccountManagementIndividual;
 	}(React.Component);
 	
 	exports.default = AccountManagementIndividual;
@@ -63057,7 +63076,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -63111,113 +63130,113 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var AccountManagement = function (_React$Component) {
-	    _inherits(AccountManagement, _React$Component);
+	  _inherits(AccountManagement, _React$Component);
 	
-	    function AccountManagement(props) {
-	        _classCallCheck(this, AccountManagement);
+	  function AccountManagement(props) {
+	    _classCallCheck(this, AccountManagement);
 	
-	        var _this = _possibleConstructorReturn(this, (AccountManagement.__proto__ || Object.getPrototypeOf(AccountManagement)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (AccountManagement.__proto__ || Object.getPrototypeOf(AccountManagement)).call(this, props));
 	
-	        _this.accountRoleChange = _this.accountRoleChange.bind(_this);
-	        return _this;
+	    _this.accountRoleChange = _this.accountRoleChange.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(AccountManagement, [{
+	    key: 'accountRoleChange',
+	    value: function accountRoleChange(e) {
+	      e.preventDefault();
+	
+	      this.refs.loading.openModal();
+	
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        role: _auth2.default.getRole(),
+	        userid: _auth2.default.getUserid(),
+	        token: _auth2.default.getToken(),
+	        changingUserid: this.refs.roleEmail.value,
+	        changingUserCompany: this.refs.companyCode.value,
+	        newRole: (0, _jquery2.default)('input[name="newRole"]:checked').val(),
+	        code: 10
+	      };
+	
+	      var parent = this;
+	
+	      _jquery2.default.ajax({
+	        type: "post",
+	        url: "../commonModules/php/modules/Auth.php/auth/changeRole",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        success: function success(json_data) {
+	          parent.refs.message.innerText = "(権限を" + data.newRole + "へ変更しました)";
+	
+	          setTimeout(function () {
+	            parent.refs.message.innerText = "";
+	          }, 1000);
+	
+	          parent.refs.loading.closeModal();
+	        },
+	        error: function error(request, status, _error) {
+	          alert(request.responseText);
+	        },
+	        complete: function complete() {}
+	      });
 	    }
-	
-	    _createClass(AccountManagement, [{
-	        key: 'accountRoleChange',
-	        value: function accountRoleChange(e) {
-	            e.preventDefault();
-	
-	            this.refs.loading.openModal();
-	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                role: _auth2.default.getRole(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                changingUserid: this.refs.roleEmail.value,
-	                changingUserCompany: this.refs.companyCode.value,
-	                newRole: (0, _jquery2.default)('input[name="newRole"]:checked').val(),
-	                code: 10
-	            };
-	
-	            var parent = this;
-	
-	            _jquery2.default.ajax({
-	                type: "post",
-	                url: "../commonModules/php/modules/Auth.php/auth/changeRole",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                success: function success(json_data) {
-	                    parent.refs.message.innerText = "(権限を" + data.newRole + "へ変更しました)";
-	
-	                    setTimeout(function () {
-	                        parent.refs.message.innerText = "";
-	                    }, 1000);
-	
-	                    parent.refs.loading.closeModal();
-	                },
-	                error: function error(request, status, _error) {
-	                    alert(request.responseText);
-	                },
-	                complete: function complete() {}
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: styles.accountRoleChange },
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeTitle },
+	              ' \u6A29\u9650\u5909\u66F4 '
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeItemBox },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    { className: styles.accountRoleChange },
-	                    React.createElement(
-	                        'div',
-	                        null,
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeTitle },
-	                            ' \u6A29\u9650\u5909\u66F4 '
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeItemBox },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.accountRoleChangeItemName },
-	                                'Company Code \u3068\u3000E-mail\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3001\u201D\u4E00\u822C\u201D\u304B\u201D\u7BA1\u7406\u8005\u201D\u306E\u6A29\u9650\u3069\u3061\u3089\u304B\u3092\u304A\u9078\u3073\u304F\u3060\u3055\u3044\u3002'
-	                            ),
-	                            React.createElement('input', { type: 'text', ref: 'companyCode', placeholder: 'company code' }),
-	                            React.createElement('input', { type: 'text', ref: 'roleEmail', placeholder: 'E-mail\u30A2\u30C9\u30EC\u30B9' }),
-	                            React.createElement('input', { type: 'radio', name: 'newRole', value: 'none' }),
-	                            ' \u4E00\u822C',
-	                            React.createElement('input', { type: 'radio', name: 'newRole', value: 'administrator' }),
-	                            ' \u7BA1\u7406\u8005'
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.accountRoleChangeButton },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeButtonBox },
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.accountRoleChange.bind(this), width: '200' },
-	                                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
-	                                '\u5909\u66F4 ',
-	                                React.createElement('span', { ref: 'message' })
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(_loading2.default, { ref: 'loading' })
-	                )
-	            );
-	        }
-	    }]);
+	                { className: styles.accountRoleChangeItemName },
+	                'Company Code \u3068\u3000E-mail\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3001\u201D\u4E00\u822C\u201D\u304B\u201D\u7BA1\u7406\u8005\u201D\u306E\u6A29\u9650\u3069\u3061\u3089\u304B\u3092\u304A\u9078\u3073\u304F\u3060\u3055\u3044\u3002'
+	              ),
+	              React.createElement('input', { type: 'text', ref: 'companyCode', placeholder: 'company code' }),
+	              React.createElement('input', { type: 'text', ref: 'roleEmail', placeholder: 'E-mail\u30A2\u30C9\u30EC\u30B9' }),
+	              React.createElement('input', { type: 'radio', name: 'newRole', value: 'none' }),
+	              ' \u4E00\u822C',
+	              React.createElement('input', { type: 'radio', name: 'newRole', value: 'administrator' }),
+	              ' \u7BA1\u7406\u8005'
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.accountRoleChangeButton },
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeButtonBox },
+	              React.createElement(
+	                'div',
+	                { onClick: this.accountRoleChange.bind(this), width: '200' },
+	                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
+	                '\u5909\u66F4 ',
+	                React.createElement('span', { ref: 'message' })
+	              )
+	            )
+	          ),
+	          React.createElement(_loading2.default, { ref: 'loading' })
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return AccountManagement;
+	  return AccountManagement;
 	}(React.Component);
 	
 	exports.default = AccountManagement;
@@ -63229,7 +63248,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -63283,109 +63302,109 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var CompanyRegistration = function (_React$Component) {
-	    _inherits(CompanyRegistration, _React$Component);
+	  _inherits(CompanyRegistration, _React$Component);
 	
-	    function CompanyRegistration(props) {
-	        _classCallCheck(this, CompanyRegistration);
+	  function CompanyRegistration(props) {
+	    _classCallCheck(this, CompanyRegistration);
 	
-	        var _this = _possibleConstructorReturn(this, (CompanyRegistration.__proto__ || Object.getPrototypeOf(CompanyRegistration)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (CompanyRegistration.__proto__ || Object.getPrototypeOf(CompanyRegistration)).call(this, props));
 	
-	        _this.companyRegistration = _this.companyRegistration.bind(_this);
+	    _this.companyRegistration = _this.companyRegistration.bind(_this);
 	
-	        return _this;
+	    return _this;
+	  }
+	
+	  _createClass(CompanyRegistration, [{
+	    key: 'companyRegistration',
+	    value: function companyRegistration(e) {
+	      e.preventDefault();
+	
+	      this.refs.loading.openModal();
+	
+	      var data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid(),
+	        token: _auth2.default.getToken(),
+	        companycode: this.refs.companycode.value,
+	        companyname: this.refs.companyname.value,
+	        code: 10
+	      };
+	
+	      var parent = this;
+	
+	      _jquery2.default.ajax({
+	        type: "post",
+	        url: "../commonModules/php/modules/Auth.php/auth/registerCompany",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        success: function success(json_data) {
+	          alert(JSON.stringify(json_data.body));
+	          if (json_data.body.registerationSuccessCode != -1) {
+	            parent.refs.message.innerText = "会社コードを登録しました。";
+	
+	            //setTimeout(function(){
+	            // parent.refs.message.innerText = ""
+	            //}, 1000);
+	          } else {
+	            parent.refs.message.innerText = "指定された会社コードは既に存在しています。他のコードを入力してください";
+	          }
+	
+	          parent.refs.loading.closeModal();
+	        },
+	        error: function error(request, status, _error) {
+	          alert(request.responseText);
+	        },
+	        complete: function complete() {}
+	      });
 	    }
-	
-	    _createClass(CompanyRegistration, [{
-	        key: 'companyRegistration',
-	        value: function companyRegistration(e) {
-	            e.preventDefault();
-	
-	            this.refs.loading.openModal();
-	
-	            var data = {
-	                companyid: _auth2.default.getCompanyid(),
-	                userid: _auth2.default.getUserid(),
-	                token: _auth2.default.getToken(),
-	                companycode: this.refs.companycode.value,
-	                companyname: this.refs.companyname.value,
-	                code: 10
-	            };
-	
-	            var parent = this;
-	
-	            _jquery2.default.ajax({
-	                type: "post",
-	                url: "../commonModules/php/modules/Auth.php/auth/registerCompany",
-	                data: JSON.stringify(data),
-	                contentType: 'application/json',
-	                dataType: "json",
-	                success: function success(json_data) {
-	                    alert(JSON.stringify(json_data.body));
-	                    if (json_data.body.registerationSuccessCode != -1) {
-	                        parent.refs.message.innerText = "会社コードを登録しました。";
-	
-	                        //setTimeout(function(){
-	                        // parent.refs.message.innerText = ""
-	                        //}, 1000);
-	                    } else {
-	                        parent.refs.message.innerText = "指定された会社コードは既に存在しています。他のコードを入力してください";
-	                    }
-	
-	                    parent.refs.loading.closeModal();
-	                },
-	                error: function error(request, status, _error) {
-	                    alert(request.responseText);
-	                },
-	                complete: function complete() {}
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'div',
+	            { className: styles.accountRoleChangeTitle },
+	            ' \u4F1A\u793E\u767B\u9332 '
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.accountRoleChangeItemBox },
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeItemName },
+	              '\u4EE5\u4E0B\u306E\u4F1A\u793E\u60C5\u5831\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002'
+	            ),
+	            React.createElement('input', { type: 'text', ref: 'companycode', placeholder: '\u4F1A\u793E\u30B3\u30FC\u30C9' }),
+	            React.createElement('input', { type: 'text', ref: 'companyname', placeholder: '\u4F1A\u793E\u540D' })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.accountRoleChangeButton },
+	            React.createElement(
+	              'div',
+	              { className: styles.accountRoleChangeButtonBox },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    null,
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.accountRoleChangeTitle },
-	                        ' \u4F1A\u793E\u767B\u9332 '
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.accountRoleChangeItemBox },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeItemName },
-	                            '\u4EE5\u4E0B\u306E\u4F1A\u793E\u60C5\u5831\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002'
-	                        ),
-	                        React.createElement('input', { type: 'text', ref: 'companycode', placeholder: '\u4F1A\u793E\u30B3\u30FC\u30C9' }),
-	                        React.createElement('input', { type: 'text', ref: 'companyname', placeholder: '\u4F1A\u793E\u540D' })
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.accountRoleChangeButton },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.accountRoleChangeButtonBox },
-	                            React.createElement(
-	                                'div',
-	                                { onClick: this.companyRegistration.bind(this), width: '200' },
-	                                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
-	                                '\u5909\u66F4 ',
-	                                React.createElement('span', { ref: 'message' })
-	                            )
-	                        )
-	                    )
-	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' })
-	            );
-	        }
-	    }]);
+	                { onClick: this.companyRegistration.bind(this), width: '200' },
+	                React.createElement('img', { src: '../icon/mono_icons/exchange32.png', className: styles.icon }),
+	                '\u5909\u66F4 ',
+	                React.createElement('span', { ref: 'message' })
+	              )
+	            )
+	          )
+	        ),
+	        React.createElement(_loading2.default, { ref: 'loading' })
+	      );
+	    }
+	  }]);
 	
-	    return CompanyRegistration;
+	  return CompanyRegistration;
 	}(React.Component);
 	
 	exports.default = CompanyRegistration;
@@ -63397,7 +63416,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -63447,42 +63466,46 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var Top = function (_React$Component) {
-	    _inherits(Top, _React$Component);
+	  _inherits(Top, _React$Component);
 	
-	    function Top(props) {
-	        _classCallCheck(this, Top);
+	  function Top(props) {
+	    _classCallCheck(this, Top);
 	
-	        return _possibleConstructorReturn(this, (Top.__proto__ || Object.getPrototypeOf(Top)).call(this, props));
+	    return _possibleConstructorReturn(this, (Top.__proto__ || Object.getPrototypeOf(Top)).call(this, props));
+	  }
+	
+	  _createClass(Top, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({
+	        modalIsOpen: true
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(_chatBox2.default, null)
+	      );
+	    }
+	  }]);
 	
-	    _createClass(Top, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'openModal',
-	        value: function openModal() {
-	            this.setState({ modalIsOpen: true });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(_chatBox2.default, null)
-	            );
-	        }
-	    }]);
-	
-	    return Top;
+	  return Top;
 	}(React.Component);
 	
 	exports.default = Top;
@@ -63494,7 +63517,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -63540,82 +63563,85 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var ChatBox = function (_React$Component) {
-	    _inherits(ChatBox, _React$Component);
+	  _inherits(ChatBox, _React$Component);
 	
-	    function ChatBox(props) {
-	        _classCallCheck(this, ChatBox);
+	  function ChatBox(props) {
+	    _classCallCheck(this, ChatBox);
 	
-	        var _this = _possibleConstructorReturn(this, (ChatBox.__proto__ || Object.getPrototypeOf(ChatBox)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ChatBox.__proto__ || Object.getPrototypeOf(ChatBox)).call(this, props));
 	
-	        _this.state = { showChatChannel: false, chatcontent: [] };
-	        _this.showChatChannel = _this.showChatChannel.bind(_this);
-	        _this.keyPress = _this.keyPress.bind(_this);
-	        _this.removeWritingStatus = _this.removeWritingStatus.bind(_this);
-	        return _this;
+	    _this.state = {
+	      showChatChannel: false,
+	      chatcontent: []
+	    };
+	    _this.showChatChannel = _this.showChatChannel.bind(_this);
+	    _this.keyPress = _this.keyPress.bind(_this);
+	    _this.removeWritingStatus = _this.removeWritingStatus.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(ChatBox, [{
+	    key: 'showChatChannel',
+	    value: function showChatChannel(e) {
+	      this.setState({
+	        showChatChannel: !this.state.showChatChannel
+	      });
 	    }
+	  }, {
+	    key: 'removeWritingStatus',
+	    value: function removeWritingStatus() {}
+	  }, {
+	    key: 'keyPress',
+	    value: function keyPress(e) {
+	      if (e.charCode == 13) {
+	        this.state.chatcontent.push({
+	          index: this.state.chatcontent.length,
+	          type: "user",
+	          content: this.refs.chatboxInput.value
+	        });
 	
-	    _createClass(ChatBox, [{
-	        key: 'showChatChannel',
-	        value: function showChatChannel(e) {
-	            this.setState({
-	                showChatChannel: !this.state.showChatChannel
-	            });
-	        }
-	    }, {
-	        key: 'removeWritingStatus',
-	        value: function removeWritingStatus() {}
-	    }, {
-	        key: 'keyPress',
-	        value: function keyPress(e) {
-	            if (e.charCode == 13) {
-	                this.state.chatcontent.push({
-	                    index: this.state.chatcontent.length,
-	                    type: "user",
-	                    content: this.refs.chatboxInput.value
-	                });
+	        this.state.chatcontent.push({
+	          index: this.state.chatcontent.length,
+	          type: "ai",
+	          content: "まだ、実装中です。しばし、お待ちください"
+	        });
 	
-	                this.state.chatcontent.push({
-	                    index: this.state.chatcontent.length,
-	                    type: "ai",
-	                    content: "まだ、実装中です。しばし、お待ちください"
-	                });
+	        this.setState({
+	          showChatChannel: this.state.showChatChannel,
+	          chatcontent: this.state.chatcontent
+	        });
 	
-	                this.setState({
-	                    showChatChannel: this.state.showChatChannel,
-	                    chatcontent: this.state.chatcontent
-	                });
+	        this.refs.chatboxInput.value = "";
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: this.state.showChatChannel ? styles.chatboxOpen : styles.chatboxClosed },
+	        React.createElement(
+	          'div',
+	          { className: styles.chatboxTitle, onClick: this.showChatChannel.bind(this) },
+	          '\u8CEA\u554F'
+	        ),
+	        this.state.showChatChannel == true ? React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'div',
+	            { className: styles.chatboxDisp },
+	            this.state.chatcontent.map(function (chatcontent) {
+	              return React.createElement(_chatElement2.default, { key: chatcontent.index, content: chatcontent.content, type: chatcontent.type });
+	            }, this)
+	          ),
+	          React.createElement('input', { type: 'text', className: styles.chatboxInput, ref: 'chatboxInput', onKeyPress: this.keyPress })
+	        ) : React.createElement('div', null)
+	      );
+	    }
+	  }]);
 	
-	                this.refs.chatboxInput.value = "";
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: this.state.showChatChannel ? styles.chatboxOpen : styles.chatboxClosed },
-	                React.createElement(
-	                    'div',
-	                    { className: styles.chatboxTitle, onClick: this.showChatChannel.bind(this) },
-	                    '\u8CEA\u554F'
-	                ),
-	                this.state.showChatChannel == true ? React.createElement(
-	                    'div',
-	                    null,
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.chatboxDisp },
-	                        this.state.chatcontent.map(function (chatcontent) {
-	                            return React.createElement(_chatElement2.default, { key: chatcontent.index, content: chatcontent.content, type: chatcontent.type });
-	                        }, this)
-	                    ),
-	                    React.createElement('input', { type: 'text', className: styles.chatboxInput, ref: 'chatboxInput', onKeyPress: this.keyPress })
-	                ) : React.createElement('div', null)
-	            );
-	        }
-	    }]);
-	
-	    return ChatBox;
+	  return ChatBox;
 	}(React.Component);
 	
 	exports.default = ChatBox;
@@ -63677,7 +63703,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -63719,43 +63745,43 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var ChatElement = function (_React$Component) {
-	    _inherits(ChatElement, _React$Component);
+	  _inherits(ChatElement, _React$Component);
 	
-	    function ChatElement(props) {
-	        _classCallCheck(this, ChatElement);
+	  function ChatElement(props) {
+	    _classCallCheck(this, ChatElement);
 	
-	        return _possibleConstructorReturn(this, (ChatElement.__proto__ || Object.getPrototypeOf(ChatElement)).call(this, props));
+	    return _possibleConstructorReturn(this, (ChatElement.__proto__ || Object.getPrototypeOf(ChatElement)).call(this, props));
+	  }
+	
+	  _createClass(ChatElement, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: styles.chatElement },
+	        React.createElement(
+	          'span',
+	          { className: this.props.type == "user" ? styles.chatCommentRightElement : styles.chatCommentLeftElement },
+	          this.props.content == "writing" ? React.createElement(
+	            'span',
+	            null,
+	            ' ',
+	            React.createElement(_chatWritingElement2.default, null),
+	            ' '
+	          ) : React.createElement(
+	            'span',
+	            null,
+	            this.props.content
+	          )
+	        )
+	      );
 	    }
+	  }]);
 	
-	    _createClass(ChatElement, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: styles.chatElement },
-	                React.createElement(
-	                    'span',
-	                    { className: this.props.type == "user" ? styles.chatCommentRightElement : styles.chatCommentLeftElement },
-	                    this.props.content == "writing" ? React.createElement(
-	                        'span',
-	                        null,
-	                        ' ',
-	                        React.createElement(_chatWritingElement2.default, null),
-	                        ' '
-	                    ) : React.createElement(
-	                        'span',
-	                        null,
-	                        this.props.content
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return ChatElement;
+	  return ChatElement;
 	}(React.Component);
 	
 	exports.default = ChatElement;
@@ -63767,7 +63793,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -63803,28 +63829,28 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var ChatWritingElement = function (_React$Component) {
-	    _inherits(ChatWritingElement, _React$Component);
+	  _inherits(ChatWritingElement, _React$Component);
 	
-	    function ChatWritingElement(props) {
-	        _classCallCheck(this, ChatWritingElement);
+	  function ChatWritingElement(props) {
+	    _classCallCheck(this, ChatWritingElement);
 	
-	        return _possibleConstructorReturn(this, (ChatWritingElement.__proto__ || Object.getPrototypeOf(ChatWritingElement)).call(this, props));
+	    return _possibleConstructorReturn(this, (ChatWritingElement.__proto__ || Object.getPrototypeOf(ChatWritingElement)).call(this, props));
+	  }
+	
+	  _createClass(ChatWritingElement, [{
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: styles.loader },
+	        React.createElement('span', null),
+	        React.createElement('span', null),
+	        React.createElement('span', null)
+	      );
 	    }
+	  }]);
 	
-	    _createClass(ChatWritingElement, [{
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: styles.loader },
-	                React.createElement('span', null),
-	                React.createElement('span', null),
-	                React.createElement('span', null)
-	            );
-	        }
-	    }]);
-	
-	    return ChatWritingElement;
+	  return ChatWritingElement;
 	}(React.Component);
 	
 	exports.default = ChatWritingElement;
@@ -63836,7 +63862,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -63882,42 +63908,42 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var TopNoLogin = function (_React$Component) {
-	    _inherits(TopNoLogin, _React$Component);
+	  _inherits(TopNoLogin, _React$Component);
 	
-	    function TopNoLogin(props) {
-	        _classCallCheck(this, TopNoLogin);
+	  function TopNoLogin(props) {
+	    _classCallCheck(this, TopNoLogin);
 	
-	        return _possibleConstructorReturn(this, (TopNoLogin.__proto__ || Object.getPrototypeOf(TopNoLogin)).call(this, props));
+	    return _possibleConstructorReturn(this, (TopNoLogin.__proto__ || Object.getPrototypeOf(TopNoLogin)).call(this, props));
+	  }
+	
+	  _createClass(TopNoLogin, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.context.router.push('/login');
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          null,
+	          ' Login first / Register !'
+	        )
+	      );
+	    }
+	  }]);
 	
-	    _createClass(TopNoLogin, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.context.router.push('/login');
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    null,
-	                    ' Login first / Register !'
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return TopNoLogin;
+	  return TopNoLogin;
 	}(React.Component);
 	
 	exports.default = TopNoLogin;
 	
 	
 	TopNoLogin.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -63927,7 +63953,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -64007,365 +64033,371 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var App = function (_React$Component) {
-	    _inherits(App, _React$Component);
+	  _inherits(App, _React$Component);
 	
-	    function App(props) {
-	        _classCallCheck(this, App);
+	  function App(props) {
+	    _classCallCheck(this, App);
 	
-	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	
-	        _this.state = {
-	            loggedIn: _auth2.default.loggedIn()
-	        };
+	    _this.state = {
+	      loggedIn: _auth2.default.loggedIn()
+	    };
 	
-	        _this.searchTag = _this.searchTag.bind(_this);
-	        _this.showGraphColorView = _this.showGraphColorView.bind(_this);
-	        _this.saveGraphColorCallBack = _this.saveGraphColorCallBack.bind(_this);
-	        return _this;
+	    _this.searchTag = _this.searchTag.bind(_this);
+	    _this.showGraphColorView = _this.showGraphColorView.bind(_this);
+	    _this.saveGraphColorCallBack = _this.saveGraphColorCallBack.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(App, [{
+	    key: 'updateAuth',
+	    value: function updateAuth(loggedIn) {
+	      this.setState({
+	        loggedIn: loggedIn
+	      });
 	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      _auth2.default.onChange = this.updateAuth.bind(this);
+	      _auth2.default.login();
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (!this.state.loggedIn) {
+	        this.context.router.push('/' + "topNoLogin");
+	      }
+	    }
+	  }, {
+	    key: 'onOpenChange',
+	    value: function onOpenChange(openKeys) {
+	      console.log('onOpenChange', openKeys);
+	    }
+	  }, {
+	    key: 'searchTag',
+	    value: function searchTag(e) {
+	      e.preventDefault();
 	
-	    _createClass(App, [{
-	        key: 'updateAuth',
-	        value: function updateAuth(loggedIn) {
-	            this.setState({
-	                loggedIn: loggedIn
-	            });
-	        }
-	    }, {
-	        key: 'componentWillMount',
-	        value: function componentWillMount() {
-	            _auth2.default.onChange = this.updateAuth.bind(this);
-	            _auth2.default.login();
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            if (!this.state.loggedIn) {
-	                this.context.router.push('/' + "topNoLogin");
+	      var self = this;
+	      self.refs.loading.openModal();
+	      self.refs.popupMessage.showMessage("now searching...");
+	
+	      _jquery2.default.ajax({
+	        type: "get",
+	        url: "../commonModules/php/modules/GML.php/gml/model/search?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&query=" + this.refs.search.value,
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(json_data) {
+	          // React query convert an array with only one element to an string type data so that push one dummy data to keep it as an array
+	          self.refs.loading.closeModal();
+	          self.refs.popupMessage.closeMessage("finished searching !");
+	
+	          console.log("result : " + json_data.body.result.size);
+	          console.log(json_data);
+	          var result = JSON.parse(json_data.body.result);
+	          console.log(result);
+	          if (result.length > 0) {
+	            // This logic is actually ugly. I have not found a way to catch an event if the clicked link is the current page.
+	            // If the current page is the link we click, React just renders the same UI. So, it cannot show the new search result
+	            if (self.props.location.pathname == "/searchResult1") {
+	              self.context.router.push({
+	                pathname: "/searchResult2",
+	                state: {
+	                  modelInfo: result
+	                }
+	              });
+	            } else if (self.props.location.pathname == "/searchResult2") {
+	
+	              self.context.router.push({
+	                pathname: "/searchResult1",
+	                state: {
+	                  modelInfo: result
+	                }
+	              });
+	            } else {
+	              self.context.router.push({
+	                pathname: "/searchResult1",
+	                state: {
+	                  modelInfo: result
+	                }
+	              });
 	            }
-	        }
-	    }, {
-	        key: 'onOpenChange',
-	        value: function onOpenChange(openKeys) {
-	            console.log('onOpenChange', openKeys);
-	        }
-	    }, {
-	        key: 'searchTag',
-	        value: function searchTag(e) {
-	            e.preventDefault();
-	
-	            var self = this;
-	            self.refs.loading.openModal();
-	            self.refs.popupMessage.showMessage("now searching...");
-	
-	            _jquery2.default.ajax({
-	                type: "get",
-	                url: "../commonModules/php/modules/GML.php/gml/model/search?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid() + "&query=" + this.refs.search.value,
-	                headers: {
-	                    Authorization: "Bearer " + _auth2.default.getToken()
-	                },
-	                success: function success(json_data) {
-	                    // React query convert an array with only one element to an string type data so that push one dummy data to keep it as an array
-	                    self.refs.loading.closeModal();
-	                    self.refs.popupMessage.closeMessage("finished searching !");
-	
-	                    console.log("result : " + json_data.body.result.size);
-	                    console.log(json_data);
-	                    var result = JSON.parse(json_data.body.result);
-	                    console.log(result);
-	                    if (result.length > 0) {
-	                        // This logic is actually ugly. I have not found a way to catch an event if the clicked link is the current page.
-	                        // If the current page is the link we click, React just renders the same UI. So, it cannot show the new search result
-	                        if (self.props.location.pathname == "/searchResult1") {
-	                            self.context.router.push({
-	                                pathname: "/searchResult2",
-	                                state: { modelInfo: result }
-	                            });
-	                        } else if (self.props.location.pathname == "/searchResult2") {
-	
-	                            self.context.router.push({
-	                                pathname: "/searchResult1",
-	                                state: { modelInfo: result }
-	                            });
-	                        } else {
-	                            self.context.router.push({
-	                                pathname: "/searchResult1",
-	                                state: { modelInfo: result }
-	                            });
-	                        }
-	                    } else {
-	                        self.context.router.push({
-	                            pathname: "/notFound",
-	                            state: {}
-	                        });
-	                    }
-	                },
-	                error: function error(request, status, _error) {},
-	                complete: function complete() {}
+	          } else {
+	            self.context.router.push({
+	              pathname: "/notFound",
+	              state: {}
 	            });
-	        }
-	    }, {
-	        key: 'showGraphColorView',
-	        value: function showGraphColorView() {
-	            this.refs.graphColorView.openModal("Save the model before training", "", "", "");
-	        }
-	    }, {
-	        key: 'saveGraphColorCallBack',
-	        value: function saveGraphColorCallBack(colorValue) {
-	            _color2.default.save(colorValue);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                _reactSticky.StickyContainer,
-	                null,
+	          }
+	        },
+	        error: function error(request, status, _error) {},
+	        complete: function complete() {}
+	      });
+	    }
+	  }, {
+	    key: 'showGraphColorView',
+	    value: function showGraphColorView() {
+	      this.refs.graphColorView.openModal("Save the model before training", "", "", "");
+	    }
+	  }, {
+	    key: 'saveGraphColorCallBack',
+	    value: function saveGraphColorCallBack(colorValue) {
+	      _color2.default.save(colorValue);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        _reactSticky.StickyContainer,
+	        null,
+	        React.createElement(
+	          _reactSticky.Sticky,
+	          null,
+	          React.createElement(
+	            _reactSticky.Sticky,
+	            { className: styles.header },
+	            React.createElement(
+	              'div',
+	              { className: styles.menuHeader },
+	              React.createElement('img', { className: styles.menuItemLogo, src: '../icon/infographic/ccs_logo.png', onClick: this.showGraphColorView.bind(this) }),
+	              React.createElement(
+	                'div',
+	                { className: styles.menuItemUserId },
+	                'Hello,',
+	                _auth2.default.getUserid()
+	              ),
+	              this.state.loggedIn ? _auth2.default.getRole() == 'sysadmin' ? React.createElement(
+	                'div',
+	                { className: styles.menu },
 	                React.createElement(
-	                    _reactSticky.Sticky,
-	                    null,
-	                    React.createElement(
-	                        _reactSticky.Sticky,
-	                        { className: styles.header },
-	                        React.createElement(
-	                            'div',
-	                            { className: styles.menuHeader },
-	                            React.createElement('img', { className: styles.menuItemLogo, src: '../icon/infographic/ccs_logo.png', onClick: this.showGraphColorView.bind(this) }),
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.menuItemUserId },
-	                                'Hello, ',
-	                                _auth2.default.getUserid()
-	                            ),
-	                            this.state.loggedIn ? _auth2.default.getRole() == 'sysadmin' ? React.createElement(
-	                                'div',
-	                                { className: styles.menu },
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/logout' },
-	                                        'Logout'
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/companyRegistration' },
-	                                        'Register Company'
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/accountManagement' },
-	                                        'Account Management'
-	                                    )
-	                                )
-	                            ) : _auth2.default.getRole() == 'administrator' ? React.createElement(
-	                                'div',
-	                                { className: styles.menu },
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/logout' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/logout.jpg', className: styles.icon, 'data-tip': 'Logout' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/accountManagementIndividual' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/account.png', className: styles.icon, 'data-tip': 'Manage Account Info' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/socialConnect' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/dataconnection.png', className: styles.icon, 'data-tip': 'Connect to Social Data Source' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/dataExtractor' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/explore.jpg', className: styles.icon, 'data-tip': 'Explore Data' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/graphLab', ref: 'graphLab' },
-	                                        React.createElement('img', { src: '../icon/menu_icons/flask.png', className: styles.icon, 'data-tip': 'Design Graph' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/graphLabLocalRepository' },
-	                                        React.createElement('img', { src: '../icon/menu_icons/timer.png', className: styles.icon, 'data-tip': 'Cron Job' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/graphLabLocalRepository' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/database.jpg', className: styles.icon, 'data-tip': 'Show a list of graphs' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItemSearch },
-	                                    React.createElement('input', { type: 'text', placeholder: 'Tag Keyword', ref: 'search', className: styles.menuItemSearchInput }),
-	                                    ' '
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement('img', { src: './../icon/menu_icons/search.png', onClick: this.searchTag.bind(this), className: styles.searchIcon, 'data-tip': 'Search Keyword in Database' })
-	                                )
-	                            ) : React.createElement(
-	                                'div',
-	                                { className: styles.menu },
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/logout' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/logout.jpg', className: styles.icon, 'data-tip': 'Logout' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/accountManagementIndividual' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/account.png', className: styles.icon, 'data-tip': 'Manage Account Info' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/socialConnect' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/dataconnection.png', className: styles.icon, 'data-tip': 'Connect to Social Data Source' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/dataExtractor' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/explore.jpg', className: styles.icon, 'data-tip': 'Explore Data' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/graphLab', ref: 'graphLab' },
-	                                        React.createElement('img', { src: '../icon/menu_icons/flask.png', className: styles.icon, 'data-tip': 'Design Graph' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/graphLabLocalRepository' },
-	                                        React.createElement('img', { src: '../icon/menu_icons/timer.png', className: styles.icon, 'data-tip': 'Cron Job' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/graphLabLocalRepository' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/database.jpg', className: styles.icon, 'data-tip': 'Show a list of graphs' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItemSearch },
-	                                    React.createElement('input', { type: 'text', placeholder: 'Tag Keyword', ref: 'search', className: styles.menuItemSearchInput }),
-	                                    ' '
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement('img', { src: './../icon/menu_icons/search.png', onClick: this.searchTag.bind(this), className: styles.searchIcon, 'data-tip': 'Search Keyword in Database' })
-	                                )
-	                            ) : React.createElement(
-	                                'div',
-	                                { className: styles.menu },
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/register' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/register.png', className: styles.icon, 'data-tip': 'Register Account' })
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'div',
-	                                    { className: styles.menuItem },
-	                                    React.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: '/login' },
-	                                        React.createElement('img', { src: './../icon/menu_icons/login.png', className: styles.icon, 'data-tip': 'Sign In' })
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/logout' },
+	                    'Logout'
+	                  )
 	                ),
-	                React.createElement(_reactTooltip2.default, null),
 	                React.createElement(
-	                    'div',
-	                    { className: styles.body },
-	                    this.props.children
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/companyRegistration' },
+	                    'Register Company'
+	                  )
 	                ),
-	                React.createElement(_loading2.default, { ref: 'loading' }),
-	                React.createElement(_popupMessage2.default, { ref: 'popupMessage' }),
-	                React.createElement(_graphColorView2.default, { ref: 'graphColorView', saveCallBack: this.saveGraphColorCallBack })
-	            );
-	        }
-	    }]);
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/accountManagement' },
+	                    'Account Management'
+	                  )
+	                )
+	              ) : _auth2.default.getRole() == 'administrator' ? React.createElement(
+	                'div',
+	                { className: styles.menu },
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/logout' },
+	                    React.createElement('img', { src: './../icon/menu_icons/logout.jpg', className: styles.icon, 'data-tip': 'Logout' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/accountManagementIndividual' },
+	                    React.createElement('img', { src: './../icon/menu_icons/account.png', className: styles.icon, 'data-tip': 'Manage Account Info' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/socialConnect' },
+	                    React.createElement('img', { src: './../icon/menu_icons/dataconnection.png', className: styles.icon, 'data-tip': 'Connect to Social Data Source' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/dataExtractor' },
+	                    React.createElement('img', { src: './../icon/menu_icons/explore.jpg', className: styles.icon, 'data-tip': 'Explore Data' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/graphLab', ref: 'graphLab' },
+	                    React.createElement('img', { src: '../icon/menu_icons/flask.png', className: styles.icon, 'data-tip': 'Design Graph' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/graphLabLocalRepository' },
+	                    React.createElement('img', { src: '../icon/menu_icons/timer.png', className: styles.icon, 'data-tip': 'Cron Job' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/graphLabLocalRepository' },
+	                    React.createElement('img', { src: './../icon/menu_icons/database.jpg', className: styles.icon, 'data-tip': 'Show a list of graphs' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItemSearch },
+	                  React.createElement('input', { type: 'text', placeholder: 'Tag Keyword', ref: 'search', className: styles.menuItemSearchInput }),
+	                  ' '
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement('img', { src: './../icon/menu_icons/search.png', onClick: this.searchTag.bind(this), className: styles.searchIcon, 'data-tip': 'Search Keyword in Database' })
+	                )
+	              ) : React.createElement(
+	                'div',
+	                { className: styles.menu },
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/logout' },
+	                    React.createElement('img', { src: './../icon/menu_icons/logout.jpg', className: styles.icon, 'data-tip': 'Logout' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/accountManagementIndividual' },
+	                    React.createElement('img', { src: './../icon/menu_icons/account.png', className: styles.icon, 'data-tip': 'Manage Account Info' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/socialConnect' },
+	                    React.createElement('img', { src: './../icon/menu_icons/dataconnection.png', className: styles.icon, 'data-tip': 'Connect to Social Data Source' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/dataExtractor' },
+	                    React.createElement('img', { src: './../icon/menu_icons/explore.jpg', className: styles.icon, 'data-tip': 'Explore Data' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/graphLab', ref: 'graphLab' },
+	                    React.createElement('img', { src: '../icon/menu_icons/flask.png', className: styles.icon, 'data-tip': 'Design Graph' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/graphLabLocalRepository' },
+	                    React.createElement('img', { src: '../icon/menu_icons/timer.png', className: styles.icon, 'data-tip': 'Cron Job' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/graphLabLocalRepository' },
+	                    React.createElement('img', { src: './../icon/menu_icons/database.jpg', className: styles.icon, 'data-tip': 'Show a list of graphs' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItemSearch },
+	                  React.createElement('input', { type: 'text', placeholder: 'Tag Keyword', ref: 'search', className: styles.menuItemSearchInput }),
+	                  ' '
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement('img', { src: './../icon/menu_icons/search.png', onClick: this.searchTag.bind(this), className: styles.searchIcon, 'data-tip': 'Search Keyword in Database' })
+	                )
+	              ) : React.createElement(
+	                'div',
+	                { className: styles.menu },
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/register' },
+	                    React.createElement('img', { src: './../icon/menu_icons/register.png', className: styles.icon, 'data-tip': 'Register Account' })
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: styles.menuItem },
+	                  React.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/login' },
+	                    React.createElement('img', { src: './../icon/menu_icons/login.png', className: styles.icon, 'data-tip': 'Sign In' })
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        React.createElement(_reactTooltip2.default, null),
+	        React.createElement(
+	          'div',
+	          { className: styles.body },
+	          this.props.children
+	        ),
+	        React.createElement(_loading2.default, { ref: 'loading' }),
+	        React.createElement(_popupMessage2.default, { ref: 'popupMessage' }),
+	        React.createElement(_graphColorView2.default, { ref: 'graphColorView', saveCallBack: this.saveGraphColorCallBack })
+	      );
+	    }
+	  }]);
 	
-	    return App;
+	  return App;
 	}(React.Component);
 	
 	exports.default = App;
 	
 	
 	App.contextTypes = {
-	    router: React.PropTypes.object
+	  router: React.PropTypes.object
 	};
 
 /***/ }),
@@ -77713,7 +77745,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -77765,108 +77797,104 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var customStyles = {
-	    content: {
-	        top: '50%',
-	        left: '50%',
-	        right: 'auto',
-	        bottom: 'auto',
-	        marginRight: '-50%',
-	        transform: 'translate(-50%, -50%)',
-	        height: '420px',
-	        width: '220px'
-	    }
+	  content: {
+	    top: '50%',
+	    left: '50%',
+	    right: 'auto',
+	    bottom: 'auto',
+	    marginRight: '-50%',
+	    transform: 'translate(-50%, -50%)',
+	    height: '420px',
+	    width: '220px'
+	  }
 	};
 	
 	var GraphColorView = function (_React$Component) {
-	    _inherits(GraphColorView, _React$Component);
+	  _inherits(GraphColorView, _React$Component);
 	
-	    function GraphColorView(props) {
-	        _classCallCheck(this, GraphColorView);
+	  function GraphColorView(props) {
+	    _classCallCheck(this, GraphColorView);
 	
-	        var _this = _possibleConstructorReturn(this, (GraphColorView.__proto__ || Object.getPrototypeOf(GraphColorView)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (GraphColorView.__proto__ || Object.getPrototypeOf(GraphColorView)).call(this, props));
 	
-	        _this.state = {
-	            modalIsOpen: false
-	        };
+	    _this.state = {
+	      modalIsOpen: false
+	    };
 	
-	        _this.openModal = _this.openModal.bind(_this);
-	        _this.closeModal = _this.closeModal.bind(_this);
-	        _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-	        _this.save = _this.save.bind(_this);
-	        return _this;
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+	    _this.save = _this.save.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(GraphColorView, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({
+	        modalIsOpen: true
+	      });
 	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {}
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({
+	        modalIsOpen: false
+	      });
+	    }
+	  }, {
+	    key: 'save',
+	    value: function save() {
+	      this.props.saveCallBack(this.refs.colorPanel.state.hex);
 	
-	    _createClass(GraphColorView, [{
-	        key: 'openModal',
-	        value: function openModal() {
-	            this.setState({ modalIsOpen: true });
-	        }
-	    }, {
-	        key: 'afterOpenModal',
-	        value: function afterOpenModal() {}
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalIsOpen: false });
-	        }
-	    }, {
-	        key: 'save',
-	        value: function save() {
-	            this.props.saveCallBack(this.refs.colorPanel.state.hex);
-	
-	            this.closeModal();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
+	      this.closeModal();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          _reactModal2.default,
+	          { contentLabel: 'Graph Color', isOpen: this.state.modalIsOpen, onAfterOpen: this.afterOpenModal, style: customStyles, ref: 'modal' },
+	          React.createElement(
+	            'div',
+	            { className: styles.saveGraphColorViewTitle },
+	            React.createElement(
+	              'h2',
+	              { ref: 'subtitle' },
+	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(
-	                    _reactModal2.default,
-	                    {
-	                        contentLabel: 'Graph Color',
-	                        isOpen: this.state.modalIsOpen,
-	                        onAfterOpen: this.afterOpenModal,
-	                        style: customStyles, ref: 'modal' },
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.saveGraphColorViewTitle },
-	                        React.createElement(
-	                            'h2',
-	                            { ref: 'subtitle' },
-	                            React.createElement(
-	                                'div',
-	                                { className: styles.modalGraphColorViewTitle },
-	                                'Graph Color'
-	                            )
-	                        ),
-	                        ' ',
-	                        React.createElement(
-	                            'div',
-	                            { onClick: this.closeModal, className: styles.closeButtonGraphSaveView },
-	                            React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: styles.graphColorViewContent, ref: 'content' },
-	                        React.createElement(_reactColor.SketchPicker, {
-	                            ref: 'colorPanel',
-	                            color: _color2.default.get()
-	                        })
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { onClick: this.save, className: styles.saveGraphColorViewButtonBox },
-	                        'Save'
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	                { className: styles.modalGraphColorViewTitle },
+	                'Graph Color'
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { onClick: this.closeModal, className: styles.closeButtonGraphSaveView },
+	              React.createElement('img', { src: '../icon/mono_icons/stop32.png', className: styles.icon })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: styles.graphColorViewContent, ref: 'content' },
+	            React.createElement(_reactColor.SketchPicker, { ref: 'colorPanel', color: _color2.default.get() })
+	          ),
+	          React.createElement(
+	            'div',
+	            { onClick: this.save, className: styles.saveGraphColorViewButtonBox },
+	            'Save'
+	          )
+	        )
+	      );
+	    }
+	  }]);
 	
-	    return GraphColorView;
+	  return GraphColorView;
 	}(React.Component);
 	
 	exports.default = GraphColorView;

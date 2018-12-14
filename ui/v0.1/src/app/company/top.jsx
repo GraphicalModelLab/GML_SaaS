@@ -21,28 +21,30 @@ import Modal from 'react-modal';
 import ChatBox from "./../../component/chatBox/chatBox";
 
 export default class Top extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-    }
+  componentDidMount() {}
 
-    openModal() {
-        this.setState({modalIsOpen: true});
-    }
+  openModal() {
+    this.setState({
+      modalIsOpen: true
+    });
+  }
 
-    afterOpenModal() {
-    }
+  afterOpenModal() {}
 
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
+  closeModal() {
+    this.setState({
+      modalIsOpen: false
+    });
+  }
 
 
-    render() {
-        return <div>
-        <ChatBox/>
-               </div>
-    }
+  render() {
+    return <div>
+             <ChatBox/>
+           </div>
+  }
 }

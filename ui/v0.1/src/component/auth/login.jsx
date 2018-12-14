@@ -21,24 +21,24 @@ import * as styles from './../../css/structure.css';
 import LoginModal from './loginModal';
 
 export default class login extends React.Component {
-      constructor(props) {
-        super(props);
-      }
+  constructor(props) {
+    super(props);
+  }
 
-      componentDidUpdate() {
-       this.refs.loadingModal.openModal();
-      }
+  componentDidUpdate() {
+    this.refs.loadingModal.openModal();
+  }
 
-      componentDidMount() {
-       this.refs.loadingModal.openModal();
-      }
+  componentDidMount() {
+    this.refs.loadingModal.openModal();
+  }
 
 
-      render(){
-        return (
-          <div>
-            <LoginModal ref="loadingModal" type={this.props.route.type}/>
-          </div>
-        );
-      }
+  render() {
+    return (
+      <div>
+        <LoginModal ref="loadingModal" type={ this.props.route.type } />
+      </div>
+      );
+  }
 }

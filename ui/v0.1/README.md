@@ -15,6 +15,13 @@ cd <Your Path>/ui/v0.1
 npm run build:company-dev
 ```
 
+## 4. Beautify JSX files
+```
+./beautifyJSX_osx.sh
+```
+
+This script just execute "esformatter" to formatt JSX files under src folder.
+
 # How to Deploy UI
 "infra" directory also shows how to deploy UI.
 

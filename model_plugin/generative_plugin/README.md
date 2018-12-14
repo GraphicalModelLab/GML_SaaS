@@ -9,8 +9,10 @@ cd <spark-job-server>
 sbt
 ..
 >>
->> job-server-extras/reStart
+>> job-server-extras/reStart config/local.conf --- -Dspray.can.parsing.max-content-length=20m
 ```
+
+"-Dspray.can.parsing.max-content-length=20m" option is for increasing the jar file size limit.
 
 # How to Develop/Deploy Plugin for Graph Calculation Model
 GML uses ServiceLoader (Java library) to load your plugin into GML service.
