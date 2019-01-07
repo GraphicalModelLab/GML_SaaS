@@ -1,0 +1,14 @@
+{
+  "mappings" : {
+    "model_type" : {
+      "properties" : {
+        "id" : { "type" : "long", "store" : "yes" },
+        "modelid" : { "type" : "string", "store" : "yes" },
+        "modelname" : { "type" : "string", "store" : "yes" },
+        "modeltag" : { "type" : "string", "store" : "yes", "index" : "analyzed" },
+        "modeldescription" : { "type" : "string", "store" : "yes", "index" : "analyzed" },
+        "userid" : { "type" : "string", "store" : "yes", "index" : "analyzed" }
+      }
+    }
+  }
+}

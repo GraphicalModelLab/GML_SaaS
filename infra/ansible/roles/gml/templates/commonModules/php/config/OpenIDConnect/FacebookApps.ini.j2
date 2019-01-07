@@ -1,0 +1,8 @@
+[login]
+client_id={{ federated_login.facebook_client_id }}
+
+scope=email
+response_type=code
+
+redirect_uri={{ federated_login.redirect_base_uri}}/commonModules/php/modules/Auth.php/auth/facebookAppsLogin/authenticate
+loginCallback={{ federated_login.redirect_base_uri}}

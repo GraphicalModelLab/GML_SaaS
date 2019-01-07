@@ -1,0 +1,21 @@
+---
+- name: Install Apache2
+  apt: name=apache2
+
+- ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
+- name: Configure ports.conf
+  template:
+    src: ports.conf.j2
+    dest: "/etc/apache2/ports.conf"
+
+- name: Enable Rewrite Engine
+  command: sudo a2enmod rewrite
+
+- name: Restart Apache2
+  service:
+    name: apache2
+    state: restarted

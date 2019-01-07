@@ -1,0 +1,55 @@
+---
+- name: Verify Ansible meets version requirements.
+  assert:
+    that: "ansible_version.full | version_compare('2.2.1.0', '>=')"
+    msg: "You must update Ansible to at least 2.2.1.0 to use this playbook."
+
+- name: Create LOCAL downloads directory
+  local_action:
+      file
+        path="{{ downloads_dir }}"
+        state=directory
+  become: False
+
+- name: Install ufw
+  apt: package=ufw state=present
+
+- name: Enable ufw logging
+  ufw: logging=on
+  notify:
+    - restart ufw
+
+- name: Enable ufw
+  ufw: state=enabled
+
+- ufw:
+    rule: allow
+    port: 22
+    proto: tcp
+
+- name: Install zip unzip
+  apt: name={{ item }}
+  with_items:
+    - zip
+    - unzip
+
+- name: Install SuperVisor
+  apt: name=supervisor
+
+- name: start supervisor
+  service:
+    name: "supervisor"
+    state: started
+
+- name: Install java 8 preresequesits
+  apt: name=python-software-properties
+
+- name: Add Java 8 repository
+  apt_repository: repo='ppa:webupd8team/java'
+
+- name: Agree to oracle license
+  debconf: name=oracle-java8-installer question=shared/accepted-oracle-license-v1-1 vtype=select value=true
+
+- name: Install Java 8
+  apt: name=oracle-java8-installer force=yes
+

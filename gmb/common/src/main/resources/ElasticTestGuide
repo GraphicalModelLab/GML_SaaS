@@ -1,0 +1,23 @@
+
+
+0. setup japanese tokenizer
+check this out , http://qiita.com/nakamura-tsuyoshi/items/993a4f87bcef2be59db5
+
+
+1. define doc
+curl -H 'Content-Type:application/json' -XPUT localhost:9200/model_index3?pretty -d @~/git/GML_SaaS/gmb/common/src/main/resources/model.json
+
+curl -IHEAD 'http://localhost:9200/model_index2'
+
+2. add engineer
+
+3. search
+curl -XGET 'localhost:9200/model_index3/model_type/_search?pretty=true&q=*:*'
+
+curl -H 'Content-Type:application/json' -XGET 'localhost:9200/model_index3/model_type/_search?pretty' -d'
+      {
+        "query":{"match":{"modeltag":"wine"}}
+      }'
+
+4.  delete all indexes
+curl -XDELETE 'http://localhost:9200/*'

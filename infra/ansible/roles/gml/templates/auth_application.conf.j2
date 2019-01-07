@@ -1,0 +1,17 @@
+play.crypto.secret = "hg1/tv7bRu]z=BvFOr@R_vzyJTeVr[Vv2`<u:LjjQXPW4I?L0l`bya4WTgc]hMIr"
+
+# The application languages
+# ~~~~~
+play.i18n.langs = [ "en" ]
+
+sysadmin.companyid="magicword"
+
+googleapps.client_id="{{ federated_login.google_client_id }}"
+googleapps.client_secret="{{ federated_login.google_client_secret }}"
+googleapps.redirect_uri="{{ federated_login.redirect_base_uri}}/commonModules/php/modules/Auth.php/auth/googleAppsLogin/authenticate"
+
+facebookapps.client_id="{{ federated_login.facebook_client_id }}"
+facebookapps.client_secret="{{ federated_login.facebook_client_secret }}"
+facebookapps.redirect_uri="{{ federated_login.redirect_base_uri}}/commonModules/php/modules/Auth.php/auth/facebookAppsLogin/authenticate"
+# get it by https://graph.facebook.com/oauth/access_token?client_id=269205866832907&client_secret=f01d3bda14c0b9da9e61763925637c2b&grant_type=client_credentials
+facebookapps.application_accesstoken="{{ federated_login.facebook_access_token }}"

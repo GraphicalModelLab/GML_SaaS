@@ -1,0 +1,32 @@
+
+
++nocsrf
+GET                /index                    controllers.GraphicalModelLabServiceController.index()
++nocsrf
+GET                /helloworld                    controllers.GraphicalModelLabServiceController.helloworld()
++nocsrf
+POST               /gml/:companyId/model/training       controllers.GraphicalModelLabServiceController.training(companyId:String)
++nocsrf
+POST               /gml/:companyId/model/test       controllers.GraphicalModelLabServiceController.test(companyId:String)
++nocsrf
+POST               /gml/:companyId/model/graph/explore       controllers.GraphicalModelLabServiceController.getExploredGraph(companyId:String)
++nocsrf
+POST               /gml/:companyId/model/save     controllers.GraphicalModelLabServiceController.save(companyId:String)
++nocsrf
+GET                /gml/:companyId/model/list     controllers.GraphicalModelLabServiceController.list(companyId:String)
++nocsrf
+GET                /gml/:companyId/model          controllers.GraphicalModelLabServiceController.get(companyId:String)
++nocsrf
+GET                /gml/:companyId/model/parameter          controllers.GraphicalModelLabServiceController.getModelParameter(companyId:String)
++nocsrf
+GET                /gml/:companyId/model/search     controllers.GraphicalModelLabServiceController.search(companyId:String)
++nocsrf
+GET                /gml/:companyId/model/test/history/list     controllers.GraphicalModelLabServiceController.getTestHistory(companyId:String)
++nocsrf
+GET                /gml/:companyId/model/test/history    controllers.GraphicalModelLabServiceController.getModelInTestHistory(companyId:String)
++nocsrf
+GET                /gml/:companyId/model/algorithm/list     controllers.GraphicalModelLabServiceController.getListOfAvailableModels(companyId:String)
++nocsrf
+GET                /gml/:companyId/data/extractor/list     controllers.GraphicalModelLabServiceController.getListOfAvailableExtractors(companyId:String)
++nocsrf
+POST               /gml/:companyId/data/extractor     controllers.GraphicalModelLabServiceController.executeExtractor(companyId:String)

@@ -1,0 +1,16 @@
+.idea
+node_modules
+.DS_Store
+target
+logs
+project/project
+project/target
+*.txt
+*.log
+*.zip
+chatboxtest
+commonData
+application_conf_backup
+FacebookApps_backup.ini
+GoogleApps_backup.ini
+MailApp_backup.ini

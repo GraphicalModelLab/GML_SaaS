@@ -1,0 +1,6 @@
+---
+- name: Install PHP5
+  apt: name=php5
+
+- name: Install PHP5
+  apt: name=php5-curl
