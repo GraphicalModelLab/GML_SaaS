@@ -16,7 +16,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import NodePropertyView from './../graphProperty/nodePropertyView'
+import NodePropertyView from './../graphProperty/nodePropertyView';
 import color from "./../graphColor/color";
 import NodeShape from "./../../constant/nodeShape";
 

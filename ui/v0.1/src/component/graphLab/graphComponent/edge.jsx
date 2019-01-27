@@ -16,6 +16,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import color from "./../graphColor/color";
 
 export default class Circle extends React.Component<Props, {}> {
 
@@ -27,50 +28,62 @@ export default class Circle extends React.Component<Props, {}> {
     this.update1 = this.update1.bind(this);
     this.update2 = this.update2.bind(this);
 
-    var r_diff = 0; // This is a margin created by putting arrow mark of the edge. If Undirected edge, this value should be 0.
 
-    if(this.props.isDirected) r_diff = 8;
+    if(this.props.label1 != this.props.label2){
+        var r_diff = 0; // This is a margin created by putting arrow mark of the edge. If Undirected edge, this value should be 0.
 
-    var new_x_y_2 = this.calculateCircleEdgePoint({
-      x: this.props.x1,
-      y: this.props.y1
-    }, {
-      x: this.props.x2,
-      y: this.props.y2
-    }, 30, r_diff);
-    var new_x_y_1 = this.calculateCircleEdgePoint({
-      x: this.props.x1,
-      y: this.props.y1
-    }, {
-      x: this.props.x2,
-      y: this.props.y2
-    }, 30, 0);
+        if(this.props.isDirected) r_diff = 8;
 
-
-    this.state = {
-      x1: this.props.x1,
-      y1: this.props.y1,
-      x2: this.props.x2,
-      y2: this.props.y2,
-      r_diff: r_diff,
-
-      fixed_x1: this.props.x1 - new_x_y_1.new_x,
-      fixed_y1: this.props.y1 - new_x_y_1.new_y,
-      fixed_x2: this.props.x2 + new_x_y_2.new_x,
-      fixed_y2: this.props.y2 + new_x_y_2.new_y,
-
-      label1: this.props.label1,
-      label2: this.props.label2,
-      isDirected: this.props.isDirected
-    };
+        var new_x_y_2 = this.calculateCircleEdgePoint({
+          x: this.props.x1,
+          y: this.props.y1
+        }, {
+          x: this.props.x2,
+          y: this.props.y2
+        }, 30, r_diff);
+        var new_x_y_1 = this.calculateCircleEdgePoint({
+          x: this.props.x1,
+          y: this.props.y1
+        }, {
+          x: this.props.x2,
+          y: this.props.y2
+        }, 30, 0);
 
 
+        this.state = {
+          x1: this.props.x1,
+          y1: this.props.y1,
+          x2: this.props.x2,
+          y2: this.props.y2,
+          r_diff: r_diff,
+
+          fixed_x1: this.props.x1 - new_x_y_1.new_x,
+          fixed_y1: this.props.y1 - new_x_y_1.new_y,
+          fixed_x2: this.props.x2 + new_x_y_2.new_x,
+          fixed_y2: this.props.y2 + new_x_y_2.new_y,
+
+          label1: this.props.label1,
+          label2: this.props.label2,
+          isDirected: this.props.isDirected
+        };
+    }else{
+        this.state = {
+          x1: this.props.x1,
+          y1: this.props.y1,
+          x2: this.props.x2,
+          y2: this.props.y2,
+          label1: this.props.label1,
+          label2: this.props.label2,
+          isDirected: this.props.isDirected
+        };
+    }
   }
 
   componentDidMount() {
-    var markerLine = ReactDOM.findDOMNode(this.refs[this.state.label1 + ":" + this.state.label2])
-
-    markerLine.setAttribute('marker-end', "url(#" + this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2) + ")")
+    if(this.props.isDirected){
+        var markerLine = ReactDOM.findDOMNode(this.refs[this.state.label1 + ":" + this.state.label2]);
+        markerLine.setAttribute('marker-end', "url(#" + this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2) + ")");
+    }
   }
 
   trimForMarkerEnd(str) {
@@ -148,75 +161,116 @@ export default class Circle extends React.Component<Props, {}> {
   }
 
   update1(x1, y1) {
-    var new_x_y_1 = this.calculateCircleEdgePoint({
-      x: x1,
-      y: y1
-    }, {
-      x: this.state.x2,
-      y: this.state.y2
-    }, 30, 0);
-    var new_x_y_2 = this.calculateCircleEdgePoint({
-      x: x1,
-      y: y1
-    }, {
-      x: this.state.x2,
-      y: this.state.y2
-    }, 30, this.state.r_diff);
-    this.setState({
-      x1: x1,
-      y1: y1,
-      x2: this.state.x2,
-      y2: this.state.y2,
-      fixed_x1: x1 - new_x_y_1.new_x,
-      fixed_y1: y1 - new_x_y_1.new_y,
-      fixed_x2: this.state.x2 + new_x_y_2.new_x,
-      fixed_y2: this.state.y2 + new_x_y_2.new_y,
-      label1: this.state.label1,
-      label2: this.state.label2
-    });
+    if(this.state.label1 != this.state.label2){
+        var new_x_y_1 = this.calculateCircleEdgePoint({
+          x: x1,
+          y: y1
+        }, {
+          x: this.state.x2,
+          y: this.state.y2
+        }, 30, 0);
+        var new_x_y_2 = this.calculateCircleEdgePoint({
+          x: x1,
+          y: y1
+        }, {
+          x: this.state.x2,
+          y: this.state.y2
+        }, 30, this.state.r_diff);
+        this.setState({
+          x1: x1,
+          y1: y1,
+          x2: this.state.x2,
+          y2: this.state.y2,
+          fixed_x1: x1 - new_x_y_1.new_x,
+          fixed_y1: y1 - new_x_y_1.new_y,
+          fixed_x2: this.state.x2 + new_x_y_2.new_x,
+          fixed_y2: this.state.y2 + new_x_y_2.new_y,
+          label1: this.state.label1,
+          label2: this.state.label2
+        });
+    }else{
+        this.setState({
+          x1: x1,
+          y1: y1,
+          x2: x1,
+          y2: y1,
+          label1: this.state.label1,
+          label2: this.state.label2
+        });
+    }
   }
 
   update2(x2, y2) {
-    var new_x_y_1 = this.calculateCircleEdgePoint({
-      x: this.state.x1,
-      y: this.state.y1
-    }, {
-      x: x2,
-      y: y2
-    }, 30, 0);
-    var new_x_y_2 = this.calculateCircleEdgePoint({
-      x: this.state.x1,
-      y: this.state.y1
-    }, {
-      x: x2,
-      y: y2
-    }, 30, this.state.r_diff);
-    this.setState({
-      x1: this.state.x1,
-      y1: this.state.y1,
-      x2: x2,
-      y2: y2,
-      fixed_x1: this.state.x1 - new_x_y_1.new_x,
-      fixed_y1: this.state.y1 - new_x_y_1.new_y,
-      fixed_x2: x2 + new_x_y_2.new_x,
-      fixed_y2: y2 + new_x_y_2.new_y,
-      label1: this.state.label1,
-      label2: this.state.label2
-    });
+    if(this.state.label1 != this.state.label2){
+        var new_x_y_1 = this.calculateCircleEdgePoint({
+          x: this.state.x1,
+          y: this.state.y1
+        }, {
+          x: x2,
+          y: y2
+        }, 30, 0);
+        var new_x_y_2 = this.calculateCircleEdgePoint({
+          x: this.state.x1,
+          y: this.state.y1
+        }, {
+          x: x2,
+          y: y2
+        }, 30, this.state.r_diff);
+        this.setState({
+          x1: this.state.x1,
+          y1: this.state.y1,
+          x2: x2,
+          y2: y2,
+          fixed_x1: this.state.x1 - new_x_y_1.new_x,
+          fixed_y1: this.state.y1 - new_x_y_1.new_y,
+          fixed_x2: x2 + new_x_y_2.new_x,
+          fixed_y2: y2 + new_x_y_2.new_y,
+          label1: this.state.label1,
+          label2: this.state.label2
+        });
+    }else{
+        this.setState({
+               x1: x1,
+               y1: y1,
+               x2: x1,
+               y2: y1,
+               label1: this.state.label1,
+               label2: this.state.label2
+        });
+    }
   }
 
   render() {
     return (
       <g>
-        { this.state.isDirected? (
-        <defs>
-          <marker id={ this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2) } orient="auto" markerWidth='8' markerHeight='16' refX='0.1' refY='8'>
-            <path d='M0,0 V16 L8,8 Z' />
-          </marker>
-        </defs>
-        ):(<g></g>)}
-        <line ref={ this.state.label1 + ":" + this.state.label2 } stroke="black" x1={ this.state.fixed_x1 } y1={ this.state.fixed_y1 } x2={ this.state.fixed_x2 } y2={ this.state.fixed_y2 }>
-        </line>
+        {this.state.label1 != this.state.label2 ? (
+            <g>
+            { this.state.isDirected? (
+                    <defs>
+                      <marker id={ this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2) } orient="auto" markerWidth='8' markerHeight='16' refX='0.1' refY='8'>
+                        <path d='M0,0 V16 L8,8 Z' fill={ color.get() }/>
+                      </marker>
+                    </defs>
+            ):(<g></g>)}
+            <line ref={ this.state.label1 + ":" + this.state.label2 } stroke={ color.get() } x1={ this.state.fixed_x1 } y1={ this.state.fixed_y1 } x2={ this.state.fixed_x2 } y2={ this.state.fixed_y2 }>
+            </line>
+            </g>
+        ):(
+            <g>
+            { this.state.isDirected? (
+                <g>
+                    <defs>
+                      <marker id={ this.trimForMarkerEnd(this.state.label1 + ":" + this.state.label2) } orient="auto" markerWidth='8' markerHeight='16' refX='0.1' refY='8'>
+                        <path d='M0,0 V16 L8,8 Z' fill={ color.get() } />
+                      </marker>
+                    </defs>
+                    <line ref={ this.state.label1 + ":" + this.state.label2 } stroke={ color.get() } x1={ this.state.x1-15.1 } y1={ this.state.y1-36 } x2={ this.state.x1-15 } y2={ this.state.y1-33 }>
+                    </line>
+                </g>
+            ):(<g></g>)}
+            <circle cx={ this.state.x1 } cy={ this.state.y1-35 } r="15" stroke={ color.get() } fill="none"/>
+            </g>
+        )}
       </g>
     )
   }
