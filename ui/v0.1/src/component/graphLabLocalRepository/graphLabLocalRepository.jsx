@@ -65,6 +65,10 @@ export default class GraphicalLabLocalRepository extends React.Component<Props, 
       success: function(response) {
         var modelRecords = [];
 
+        if (response.body.code == 401) {
+            auth.logout();
+        }
+
         console.log("local repository");
         console.log(response);
         for (let model of response.body.models) {
