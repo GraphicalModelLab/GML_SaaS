@@ -115,7 +115,7 @@ export default class Graph extends React.Component<Props, {}> {
     if(loopEdgeIndex > 0) loopEdgeDisable = this.state.edges[loopEdgeIndex].disable;
 
     if (this.state.newEdge == true
-    && (this.state.prevLabel == label && (loopEdgeIndex > 0 && loopEdgeDisable) || this.state.prevLabel != label )) {
+    && (this.state.prevLabel == label && ((loopEdgeIndex > 0 && loopEdgeDisable) || loopEdgeIndex < 0) || this.state.prevLabel != label )) {
       // Create new Edge
       var prevPosition = this.refs[this.state.prevLabel].getCurrentPosition();
       var currPosition = this.refs[label].getCurrentPosition();
@@ -319,7 +319,7 @@ export default class Graph extends React.Component<Props, {}> {
         currentChosenNode: null
       });
     } else {
-      this.visibleEdge(label1, label2, x1, y1, x2, y2, false);
+      this.visibleEdge(label1, label2, x1, y1, x2, y2, false, isDirected);
     }
   }
 
@@ -340,9 +340,10 @@ export default class Graph extends React.Component<Props, {}> {
     });
   }
 
-  visibleEdge(label1, label2, x1, y1, x2, y2, disable) {
+  visibleEdge(label1, label2, x1, y1, x2, y2, disable,isDirected) {
     var disableIndex = this.state.edges.findIndex(edge => edge.label1 == label1 && edge.label2 == label2);
     this.state.edges[disableIndex].disable = disable;
+    this.state.edges[disableIndex].isDirected = isDirected;
     if (!disable) {
       this.state.edges[disableIndex].x1 = x1;
       this.state.edges[disableIndex].x2 = x2;
@@ -368,7 +369,7 @@ export default class Graph extends React.Component<Props, {}> {
 
   }
   deleteEdgeCallBack(label1, label2) {
-    this.visibleEdge(label1, label2, 0, 0, 0, 0, true);
+    this.visibleEdge(label1, label2, 0, 0, 0, 0, true, this.state.isDirectedMode);
   }
 
   deleteNodeCallBack(label) {
