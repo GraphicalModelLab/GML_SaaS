@@ -19,6 +19,6 @@ module.exports = {
     localStorage.color = color
   },
   get(){
-     return localStorage.color;
+     return localStorage.color ? localStorage.color : "black";
   }
 }
