@@ -17,9 +17,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import * as styles from './../../../css/structure.css';
+import * as styles from './../../../../css/structure.css';
 import DataExtractorProperty from './dataExtractorProperty';
-import auth from "./../../auth/auth";
+import auth from "./../../../auth/auth";
 import $ from 'jquery';
 
 const customStyles = {

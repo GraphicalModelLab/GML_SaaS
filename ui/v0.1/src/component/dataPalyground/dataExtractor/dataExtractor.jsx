@@ -16,10 +16,11 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as styles from './../../css/structure.css';
-import auth from "./../auth/auth";
+import * as styles from './../../../css/structure.css';
+import auth from "./../../auth/auth";
+import Dropzone from 'react-dropzone';
 import $ from 'jquery';
-import Loading from './../loader/loading';
+import Loading from './../../loader/loading';
 import ExtractorPanel from './panel/extractorPanel';
 
 export default class DataExtractor extends React.Component<Props, {}> {
@@ -69,9 +70,6 @@ export default class DataExtractor extends React.Component<Props, {}> {
   render() {
     return (
       <div>
-        <div className={ styles.dataExplorationBox }>
-          <div className={ styles.dataExplorationTitleHeader }>Data Exploration/Extraction</div>
-        </div>
         <div className={ styles.dataExtractorBox }>
           { this.state.extractors.map((d, idx) => {
               return <ExtractorPanel panelTitle={ d } key={ "evaluation" + d } params={ this.state.extractorParamMap[d] }>

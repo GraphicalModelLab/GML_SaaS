@@ -945,7 +945,7 @@ a:active {
 }
 
 .dataExplorationBox{
-    height: 200px;
+    height: 400px;
 }
 
 .dataExtractorBox{
@@ -979,4 +979,66 @@ a:active {
 
 .groupByRectangle{
     fill-opacity: .1;
+}
+.sgCrawlerTable table{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+.sgCrawlerTable td,th{
+   border: 1px solid black;
+}
+
+.playGroundMenu{
+    display: block;
+    clear: both;
+    width: 1000px;
+    height: 20px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+.playGroundMenuItem{
+    float: left;
+    padding: 10px 50px 5px 10px;
+    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;
+    background-color: #000088;
+    color: white;
+}
+.playGroundMenuItem:hover {
+    background-color: #DAA520;
+}
+.playGroundMenuItemChosen{
+    float: left;
+    padding: 10px 50px 5px 10px;
+    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;
+    background-color: #DAA520;
+    color: white;
+}
+.playGroundMenuItemChosen:hover {
+    background-color: #DAA520;
+}
+
+.playGroundBody{
+    clear: both;
+
+    margin-top: 30px;
+}
+.dataCrawlerViaSearchEngineInput{
+    float:right;
+}
+
+.searchIconDataCrawler{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:35%;
+    background: white;
+}
+
+
+.dataCrawlerTrialBox{
+    height: 200px;
+}
+
+.dataCrawlerTargetCSV{
+    height: 50px;
+    width:50px;
 }

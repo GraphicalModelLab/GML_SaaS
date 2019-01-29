@@ -14,11 +14,18 @@
   * limitations under the License.
   */
 
-package org.graphicalmodellab.httpclient
+import sbt.Keys._
+import sbt._
 
-trait HttpClient {
-  def postJson(url: String, jsonString: String) : String
-  def postParams(url: String, params: Seq[(String,String)]) : String
-  def getJson(url: String) : String
-  def getRawHtml(url: String) : String
+object CommonSettings {
+
+  val commonSettings = Seq(
+    organization := "org.graphicalmodellab",
+    scalaVersion := "2.11.8",
+    resolvers ++= Dependencies.resolvers,
+    fork in Test := true,
+    parallelExecution in Test := true
+  )
+
+  val playVersion = "2.3.6"
 }

@@ -33,4 +33,8 @@ class HttpClientImpl extends HttpClient{
   def getJson(url: String) : String= {
     Http(url).option(HttpOptions.readTimeout(10000)).asString.body
   }
+
+  def getRawHtml(url:String) : String={
+    Http(url).asString.body
+  }
 }

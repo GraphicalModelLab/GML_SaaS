@@ -30,3 +30,15 @@ GET                /gml/:companyId/model/algorithm/list     controllers.Graphica
 GET                /gml/:companyId/data/extractor/list     controllers.GraphicalModelLabServiceController.getListOfAvailableExtractors(companyId:String)
 +nocsrf
 POST               /gml/:companyId/data/extractor     controllers.GraphicalModelLabServiceController.executeExtractor(companyId:String)
++nocsrf
+GET                /gml/:companyId/data/crawlersearchengine/list     controllers.GraphicalModelLabServiceController.getListOfAvailableDataCrawlerSearchEngine(companyId:String)
++nocsrf
+POST               /gml/:companyId/data/crawlersearchengine     controllers.GraphicalModelLabServiceController.executeCrawlerSearchEngine(companyId:String)
++nocsrf
+GET                /gml/:companyId/data/crawlerscrapingengine/list     controllers.GraphicalModelLabServiceController.getListOfAvailableDataCrawlerScrapingEngine(companyId:String)
++nocsrf
+POST               /gml/:companyId/data/crawlerscrapingengine     controllers.GraphicalModelLabServiceController.executeCrawlerScrapingEngine(companyId:String)
++nocsrf
+GET                /gml/:companyId/data/crawlerengine/list     controllers.GraphicalModelLabServiceController.getListOfAvailableDataCrawlerEngine(companyId:String)
++nocsrf
+POST               /gml/:companyId/data/crawlerengine     controllers.GraphicalModelLabServiceController.executeCrawlerEngine(companyId:String)
