@@ -77,7 +77,7 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
     listOfModel = modelList
 
     // Initialize Available Extractors
-    Logger.info("Loading/Initialize Available Extractors..")
+    println("Loading/Initialize Available Extractors..")
     var extractorList = mutable.ListBuffer[String]()
     val extractors = (ServiceLoader load classOf[org.graphicalmodellab.api.DataExtractor]).asScala
 
@@ -89,7 +89,7 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
     }
     listOfExtractors = extractorList
 
-    Logger.info("Loading/Initialize Available Data Crawler Search Engines..")
+    println("Loading/Initialize Available Data Crawler Search Engines..")
     var searchEngineList = mutable.ListBuffer[String]()
     val searchEngines = (ServiceLoader load classOf[org.graphicalmodellab.api.DataCrawlerSearchEngine]).asScala
 
@@ -101,24 +101,24 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
     }
     listOfDataCrawlerSearchEngines = searchEngineList
 
-    Logger.info("Loading/Initialize Available Data Crawler Scraping Engines..")
+    println("Loading/Initialize Available Data Crawler Scraping Engines..")
     var scrapingEngineList = mutable.ListBuffer[String]()
     val scrapingEngines = (ServiceLoader load classOf[org.graphicalmodellab.api.DataCrawlerScrapingEngine]).asScala
 
     for (w <- scrapingEngines) {
-      println("Loading Data Crawler Sraping Engine : "+w.getScrapingEngineName+"..")
+      println("Loading Data Crawler Scraping Engine : "+w.getScrapingEngineName+"..")
       scrapingEngineList += w.getScrapingEngineName
       w.init()
       dataCrawlerScrapingEngineMap.put(getExtractorId(w.getScrapingEngineName),w)
     }
     listOfDataCrawlerScrapingEngines = scrapingEngineList
 
-    Logger.info("Loading/Initialize Available Data Crawler Engines..")
+    println("Loading/Initialize Available Data Crawler Engines..")
     var crawlerEngineList = mutable.ListBuffer[String]()
     val crawlerEngines = (ServiceLoader load classOf[org.graphicalmodellab.api.DataCrawlerEngine]).asScala
 
     for (w <- crawlerEngines) {
-      println("Loading Data Crawler Sraping Engine : "+w.getDataCrawlerEngineName+"..")
+      println("Loading Data Crawler Engine : "+w.getDataCrawlerEngineName+"..")
       crawlerEngineList += w.getDataCrawlerEngineName
       w.init()
       dataCrawlerEngineMap.put(getExtractorId(w.getDataCrawlerEngineName),w)
@@ -442,7 +442,8 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
             request.userid,
             request.datasource,
             searchEngine,
-            scrapingEngine
+            scrapingEngine,
+            request.newColumns
           )
 
           return executeDataCrawlerEngineResponse(Status.OK)

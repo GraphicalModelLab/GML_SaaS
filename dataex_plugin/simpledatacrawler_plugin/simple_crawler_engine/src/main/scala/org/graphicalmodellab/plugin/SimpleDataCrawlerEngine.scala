@@ -16,18 +16,126 @@
 
 package org.graphicalmodellab.plugin
 
+import java.io.{BufferedReader, FileReader, PrintWriter}
+import java.util
+
+import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
+import net.ruippeixotog.scalascraper.dsl.DSL._
+import net.ruippeixotog.scalascraper.browser.JsoupBrowser
+import net.ruippeixotog.scalascraper.scraper.ContentExtractors._
+import org.graphicalmodellab.api.graph_api.executeDataCrawlerEngineProperty
 import org.graphicalmodellab.api.{DataCrawlerEngine, DataCrawlerScrapingEngine, DataCrawlerSearchEngine}
 import org.graphicalmodellab.httpclient.{HttpClient, HttpClientImpl}
 
+import scala.collection.mutable
+
 class SimpleDataCrawlerEngine extends DataCrawlerEngine{
   val httpClient: HttpClient = new HttpClientImpl()
+  // Hold query information up to 10
+  val queryCacheLimit = 20
+  var queryCachePivot = 0
+  var queryCache: mutable.MutableList[(String, String)] = mutable.MutableList[(String,String)]()
+  (0 to queryCacheLimit).foreach(index=> queryCache :+= ("",""))
+
+  val saveDir = "/tmp/"
 
   override def init(): Unit = {}
 
   override def getDataCrawlerEngineName: String = "SimpleCrawler"
 
-  override def process(companyid: String, userid: String, datasource: String, searchEngine: DataCrawlerSearchEngine, srapingEngine: DataCrawlerScrapingEngine): Unit = {
+  override def process(companyid: String, userid: String, datasource: String, searchEngine: DataCrawlerSearchEngine, scrapingEngine: DataCrawlerScrapingEngine,newColumns: List[executeDataCrawlerEngineProperty]): Unit = {
+    val newColumnMap: mutable.Map[String, List[executeDataCrawlerEngineProperty]] = mutable.Map[String, List[executeDataCrawlerEngineProperty]]()
+    newColumns.foreach {
+      newColumn =>
+        var properties: List[executeDataCrawlerEngineProperty] = null;
+        if (newColumnMap.contains(newColumn.sourceColumn)) {
+          properties = newColumnMap.get(newColumn.sourceColumn).get
+        } else {
+          properties = List[executeDataCrawlerEngineProperty]();
+        }
 
-    println("testing");
+        properties :+= newColumn
+
+        newColumnMap(newColumn.sourceColumn) = properties
+    }
+
+
+    val writer = new PrintWriter(saveDir + "crawled_" + datasource.split("/").last, "UTF-8");
+
+    val br = new BufferedReader(new FileReader(datasource))
+    var line: String = null;
+    var header = br.readLine();
+    val headerTk = header.split(",");
+    val newHeader = new StringBuilder();
+    newHeader.append(header);
+
+    val headerIndexMap: mutable.Map[String, Int] = mutable.Map[String, Int]()
+    (0 until headerTk.size).foreach {
+      index =>
+        headerIndexMap(headerTk(index)) = index
+    }
+
+    newColumnMap.foreach {
+      case (sourceColumn, newColumns) =>
+        newColumns.foreach {
+          newColumn =>
+            newHeader.append(",")
+            newHeader.append(newColumn.newColumnTitle)
+        }
+    }
+    writer.println(newHeader.toString())
+
+    line = br.readLine()
+    while (line!= null) {
+      // process the line.
+      val body = line.split(",")
+
+      val newLine = new StringBuilder();
+      newLine.append(line);
+
+      newColumnMap.foreach{
+        case (sourceColumn, newColumns) =>
+
+          val scrapedLinkQuery = body(headerIndexMap.get(sourceColumn).get)
+
+          var bodyString: String = null
+          if(queryCache.exists(_._1 == scrapedLinkQuery)){
+            println("Found the same one in the query Cache:"+scrapedLinkQuery);
+            bodyString = queryCache.find(_._1 == scrapedLinkQuery).get._2
+          }else {
+            println("Could not Found the same one in the query Cache:"+scrapedLinkQuery);
+            println(queryCache.map((pair:(String,String)) => pair._1).toList)
+            val scrapedLink = searchEngine.process(companyid,userid,scrapedLinkQuery)(0)
+            val jsoupBrowser = JsoupBrowser()
+            bodyString = jsoupBrowser.parseString(httpClient.getRawHtml(scrapedLink)) >> allText("body");
+
+            println("cachelimit:"+queryCacheLimit)
+            if(queryCachePivot >= queryCacheLimit) {
+              queryCachePivot = 0
+            }
+            queryCache(queryCachePivot) = (scrapedLinkQuery, bodyString)
+
+            queryCachePivot += 1
+            // Put sleep always if we crawl data in order to avoid causing too much traffic to the site
+            Thread.sleep(1000)
+          }
+
+          newColumns.foreach{
+            newColumn =>
+
+              val newColumnData = scrapingEngine.processContent(companyid,userid,bodyString,newColumn.newColumnQuery)
+
+              newLine.append(",")
+              newLine.append(newColumnData);
+          }
+      }
+
+      writer.println(newLine.toString())
+
+      line = br.readLine()
+    }
+
+    br.close()
+    writer.close();
   }
 }

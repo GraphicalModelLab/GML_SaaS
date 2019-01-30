@@ -17,6 +17,7 @@
 import play.api.libs.json._
 
 import org.graphicalmodellab.api.graph_api._
+import org.graphicalmodellab.api.graph_api.executeDataCrawlerEngineProperty
 
 package object gml {
 
@@ -435,7 +436,7 @@ package object gml {
   }
 
   // 5. execute extractor request/response
-  case class executeDataCrawlerEngineRequest(code: Int, userid:String, companyid: String, scrapingEngineId: String, searchEngineId: String, crawlerEngineId: String, datasource: String)
+  case class executeDataCrawlerEngineRequest(code: Int, userid:String, companyid: String, scrapingEngineId: String, searchEngineId: String, crawlerEngineId: String, datasource: String, newColumns: List[executeDataCrawlerEngineProperty])
   case class executeDataCrawlerEngineResponse(code: Int)
 
   implicit lazy val executeDataCrawlerRequestReads: Reads[executeDataCrawlerEngineRequest] = Reads[executeDataCrawlerEngineRequest] {
@@ -446,7 +447,16 @@ package object gml {
       (json \ "scrapingEngineId").as[String],
       (json \ "searchEngineId").as[String],
       (json \ "crawlerEngineId").as[String],
-      (json \ "datasource").as[String]
+      (json \ "datasource").as[String],
+      (json \ "newColumns").as[List[executeDataCrawlerEngineProperty]]
+    ))
+  }
+
+  implicit lazy val executeDataCrawlerEnginePropertyReads: Reads[executeDataCrawlerEngineProperty] = Reads[executeDataCrawlerEngineProperty] {
+    json => JsSuccess(executeDataCrawlerEngineProperty(
+      (json \ "sourceColumn").as[String],
+      (json \ "newColumnQuery").as[String],
+      (json \ "newColumnTitle").as[String]
     ))
   }
 
@@ -455,4 +465,6 @@ package object gml {
       "code" -> Json.toJson(o.code)
     ).filter(_._2 != JsNull))
   }
+
+
 }

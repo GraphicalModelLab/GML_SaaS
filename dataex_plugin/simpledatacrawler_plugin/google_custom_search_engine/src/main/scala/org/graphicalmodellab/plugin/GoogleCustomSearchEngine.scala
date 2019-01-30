@@ -16,6 +16,8 @@
 
 package org.graphicalmodellab.plugin
 
+import java.net.URLEncoder
+
 import com.typesafe.config.ConfigFactory
 import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.api.DataCrawlerSearchEngine
@@ -33,9 +35,13 @@ class GoogleCustomSearchEngine extends DataCrawlerSearchEngine{
   override def getSearchEngineName: String = "Google"
 
   override def process(companyid: String, userid: String, query: String): List[String] = {
-    val json = new JSONObject(httpClient.getJson(
-      s"""https://www.googleapis.com/customsearch/v1?q=$query&cx=$cx&key=$key"""
-    ))
+    val encodedQuery = URLEncoder.encode(query,"UTF-8")
+
+    println("call to "+s"""https://www.googleapis.com/customsearch/v1?q=$encodedQuery&cx=$cx&key=$key""")
+    val content = httpClient.getJson(
+      s"""https://www.googleapis.com/customsearch/v1?q=$encodedQuery&cx=$cx&key=$key"""
+    )
+    val json = new JSONObject(content)
 
     if(json.has("items")){
       val items = json.getJSONArray("items")
@@ -44,6 +50,11 @@ class GoogleCustomSearchEngine extends DataCrawlerSearchEngine{
 
         return List[String](firstItem.getString("link"))
       }
+    }
+
+    if(json.has("error")){
+      println("Error Occured")
+      println(json)
     }
 
     return List[String]()

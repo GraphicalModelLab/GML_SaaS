@@ -16,8 +16,11 @@
 
 package org.graphicalmodellab.api
 
+import org.graphicalmodellab.api.graph_api.executeDataCrawlerEngineProperty
+
+
 trait DataCrawlerEngine {
   def init(): Unit
   def getDataCrawlerEngineName: String
-  def process(companyid: String, userid: String, datasource: String, searchEngine: DataCrawlerSearchEngine, srapingEngine: DataCrawlerScrapingEngine): Unit
+  def process(companyid: String, userid: String, datasource: String, searchEngine: DataCrawlerSearchEngine, scrapingEngine: DataCrawlerScrapingEngine,newColumns: List[executeDataCrawlerEngineProperty]): Unit
 }

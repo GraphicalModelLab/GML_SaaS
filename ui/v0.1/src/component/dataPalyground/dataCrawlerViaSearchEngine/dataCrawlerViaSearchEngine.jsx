@@ -399,6 +399,18 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
                     console.log(error);
         },
     }).done((data, textStatus, jqXHR) => {
+        var newColumnInformation = [];
+        self.state.newColumnFirst.map((d, idx) => {
+            newColumnInformation.push({
+                        sourceColumn: self.refs["newColumnFirst"+ idx].value,
+                        newColumnTitle: self.refs["newColumnSecond"+ idx].value,
+                        newColumnQuery: self.refs["newColumnThird"+ idx].value,
+            });
+        });
+
+        console.log("new Column Query");
+        console.log(newColumnInformation);
+
         var data = {
             companyid: auth.getCompanyid(),
             userid: auth.getUserid(),
@@ -407,6 +419,7 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
             searchEngineId: this.refs.searchEngine.value,
             crawlerEngineId: this.refs.crawlerEngine.value,
             datasource: data,
+            newColumns: newColumnInformation,
             code: 10
         };
 

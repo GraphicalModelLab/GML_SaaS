@@ -62722,10 +62722,22 @@
 	      }).done(function (data, textStatus, jqXHR) {
 	        var _data;
 	
+	        var newColumnInformation = [];
+	        self.state.newColumnFirst.map(function (d, idx) {
+	          newColumnInformation.push({
+	            sourceColumn: self.refs["newColumnFirst" + idx].value,
+	            newColumnTitle: self.refs["newColumnSecond" + idx].value,
+	            newColumnQuery: self.refs["newColumnThird" + idx].value
+	          });
+	        });
+	
+	        console.log("new Column Query");
+	        console.log(newColumnInformation);
+	
 	        var data = (_data = {
 	          companyid: _auth2.default.getCompanyid(),
 	          userid: _auth2.default.getUserid()
-	        }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'scrapingEngineId', _this5.refs.scrapingEngine.value), _defineProperty(_data, 'searchEngineId', _this5.refs.searchEngine.value), _defineProperty(_data, 'crawlerEngineId', _this5.refs.crawlerEngine.value), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'code', 10), _data);
+	        }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'scrapingEngineId', _this5.refs.scrapingEngine.value), _defineProperty(_data, 'searchEngineId', _this5.refs.searchEngine.value), _defineProperty(_data, 'crawlerEngineId', _this5.refs.crawlerEngine.value), _defineProperty(_data, 'datasource', data), _defineProperty(_data, 'newColumns', newColumnInformation), _defineProperty(_data, 'code', 10), _data);
 	
 	        _jquery2.default.ajax({
 	          url: "../commonModules/php/modules/GML.php/gml/data/crawlerengine",
