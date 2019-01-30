@@ -42,4 +42,10 @@ trait GraphicalModelLabService {
   def getExploredGraph(token:String, companyId:String,request: Option[exploreGraphRequest]): exploreGraphResponse
   def getListOfExtractors(): getListOfAvailableExtractorsResponse
   def executeExtractor(token:String, companyId:String,request: Option[executeExtractorRequest]): executeExtractorResponse
+  def getListOfCrawlerSearchEngine(): getListOfAvailableDataCrawlerSearchEngineResponse
+  def executeCrawlerSearchEngine(token:String, companyId:String,request: Option[executeDataCrawlerSearchEngineRequest]): executeDataCrawlerSearchEngineResponse
+  def getListOfCrawlerScrapingEngine(): getListOfAvailableDataCrawlerScrapingEngineResponse
+  def executeCrawlerScrapingEngine(token:String, companyId:String,request: Option[executeDataCrawlerScrapingEngineRequest]): executeDataCrawlerScrapingEngineResponse
+  def getListOfCrawlerEngine(): getListOfAvailableDataCrawlerEngineResponse
+  def executeCrawlerEngine(token:String, companyId:String,request: Option[executeDataCrawlerEngineRequest]): executeDataCrawlerEngineResponse
 }

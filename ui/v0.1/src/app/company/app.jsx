@@ -174,7 +174,7 @@ export default class App extends React.Component<Props, {}> {
                         <Link to={ '/socialConnect' }><img src="./../icon/menu_icons/dataconnection.png" className={ styles.icon } data-tip="Connect to Social Data Source" /></Link>
                       </div>
                       <div className={ styles.menuItem }>
-                        <Link to={ '/dataExtractor' }><img src="./../icon/menu_icons/explore.jpg" className={ styles.icon } data-tip="Explore Data" /></Link>
+                        <Link to={ '/dataPalyground' }><img src="./../icon/menu_icons/explore.jpg" className={ styles.icon } data-tip="Explore Data" /></Link>
                       </div>
                       <div className={ styles.menuItem }>
                         <Link to={ '/graphLab' } ref="graphLab"><img src="../icon/menu_icons/flask.png" className={ styles.icon } data-tip="Design Graph" /></Link>
@@ -201,7 +201,7 @@ export default class App extends React.Component<Props, {}> {
                         <Link to={ '/socialConnect' }><img src="./../icon/menu_icons/dataconnection.png" className={ styles.icon } data-tip="Connect to Social Data Source" /></Link>
                       </div>
                       <div className={ styles.menuItem }>
-                        <Link to={ '/dataExtractor' }><img src="./../icon/menu_icons/explore.jpg" className={ styles.icon } data-tip="Explore Data" /></Link>
+                        <Link to={ '/dataPalyground' }><img src="./../icon/menu_icons/explore.jpg" className={ styles.icon } data-tip="Explore Data" /></Link>
                       </div>
                       <div className={ styles.menuItem }>
                         <Link to={ '/graphLab' } ref="graphLab"><img src="../icon/menu_icons/flask.png" className={ styles.icon } data-tip="Design Graph" /></Link>

@@ -17,6 +17,7 @@
 import play.api.libs.json._
 
 import org.graphicalmodellab.api.graph_api._
+import org.graphicalmodellab.api.graph_api.executeDataCrawlerEngineProperty
 
 package object gml {
 
@@ -329,4 +330,141 @@ package object gml {
       "value" -> Json.toJson(o.value)
     ).filter(_._2 != JsNull))
   }
+
+  // 5. get list of available data crawler search engine
+  case class getListOfAvailableDataCrawlerSearchEngineRequest(code: Int, userid:String, companyid: String)
+  case class getListOfAvailableDataCrawlerSearchEngineResponse(code: Int, extractorIds: List[String], extractorParams: Map[String,List[String]])
+
+  implicit lazy val getListOfAvailableDataCrawlerSearchEngineRequestReads: Reads[getListOfAvailableDataCrawlerSearchEngineRequest] = Reads[getListOfAvailableDataCrawlerSearchEngineRequest] {
+    json => JsSuccess(getListOfAvailableDataCrawlerSearchEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String]
+    ))
+  }
+
+  implicit lazy val getListOfAvailableDataCrawlerSearchEngineResponseWrites: Writes[getListOfAvailableDataCrawlerSearchEngineResponse] = Writes[getListOfAvailableDataCrawlerSearchEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "searchEngineIds" -> Json.toJson(o.extractorIds),
+      "searchEngineParamMap" -> Json.toJson(o.extractorParams)
+    ).filter(_._2 != JsNull))
+  }
+
+  // 5. execute extractor request/response
+  case class executeDataCrawlerSearchEngineRequest(code: Int, userid:String, companyid: String, searchEngineId: String, query: String)
+  case class executeDataCrawlerSearchEngineResponse(code: Int, links: List[String], linkTitles: List[String])
+
+  implicit lazy val executeDataCrawlerSearchEngineRequestReads: Reads[executeDataCrawlerSearchEngineRequest] = Reads[executeDataCrawlerSearchEngineRequest] {
+    json => JsSuccess(executeDataCrawlerSearchEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String],
+      (json \ "searchEngineId").as[String],
+      (json \ "query").as[String]
+    ))
+  }
+
+  implicit lazy val executeDataCrawlerSearchEngineWrites: Writes[executeDataCrawlerSearchEngineResponse] = Writes[executeDataCrawlerSearchEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "links" -> Json.toJson(o.links),
+      "linkTitles" -> Json.toJson(o.linkTitles)
+    ).filter(_._2 != JsNull))
+  }
+
+  // 6. get list of available data crawler scraping engine
+  case class getListOfAvailableDataCrawlerScrapingEngineRequest(code: Int, userid:String, companyid: String)
+  case class getListOfAvailableDataCrawlerScrapingEngineResponse(code: Int, scrapingIds: List[String], scrapingParams: Map[String,List[String]])
+
+  implicit lazy val getListOfAvailableDataCrawlerScrapingEngineRequestReads: Reads[getListOfAvailableDataCrawlerScrapingEngineRequest] = Reads[getListOfAvailableDataCrawlerScrapingEngineRequest] {
+    json => JsSuccess(getListOfAvailableDataCrawlerScrapingEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String]
+    ))
+  }
+
+  implicit lazy val getListOfAvailableDataCrawlerScrapingEngineResponseWrites: Writes[getListOfAvailableDataCrawlerScrapingEngineResponse] = Writes[getListOfAvailableDataCrawlerScrapingEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "scrapingEngineIds" -> Json.toJson(o.scrapingIds),
+      "scrapingEngineParamMap" -> Json.toJson(o.scrapingParams)
+    ).filter(_._2 != JsNull))
+  }
+
+  // 5. execute extractor request/response
+  case class executeDataCrawlerScrapingEngineRequest(code: Int, userid:String, companyid: String, scrapingEngineId: String, url: String, query: String)
+  case class executeDataCrawlerScrapingEngineResponse(code: Int, data: String)
+
+  implicit lazy val executeDataCrawlerScrapingRequestReads: Reads[executeDataCrawlerScrapingEngineRequest] = Reads[executeDataCrawlerScrapingEngineRequest] {
+    json => JsSuccess(executeDataCrawlerScrapingEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String],
+      (json \ "scrapingEngineId").as[String],
+      (json \ "url").as[String],
+      (json \ "query").as[String]
+    ))
+  }
+
+  implicit lazy val executeDataCrawlerScrapingEngineWrites: Writes[executeDataCrawlerScrapingEngineResponse] = Writes[executeDataCrawlerScrapingEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "data" -> Json.toJson(o.data)
+    ).filter(_._2 != JsNull))
+  }
+
+  // 6. get list of available data crawler scraping engine
+  case class getListOfAvailableDataCrawlerEngineRequest(code: Int, userid:String, companyid: String)
+  case class getListOfAvailableDataCrawlerEngineResponse(code: Int, crawlerIds: List[String], crawlerParams: Map[String,List[String]])
+
+  implicit lazy val getListOfAvailableDataCrawlerEngineRequestReads: Reads[getListOfAvailableDataCrawlerEngineRequest] = Reads[getListOfAvailableDataCrawlerEngineRequest] {
+    json => JsSuccess(getListOfAvailableDataCrawlerEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String]
+    ))
+  }
+
+  implicit lazy val getListOfAvailableDataCrawlerEngineResponseWrites: Writes[getListOfAvailableDataCrawlerEngineResponse] = Writes[getListOfAvailableDataCrawlerEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "crawlerEngineIds" -> Json.toJson(o.crawlerIds),
+      "crawlerEngineParamMap" -> Json.toJson(o.crawlerParams)
+    ).filter(_._2 != JsNull))
+  }
+
+  // 5. execute extractor request/response
+  case class executeDataCrawlerEngineRequest(code: Int, userid:String, companyid: String, scrapingEngineId: String, searchEngineId: String, crawlerEngineId: String, datasource: String, newColumns: List[executeDataCrawlerEngineProperty])
+  case class executeDataCrawlerEngineResponse(code: Int)
+
+  implicit lazy val executeDataCrawlerRequestReads: Reads[executeDataCrawlerEngineRequest] = Reads[executeDataCrawlerEngineRequest] {
+    json => JsSuccess(executeDataCrawlerEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String],
+      (json \ "scrapingEngineId").as[String],
+      (json \ "searchEngineId").as[String],
+      (json \ "crawlerEngineId").as[String],
+      (json \ "datasource").as[String],
+      (json \ "newColumns").as[List[executeDataCrawlerEngineProperty]]
+    ))
+  }
+
+  implicit lazy val executeDataCrawlerEnginePropertyReads: Reads[executeDataCrawlerEngineProperty] = Reads[executeDataCrawlerEngineProperty] {
+    json => JsSuccess(executeDataCrawlerEngineProperty(
+      (json \ "sourceColumn").as[String],
+      (json \ "newColumnQuery").as[String],
+      (json \ "newColumnTitle").as[String]
+    ))
+  }
+
+  implicit lazy val executeDataCrawlerEngineWrites: Writes[executeDataCrawlerEngineResponse] = Writes[executeDataCrawlerEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code)
+    ).filter(_._2 != JsNull))
+  }
+
+
 }

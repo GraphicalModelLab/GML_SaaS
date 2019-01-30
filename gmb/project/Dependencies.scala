@@ -99,6 +99,13 @@ object Dependencies {
   val elasticsearch = "org.elasticsearch" % "elasticsearch" % "6.3.1"
   val elasticsearch_transport = "org.elasticsearch.client" % "transport" % "6.3.1"
 
+  // Scraping
+  val scala_scraping_ruippeixotog = "net.ruippeixotog" %% "scala-scraper" % "1.0.0"
+
+  val scala_scraping = Seq(
+    scala_scraping_ruippeixotog
+  )
+
   val elasticSearchDependencies = Seq(
     elasticsearch,
     elasticsearch_transport
@@ -128,7 +135,8 @@ object Dependencies {
     scala_reflect,
     scalatest,
     scalatestplus,
-    mockitoCore
+    mockitoCore,
+    scala_scraping_ruippeixotog
   )
 
   val dl4jDependencies = Seq(
@@ -152,5 +160,4 @@ object Dependencies {
     spark_sql,
     de_unkrig_jdisasm
   )
-
 }

@@ -14,11 +14,11 @@
   * limitations under the License.
   */
 
-package org.graphicalmodellab.httpclient
+package org.graphicalmodellab.api
 
-trait HttpClient {
-  def postJson(url: String, jsonString: String) : String
-  def postParams(url: String, params: Seq[(String,String)]) : String
-  def getJson(url: String) : String
-  def getRawHtml(url: String) : String
+trait DataCrawlerScrapingEngine {
+  def init(): Unit
+  def getScrapingEngineName: String
+  def processUrl(companyid: String, userid: String, url: String, query: String): String
+  def processContent(companyid: String, userid: String, content: String, query: String): String
 }

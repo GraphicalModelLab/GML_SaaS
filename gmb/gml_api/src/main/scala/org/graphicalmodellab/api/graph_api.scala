@@ -126,4 +126,7 @@ package object graph_api {
       (json).as[List[String]]
     ))
   }
+
+  case class executeDataCrawlerEngineProperty(sourceColumn: String, newColumnQuery: String, newColumnTitle: String)
+
 }

@@ -319,4 +319,132 @@ class GraphicalModelLabServiceController @Inject() (gmlService: GraphicalModelLa
     )
   }
 
+  def getListOfAvailableDataCrawlerSearchEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getListOfAvailableDataCrawlerSearchEngineResponse](gmlService.getListOfCrawlerSearchEngine(
+          //          request.headers.get("Authorization").get.substring(7),
+          //          companyId,
+          //          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+          //          Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def executeCrawlerSearchEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[executeDataCrawlerSearchEngineResponse](gmlService.executeCrawlerSearchEngine(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Json.fromJson[executeDataCrawlerSearchEngineRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def getListOfAvailableDataCrawlerScrapingEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getListOfAvailableDataCrawlerScrapingEngineResponse](gmlService.getListOfCrawlerScrapingEngine(
+          //          request.headers.get("Authorization").get.substring(7),
+          //          companyId,
+          //          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+          //          Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def executeCrawlerScrapingEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[executeDataCrawlerScrapingEngineResponse](gmlService.executeCrawlerScrapingEngine(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Json.fromJson[executeDataCrawlerScrapingEngineRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def getListOfAvailableDataCrawlerEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getListOfAvailableDataCrawlerEngineResponse](gmlService.getListOfCrawlerEngine(
+          //          request.headers.get("Authorization").get.substring(7),
+          //          companyId,
+          //          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+          //          Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def executeCrawlerEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[executeDataCrawlerEngineResponse](gmlService.executeCrawlerEngine(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Json.fromJson[executeDataCrawlerEngineRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
 }

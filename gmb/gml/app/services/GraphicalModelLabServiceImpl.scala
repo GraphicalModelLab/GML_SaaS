@@ -20,7 +20,7 @@ import java.util.ServiceLoader
 
 import com.google.inject.Inject
 import gml._
-import org.graphicalmodellab.api.{DataExtractor, Model}
+import org.graphicalmodellab.api._
 import org.graphicalmodellab.api.graph_api.graph
 import org.graphicalmodellab.auth.AuthDBClient
 import play.api.{Configuration, Logger}
@@ -32,9 +32,19 @@ import scala.collection.mutable
 
 class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient: GmlDBClient, gmlElasticSearchClient:GmlElasticSearchClient,authDBClient:AuthDBClient) extends GraphicalModelLabService{
   var listOfModel: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
-  var listOfExtractors: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
   var modelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
+
+  var listOfExtractors: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
   var extractorMap: mutable.Map[String,DataExtractor] = mutable.Map[String,DataExtractor]()
+
+  var listOfDataCrawlerSearchEngines: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
+  var dataCrawlerSearchEngineMap: mutable.Map[String,DataCrawlerSearchEngine] = mutable.Map[String,DataCrawlerSearchEngine]()
+
+  var listOfDataCrawlerScrapingEngines: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
+  var dataCrawlerScrapingEngineMap: mutable.Map[String,DataCrawlerScrapingEngine] = mutable.Map[String,DataCrawlerScrapingEngine]()
+
+  var listOfDataCrawlerEngines: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
+  var dataCrawlerEngineMap: mutable.Map[String,DataCrawlerEngine] = mutable.Map[String,DataCrawlerEngine]()
 
   def helloworld(): String = "hello impl"
 
@@ -67,7 +77,7 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
     listOfModel = modelList
 
     // Initialize Available Extractors
-    Logger.info("Loading/Initialize Available Extractors..")
+    println("Loading/Initialize Available Extractors..")
     var extractorList = mutable.ListBuffer[String]()
     val extractors = (ServiceLoader load classOf[org.graphicalmodellab.api.DataExtractor]).asScala
 
@@ -78,6 +88,42 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
       extractorMap.put(getExtractorId(w.getExtractorName),w)
     }
     listOfExtractors = extractorList
+
+    println("Loading/Initialize Available Data Crawler Search Engines..")
+    var searchEngineList = mutable.ListBuffer[String]()
+    val searchEngines = (ServiceLoader load classOf[org.graphicalmodellab.api.DataCrawlerSearchEngine]).asScala
+
+    for (w <- searchEngines) {
+      println("Loading Data Crawler Search Engine : "+w.getSearchEngineName+"..")
+      searchEngineList += w.getSearchEngineName
+      w.init()
+      dataCrawlerSearchEngineMap.put(getExtractorId(w.getSearchEngineName),w)
+    }
+    listOfDataCrawlerSearchEngines = searchEngineList
+
+    println("Loading/Initialize Available Data Crawler Scraping Engines..")
+    var scrapingEngineList = mutable.ListBuffer[String]()
+    val scrapingEngines = (ServiceLoader load classOf[org.graphicalmodellab.api.DataCrawlerScrapingEngine]).asScala
+
+    for (w <- scrapingEngines) {
+      println("Loading Data Crawler Scraping Engine : "+w.getScrapingEngineName+"..")
+      scrapingEngineList += w.getScrapingEngineName
+      w.init()
+      dataCrawlerScrapingEngineMap.put(getExtractorId(w.getScrapingEngineName),w)
+    }
+    listOfDataCrawlerScrapingEngines = scrapingEngineList
+
+    println("Loading/Initialize Available Data Crawler Engines..")
+    var crawlerEngineList = mutable.ListBuffer[String]()
+    val crawlerEngines = (ServiceLoader load classOf[org.graphicalmodellab.api.DataCrawlerEngine]).asScala
+
+    for (w <- crawlerEngines) {
+      println("Loading Data Crawler Engine : "+w.getDataCrawlerEngineName+"..")
+      crawlerEngineList += w.getDataCrawlerEngineName
+      w.init()
+      dataCrawlerEngineMap.put(getExtractorId(w.getDataCrawlerEngineName),w)
+    }
+    listOfDataCrawlerEngines = crawlerEngineList
 
     return warmupResponse(Status.OK)
   }
@@ -320,5 +366,95 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
 
 
     return executeExtractorResponse(Status.INTERNAL_SERVER_ERROR)
+  }
+
+  def getListOfCrawlerSearchEngine(): getListOfAvailableDataCrawlerSearchEngineResponse={
+    val searchEngineParamMap = collection.mutable.Map[String,List[String]]()
+    return getListOfAvailableDataCrawlerSearchEngineResponse(Status.OK,listOfDataCrawlerSearchEngines.toList,searchEngineParamMap.toMap)
+  }
+
+  def executeCrawlerSearchEngine(token:String, companyId:String,request: Option[executeDataCrawlerSearchEngineRequest]): executeDataCrawlerSearchEngineResponse={
+
+    request match {
+      case Some(request)=>
+        if(authDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val searchEngine: DataCrawlerSearchEngine = dataCrawlerSearchEngineMap.get(request.searchEngineId).get
+
+          val urls:List[String] = searchEngine.process(companyId,request.userid, request.query)
+
+          return executeDataCrawlerSearchEngineResponse(Status.OK,urls,urls)
+        }else{
+          return executeDataCrawlerSearchEngineResponse(Status.UNAUTHORIZED,null,null)
+        }
+      case None =>
+        println("No request")
+    }
+
+
+    return executeDataCrawlerSearchEngineResponse(Status.INTERNAL_SERVER_ERROR,null,null)
+  }
+
+  def getListOfCrawlerScrapingEngine(): getListOfAvailableDataCrawlerScrapingEngineResponse={
+    val scrapingEngineParamMap = collection.mutable.Map[String,List[String]]()
+    return getListOfAvailableDataCrawlerScrapingEngineResponse(Status.OK,listOfDataCrawlerScrapingEngines.toList,scrapingEngineParamMap.toMap)
+  }
+
+  def executeCrawlerScrapingEngine(token:String, companyId:String,request: Option[executeDataCrawlerScrapingEngineRequest]): executeDataCrawlerScrapingEngineResponse={
+
+    request match {
+      case Some(request)=>
+        if(authDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val scrapingEngine: DataCrawlerScrapingEngine = dataCrawlerScrapingEngineMap.get(request.scrapingEngineId).get
+
+          val data: String = scrapingEngine.processUrl(companyId,request.userid, request.url, request.query)
+
+          return executeDataCrawlerScrapingEngineResponse(Status.OK,data)
+        }else{
+          return executeDataCrawlerScrapingEngineResponse(Status.UNAUTHORIZED,null)
+        }
+      case None =>
+        println("No request")
+    }
+
+
+    return executeDataCrawlerScrapingEngineResponse(Status.INTERNAL_SERVER_ERROR,null)
+  }
+
+  def getListOfCrawlerEngine(): getListOfAvailableDataCrawlerEngineResponse={
+    val crawlerEngineParamMap = collection.mutable.Map[String,List[String]]()
+    return getListOfAvailableDataCrawlerEngineResponse(Status.OK,listOfDataCrawlerEngines.toList,crawlerEngineParamMap.toMap)
+  }
+
+  def executeCrawlerEngine(token:String, companyId:String,request: Option[executeDataCrawlerEngineRequest]): executeDataCrawlerEngineResponse={
+
+    request match {
+      case Some(request)=>
+        if(authDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val crawlerEngine: DataCrawlerEngine = dataCrawlerEngineMap.get(request.crawlerEngineId).get
+          val scrapingEngine: DataCrawlerScrapingEngine = dataCrawlerScrapingEngineMap.get(request.scrapingEngineId).get
+          val searchEngine: DataCrawlerSearchEngine = dataCrawlerSearchEngineMap.get(request.searchEngineId).get
+
+          crawlerEngine.process(
+            companyId,
+            request.userid,
+            request.datasource,
+            searchEngine,
+            scrapingEngine,
+            request.newColumns
+          )
+
+          return executeDataCrawlerEngineResponse(Status.OK)
+        }else{
+          return executeDataCrawlerEngineResponse(Status.UNAUTHORIZED)
+        }
+      case None =>
+        println("No request")
+    }
+
+
+    return executeDataCrawlerEngineResponse(Status.INTERNAL_SERVER_ERROR)
   }
 }
