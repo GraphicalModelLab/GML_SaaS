@@ -17,11 +17,16 @@
 import CommonSettings._
 import Dependencies._
 
+
+lazy val root = project.in(file("."))
+  .settings(commonSettings: _*)
+  .dependsOn(etl_to_hive_plugin)
+  .dependsOn(etl_to_cassandra_plugin)
+
 lazy val etl_to_hive_plugin = project.in(file("etl_to_hive_plugin"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= gmlDependencies)
   .settings(libraryDependencies ++= baseDependencies)
-
 
 lazy val etl_to_cassandra_plugin = project.in(file("etl_to_cassandra_plugin"))
   .settings(commonSettings: _*)
