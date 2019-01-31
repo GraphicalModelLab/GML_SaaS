@@ -17,6 +17,11 @@
 import CommonSettings._
 import Dependencies._
 
+lazy val root = project.in(file("."))
+  .settings(commonSettings: _*)
+  .dependsOn(multivariate_guassian_algorithm_plugin)
+  .dependsOn(kernel_density_algorithm_plugin)
+
 lazy val multivariate_guassian_algorithm_plugin = project.in(file("multivariate_guassian_algorithm_plugin"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= gmlDependencies)

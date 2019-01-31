@@ -17,6 +17,12 @@
 import CommonSettings._
 import Dependencies._
 
+lazy val root = project.in(file("."))
+  .settings(commonSettings: _*)
+  .dependsOn(google_custom_search_engine)
+  .dependsOn(simple_scraping_engine)
+  .dependsOn(simple_crawler_engine)
+
 lazy val google_custom_search_engine = project.in(file("google_custom_search_engine"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= gmlDependencies)
