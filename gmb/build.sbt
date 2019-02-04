@@ -92,7 +92,7 @@ lazy val gml = project.in(file("gml"))
   .enablePlugins(PlayScala)
   .dependsOn(common)
   .dependsOn(gml_api)
-//  .dependsOn(dataex_plugin) // Added this dependency when developing plugin
+//  .dependsOn(dataex_plugin) // Add this dependency when developing simpledatacrawler_plugin
 
 lazy val gml_api = project.in(file("gml_api"))
   .settings(commonSettings: _*)
