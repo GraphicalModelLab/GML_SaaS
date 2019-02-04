@@ -16,7 +16,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/popupMessage.css';
 
 export default class PopupMessageSmallBox extends React.Component {
   constructor(props) {
@@ -66,7 +66,7 @@ export default class PopupMessageSmallBox extends React.Component {
   render() {
     return <div>
              { this.state.show ? (
-               <div className={ this.state.closeStyle ? styles.popupMessageCloseSmallBox : styles.popupMessageSmallBox }>
+               <div className={ this.state.closeStyle ? styles.popupMessageSmallBoxClose : styles.popupMessageSmallBox }>
                  { this.state.message }
                </div>
                ) : (<div></div>) }

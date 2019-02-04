@@ -17,7 +17,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import * as styles from './../../../css/structure.css';
+import * as styles from './../../../css/graphLab.css';
 
 const customStyles = {
   content: {
@@ -79,7 +79,7 @@ export default class GraphSaveView extends React.Component<Props, {}> {
   render() {
     return <div>
              <Modal contentLabel="Model Property" isOpen={ this.state.modalIsOpen } onAfterOpen={ this.afterOpenModal } style={ customStyles } ref="modal">
-               <div className={ styles.saveModelViewTitle }>
+               <div className={ styles.modalTitleBox }>
                  { this.state.message }
                  <h2 ref="subtitle"><div className={ styles.modalTitle }>Model Information</div></h2>
                  <div onClick={ this.closeModal } className={ styles.closeButtonGraphSaveView }><img src="../icon/mono_icons/stop32.png" className={ styles.icon } /></div>

@@ -1,0 +1,335 @@
+/**
+ * Copyright (C) 2018 Mao Ito
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.icon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+}
+
+.csvDropzone {
+  width : 300px;
+  height : 20px;
+  border-style: dotted;
+  float: left;
+}
+
+.analyzingDropzone {
+  margin-left:10px;
+  width : 400px;
+  height : 20px;
+  border-style: dotted;
+  float: left;
+}
+
+.svgPane{
+    background: #eaeaea;
+}
+.svgPaneWithCrossChair{
+    background: #eaeaea;
+    cursor: crosshair;
+}
+
+.graphLabMenu{
+  display: block;
+  width: 755px;
+  height: 45px;
+  padding-top: 5px;
+  background-color: #000088;
+}
+
+.graphLabMenuCalculationModelItem{
+  width : 140px;
+  height : 30px;
+  float: left;
+  background-color: #000088;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+.graphLabMenuItemLast{
+  width : 35px;
+  height : 40px;
+  float: left;
+  padding-left: 5px;
+  background-color: #ffffff;
+}
+.graphLabMenuItemLast:hover {
+  background:#808080;
+  border-color:#808080;
+}
+.graphLabMenuItem{
+  width : 35px;
+  height : 40px;
+  float: left;
+  padding-left: 5px;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
+.graphLabMenuItem:hover {
+  background:#808080;
+  border-color:#808080;
+}
+.graphLabMenuItemTraining{
+  width : 45px;
+  height : 40px;
+  float: left;
+  padding-left: 5px;
+  background-color: #ffffff;
+  margin-right: 5px;
+}
+.graphLabMenuItemTraining:hover {
+     background:#808080;
+     border-color:#808080;
+}
+
+.graphLabMenuItemSave{
+  width : 43px;
+  height : 40px;
+  padding-left: 5px;
+  float: left;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
+
+.graphLabMenuItemSave:hover {
+  background:#808080;
+  border-color:#808080;
+}
+
+.graphLabMenuItemDropAnalyzingBox{
+  width : 220px;
+  height : 40px;
+  float: left;
+  background-color: #00000;
+}
+
+.graphLabMenuItemDropAnalyzing{
+  padding-left: 5px;
+  width : 35px;
+  height: 40px;
+  float: left;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
+
+.graphLabMenuItemDropAnalyzing:hover {
+     background:#808080;
+     border-color:#808080;
+}
+
+.graphLabMenuItemDownloadLink{
+  color: white;
+  text-decoration: underline;
+  font-size: 10px;
+}
+
+.graphLabMenuItemCalculationSelect{
+    max-width:90%;
+}
+.graphLabMenuItemShapeSelectCustomNode{
+    max-width:90%;
+    margin-bottom:10px;
+}
+.graphLabMenuItemAnalyzingTarget{
+    float: left;
+    width: 160px;
+}
+.graphLabMenuItemAnalyzingTargetBox{
+    margin-top:2px;
+}
+
+
+.graphLabMenuItemDropGraphSearch{
+  padding-left: 5px;
+  width : 35px;
+  height: 40px;
+  float: left;
+  background-color: #ffffff;
+}
+
+.graphLabMenuItemDropGraphSearch:hover {
+     background:#808080;
+     border-color:#808080;
+}
+
+.graphLabMenuIconStopSearchIcon{
+    zoom: 60%;
+    margin-left: 5px;
+    margin-top: 14px;
+}
+
+.graphLabMenuItemStopSearch{
+    float: left;
+
+    width: 30px;
+    height: 40px;
+}
+
+.graphLabMenuItemStopSearch:hover {
+    background:#808080;
+    border-color:#808080;
+}
+
+.graphLabMenuItemGraphSearch{
+  width : 70px;
+  height : 40px;
+  float: left;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
+
+.graphLabRecordLine{
+
+    margin-left: auto;
+    margin-right: auto;
+}
+.graphLabRecordUserid{
+    float: left;
+}
+.graphLabRecordModelName{
+    float: left;
+
+}
+.graphLabRecordModelTag{
+    float: left;
+}
+.graphLabRecordModelDescription{
+
+}
+
+.graphRepositoryTree{
+}
+
+.graphLabRecordTree{
+    display: block;
+    margin: 0 auto;
+}
+
+.graphLabMenuIcon{
+    paddinig-top:50px;
+    margin-top: 10px;
+    margin-right:5px;
+    zoom:60%;
+}
+
+/** Generic Modal CSS **/
+.modalTitle{
+    margin-right: 10px;
+    width: 270px;
+    float:left;
+}
+.modalTitleBox{
+    display:block;
+    clear: both;
+    width: 300px;
+    height: 30px;
+}
+
+/** Graph Test Result Diaglog **/
+
+.testResultModelViewContent{
+    margin-top: 20px;
+    display:block;
+}
+
+.testResultProp{
+   display: block;
+   width: 300px;
+   margin-bottom: 10px;
+}
+
+.testResultPropName{
+   width: 260px;
+}
+
+.testResultPropValue{
+   width: 260px;
+}
+
+/** Graph Save Setting : graphLab/graphSave/graphSaveView.jsx **/
+
+.saveModelViewContent{
+    margin-top: 20px;
+    display:block;
+}
+
+.saveProp{
+   display: block;
+   width: 300px;
+   margin-bottom: 10px;
+}
+
+.savePropName{
+   width: 260px;
+}
+
+.savePropValue{
+   width: 260px;
+}
+
+.saveButtonBox {
+    margin-top: 10px;
+    margin-left:215px;
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #fd9535;/*背景色*/
+    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
+    border-radius: 4px;/*角の丸み*/
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+}
+
+.saveButtonBox:active {
+    border-bottom: solid 2px #fd9535;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+/** Graph Color Setting : graphLab/graphColor/graphColorView.jsx **/
+.graphColorViewContent{
+    margin-top: 20px;
+    display:block;
+}
+.saveGraphColorViewButtonBox {
+    margin-top: 10px;
+    margin-left:165px;
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #fd9535;/*背景色*/
+    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
+    border-radius: 4px;/*角の丸み*/
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+}
+
+.saveGraphColorViewTitle{
+    display:block;
+    clear: both;
+    width: 220px;
+    height: 30px;
+}
+
+
+.modalGraphColorViewTitle{
+    margin-right: 10px;
+    width: 190px;
+    float:left;
+}

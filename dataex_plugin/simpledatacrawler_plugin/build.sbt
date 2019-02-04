@@ -32,7 +32,7 @@ lazy val simple_scraping_engine = project.in(file("simple_scraping_engine"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= gmlDependencies)
   .settings(libraryDependencies ++= baseDependencies)
-  .settings(libraryDependencies ++= scala_scraping)
+  .settings(libraryDependencies ++= scalaScrapingDependencies)
 
 lazy val simple_crawler_engine = project.in(file("simple_crawler_engine"))
   .settings(commonSettings: _*)

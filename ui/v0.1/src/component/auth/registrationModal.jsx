@@ -18,7 +18,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import auth from "./auth";
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/auth.css';
 import Loading from './../loader/loading';
 
 const customStyles = {

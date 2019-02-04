@@ -17,7 +17,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import * as styles from './../../../css/structure.css';
+import * as styles from './../../../css/propertySettingView.css';
 import NodeProperty from './nodeProperty';
 
 const customStyles = {

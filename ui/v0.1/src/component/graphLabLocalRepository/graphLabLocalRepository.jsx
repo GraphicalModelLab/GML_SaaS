@@ -17,7 +17,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Dropzone from 'react-dropzone';
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/graphRecord.css';
 import auth from "./../auth/auth";
 import $ from 'jquery';
 import Loading from './../loader/loading';

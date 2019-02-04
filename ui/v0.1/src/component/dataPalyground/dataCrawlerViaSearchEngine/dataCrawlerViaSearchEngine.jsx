@@ -16,12 +16,13 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as styles from './../../../css/structure.css';
+import * as styles from './../../../css/dataPlayground.css';
 import auth from "./../../auth/auth";
 import Dropzone from 'react-dropzone';
 import $ from 'jquery';
 import Loading from './../../loader/loading';
 import PopupMessage from './../../popupMessage/popupMessage';
+import HorizontalScroll from 'react-scroll-horizontal'
 
 export default class DataCrawlerViaSearchEngine extends React.Component<Props, {}> {
 
@@ -453,15 +454,17 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
   }
 
   render() {
+
     return (
+
       <div>
         <div className={ styles.dataCrawlerTrialBox }>
-          <Dropzone className={ styles.graphLabMenuItem } onDrop={ this.onDropAttributeImport } accept="text/csv">
+          <Dropzone className={ styles.dataCrawlerImportCSV } onDrop={ this.onDropAttributeImport } accept="text/csv">
             <div>
-                <img src="./../icon/graphlab_menu_icons/importAttrs.png" className={ styles.graphLabMenuIcon } data-tip="Import Attribute Information from CSV file" />
+                <img src="./../icon/graphlab_menu_icons/importAttrs.png" className={ styles.dataCrawlerIcon } data-tip="Import Attribute Information from CSV file" />
             </div>
            </Dropzone>
-           <select ref="searchEngine" className={ styles.graphLabMenuItemAnalyzingTarget }>
+           <select ref="searchEngine" className={ styles.selectMenuDataCrawlerEngines }>
             <option value="" disabled selected>Select Search Engine</option>
                 { this.state.crawlerSgs.map((d, idx) => {
                                   return <option value={ d } key={ "seg" + d }>
@@ -469,7 +472,7 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
                                          </option>
             }) }
            </select>
-           <select ref="scrapingEngine" className={ styles.graphLabMenuItemAnalyzingTarget }>
+           <select ref="scrapingEngine" className={ styles.selectMenuDataCrawlerEngines }>
                        <option value="" disabled selected>Select Scraping Engine</option>
                            { this.state.crawlerScrapings.map((d, idx) => {
                                              return <option value={ d } key={ "sce" + d }>
@@ -479,6 +482,9 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
            </select>
 
            <img onClick={ this.addColumn } src="./../icon/mono_icons/plus32.png" className={ styles.icon }/>
+           <div className={ styles.sgCrawlerTableScroller }>
+           <HorizontalScroll>
+           <div className={ styles.sgCrawlerTableScrollerDiv }>
            <table className={ styles.sgCrawlerTable }>
            <tr>
                        { this.state.sgCrawlerBody.map((d, idx) => {
@@ -498,7 +504,7 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
             <tr>
                 { this.state.sgCrawlerHeader.map((d, idx) => {
                     return <th key={ "sgCrawlerHeader" + idx } >
-                                    {d}
+                                   <input readOnly className={ styles.dataCrawlerViaSearchEngineInputReadOnly } ref={"ColumnSecond"+idx} type="text" value={d} size="10" />
                            </th>
                 }) }
                 { this.state.newColumnSecond.map((d, idx) => {
@@ -510,14 +516,14 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
             <tr>
             { this.state.sgCrawlerBody.map((d, idx) => {
                 return <td key={ "sgCrawlerBody" + idx } >
-                                {d}
+                                <input readOnly className={ styles.dataCrawlerViaSearchEngineInputReadOnly } ref={"ColumnSecond"+idx} type="text" value={d} size="10" />
                        </td>
             }) }
                        { this.state.newColumnThird.map((d, idx) => {
-                           return <th key={ "sgCrawlerBodyNewColumn" + d.key } >
+                           return <td key={ "sgCrawlerBodyNewColumn" + d.key } >
                            <img src="./../icon/menu_icons/search.png" onClick={(e)=> { this.findValueByScraping(d.key) }} className={ styles.searchIconDataCrawler } />
                            <input className={ styles.dataCrawlerViaSearchEngineInput } ref={"newColumnThird"+idx} type="text" defaultValue={d.value} name="name" size="10" />
-                                  </th>
+                                  </td>
                        }) }
             </tr>
             <tr>
@@ -528,17 +534,21 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
             }) }
 
                        { this.state.newColumnFourth.map((d, idx) => {
-                           return <th key={ "sgCrawlerBodyNewColumn" + d.key } >
+                           return <td key={ "sgCrawlerBodyNewColumn" + d.key } >
                            <input className={ styles.dataCrawlerViaSearchEngineInput } ref={"newColumnFourth"+idx} type="text" name="name" size="10" />
-                                  </th>
+                                  </td>
                        }) }
             </tr>
            </table>
+           </div>
+           </HorizontalScroll>
+           </div>
         </div>
+        <div className={ styles.dataCrawlerApplyRuleBox }>
         Apply these rules to
         <Dropzone className={ styles.dataCrawlerTargetCSV } onDrop={ this.onDropApplyingCSV } accept="text/csv">
             <div>
-                <img src="./../icon/graphlab_menu_icons/importAttrs.png" className={ styles.graphLabMenuIcon } data-tip="Apply this crawling rule to the selected file" />
+                <img src="./../icon/graphlab_menu_icons/importAttrs.png" className={ styles.dataCrawlerIcon } data-tip="Apply this crawling rule to the selected file" />
             </div>
         </Dropzone>
         via
@@ -550,6 +560,7 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
                                          </option>
             }) }
            </select>
+        </div>
         <Loading ref="loading" />
         <PopupMessage ref="popupMessage" />
       </div>

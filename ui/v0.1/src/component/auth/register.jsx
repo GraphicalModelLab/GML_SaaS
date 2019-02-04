@@ -18,7 +18,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import auth from "./auth";
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/auth.css';
 import RegistrationModal from './registrationModal';
 
 export default class register extends React.Component {

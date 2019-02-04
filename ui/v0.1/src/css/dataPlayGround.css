@@ -1,0 +1,487 @@
+/**
+ * Copyright (C) 2018 Mao Ito
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.icon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+}
+.searchIcon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+    background: white;
+}
+
+.loading {
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+  z-index:20;
+}
+
+
+.loading{
+    position:absolute;
+
+    z-index:10px;
+
+    height:100%;
+    width:100%;
+
+    background-color:black;
+}
+
+.dataCrawlerImportCSV{
+  width : 35px;
+  height : 40px;
+  float: left;
+  padding-left: 5px;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
+.dataCrawlerImportCSV:hover {
+  background:#808080;
+  border-color:#808080;
+}
+.saveModelViewTitle{
+    display:block;
+    clear: both;
+    width: 300px;
+    height: 30px;
+}
+
+.nodePropertyViewTitle{
+    display:block;
+    width: 300px;
+}
+
+.nodePropertyViewContent{
+    margin-top: 30px;
+    display:block;
+}
+
+.saveModelViewContent{
+    margin-top: 20px;
+    display:block;
+}
+
+.nodePropertyViewFooter{
+    display:block;
+}
+
+.saveButtonBox {
+    margin-top: 10px;
+    margin-left:215px;
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #fd9535;/*背景色*/
+    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
+    border-radius: 4px;/*角の丸み*/
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+}
+
+.saveButtonBox:active {
+    border-bottom: solid 2px #fd9535;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+.saveProp{
+   display: block;
+   width: 300px;
+   margin-bottom: 10px;
+}
+
+.savePropName{
+   width: 260px;
+}
+
+.savePropValue{
+   width: 260px;
+}
+
+.savePropNameHeader{
+    float:left;
+   width: 100px;
+  text-align: center;
+}
+
+.savePropValueHeader{
+   width: 180px;
+  text-align: center;
+}
+
+.graphLabRecordLine{
+
+    margin-left: auto;
+    margin-right: auto;
+}
+.graphLabRecordUserid{
+    float: left;
+}
+.graphLabRecordModelName{
+    float: left;
+
+}
+.graphLabRecordModelTag{
+    float: left;
+}
+.graphLabRecordModelDescription{
+
+}
+
+.graphRepositoryTree{
+}
+
+.graphLabRecordTree{
+    display: block;
+    margin: 0 auto;
+}
+.popupMessageSmallBox{
+  position:absolute;
+  top: 77px;
+  left: 7px;
+  right: 0px;
+  bottom: 0px;
+
+  z-index: 50;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
+  padding: 2 2 2 2;
+  font-size: 15px;
+  height: 15px;
+  width: 1000px;
+}
+
+.popupMessageCloseSmallBox{
+  position:absolute;
+  top: 77px;
+  left: 7px;
+  right: 0px;
+  bottom: 0px;
+
+  z-index: 50;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
+  padding: 2 2 2 2;
+  font-size: 15px;
+  height: 15px;
+  width: 1000px;
+}
+
+.popupMessage{
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index:20;
+  margin: auto;
+
+  background-color: #ffffff;
+
+  padding: 2 2 2 2;
+  font-size: 30px;
+  text-align: center;
+  height: 35px;
+}
+
+.popupMessageClose{
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index:20;
+  margin: auto;
+
+  background-color: yellow;
+
+  padding: 2 2 2 2;
+  font-size: 30px;
+  text-align: center;
+  height: 35px;
+}
+.searchResults{
+    clear: both;
+    display: block;
+}
+
+.searchResultBoxHistory{
+
+  font-size: 20px;
+
+  clear: both;
+  width: 800px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  height: 30px;
+  background: linear-gradient(transparent 70%, #ff99ab 70%);
+}
+
+.searchResultBoxHistory:hover{
+  background: linear-gradient(transparent 70%, #3399FF 70%);
+}
+
+.searchResultBox{
+
+  font-size: 20px;
+
+  clear: both;
+  width: 900px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  height: 30px;
+  background: linear-gradient(transparent 70%, #ff99ab 70%);
+}
+
+.searchResultBox:hover{
+  background: linear-gradient(transparent 70%, #3399FF 70%);
+}
+
+.searchResultBoxFlaskIcon{
+    float:left;
+    zoom:10%;
+    margin-right: 40px;
+}
+.searchResultBoxRightArrowIcon{
+    float:right;
+    zoom:40%;
+}
+.searchResultBoxHistoryIcon{
+    float:left;
+    zoom:10%;
+}
+
+.searchResultBoxModelName{
+  width: 200px;
+  float: left;
+}
+
+.searchResultBoxModelTag{
+
+  width: 100px;
+  float: left;
+}
+
+.searchResultBoxTimeStamp{
+  width: 180px;
+  float: left;
+
+}
+
+.searchResultBoxAlgorithm{
+
+   width: 200px;
+   float: left;
+}
+.searchResultBoxAccuracy{
+
+  width: 100px;
+  float: left;
+}
+
+.searchResultBoxEvaluationMethod{
+
+  width: 200px;
+  float: left;
+}
+
+.notFound{
+  font-size: 30px;
+
+  text-align: center;
+}
+
+.socialConnectionBody{
+    margin-top: 20px;
+}
+
+.socialConnectionRecord{
+
+  font-size: 20px;
+
+  clear: both;
+  width: 600px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  height: 30px;
+}
+
+.socialConnectionRecord:hover{
+}
+
+
+.socialConnectionIcon{
+    float:left;
+
+    width: 200px;
+}
+
+.socialConnectionIcon:hover {
+	opacity: 0.5 ;
+}
+
+.dataCrawlerIcon{
+    paddinig-top:50px;
+    margin-top: 10px;
+    margin-right:5px;
+    zoom:60%;
+}
+
+.dataExplorationBox{
+    height: 400px;
+}
+
+.dataExtractorBox{
+    height: 500px;
+}
+
+
+.dataExtractorTitleHeader{
+   font-size: 20px;
+}
+
+.dataExplorationTitleHeader{
+   font-size: 20px;
+}
+
+.groupByRectangle{
+    fill-opacity: .1;
+}
+
+.dataCrawlerApplyRuleBox{
+   margin-top: 20px;
+}
+.sgCrawlerTableScrollerDiv{
+   width: 800px;
+   height: 200px;
+
+}
+.sgCrawlerTableScroller{
+   width: 800px;
+   height: 200px;
+}
+
+.sgCrawlerTable table{
+   height: 150px;
+}
+
+.sgCrawlerTable th{
+   border-bottom: 3px solid blue;
+   background: #b8d1f3;
+   height: 30px;
+   width: 100px;
+}
+
+.sgCrawlerTable td{
+   border-bottom: 1px solid blue;
+   height: 30px;
+   width: 100px;
+   background: #dae5f4;
+}
+
+.playGroundMenu{
+    display: block;
+    clear: both;
+    width: 1000px;
+    height: 20px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+.playGroundMenuItem{
+    float: left;
+    padding: 10px 50px 5px 10px;
+    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;
+    background-color: #000088;
+    color: white;
+}
+.playGroundMenuItem:hover {
+    background-color: #DAA520;
+}
+.playGroundMenuItemChosen{
+    float: left;
+    padding: 10px 50px 5px 10px;
+    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;
+    background-color: #DAA520;
+    color: white;
+}
+.playGroundMenuItemChosen:hover {
+    background-color: #DAA520;
+}
+
+.playGroundBody{
+    clear: both;
+
+    margin-top: 30px;
+}
+.dataCrawlerViaSearchEngineInput{
+    float:right;
+}
+.dataCrawlerViaSearchEngineInputReadOnly{
+    float:left;
+    width: 100px;
+}
+
+.searchIconDataCrawler{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:35%;
+    background: white;
+}
+
+
+.dataCrawlerTrialBox{
+    height: 200px;
+}
+
+.dataCrawlerTargetCSV{
+    height: 50px;
+    width:50px;
+}
+
+/** CSS for Data Extractor**/
+.dataExtractorBox{
+    height: 500px;
+}
+.extractorPanel{
+    background-color: #99cc00;
+    height: 90px;
+    width: 150px;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+    float:left;
+}
+
+.extractorPanel:hover {
+    background:#808080;
+    border-color:#808080;
+}

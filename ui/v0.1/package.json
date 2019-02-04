@@ -24,12 +24,15 @@
   "dependencies": {
     "css-loader": "^0.15.3",
     "d3-zoom": "^1.7.1",
+    "file-loader": "^1.1.2",
     "history": "^2.0.0",
     "jquery": "^3.1.0",
     "radium": "^0.24.0",
     "react": "^15.3.2",
     "react-autocomplete": "^1.4.0",
+    "react-color": "^2.14.1",
     "react-d3": "^0.4.0",
+    "react-d3-components": "^0.9.1",
     "react-d3-zoom": "^1.1.2",
     "react-digraph": "^4.0.3",
     "react-dnd": "^2.6.0",
@@ -44,12 +47,10 @@
     "react-menus": "^2.0.6",
     "react-modal": "^1.4.0",
     "react-native-menu": "^0.20.1",
-    "react-sticky": "^5.0.5",
     "react-router": "^2.6.0",
-    "style-loader": "^0.13.1",
-    "file-loader": "^1.1.2",
-    "react-d3-components": "^0.9.1",
+    "react-scroll-horizontal": "^1.6.2",
+    "react-sticky": "^5.0.5",
     "react-tooltip": "^3.6.1",
-    "react-color": "^2.14.1"
+    "style-loader": "^0.13.1"
   }
 }

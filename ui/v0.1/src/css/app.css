@@ -1,0 +1,145 @@
+/**
+ * Copyright (C) 2018 Mao Ito
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.header{
+  display:block;
+  background-color:#000088;
+
+  margin-bottom: 18px;
+  padding-bottom: 5px;
+  border-bottom: medium solid #000088;
+
+  height:60px;
+  width:100%;
+  min-width:1000px;
+}
+.body{
+   display:block;
+   margin: 0 auto;
+   height:100%;
+}
+.footer{
+   display:block;
+   font-size:10px;
+   text-align:center;
+   margin: 0 auto;
+   margin-top:50px;
+   padding-top:10px;
+   border-top: medium solid #000088;
+   background-color:#000088;
+   height:50px;
+   color:white;
+   width:100%;
+}
+.title{
+  font-size:20px;
+}
+
+.menuHeader{
+  height:60px;
+  min-width: 600px;
+}
+
+.menuItemLogo{
+    float:left;
+    margin-top:4px;
+    margin-left:4px;
+    width:60px;
+    height:60px;
+}
+.menuItemUserId{
+    float:left;
+    margin-top:4px;
+    margin-left:4px;
+    width:80px;
+    height:60px;
+    padding-top: 20px;
+    color: white;
+    font-size: 8px;
+}
+
+.menu{
+  float: right;
+
+  margin-top:20px;
+  margin-right:10px;
+  font-size:10px;
+  height:50px;
+
+}
+a {
+   text-decoration: none;
+}
+
+a:active {
+    text-decoration:none;
+}
+
+.companyIcon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:60%;
+}
+
+.menuItem {
+  float:right;
+  margin-left:10px;
+  border:solid 1px #C0C0C0;;
+  padding-top: 2px;
+  padding-left: 2px;
+  font-color:black;
+  background-color:#ffffff;
+}
+
+.menuItemSearch{
+  float:right;
+  margin-left:10px;
+  margin-top:5px;
+}
+.menuItemSearchInput{
+  float:right;
+  margin-top: 2px;
+}
+
+.menuItemSearchIcon{
+  float:right;
+  padding: 2px 2px 2px 2px;
+  margin-left:1px;
+  background: #ffffff;
+}
+.menuItemSearchIconImg{
+    float:right;
+    margin-left:10px;
+    margin-right:5px;
+    margin-top:6px;
+    zoom:60%;
+}
+.menuItem:hover {
+    background:#808080;
+    border-color:#808080;
+}
+
+.icon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+}
+.searchIcon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+    background: white;
+}

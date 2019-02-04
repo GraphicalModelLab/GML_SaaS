@@ -56,7 +56,9 @@ lazy val auth = project.in(file("auth"))
 
 
 // For Develop
-lazy val dataex_plugin = RootProject(file("../dataex_plugin/simpledatacrawler_plugin/"))
+lazy val dataex_plugin_crawler = RootProject(file("../dataex_plugin/simpledatacrawler_plugin/"))
+lazy val dataex_plugin_extractor = RootProject(file("../dataex_plugin/etl_plugin/"))
+
 
 lazy val gml = project.in(file("gml"))
   .settings(commonSettings: _*)
@@ -92,7 +94,8 @@ lazy val gml = project.in(file("gml"))
   .enablePlugins(PlayScala)
   .dependsOn(common)
   .dependsOn(gml_api)
-//  .dependsOn(dataex_plugin) // Add this dependency when developing simpledatacrawler_plugin
+//  .dependsOn(dataex_plugin_crawler) // Add this dependency when developing simpledatacrawler_plugin
+//  .dependsOn(dataex_plugin_extractor) // Add this dependency when developing etl_plugin
 
 lazy val gml_api = project.in(file("gml_api"))
   .settings(commonSettings: _*)

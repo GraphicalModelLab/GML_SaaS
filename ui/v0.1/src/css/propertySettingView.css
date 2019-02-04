@@ -1,0 +1,106 @@
+/**
+ * Copyright (C) 2018 Mao Ito
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.icon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
+}
+.modalTitle{
+    margin-right: 10px;
+    width: 270px;
+    float:left;
+}
+
+.nodeProp{
+   clear: both;
+   display: block;
+   width: 310px;
+}
+
+.nodePropName{
+   float: left;
+   width: 100px;
+}
+
+.nodePropValue{
+   float: right;
+   width: 150px;
+}
+.nodePropAdd{
+    float: left;
+}
+.nodePropDelete{
+    float: left;
+}
+.nodePropNameHeader{
+   float: left;
+   width: 100px;
+  text-align: center;
+}
+
+.nodePropValueHeader{
+   float: left;
+   width: 150px;
+   text-align: center;
+}
+.saveModelViewTitle{
+    display:block;
+    clear: both;
+    width: 300px;
+    height: 30px;
+}
+
+.nodePropertyViewTitle{
+    display:block;
+    width: 300px;
+}
+
+.nodePropertyViewContent{
+    margin-top: 30px;
+    display:block;
+}
+
+.saveModelViewContent{
+    margin-top: 20px;
+    display:block;
+}
+
+.nodePropertyViewFooter{
+    display:block;
+}
+
+.saveButtonBox {
+    margin-top: 10px;
+    margin-left:215px;
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #fd9535;/*背景色*/
+    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
+    border-radius: 4px;/*角の丸み*/
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+}
+
+.saveButtonBox:active {
+    border-bottom: solid 2px #fd9535;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+.closeButton{
+}

@@ -14,27 +14,19 @@
  * limitations under the License.
  */
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as styles from './../../css/app.css';
-import Modal from 'react-modal';
-
-export default class TopNoLogin extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    this.context.router.push('/login')
-  }
-
-  render() {
-    return <div>
-             <div> Login first / Register !</div>
-           </div>
-  }
+.icon{
+    paddinig-top:50px;
+    margin-right:5px;
+    zoom:50%;
 }
 
-TopNoLogin.contextTypes = {
-  router: React.PropTypes.object
-};
+.modalTitle{
+    margin-right: 10px;
+    width: 270px;
+    float:left;
+}
+
+.modelHistoryDialogBox{
+    display:block;
+    width: 300px;
+}
