@@ -19,7 +19,7 @@ import * as ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import auth from "./../auth/auth";
 import $ from 'jquery';
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/modelHistory.css';
 import { ScatterPlot } from 'react-d3-components'
 import TestHistoryRecordLine from './testHistoryRecordLine';
 
@@ -194,7 +194,7 @@ export default class ModelHistoryDialogWithSearch extends React.Component<Props,
   render() {
     return <div>
              <Modal contentLabel="Model History" isOpen={ this.state.modalIsOpen } onAfterOpen={ this.afterOpenModal } style={ customStyles } ref="modal">
-               <div className={ styles.nodePropertyViewTitle }>
+               <div className={ styles.modelHistoryDialogBox }>
                  <h2 ref="subtitle"><div className={ styles.modalTitle }></div><div onClick={ this.closeModal } className={ styles.closeButton }><img src="../icon/mono_icons/stop32.png" className={ styles.icon }/></div></h2>
                </div>
                { this.state.plotTestHistory ? (<ScatterPlot data={ this.state.data } width={ 1000 } height={ 400 } tooltipHtml={ this.tooltipScatter } margin={ { top: 10, bottom: 50, left: 50, right: 20 } } xScale={ this.state.xScale }

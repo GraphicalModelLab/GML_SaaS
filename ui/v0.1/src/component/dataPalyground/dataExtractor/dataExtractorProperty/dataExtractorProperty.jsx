@@ -16,7 +16,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as styles from './../../../../css/structure.css';
+import * as styles from './../../../../css/propertySettingView.css';
 import $ from 'jquery';
 import ReactAutocomplete from 'react-autocomplete';
 

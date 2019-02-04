@@ -16,7 +16,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as styles from './../../../css/structure.css';
+import * as styles from './../../../css/dataPlayground.css';
 import auth from "./../../auth/auth";
 import Dropzone from 'react-dropzone';
 import $ from 'jquery';

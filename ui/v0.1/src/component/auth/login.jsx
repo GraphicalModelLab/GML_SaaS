@@ -17,7 +17,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
-import * as styles from './../../css/structure.css';
 import LoginModal from './loginModal';
 
 export default class login extends React.Component {

@@ -16,7 +16,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/popupMessage.css';
 
 export default class PopupMessage extends React.Component {
   constructor(props) {

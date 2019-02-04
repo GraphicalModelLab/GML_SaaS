@@ -16,7 +16,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/socialConnect.css';
 import auth from "./../auth/auth";
 import $ from 'jquery';
 import Loading from './../loader/loading';
@@ -200,7 +200,7 @@ export default class SocialConnect extends React.Component<Props, {}> {
     return (
       <div>
         <div>
-          <div className={ styles.accountRoleChangeTitle }> Connect to Social Data Source </div>
+          <div> Connect to Social Data Source </div>
           <div className={ styles.socialConnectionBody }>
             <div className={ styles.socialConnectionRecord }>
               <img onClick={ this.disconnectFacebook } src="./../icon/mono_icons/minus32.png" className={ styles.socialConnectionDisconnectIcon } />

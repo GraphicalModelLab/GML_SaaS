@@ -54,7 +54,7 @@ object Dependencies {
   // Scraping
   val scala_scraping_ruippeixotog = "net.ruippeixotog" %% "scala-scraper" % "1.0.0"
 
-  val scala_scraping = Seq(
+  val scalaScrapingDependencies = Seq(
     scala_scraping_ruippeixotog
   )
 

@@ -18,7 +18,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import { StickyContainer, Sticky } from 'react-sticky';
-import * as styles from './../../css/structure.css';
+import * as styles from './../../css/app.css';
 import auth from "./../../component/auth/auth";
 
 export default class App extends React.Component<Props, {}> {

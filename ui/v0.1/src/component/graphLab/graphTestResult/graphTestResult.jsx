@@ -17,7 +17,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import * as styles from './../../../css/structure.css';
+import * as styles from './../../../css/graphLab.css';
 
 const customStyles = {
   content: {
@@ -67,20 +67,20 @@ export default class GraphTestResult extends React.Component<Props, {}> {
   render() {
     return <div>
              <Modal contentLabel="Model Property" isOpen={ this.state.modalIsOpen } onAfterOpen={ this.afterOpenModal } style={ customStyles } ref="modal">
-               <div className={ styles.saveModelViewTitle }>
+               <div className={ styles.modalTitleBox }>
                  <h2 ref="subtitle"><div className={ styles.modalTitle }>Test Result</div></h2>
                  <div onClick={ this.closeModal } className={ styles.closeButtonGraphSaveView }><img src="../icon/mono_icons/stop32.png" className={ styles.icon } /></div>
                </div>
-               <div className={ styles.saveModelViewContent } ref="content">
-                 <div className={ styles.saveProp }>
-                   <div className={ styles.savePropName }>Accuracy</div>
-                   <div className={ styles.savePropValue }>
+               <div className={ styles.testResultlViewContent } ref="content">
+                 <div className={ styles.testResultProp }>
+                   <div className={ styles.testResultPropName }>Accuracy</div>
+                   <div className={ styles.testResultPropValue }>
                      { this.state.accuracy }
                    </div>
                  </div>
-                 <div className={ styles.saveProp }>
-                   <div className={ styles.savePropName }>Evaluation Method </div>
-                   <div className={ styles.savePropValue }>
+                 <div className={ styles.testResultProp }>
+                   <div className={ styles.testResultPropName }>Evaluation Method </div>
+                   <div className={ styles.testResultPropValue }>
                      { this.state.evaluation_method }
                    </div>
                  </div>
