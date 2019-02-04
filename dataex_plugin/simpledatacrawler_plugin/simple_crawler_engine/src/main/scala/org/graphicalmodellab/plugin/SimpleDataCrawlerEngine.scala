@@ -98,16 +98,19 @@ class SimpleDataCrawlerEngine extends DataCrawlerEngine{
 
           val scrapedLinkQuery = body(headerIndexMap.get(sourceColumn).get)
 
-          var bodyString: String = null
+          var bodyString: String = ""
           if(queryCache.exists(_._1 == scrapedLinkQuery)){
             println("Found the same one in the query Cache:"+scrapedLinkQuery);
             bodyString = queryCache.find(_._1 == scrapedLinkQuery).get._2
           }else {
             println("Could not Found the same one in the query Cache:"+scrapedLinkQuery);
             println(queryCache.map((pair:(String,String)) => pair._1).toList)
-            val scrapedLink = searchEngine.process(companyid,userid,scrapedLinkQuery)(0)
-            val jsoupBrowser = JsoupBrowser()
-            bodyString = jsoupBrowser.parseString(httpClient.getRawHtml(scrapedLink)) >> allText("body");
+            val scrapedLinks = searchEngine.process(companyid,userid,scrapedLinkQuery)
+
+            if(scrapedLinks.size > 0) {
+              val jsoupBrowser = JsoupBrowser()
+              bodyString = jsoupBrowser.parseString(httpClient.getRawHtml(scrapedLinks(0))) >> allText("body");
+            }
 
             println("cachelimit:"+queryCacheLimit)
             if(queryCachePivot >= queryCacheLimit) {
@@ -122,9 +125,15 @@ class SimpleDataCrawlerEngine extends DataCrawlerEngine{
 
           newColumns.foreach{
             newColumn =>
-
-              val newColumnData = scrapingEngine.processContent(companyid,userid,bodyString,newColumn.newColumnQuery)
-
+              var newColumnData = ""
+              try {
+                newColumnData = scrapingEngine.processContent(companyid, userid, bodyString, newColumn.newColumnQuery)
+              }catch{
+                case e: Exception =>
+                  println("fail to scrape the content")
+                  println("content : "+bodyString)
+                  println("query : "+newColumn.newColumnQuery)
+              }
               newLine.append(",")
               newLine.append(newColumnData);
           }
