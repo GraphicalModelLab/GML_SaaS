@@ -29,10 +29,19 @@ object Dependencies {
   val scalaj = "org.scalaj" %% "scalaj-http" % "1.1.5"
   val netty = "io.netty" % "netty-transport-native-epoll" % "4.1.3.Final" classifier "linux-x86_64"
 
+
+  // Scala Play Test, https://github.com/playframework/scalatestplus-play#releases
+  val scalatest = "org.scalatest" %% "scalatest" % "3.0.0" % "test"
+  val scalatestplus =  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.1" % "test"
+  val mockitoCore = "org.mockito" % "mockito-core" % "2.1.0" % "test"
+
   val baseDependencies = Seq(
     jettison,
     scalaj,
-    netty
+    netty,
+    scalatest,
+    scalatestplus,
+    mockitoCore
   )
 
   // Graphical Model Lab API

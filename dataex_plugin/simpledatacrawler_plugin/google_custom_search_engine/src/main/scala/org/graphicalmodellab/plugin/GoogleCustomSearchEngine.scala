@@ -50,6 +50,26 @@ class GoogleCustomSearchEngine extends DataCrawlerSearchEngine{
 
         return List[String](firstItem.getString("link"))
       }
+    }else if(json.has("spelling")){
+      val encodedRewriteQuery = URLEncoder.encode(json.getJSONObject("spelling").getString("correctedQuery"),"UTF-8")
+      println("rewrite call to "+s"""https://www.googleapis.com/customsearch/v1?q=$encodedRewriteQuery&cx=$cx&key=$key""")
+      val rewriteContent = httpClient.getJson(
+        s"""https://www.googleapis.com/customsearch/v1?q=$encodedQuery&cx=$cx&key=$key"""
+      )
+      val rewriteJSON = new JSONObject(rewriteContent)
+      if(rewriteJSON.has("items")) {
+        val items = rewriteJSON.getJSONArray("items")
+        if (items.length() > 0) {
+          val firstItem = items.getJSONObject(0);
+
+          return List[String](firstItem.getString("link"))
+        }
+      }
+
+      if(rewriteJSON.has("error")){
+        println("Error Occured")
+        println(json)
+      }
     }
 
     if(json.has("error")){
