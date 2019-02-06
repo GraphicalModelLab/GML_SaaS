@@ -33,7 +33,7 @@ export default class Circle extends React.Component<Props, {}> {
         var r_diff = 0; // This is a margin created by putting arrow mark of the edge. If Undirected edge, this value should be 0.
 
         if(this.props.isDirected) r_diff = 8;
-        console.log(this.props.label1+"->"+this.props.label2+" : "+this.props.isDirected)
+        
         var new_x_y_2 = this.calculateCircleEdgePoint({
           x: this.props.x1,
           y: this.props.y1
