@@ -60,6 +60,9 @@ lazy val dataex_plugin_crawler = RootProject(file("../dataex_plugin/simpledatacr
 lazy val dataex_plugin_extractor = RootProject(file("../dataex_plugin/etl_plugin/"))
 lazy val dataex_plugin_htmlconverter = RootProject(file("../dataex_plugin/htmlconverter_plugin/"))
 
+lazy val model_plugin_generative = RootProject(file("../model_plugin/generative_plugin/"))
+
+
 lazy val gml = project.in(file("gml"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= playDependencies)
@@ -97,6 +100,7 @@ lazy val gml = project.in(file("gml"))
 //  .dependsOn(dataex_plugin_crawler) // Add this dependency when developing simpledatacrawler_plugin
 //  .dependsOn(dataex_plugin_extractor) // Add this dependency when developing etl_plugin
 //  .dependsOn(dataex_plugin_htmlconverter) // Add this dependency when developing htmlconverter_plugin
+//  .dependsOn(model_plugin_generative) // Add this dependency when developing generative_plugin model
 
 lazy val gml_api = project.in(file("gml_api"))
   .settings(commonSettings: _*)
