@@ -23,6 +23,7 @@ import $ from 'jquery';
 import Loading from './../loader/loading';
 import DataCrawlerViaSearchEngine from './dataCrawlerViaSearchEngine/dataCrawlerViaSearchEngine';
 import DataExtractor from './dataExtractor/dataExtractor';
+import HtmlConverter from './htmlConverter/htmlConverter';
 
 export default class DataPalyground extends React.Component<Props, {}> {
 
@@ -44,6 +45,7 @@ export default class DataPalyground extends React.Component<Props, {}> {
     this.showDataExploration = this.showDataExploration.bind(this);
     this.showDataCrawler = this.showDataCrawler.bind(this);
     this.showDataExtractor = this.showDataExtractor.bind(this);
+    this.showHtmlConverter = this.showHtmlConverter.bind(this);
   }
 
   showDataExploration(){
@@ -64,6 +66,12 @@ export default class DataPalyground extends React.Component<Props, {}> {
     });
   }
 
+  showHtmlConverter(){
+    this.setState({
+          currentPanel: "htmlconverter"
+    });
+  }
+
   componentDidMount() {
   }
 
@@ -74,11 +82,14 @@ export default class DataPalyground extends React.Component<Props, {}> {
             <div className={this.state.currentPanel == "exploration" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem } onClick={ this.showDataExploration }>
                 Data Exploration
             </div>
+            <div className={this.state.currentPanel == "extractor" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem } onClick={ this.showDataExtractor }>
+                Data Extractor
+            </div>
             <div className={this.state.currentPanel == "crawler" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem } onClick={ this.showDataCrawler }>
                 Data Crawler via Search Engine
             </div>
-            <div className={this.state.currentPanel == "extractor" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem } onClick={ this.showDataExtractor }>
-                Data Extractor
+            <div className={this.state.currentPanel == "htmlconverter" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem } onClick={ this.showHtmlConverter }>
+                Html Converter
             </div>
         </div>
         <div className={styles.playGroundBody}>
@@ -88,7 +99,11 @@ export default class DataPalyground extends React.Component<Props, {}> {
                 this.state.currentPanel == "crawler" ? (
                 <DataCrawlerViaSearchEngine/>
                 ):(
-                   <DataExtractor/>
+                   this.state.currentPanel == "extractor" ? (
+                    <DataCrawlerViaSearchEngine/>
+                   ):(
+                    <HtmlConverter/>
+                   )
                 )
             )
             }

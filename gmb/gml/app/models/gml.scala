@@ -466,5 +466,44 @@ package object gml {
     ).filter(_._2 != JsNull))
   }
 
+  // 6. get list of available data crawler scraping engine
+  case class getListOfAvailableHtmlConverterEngineRequest(code: Int, userid:String, companyid: String)
+  case class getListOfAvailableHtmlConverterEngineResponse(code: Int, converterIds: List[String], converterParams: Map[String,List[String]])
+
+  implicit lazy val getListOfAvailableHtmlConverterEngineRequestReads: Reads[getListOfAvailableHtmlConverterEngineRequest] = Reads[getListOfAvailableHtmlConverterEngineRequest] {
+    json => JsSuccess(getListOfAvailableHtmlConverterEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String]
+    ))
+  }
+
+  implicit lazy val getListOfAvailableHtmlConverterEngineResponseWrites: Writes[getListOfAvailableHtmlConverterEngineResponse] = Writes[getListOfAvailableHtmlConverterEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "converterEngineIds" -> Json.toJson(o.converterIds),
+      "converterEngineParamMap" -> Json.toJson(o.converterParams)
+    ).filter(_._2 != JsNull))
+  }
+
+  //
+  case class executeHtmlConverterEngineRequest(code: Int, userid:String, companyid: String, converterId: String, content: String)
+  case class executeHtmlConverterEngineResponse(code: Int)
+
+  implicit lazy val executeHtmlConverterRequestReads: Reads[executeHtmlConverterEngineRequest] = Reads[executeHtmlConverterEngineRequest] {
+    json => JsSuccess(executeHtmlConverterEngineRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String],
+      (json \ "converterId").as[String],
+      (json \ "content").as[String]
+    ))
+  }
+
+  implicit lazy val executeHtmlConverterEngineWrites: Writes[executeHtmlConverterEngineResponse] = Writes[executeHtmlConverterEngineResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code)
+    ).filter(_._2 != JsNull))
+  }
 
 }

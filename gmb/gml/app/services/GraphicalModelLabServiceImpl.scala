@@ -46,6 +46,9 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
   var listOfDataCrawlerEngines: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
   var dataCrawlerEngineMap: mutable.Map[String,DataCrawlerEngine] = mutable.Map[String,DataCrawlerEngine]()
 
+  var listOfHtmlConverterEngines: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
+  var htmlConverterEngineMap: mutable.Map[String,HtmlConverterEngine] = mutable.Map[String,HtmlConverterEngine]()
+
   def helloworld(): String = "hello impl"
 
   def init() {
@@ -124,6 +127,18 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
       dataCrawlerEngineMap.put(getExtractorId(w.getDataCrawlerEngineName),w)
     }
     listOfDataCrawlerEngines = crawlerEngineList
+
+    println("Loading/Initialize Available Data Crawler Engines..")
+    var htmlConverterEngineList = mutable.ListBuffer[String]()
+    val htmlConverterEngines = (ServiceLoader load classOf[org.graphicalmodellab.api.HtmlConverterEngine]).asScala
+
+    for (w <- htmlConverterEngines) {
+      println("Loading Html Converter Engine : "+w.getHtmlConverterEngineName+"..")
+      htmlConverterEngineList += w.getHtmlConverterEngineName
+      w.init()
+      htmlConverterEngineMap.put(getExtractorId(w.getHtmlConverterEngineName),w)
+    }
+    listOfHtmlConverterEngines = htmlConverterEngineList
 
     return warmupResponse(Status.OK)
   }
@@ -456,5 +471,35 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
 
 
     return executeDataCrawlerEngineResponse(Status.INTERNAL_SERVER_ERROR)
+  }
+
+  def getListOfHtmlConverterEngine(): getListOfAvailableHtmlConverterEngineResponse={
+    val crawlerEngineParamMap = collection.mutable.Map[String,List[String]]()
+    return getListOfAvailableHtmlConverterEngineResponse(Status.OK,listOfHtmlConverterEngines.toList,crawlerEngineParamMap.toMap)
+  }
+
+  def executeHtmlConverterEngine(token:String, companyId:String,request: Option[executeHtmlConverterEngineRequest]): executeHtmlConverterEngineResponse={
+
+    request match {
+      case Some(request)=>
+        if(authDBClient.isValidToken(companyId,request.userid,token)) {
+
+          val htmlConverterEngine: HtmlConverterEngine = htmlConverterEngineMap.get(request.converterId).get
+          htmlConverterEngine.convert(
+            companyId,
+            request.userid,
+            request.content
+          )
+
+          return executeHtmlConverterEngineResponse(Status.OK)
+        }else{
+          return executeHtmlConverterEngineResponse(Status.UNAUTHORIZED)
+        }
+      case None =>
+        println("No request")
+    }
+
+
+    return executeHtmlConverterEngineResponse(Status.INTERNAL_SERVER_ERROR)
   }
 }

@@ -62378,6 +62378,10 @@
 	
 	var _dataExtractor2 = _interopRequireDefault(_dataExtractor);
 	
+	var _htmlConverter = __webpack_require__(607);
+	
+	var _htmlConverter2 = _interopRequireDefault(_htmlConverter);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -62425,6 +62429,7 @@
 	    _this.showDataExploration = _this.showDataExploration.bind(_this);
 	    _this.showDataCrawler = _this.showDataCrawler.bind(_this);
 	    _this.showDataExtractor = _this.showDataExtractor.bind(_this);
+	    _this.showHtmlConverter = _this.showHtmlConverter.bind(_this);
 	    return _this;
 	  }
 	
@@ -62450,6 +62455,13 @@
 	      });
 	    }
 	  }, {
+	    key: 'showHtmlConverter',
+	    value: function showHtmlConverter() {
+	      this.setState({
+	        currentPanel: "htmlconverter"
+	      });
+	    }
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
@@ -62468,19 +62480,24 @@
 	          ),
 	          React.createElement(
 	            'div',
+	            { className: this.state.currentPanel == "extractor" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem, onClick: this.showDataExtractor },
+	            'Data Extractor'
+	          ),
+	          React.createElement(
+	            'div',
 	            { className: this.state.currentPanel == "crawler" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem, onClick: this.showDataCrawler },
 	            'Data Crawler via Search Engine'
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: this.state.currentPanel == "extractor" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem, onClick: this.showDataExtractor },
-	            'Data Extractor'
+	            { className: this.state.currentPanel == "htmlconverter" ? styles.playGroundMenuItemChosen : styles.playGroundMenuItem, onClick: this.showHtmlConverter },
+	            'Html Converter'
 	          )
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: styles.playGroundBody },
-	          this.state.currentPanel == "exploration" ? React.createElement('div', null) : this.state.currentPanel == "crawler" ? React.createElement(_dataCrawlerViaSearchEngine2.default, null) : React.createElement(_dataExtractor2.default, null)
+	          this.state.currentPanel == "exploration" ? React.createElement('div', null) : this.state.currentPanel == "crawler" ? React.createElement(_dataCrawlerViaSearchEngine2.default, null) : this.state.currentPanel == "extractor" ? React.createElement(_dataCrawlerViaSearchEngine2.default, null) : React.createElement(_htmlConverter2.default, null)
 	        ),
 	        React.createElement(_loading2.default, { ref: 'loading' })
 	      );
@@ -62527,7 +62544,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/**\n * Copyright (C) 2018 Mao Ito\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *     http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n\n.aS3BYpEiwpesPE-qzFEfk{\n    paddinig-top:50px;\n    margin-right:5px;\n    zoom:50%;\n}\n._1lq6BMIjZ3LT1nULCMfJRb{\n    paddinig-top:50px;\n    margin-right:5px;\n    zoom:50%;\n    background: white;\n}\n\n._3d_xinVatpVmaYMgctUDd3 {\n  position:absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  margin: auto;\n\n  z-index:20;\n}\n\n\n._3d_xinVatpVmaYMgctUDd3{\n    position:absolute;\n\n    z-index:10px;\n\n    height:100%;\n    width:100%;\n\n    background-color:black;\n}\n\n._10kk95XyXNlgzU-uRtwzki{\n  width : 35px;\n  height : 40px;\n  float: left;\n  padding-left: 5px;\n  margin-right: 5px;\n  background-color: #ffffff;\n}\n._10kk95XyXNlgzU-uRtwzki:hover {\n  background:#808080;\n  border-color:#808080;\n}\n.L7GDbTV6SvUXnJc2rQnN5{\n    display:block;\n    clear: both;\n    width: 300px;\n    height: 30px;\n}\n\n._3_uozmq-Vk_RqFNO79-5RZ{\n    display:block;\n    width: 300px;\n}\n\n._2fUJ1l9d8Oi1uYL7-egICY{\n    margin-top: 30px;\n    display:block;\n}\n\n._1FGXGwWOsKDTWVRchYqOBy{\n    margin-top: 20px;\n    display:block;\n}\n\n._3dDcY_3lyvMQAbjLRTPv9A{\n    display:block;\n}\n\n._3-FWhx1HqON7-3HlTzz1af {\n    margin-top: 10px;\n    margin-left:215px;\n    position: relative;\n    display: inline-block;\n    padding: 0.25em 0.5em;\n    text-decoration: none;\n    color: #FFF;\n    background: #fd9535;/*背景色*/\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\n    border-radius: 4px;/*角の丸み*/\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\n    font-weight: bold;\n}\n\n._3-FWhx1HqON7-3HlTzz1af:active {\n    border-bottom: solid 2px #fd9535;\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\n}\n\n.zeS_fLsAJasDkMEj3dT6e{\n   display: block;\n   width: 300px;\n   margin-bottom: 10px;\n}\n\n._1VfBGhtGjIabtlmg-HwnGe{\n   width: 260px;\n}\n\n._1WdyiGiHlSSEX9KpgG7kcN{\n   width: 260px;\n}\n\n._1uxL1XTYcbwciSRupIoLh9{\n    float:left;\n   width: 100px;\n  text-align: center;\n}\n\n._23auly6K9pYNbxxkepYzfL{\n   width: 180px;\n  text-align: center;\n}\n\n.DZl-uCGPd5yk6gRrWETuT{\n\n    margin-left: auto;\n    margin-right: auto;\n}\n._3-CtcUDCGprZ7ytn_qUBoA{\n    float: left;\n}\n._1XqMV1nU_A8IN945y9errY{\n    float: left;\n\n}\n._1ubDPdYhc7cGXp7AsDFo0T{\n    float: left;\n}\n._3Mg-yAWoN5pm8U8HYT5nZL{\n\n}\n\n._27UerCzL2lBNdwuABarTn8{\n}\n\n._2wURG-fZelb4JaF7Tfd2CT{\n    display: block;\n    margin: 0 auto;\n}\n._3iq2WuVfQnrXn8pJsiTD_p{\n  position:absolute;\n  top: 77px;\n  left: 7px;\n  right: 0px;\n  bottom: 0px;\n\n  z-index: 50;\n\n  background-color: rgba(255, 255, 255, 0.7);\n\n  padding: 2 2 2 2;\n  font-size: 15px;\n  height: 15px;\n  width: 1000px;\n}\n\n._3cA2y6F-YsNjQHl_zNxIbG{\n  position:absolute;\n  top: 77px;\n  left: 7px;\n  right: 0px;\n  bottom: 0px;\n\n  z-index: 50;\n\n  background-color: rgba(255, 255, 255, 0.7);\n\n  padding: 2 2 2 2;\n  font-size: 15px;\n  height: 15px;\n  width: 1000px;\n}\n\n._33tpbdMBG9A3VdtWQ5wQts{\n  position:absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n\n  z-index:20;\n  margin: auto;\n\n  background-color: #ffffff;\n\n  padding: 2 2 2 2;\n  font-size: 30px;\n  text-align: center;\n  height: 35px;\n}\n\n.h0c4Ve6e9TDRnaqGCmUg5{\n  position:absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n\n  z-index:20;\n  margin: auto;\n\n  background-color: yellow;\n\n  padding: 2 2 2 2;\n  font-size: 30px;\n  text-align: center;\n  height: 35px;\n}\n.bxw5iWPwY3jhpRJeGhhFI{\n    clear: both;\n    display: block;\n}\n\n._2Cjkhy7pbH5u_gngt3jtVm{\n\n  font-size: 20px;\n\n  clear: both;\n  width: 800px;\n  margin-left: 20px;\n  margin-bottom: 30px;\n  height: 30px;\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\n}\n\n._2Cjkhy7pbH5u_gngt3jtVm:hover{\n  background: linear-gradient(transparent 70%, #3399FF 70%);\n}\n\n._20Hm119bitrngD6x5pFvPd{\n\n  font-size: 20px;\n\n  clear: both;\n  width: 900px;\n  margin-left: 20px;\n  margin-bottom: 30px;\n  height: 30px;\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\n}\n\n._20Hm119bitrngD6x5pFvPd:hover{\n  background: linear-gradient(transparent 70%, #3399FF 70%);\n}\n\n._3Jz8SPxXV21E5kBpYY4cGV{\n    float:left;\n    zoom:10%;\n    margin-right: 40px;\n}\n.fHif0OyPutIxZscVdXbNX{\n    float:right;\n    zoom:40%;\n}\n._3btPovXZYDzSZcz-BBQNBY{\n    float:left;\n    zoom:10%;\n}\n\n._1hyG2lcc3NYx3_RrRzV5MV{\n  width: 200px;\n  float: left;\n}\n\n._1bF16TcOCo8HTA1iWHdqc4{\n\n  width: 100px;\n  float: left;\n}\n\n._2XGQqcIYcXapUejXLPYTr{\n  width: 180px;\n  float: left;\n\n}\n\n._2N5aQ2_B7yisNp0-qL2y5b{\n\n   width: 200px;\n   float: left;\n}\n._12H40opWGCDO0KBMQX6jRi{\n\n  width: 100px;\n  float: left;\n}\n\n.tB1360CmcgRn91Yt1qP2Y{\n\n  width: 200px;\n  float: left;\n}\n\n._39ghW0vLY6WKKp4ZPzKLXD{\n  font-size: 30px;\n\n  text-align: center;\n}\n\n.HxSKVCBijpruNyqVYA0p{\n    margin-top: 20px;\n}\n\n._2D3wAJ5_9DVOxdBQXYPZNT{\n\n  font-size: 20px;\n\n  clear: both;\n  width: 600px;\n  margin-left: 20px;\n  margin-bottom: 30px;\n  height: 30px;\n}\n\n._2D3wAJ5_9DVOxdBQXYPZNT:hover{\n}\n\n\n._2aDOFQ6JP4fxegbhRGWFN{\n    float:left;\n\n    width: 200px;\n}\n\n._2aDOFQ6JP4fxegbhRGWFN:hover {\n\topacity: 0.5 ;\n}\n\n.v2yzfmw_57-YlUIYSbtWB{\n    paddinig-top:50px;\n    margin-top: 10px;\n    margin-right:5px;\n    zoom:60%;\n}\n\n._1iPyLrod_iUZdZZxzed2c8{\n    height: 400px;\n}\n\n._38IGZTo_b4lZl2pZyNYsOC{\n    height: 500px;\n}\n\n\n._1nnvNGd_XEUcr0TBaSUjZE{\n   font-size: 20px;\n}\n\n.bsSahDXuS231KYzz2WD1Z{\n   font-size: 20px;\n}\n\n._26KNRNwCv9hnlxeP00Jzne{\n    fill-opacity: .1;\n}\n\n.gQu1lK8gVHADET4Ln5_W3{\n   margin-top: 20px;\n}\n._3It7c6AyVCsgqBmLOQS_2R{\n   width: 800px;\n   height: 200px;\n\n}\n._3dXJg72Q08ZgYExA1XTHRP{\n   width: 800px;\n   height: 200px;\n}\n\n.HV9KuIqCqfaecmmpNGTZY table{\n   height: 150px;\n}\n\n.HV9KuIqCqfaecmmpNGTZY th{\n   border-bottom: 3px solid blue;\n   background: #b8d1f3;\n   height: 30px;\n   width: 100px;\n}\n\n.HV9KuIqCqfaecmmpNGTZY td{\n   border-bottom: 1px solid blue;\n   height: 30px;\n   width: 100px;\n   background: #dae5f4;\n}\n\n._29kMlHkjfcxfZrNV1i72C9{\n    display: block;\n    clear: both;\n    width: 1000px;\n    height: 20px;\n    text-decoration: underline;\n    margin-bottom: 10px;\n}\n.GoYbiojspmZnTkNkdDwfH{\n    float: left;\n    padding: 10px 50px 5px 10px;\n    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;\n    background-color: #000088;\n    color: white;\n}\n.GoYbiojspmZnTkNkdDwfH:hover {\n    background-color: #DAA520;\n}\n._3KJS14qF-QUbjhBaDMEd75{\n    float: left;\n    padding: 10px 50px 5px 10px;\n    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;\n    background-color: #DAA520;\n    color: white;\n}\n._3KJS14qF-QUbjhBaDMEd75:hover {\n    background-color: #DAA520;\n}\n\n._3xq_K4mNuP_l7i7fwGjFPn{\n    clear: both;\n\n    margin-top: 30px;\n}\n._3SGAzp6-eht10zmjrXUit9{\n    float:right;\n}\n._1xiIJEE5VCJTe8U3vMmn8k{\n    float:left;\n    width: 100px;\n}\n\n._1lDS9K32e1YghP1PSdLGRq{\n    paddinig-top:50px;\n    margin-right:5px;\n    zoom:35%;\n    background: white;\n}\n\n\n._5e9RoEdc4vcm5si1VRZ1g{\n    height: 200px;\n}\n\n.wUSd9dX5ft9jx_kTCaLZj{\n    height: 50px;\n    width:50px;\n}\n\n/** CSS for Data Extractor**/\n._38IGZTo_b4lZl2pZyNYsOC{\n    height: 500px;\n}\n.p-hnXI2OmKTRT5330AiIp{\n    background-color: #99cc00;\n    height: 90px;\n    width: 150px;\n    font-size: 20px;\n    text-align: center;\n    padding-top: 60px;\n    border-radius: 50%;\n    margin-right: 10px;\n    float:left;\n}\n\n.p-hnXI2OmKTRT5330AiIp:hover {\n    background:#808080;\n    border-color:#808080;\n}", ""]);
+	exports.push([module.id, "/**\n * Copyright (C) 2018 Mao Ito\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *     http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n\n.aS3BYpEiwpesPE-qzFEfk{\n    paddinig-top:50px;\n    margin-right:5px;\n    zoom:50%;\n}\n._1lq6BMIjZ3LT1nULCMfJRb{\n    paddinig-top:50px;\n    margin-right:5px;\n    zoom:50%;\n    background: white;\n}\n\n._3d_xinVatpVmaYMgctUDd3 {\n  position:absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  margin: auto;\n\n  z-index:20;\n}\n\n\n._3d_xinVatpVmaYMgctUDd3{\n    position:absolute;\n\n    z-index:10px;\n\n    height:100%;\n    width:100%;\n\n    background-color:black;\n}\n\n._10kk95XyXNlgzU-uRtwzki{\n  width : 35px;\n  height : 40px;\n  float: left;\n  padding-left: 5px;\n  margin-right: 5px;\n  background-color: #ffffff;\n}\n._10kk95XyXNlgzU-uRtwzki:hover {\n  background:#808080;\n  border-color:#808080;\n}\n.L7GDbTV6SvUXnJc2rQnN5{\n    display:block;\n    clear: both;\n    width: 300px;\n    height: 30px;\n}\n\n._3_uozmq-Vk_RqFNO79-5RZ{\n    display:block;\n    width: 300px;\n}\n\n._2fUJ1l9d8Oi1uYL7-egICY{\n    margin-top: 30px;\n    display:block;\n}\n\n._1FGXGwWOsKDTWVRchYqOBy{\n    margin-top: 20px;\n    display:block;\n}\n\n._3dDcY_3lyvMQAbjLRTPv9A{\n    display:block;\n}\n\n._3-FWhx1HqON7-3HlTzz1af {\n    margin-top: 10px;\n    margin-left:215px;\n    position: relative;\n    display: inline-block;\n    padding: 0.25em 0.5em;\n    text-decoration: none;\n    color: #FFF;\n    background: #fd9535;/*背景色*/\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\n    border-radius: 4px;/*角の丸み*/\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\n    font-weight: bold;\n}\n\n._3-FWhx1HqON7-3HlTzz1af:active {\n    border-bottom: solid 2px #fd9535;\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\n}\n\n.zeS_fLsAJasDkMEj3dT6e{\n   display: block;\n   width: 300px;\n   margin-bottom: 10px;\n}\n\n._1VfBGhtGjIabtlmg-HwnGe{\n   width: 260px;\n}\n\n._1WdyiGiHlSSEX9KpgG7kcN{\n   width: 260px;\n}\n\n._1uxL1XTYcbwciSRupIoLh9{\n    float:left;\n   width: 100px;\n  text-align: center;\n}\n\n._23auly6K9pYNbxxkepYzfL{\n   width: 180px;\n  text-align: center;\n}\n\n.DZl-uCGPd5yk6gRrWETuT{\n\n    margin-left: auto;\n    margin-right: auto;\n}\n._3-CtcUDCGprZ7ytn_qUBoA{\n    float: left;\n}\n._1XqMV1nU_A8IN945y9errY{\n    float: left;\n\n}\n._1ubDPdYhc7cGXp7AsDFo0T{\n    float: left;\n}\n._3Mg-yAWoN5pm8U8HYT5nZL{\n\n}\n\n._27UerCzL2lBNdwuABarTn8{\n}\n\n._2wURG-fZelb4JaF7Tfd2CT{\n    display: block;\n    margin: 0 auto;\n}\n._3iq2WuVfQnrXn8pJsiTD_p{\n  position:absolute;\n  top: 77px;\n  left: 7px;\n  right: 0px;\n  bottom: 0px;\n\n  z-index: 50;\n\n  background-color: rgba(255, 255, 255, 0.7);\n\n  padding: 2 2 2 2;\n  font-size: 15px;\n  height: 15px;\n  width: 1000px;\n}\n\n._3cA2y6F-YsNjQHl_zNxIbG{\n  position:absolute;\n  top: 77px;\n  left: 7px;\n  right: 0px;\n  bottom: 0px;\n\n  z-index: 50;\n\n  background-color: rgba(255, 255, 255, 0.7);\n\n  padding: 2 2 2 2;\n  font-size: 15px;\n  height: 15px;\n  width: 1000px;\n}\n\n._33tpbdMBG9A3VdtWQ5wQts{\n  position:absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n\n  z-index:20;\n  margin: auto;\n\n  background-color: #ffffff;\n\n  padding: 2 2 2 2;\n  font-size: 30px;\n  text-align: center;\n  height: 35px;\n}\n\n.h0c4Ve6e9TDRnaqGCmUg5{\n  position:absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n\n  z-index:20;\n  margin: auto;\n\n  background-color: yellow;\n\n  padding: 2 2 2 2;\n  font-size: 30px;\n  text-align: center;\n  height: 35px;\n}\n.bxw5iWPwY3jhpRJeGhhFI{\n    clear: both;\n    display: block;\n}\n\n._2Cjkhy7pbH5u_gngt3jtVm{\n\n  font-size: 20px;\n\n  clear: both;\n  width: 800px;\n  margin-left: 20px;\n  margin-bottom: 30px;\n  height: 30px;\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\n}\n\n._2Cjkhy7pbH5u_gngt3jtVm:hover{\n  background: linear-gradient(transparent 70%, #3399FF 70%);\n}\n\n._20Hm119bitrngD6x5pFvPd{\n\n  font-size: 20px;\n\n  clear: both;\n  width: 900px;\n  margin-left: 20px;\n  margin-bottom: 30px;\n  height: 30px;\n  background: linear-gradient(transparent 70%, #ff99ab 70%);\n}\n\n._20Hm119bitrngD6x5pFvPd:hover{\n  background: linear-gradient(transparent 70%, #3399FF 70%);\n}\n\n._3Jz8SPxXV21E5kBpYY4cGV{\n    float:left;\n    zoom:10%;\n    margin-right: 40px;\n}\n.fHif0OyPutIxZscVdXbNX{\n    float:right;\n    zoom:40%;\n}\n._3btPovXZYDzSZcz-BBQNBY{\n    float:left;\n    zoom:10%;\n}\n\n._1hyG2lcc3NYx3_RrRzV5MV{\n  width: 200px;\n  float: left;\n}\n\n._1bF16TcOCo8HTA1iWHdqc4{\n\n  width: 100px;\n  float: left;\n}\n\n._2XGQqcIYcXapUejXLPYTr{\n  width: 180px;\n  float: left;\n\n}\n\n._2N5aQ2_B7yisNp0-qL2y5b{\n\n   width: 200px;\n   float: left;\n}\n._12H40opWGCDO0KBMQX6jRi{\n\n  width: 100px;\n  float: left;\n}\n\n.tB1360CmcgRn91Yt1qP2Y{\n\n  width: 200px;\n  float: left;\n}\n\n._39ghW0vLY6WKKp4ZPzKLXD{\n  font-size: 30px;\n\n  text-align: center;\n}\n\n.HxSKVCBijpruNyqVYA0p{\n    margin-top: 20px;\n}\n\n._2D3wAJ5_9DVOxdBQXYPZNT{\n\n  font-size: 20px;\n\n  clear: both;\n  width: 600px;\n  margin-left: 20px;\n  margin-bottom: 30px;\n  height: 30px;\n}\n\n._2D3wAJ5_9DVOxdBQXYPZNT:hover{\n}\n\n\n._2aDOFQ6JP4fxegbhRGWFN{\n    float:left;\n\n    width: 200px;\n}\n\n._2aDOFQ6JP4fxegbhRGWFN:hover {\n\topacity: 0.5 ;\n}\n\n.v2yzfmw_57-YlUIYSbtWB{\n    paddinig-top:50px;\n    margin-top: 10px;\n    margin-right:5px;\n    zoom:60%;\n}\n\n._1iPyLrod_iUZdZZxzed2c8{\n    height: 400px;\n}\n\n._38IGZTo_b4lZl2pZyNYsOC{\n    height: 500px;\n}\n\n\n._1nnvNGd_XEUcr0TBaSUjZE{\n   font-size: 20px;\n}\n\n.bsSahDXuS231KYzz2WD1Z{\n   font-size: 20px;\n}\n\n._26KNRNwCv9hnlxeP00Jzne{\n    fill-opacity: .1;\n}\n\n.gQu1lK8gVHADET4Ln5_W3{\n   margin-top: 20px;\n}\n._3It7c6AyVCsgqBmLOQS_2R{\n   width: 800px;\n   height: 200px;\n\n}\n._3dXJg72Q08ZgYExA1XTHRP{\n   width: 800px;\n   height: 200px;\n}\n\n.HV9KuIqCqfaecmmpNGTZY table{\n   height: 150px;\n}\n\n.HV9KuIqCqfaecmmpNGTZY th{\n   border-bottom: 3px solid blue;\n   background: #b8d1f3;\n   height: 30px;\n   width: 100px;\n}\n\n.HV9KuIqCqfaecmmpNGTZY td{\n   border-bottom: 1px solid blue;\n   height: 30px;\n   width: 100px;\n   background: #dae5f4;\n}\n\n._29kMlHkjfcxfZrNV1i72C9{\n    display: block;\n    clear: both;\n    width: 1000px;\n    height: 20px;\n    text-decoration: underline;\n    margin-bottom: 10px;\n}\n.GoYbiojspmZnTkNkdDwfH{\n    float: left;\n    padding: 10px 50px 5px 10px;\n    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;\n    background-color: #000088;\n    color: white;\n}\n.GoYbiojspmZnTkNkdDwfH:hover {\n    background-color: #DAA520;\n}\n._3KJS14qF-QUbjhBaDMEd75{\n    float: left;\n    padding: 10px 50px 5px 10px;\n    border-radius: 0px 100px 0px 0px / 0px 50px 0px 0px;\n    background-color: #DAA520;\n    color: white;\n}\n._3KJS14qF-QUbjhBaDMEd75:hover {\n    background-color: #DAA520;\n}\n\n._3xq_K4mNuP_l7i7fwGjFPn{\n    clear: both;\n\n    margin-top: 30px;\n}\n._3SGAzp6-eht10zmjrXUit9{\n    float:right;\n}\n._1xiIJEE5VCJTe8U3vMmn8k{\n    float:left;\n    width: 100px;\n}\n\n._1lDS9K32e1YghP1PSdLGRq{\n    paddinig-top:50px;\n    margin-right:5px;\n    zoom:35%;\n    background: white;\n}\n\n\n._5e9RoEdc4vcm5si1VRZ1g{\n    height: 200px;\n}\n\n.wUSd9dX5ft9jx_kTCaLZj{\n    height: 50px;\n    width:50px;\n}\n\n/** CSS for Data Extractor**/\n._38IGZTo_b4lZl2pZyNYsOC{\n    height: 500px;\n}\n.p-hnXI2OmKTRT5330AiIp{\n    background-color: #99cc00;\n    height: 90px;\n    width: 150px;\n    font-size: 20px;\n    text-align: center;\n    padding-top: 60px;\n    border-radius: 50%;\n    margin-right: 10px;\n    float:left;\n}\n\n.p-hnXI2OmKTRT5330AiIp:hover {\n    background:#808080;\n    border-color:#808080;\n}\n\n/** CSS for Html Converter**/\n._23R3LfGt344ROIcsgnClBK {\n    width: 500px;\n}\n._3TEDgFZqDUUhIbeK0OEjh5 {\n    margin-left: 5px;\n    margin-bottom: 5px;\n    position: relative;\n    display: inline-block;\n    padding: 0.25em 0.5em;\n    text-decoration: none;\n    color: #FFF;\n    background: #fd9535;/*背景色*/\n    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/\n    border-radius: 4px;/*角の丸み*/\n    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);\n    font-weight: bold;\n}\n\n._3TEDgFZqDUUhIbeK0OEjh5:active {\n    border-bottom: solid 2px #fd9535;\n    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);\n}", ""]);
 	
 	// exports
 	exports.locals = {
@@ -62592,7 +62609,9 @@
 		"searchIconDataCrawler": "_1lDS9K32e1YghP1PSdLGRq",
 		"dataCrawlerTrialBox": "_5e9RoEdc4vcm5si1VRZ1g",
 		"dataCrawlerTargetCSV": "wUSd9dX5ft9jx_kTCaLZj",
-		"extractorPanel": "p-hnXI2OmKTRT5330AiIp"
+		"extractorPanel": "p-hnXI2OmKTRT5330AiIp",
+		"htmlConverterBox": "_23R3LfGt344ROIcsgnClBK",
+		"htmlConverterExecuteButtonBox": "_3TEDgFZqDUUhIbeK0OEjh5"
 	};
 
 /***/ }),
@@ -65255,7 +65274,7 @@
 	
 	      var self = this;
 	      _jquery2.default.ajax({
-	        url: "../commonModules/php/modules/GML.php/gml/data/extractor/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
+	        url: "../commonModules/php/modules/GML.php/gml/data/htmlconverterengine/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
 	        type: "get",
 	        headers: {
 	          Authorization: "Bearer " + _auth2.default.getToken()
@@ -81536,6 +81555,201 @@
 	}(React.Component);
 	
 	exports.default = GraphColorView;
+
+/***/ }),
+/* 607 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(37);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _dataPlayground = __webpack_require__(352);
+	
+	var styles = _interopRequireWildcard(_dataPlayground);
+	
+	var _auth = __webpack_require__(264);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	var _reactDropzone = __webpack_require__(280);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
+	var _jquery = __webpack_require__(265);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _loading = __webpack_require__(270);
+	
+	var _loading2 = _interopRequireDefault(_loading);
+	
+	var _popupMessage = __webpack_require__(284);
+	
+	var _popupMessage2 = _interopRequireDefault(_popupMessage);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2018 Mao Ito
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the Apache License, Version 2.0 (the "License");
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * you may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You may obtain a copy of the License at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *     http://www.apache.org/licenses/LICENSE-2.0
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Unless required by applicable law or agreed to in writing, software
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * distributed under the License is distributed on an "AS IS" BASIS,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the License for the specific language governing permissions and
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var HtmlConverter = function (_React$Component) {
+	  _inherits(HtmlConverter, _React$Component);
+	
+	  function HtmlConverter(props) {
+	    _classCallCheck(this, HtmlConverter);
+	
+	    var _this = _possibleConstructorReturn(this, (HtmlConverter.__proto__ || Object.getPrototypeOf(HtmlConverter)).call(this, props));
+	
+	    _this.state = {
+	      converterEngines: []
+	    };
+	
+	    _this.execute = _this.execute.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(HtmlConverter, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var self = this;
+	
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/data/htmlconverterengine/list?companyid=" + _auth2.default.getCompanyid() + "&userid=" + _auth2.default.getUserid(),
+	        type: "get",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          console.log("converter list");
+	          console.log(response);
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	
+	          self.setState({
+	            converterEngines: response.body.converterEngineIds
+	          });
+	        },
+	        error: function error(request, status, _error) {
+	          alert("error");
+	          console.log(request.responseText);
+	          console.log(status);
+	          console.log(_error);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'execute',
+	    value: function execute() {
+	      var _data;
+	
+	      var self = this;
+	      self.refs.loading.openModal();
+	      self.refs.popupMessage.showMessage("now testing...");
+	      var data = (_data = {
+	        companyid: _auth2.default.getCompanyid(),
+	        userid: _auth2.default.getUserid()
+	      }, _defineProperty(_data, 'companyid', _auth2.default.getCompanyid()), _defineProperty(_data, 'converterId', this.refs.converterEngine.value), _defineProperty(_data, 'content', this.refs.htmlcontent.value), _defineProperty(_data, 'code', 10), _data);
+	
+	      _jquery2.default.ajax({
+	        url: "../commonModules/php/modules/GML.php/gml/data/htmlconverterengine",
+	        type: "post",
+	        data: JSON.stringify(data),
+	        contentType: 'application/json',
+	        dataType: "json",
+	        headers: {
+	          Authorization: "Bearer " + _auth2.default.getToken()
+	        },
+	        success: function success(response) {
+	          if (response.body.code == 401) {
+	            _auth2.default.logout();
+	          }
+	        },
+	        error: function error(request, status, _error2) {
+	          alert("failed to do testing. Contact Administrator");
+	          console.log(status);
+	          console.log(_error2);
+	        }
+	      }).done(function (data, textStatus, jqXHR) {
+	        self.refs.loading.closeModal();
+	        self.refs.popupMessage.closeMessage("finished testing !");
+	
+	        console.log("done testing");
+	        console.log(data);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: styles.htmlConverterBox },
+	        React.createElement(
+	          'select',
+	          { ref: 'converterEngine', className: styles.selectMenuDataCrawlerEngines },
+	          React.createElement(
+	            'option',
+	            { value: '', disabled: true, selected: true },
+	            'Select Converter Engine'
+	          ),
+	          this.state.converterEngines.map(function (d, idx) {
+	            return React.createElement(
+	              'option',
+	              { value: d, key: "seg" + d },
+	              d
+	            );
+	          })
+	        ),
+	        React.createElement(
+	          'div',
+	          { onClick: this.execute, className: styles.htmlConverterExecuteButtonBox },
+	          'Execute'
+	        ),
+	        React.createElement('textarea', { ref: 'htmlcontent', placeholder: 'Paste Html Tag Here', name: 'kanso', rows: '50', cols: '100' }),
+	        React.createElement(_loading2.default, { ref: 'loading' }),
+	        React.createElement(_popupMessage2.default, { ref: 'popupMessage' })
+	      );
+	    }
+	  }]);
+	
+	  return HtmlConverter;
+	}(React.Component);
+	
+	exports.default = HtmlConverter;
 
 /***/ })
 /******/ ]);
