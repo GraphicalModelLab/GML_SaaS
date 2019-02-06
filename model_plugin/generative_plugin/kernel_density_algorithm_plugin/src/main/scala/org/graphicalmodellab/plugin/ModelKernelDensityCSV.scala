@@ -66,13 +66,19 @@ class ModelKernelDensityCSV extends Model{
     }
 
     // 2. Upload Jar
-    val bytes: Array[Byte] = Files.readAllBytes(Paths.get(appJar))
-    val response2 = Http("http://"+sparkJobServerHost+":8090/jars/"+appNameSparkJob)
-      .timeout(connTimeoutMs = 40000, readTimeoutMs = 90000 )
-      .header("Content-Type", "application/java-archive")
-      .postData(bytes)
-      .asString
-    println(response2)
+    if(Files.exists(Paths.get(appJar))) {
+      val bytes: Array[Byte] = Files.readAllBytes(Paths.get(appJar))
+      val response2 = Http("http://"+sparkJobServerHost+":8090/jars/"+appNameSparkJob)
+        .timeout(connTimeoutMs = 40000, readTimeoutMs = 90000 )
+        .header("Content-Type", "application/java-archive")
+        .postData(bytes)
+        .asString
+      println(response2)
+    }else{
+      println("File Not found: "+appJar)
+      println("Failed to initialize Kernel Density CSV Plugin")
+      println("Check out if appJar property of your model_kernel_density.conf is correctly pointing to an existing jar file ")
+    }
 
   }
 

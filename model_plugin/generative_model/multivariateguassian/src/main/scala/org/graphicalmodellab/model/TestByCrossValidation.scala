@@ -247,8 +247,10 @@ object TestByCrossValidation extends SparkSessionJob{
   def training(csvData: DataFrame): Unit ={
     initCategoryMap(csvData)
 
+    println("training all nodes:"+allNodes.map(n => n.label).toList.mkString(","))
     (0 until allNodes.length).foreach {
-      nodeIndex => print(nodeIndex)
+      nodeIndex =>
+        print(allNodes(nodeIndex).label)
 
         if(!allNodes(nodeIndex).disable) {
           val categoryLabelList = collection.mutable.ListBuffer[String]();
