@@ -42,3 +42,7 @@ POST               /gml/:companyId/data/crawlerscrapingengine     controllers.Gr
 GET                /gml/:companyId/data/crawlerengine/list     controllers.GraphicalModelLabServiceController.getListOfAvailableDataCrawlerEngine(companyId:String)
 +nocsrf
 POST               /gml/:companyId/data/crawlerengine     controllers.GraphicalModelLabServiceController.executeCrawlerEngine(companyId:String)
++nocsrf
+GET                /gml/:companyId/data/htmlconverterengine/list     controllers.GraphicalModelLabServiceController.getListOfAvailableHtmlConverterEngine(companyId:String)
++nocsrf
+POST               /gml/:companyId/data/htmlconverterengine     controllers.GraphicalModelLabServiceController.executeHtmlConverterEngine(companyId:String)

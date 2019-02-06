@@ -389,6 +389,27 @@ function executeCrawlerEngine($data,$authorization)
     return $response;
 }
 
+function executeHtmlConverterEngine($data,$authorization)
+{
+    $gml_config = parse_ini_file(__DIR__."/../config/GML.ini",true);
+    $gml_host_string = $gml_config["gml"]["host"].":".$gml_config["gml"]["port"];
+
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, "http://".$gml_host_string."/gml/".$data["companyid"]."/data/htmlconverterengine");
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+ 	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Authorization: '.$authorization));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+ 	curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,false);
+
+    $response = curl_exec($curl);
+    //$result = json_decode($response, true);
+
+    curl_close($curl);
+    return $response;
+}
+
 function getListOfDataCrawlerScrapingEngine($data,$authorization)
 {
     $gml_config = parse_ini_file(__DIR__."/../config/GML.ini",true);
@@ -417,6 +438,26 @@ function getListOfDataCrawlerEngine($data,$authorization)
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_URL, "http://".$gml_host_string."/gml/".$data["companyid"]."/data/crawlerengine/list");
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+ 	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: '.$authorization));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,false);
+
+    $response = curl_exec($curl);
+    //$result = json_decode($response, true);
+
+    curl_close($curl);
+    return $response;
+}
+
+function getListOfHtmlConverterEngine($data,$authorization)
+{
+    $gml_config = parse_ini_file(__DIR__."/../config/GML.ini",true);
+    $gml_host_string = $gml_config["gml"]["host"].":".$gml_config["gml"]["port"];
+
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, "http://".$gml_host_string."/gml/".$data["companyid"]."/data/htmlconverterengine/list");
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
  	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: '.$authorization));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
@@ -772,6 +813,41 @@ $GMLService->post('/gml/data/crawlerengine', function (Request $request) use ($G
 
      $decodeJSON = json_decode(
                executeCrawlerEngine($data_request,$request->headers->get("Authorization"))
+     ,
+     true);
+
+     return $GMLService->json(array(
+                   "success"=>true,
+                   "body" =>$decodeJSON,
+                   "request"=>$data_request),201);
+});
+
+$GMLService->get('/gml/data/htmlconverterengine/list', function (Request $request) use ($GMLService) {
+     mb_internal_encoding('UTF-8');
+     $data_request = array();
+
+     foreach ( $request->query->keys() as $key){
+        $data_request[$key] = $request->query->get($key);
+     }
+
+     $decodeJSON = json_decode(
+        getListOfHtmlConverterEngine($data_request,$request->headers->get("Authorization"))
+     ,
+     true);
+
+     return $GMLService->json(array(
+                   "success"=>true,
+                   "body" =>$decodeJSON,
+                   "request"=>$data_request),201);
+});
+
+$GMLService->post('/gml/data/htmlconverterengine', function (Request $request) use ($GMLService) {
+     $data_request = json_decode(file_get_contents("php://input"),true);
+
+     mb_internal_encoding('UTF-8');
+
+     $decodeJSON = json_decode(
+               executeHtmlConverterEngine($data_request,$request->headers->get("Authorization"))
      ,
      true);
 

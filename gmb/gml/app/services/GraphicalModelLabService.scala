@@ -48,4 +48,6 @@ trait GraphicalModelLabService {
   def executeCrawlerScrapingEngine(token:String, companyId:String,request: Option[executeDataCrawlerScrapingEngineRequest]): executeDataCrawlerScrapingEngineResponse
   def getListOfCrawlerEngine(): getListOfAvailableDataCrawlerEngineResponse
   def executeCrawlerEngine(token:String, companyId:String,request: Option[executeDataCrawlerEngineRequest]): executeDataCrawlerEngineResponse
+  def getListOfHtmlConverterEngine(): getListOfAvailableHtmlConverterEngineResponse
+  def executeHtmlConverterEngine(token:String, companyId:String,request: Option[executeHtmlConverterEngineRequest]): executeHtmlConverterEngineResponse
 }

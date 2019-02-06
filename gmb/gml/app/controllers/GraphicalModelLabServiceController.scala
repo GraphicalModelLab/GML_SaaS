@@ -447,4 +447,47 @@ class GraphicalModelLabServiceController @Inject() (gmlService: GraphicalModelLa
       }
     )
   }
+
+  def getListOfAvailableHtmlConverterEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[getListOfAvailableHtmlConverterEngineResponse](gmlService.getListOfHtmlConverterEngine(
+          //          request.headers.get("Authorization").get.substring(7),
+          //          companyId,
+          //          Some(getListOfAvailableModelsRequest(0,request.getQueryString("userid").get,companyId))
+          //          Json.fromJson[getListOfAvailableModelsRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
+
+  def executeHtmlConverterEngine(companyId: String) = {
+    Action(request =>
+      try
+        Ok(Json.toJson[executeHtmlConverterEngineResponse](gmlService.executeHtmlConverterEngine(
+          request.headers.get("Authorization").get.substring(7),
+          companyId,
+          Json.fromJson[executeHtmlConverterEngineRequest](request.body.asJson.get).asOpt
+        )))
+      catch {
+        case (err: Throwable) => {
+
+          val sw = new StringWriter
+          err.printStackTrace(new PrintWriter(sw))
+          err.printStackTrace()
+
+          BadRequest("Failure")
+        }
+      }
+    )
+  }
 }
