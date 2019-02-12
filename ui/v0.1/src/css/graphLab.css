@@ -333,3 +333,8 @@
     width: 190px;
     float:left;
 }
+
+/** Groupby Functionality **/
+.groupByRectangle{
+    fill-opacity: .1;
+}
