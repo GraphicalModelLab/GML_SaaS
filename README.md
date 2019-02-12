@@ -16,7 +16,7 @@ https://graphicalmodeling.com/
 
 ## Tutorial : Youtube
 
-https://www.youtube.com/channel/UCK5bUOuEGsPLYpgpa-j-C6w
+https://www.youtube.com/watch?v=FOI7ektZ04E
 
 ## Status of Project
 Some functionalities have not been implemented yet.
@@ -41,7 +41,7 @@ Some functionalities have not been implemented yet.
 | Design Graph - History of Testing Model | Users can browse the history of testing models, e.g. history of accuracy with graph structure. | Partially, Implemented. Need to make UI looks good | |
 | Design Graph - Add Node to Canvas | Users can add a new node to Canvas, which is for defining something other than just attributes. Some plugin utilize this feature. | Implemented | |
 | Design Graph - Model | Users can select the available algorithms (through plugins) | Implemented. The actual logic depends on plugins. (See multivariate Guassian model and kernel density model) | |
-| Design Graph - Group By | Users can select/move multiple components. |   Implemented | https://www.youtube.com/watch?v=7BQIoJ2NdwQ |
+| Design Graph - Group By | Users can select/move multiple components. |   Implemented | https://www.youtube.com/watch?v=FOI7ektZ04E |
 | Overall Security | Make sure that security of the service is enough | Need to confirm security perspective is ok  | |
 | Plugin - Multivariate Guassian Model | Users can run Multivariate Guassian Model | Implemented | |
 | Plugin - Kernel Density Model | Users can run Kernel Density Model | Implemented  | |
