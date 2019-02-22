@@ -100,7 +100,7 @@ export default class DataPalyground extends React.Component<Props, {}> {
                 <DataCrawlerViaSearchEngine/>
                 ):(
                    this.state.currentPanel == "extractor" ? (
-                    <DataCrawlerViaSearchEngine/>
+                    <DataExtractor/>
                    ):(
                     <HtmlConverter/>
                    )

@@ -41,7 +41,7 @@ export default class DataExtractor extends React.Component<Props, {}> {
 
     var self = this;
     $.ajax({
-      url: "../commonModules/php/modules/GML.php/gml/data/htmlconverterengine/list?companyid=" + auth.getCompanyid() + "&userid=" + auth.getUserid(),
+      url: "../commonModules/php/modules/GML.php/gml/data/extractor/list?companyid=" + auth.getCompanyid() + "&userid=" + auth.getUserid(),
       type: "get",
       headers: {
         Authorization: "Bearer " + auth.getToken()
