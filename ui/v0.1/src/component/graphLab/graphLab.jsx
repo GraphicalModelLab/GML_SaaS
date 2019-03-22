@@ -389,17 +389,25 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
             data: JSON.stringify(data),
             contentType: 'application/json',
             dataType: "json",
+            timeout : 0,
             headers: {
               Authorization: "Bearer " + auth.getToken()
             },
             success: function(response) {
-              if (response.body.code == 401) {
-                auth.logout();
+
+              if(response.success == true){
+                  if (response.body.code == 401) {
+                    auth.logout();
+                  }
+
+                  var jsonResponse = JSON.parse(response.body.accuracy)
+
+                  self.refs.testResult.openModal(jsonResponse.accuracy, jsonResponse.evaluationMethod);
+              }else{
+                  self.refs.popupMessage.closeMessage("Error Occurred !");
+                  self.showMessage("Contact System Administrator : "+response.error, 20000);
+                  self.refs.loading.closeModal();
               }
-
-              var jsonResponse = JSON.parse(response.body.accuracy)
-
-              self.refs.testResult.openModal(jsonResponse.accuracy, jsonResponse.evaluationMethod);
             },
             error: function(request, status, error) {
               alert("failed to do testing. Contact Administrator");

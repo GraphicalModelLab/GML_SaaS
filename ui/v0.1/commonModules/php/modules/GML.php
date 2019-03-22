@@ -95,9 +95,16 @@ function test($data,$authorization)
  	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Authorization: '.$authorization));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
  	curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+// 	curl_setopt($curl, CURLOPT_VERBOSE, TRUE);
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,false);
+//    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER,0);
+//    curl_setopt($curl, CURLOPT_COOKIESESSION, TRUE);
+//    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT,0);
 
     $response = curl_exec($curl);
+    if ($response === false) {
+            throw new Exception(curl_error($curl), curl_errno($curl));
+    }
     //$result = json_decode($response, true);
 
     curl_close($curl);
@@ -112,7 +119,8 @@ function exploreGraph($data,$authorization)
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_URL, "http://".$gml_host_string."/gml/".$data["companyid"]."/model/graph/explore");
-    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+//    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+    curl_setopt($curl, CURLOPT_POST, 1);
  	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Authorization: '.$authorization));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
  	curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
@@ -491,15 +499,24 @@ $GMLService->post('/gml/test', function (Request $request) use ($GMLService) {
 
      mb_internal_encoding('UTF-8');
 
-     $decodeJSON = json_decode(
-               test($data_request,$request->headers->get("Authorization"))
-     ,
-     true);
+     try{
+         $decodeJSON = json_decode(
+                  test($data_request,$request->headers->get("Authorization"))
+         ,
+         true);
 
-     return $GMLService->json(array(
-                   "success"=>true,
-                   "body" =>$decodeJSON,
-                   "request"=>$data_request),201);
+
+         return $GMLService->json(array(
+                       "success"=>true,
+                       "body" =>$decodeJSON,
+                       "request"=>$data_request),201);
+     } catch(Exception $e) {
+         return $GMLService->json(array(
+                       "success"=>false,
+                       "request"=>$data_request,
+                       "error" => sprintf('Curl failed with error #%d: %s',$e->getCode(), $e->getMessage())),201);
+
+     }
 });
 
 $GMLService->post('/gml/graph/explore', function (Request $request) use ($GMLService) {
