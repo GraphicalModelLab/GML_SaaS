@@ -14,21 +14,13 @@
   * limitations under the License.
   */
 
-package services
+package org.graphicalmodellab.api
 
 import java.util.Date
 
-import gml.{getModelInHistoryRequest, getModelInHistoryResponse, getRequest, getResponse, getTestHistoryRequest, listRequest, listResponse, saveRequest, trainingRequest}
 import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.api.graph_api.testRequest
-
-trait GmlDBClient {
+trait GmlDBAPIClient {
   def init(keyspace: String,hosts: List[String]): Unit
-  def save(request: saveRequest): Date
-  def saveTrainingHistory(request: trainingRequest): Date
   def saveTestHistory(request: testRequest, accuracy: Double): JSONObject
-  def getTestHistory(request: getTestHistoryRequest): List[String]
-  def list(request: listRequest):listResponse
-  def get(request: getRequest):getResponse
-  def getModelInHistory(request: getModelInHistoryRequest):getModelInHistoryResponse
 }

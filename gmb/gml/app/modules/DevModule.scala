@@ -17,6 +17,7 @@
 package modules
 
 import com.google.inject.AbstractModule
+import org.graphicalmodellab.api.{GmlDBAPIClient, GmlDBAPIClientImpl}
 import org.graphicalmodellab.auth.{AuthDBClient, AuthDBClientEncryptingImpl, AuthDBClientImpl}
 import org.graphicalmodellab.cassandra.{CassandraClient, CassandraClientImpl}
 import org.graphicalmodellab.elastic.{ElasticSearchClient, ElasticSearchClientImpl}
@@ -30,6 +31,7 @@ class DevModule extends AbstractModule {
     bind(classOf[GraphicalModelLabService]).to(classOf[GraphicalModelLabServiceImpl])
     bind(classOf[CassandraClient]).to(classOf[CassandraClientImpl])
     bind(classOf[GmlDBClient]).to(classOf[GmlDBClientImpl])
+    bind(classOf[GmlDBAPIClient]).to(classOf[GmlDBAPIClientImpl])
     bind(classOf[ElasticSearchClient]).to(classOf[ElasticSearchClientImpl])
     bind(classOf[GmlElasticSearchClient]).to(classOf[GmlElasticSearchClientImpl])
     bind(classOf[Hash]).to(classOf[SHA256Impl])

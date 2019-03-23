@@ -22,12 +22,12 @@ import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.google.inject.Inject
 import gml._
 import org.codehaus.jettison.json.JSONObject
+import org.graphicalmodellab.api.graph_api._
 import org.graphicalmodellab.cassandra.CassandraClient
 import play.api.http.Status
 import play.api.libs.json.Json
 
 import scala.collection.mutable
-import org.graphicalmodellab.api.graph_api._
 
 class GmlDBClientImpl @Inject () (client: CassandraClient) extends GmlDBClient{
 

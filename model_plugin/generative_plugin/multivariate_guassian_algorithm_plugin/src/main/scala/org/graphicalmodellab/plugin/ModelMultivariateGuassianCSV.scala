@@ -17,18 +17,50 @@
 package org.graphicalmodellab.plugin
 
 import java.nio.file.{Files, Paths}
+import java.util.concurrent.{ExecutorService, Executors}
 
+import com.google.inject.Inject
 import com.typesafe.config.ConfigFactory
 import org.codehaus.jettison.json.JSONObject
-import org.graphicalmodellab.api.Model
-import org.graphicalmodellab.api.graph_api.{graph, _}
-import play.api.Logger
+import org.graphicalmodellab.api.{GmlDBAPIClient, Model}
+import org.graphicalmodellab.api.graph_api.{graph, testRequest, _}
+import play.api.{Configuration, Logger}
 import play.api.libs.json._
 
 import scala.collection.mutable
 import scalaj.http.{Base64, Http}
 
+class jobCheck(gmlDBClient: GmlDBAPIClient,sparkJobServerHost: String, testRequest:testRequest, jobId: String) extends Runnable {
+  def run() {
+        // Sometimes, if we try to get job status just right after registering, you get Error, "No such job ID...". Thus, put a sleep before getting status
+        Thread.sleep(5000);
+
+        var accuracy = -0.1;
+        var continue = true
+        while(continue){
+          val statusResponse = new JSONObject(Http("http://"+sparkJobServerHost+":8090/jobs/"+jobId)
+            .asString.body)
+
+          statusResponse.get("status") match {
+            case "ERROR" => continue = false;
+            case "FINISHED" =>
+              continue = false;
+              accuracy = statusResponse.getJSONObject("result").getDouble("accurarcy")
+            case _ =>
+          }
+
+          Thread.sleep(1000);
+        }
+
+        gmlDBClient.saveTestHistory(testRequest, accuracy)
+  }
+}
+
 class ModelMultivariateGuassianCSV extends Model{
+
+  var gmlDBClient: GmlDBAPIClient = null;
+  val executorService:ExecutorService = Executors.newFixedThreadPool(10);
+
   val config = ConfigFactory.load("model_multivariate_guassian.conf")
 
   // Three Parameters for spark-job-server
@@ -61,7 +93,8 @@ class ModelMultivariateGuassianCSV extends Model{
     Model.SHAPE_BOX
   )
 
-  override def init(): Unit ={
+  override def init(_gmlDBClient: GmlDBAPIClient): Unit ={
+    gmlDBClient = _gmlDBClient
     // 1. Generate Context
     val existingSparkContext = Json.fromJson[sparkJobContextRequest](Json.parse(Http("http://"+sparkJobServerHost+":8090/contexts").timeout(connTimeoutMs = 4000, readTimeoutMs = 9000 ).asString.body))
 
@@ -91,11 +124,11 @@ class ModelMultivariateGuassianCSV extends Model{
 
   }
 
-  override def testByCrossValidation(graph:graph, datasource: String,targetLabel: String, numOfSplit: Int): Double={
-    val jsonString = Json.stringify(Json.toJson(graph))
+  override def testByCrossValidation(testRequest:testRequest, numOfSplit: Int): (String, Double)={
+    val jsonString = Json.stringify(Json.toJson(testRequest.graph))
 
     val requestString =
-      "{"+ "\"datasource\":\""+datasource+"\","+"\"targetLabel\":\""+targetLabel+"\","+"\"numOfSplit\":"+numOfSplit+",\"graph\":"+ jsonString+"}"
+      "{"+ "\"datasource\":\""+testRequest.testsource+"\","+"\"targetLabel\":\""+testRequest.targetLabel+"\","+"\"numOfSplit\":"+numOfSplit+",\"graph\":"+ jsonString+"}"
     val base64Encoded = Base64.encodeString(requestString)
 
     val responseJson = new JSONObject(Http("http://"+sparkJobServerHost+":8090/jobs?appName="+appNameSparkJob+"&context="+contextName+"&classPath="+classPath)
@@ -103,28 +136,13 @@ class ModelMultivariateGuassianCSV extends Model{
                     .postData("input.string = \""+base64Encoded+"\"")
                     .asString.body)
 
-    Logger.logger.info("First response");
-    Logger.logger.info(responseJson.toString());
-    if(responseJson.get("status") == "ERROR") return -1;
+    val jobId:String = responseJson.get("jobId").toString
+    executorService.execute(new jobCheck(gmlDBClient, sparkJobServerHost, testRequest, jobId))
 
-    val jobId = responseJson.get("jobId")
+    val response = new JSONObject()
+    response.put("MODE", Model.MODEL_MODE_ASYNCHRONOUS)
 
-    // Sometimes, if we try to get job status just right after registering, you get Error, "No such job ID...". Thus, put a sleep before getting status
-    Thread.sleep(5000);
-    while(true){
-      val statusResponse = new JSONObject(Http("http://"+sparkJobServerHost+":8090/jobs/"+jobId)
-        .asString.body)
-
-      statusResponse.get("status") match {
-        case "ERROR" => return -1
-        case "FINISHED" => return statusResponse.getJSONObject("result").getDouble("accurarcy")
-        case _ =>
-      }
-
-      Thread.sleep(1000);
-    }
-
-    return -1;
+    return (response.toString(), -1.0);
   }
 
   /**
@@ -165,8 +183,8 @@ class ModelMultivariateGuassianCSV extends Model{
       graphInfo.commonProperties
     )
 
-    val accuracy = testByCrossValidation(newGraph,datasource,targetLabel,10)
+//    val accuracy = testByCrossValidation(newGraph,datasource,targetLabel,10)
 
-    return (newGraph, accuracy)
+    return (newGraph, -1)
   }
 }

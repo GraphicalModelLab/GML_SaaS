@@ -402,7 +402,13 @@ export default class GraphicalDesign extends React.Component<Props, {}> {
 
                   var jsonResponse = JSON.parse(response.body.accuracy)
 
-                  self.refs.testResult.openModal(jsonResponse.accuracy, jsonResponse.evaluationMethod);
+                  if(jsonResponse.MODE == "synchronous"){
+                    self.refs.testResult.openModal(jsonResponse.accuracy, jsonResponse.evaluationMethod);
+                  }else{
+                      self.refs.popupMessage.closeMessage("Asynchronously calculating now...");
+                      self.showMessage("This plugin is asynchronous plugin. Check out the result later", 20000);
+                      self.refs.loading.closeModal();
+                  }
               }else{
                   self.refs.popupMessage.closeMessage("Error Occurred !");
                   self.showMessage("Contact System Administrator : "+response.error, 20000);
