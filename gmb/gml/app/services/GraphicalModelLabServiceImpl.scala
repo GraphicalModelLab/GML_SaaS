@@ -21,7 +21,7 @@ import java.util.ServiceLoader
 import com.google.inject.Inject
 import gml._
 import org.graphicalmodellab.api._
-import org.graphicalmodellab.api.graph_api.graph
+import org.graphicalmodellab.api.graph_api.{graph, testRequest, testResponse}
 import org.graphicalmodellab.auth.AuthDBClient
 import play.api.{Configuration, Logger}
 import play.api.http.Status
@@ -30,7 +30,7 @@ import play.api.libs.json.Json
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 
-class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient: GmlDBClient, gmlElasticSearchClient:GmlElasticSearchClient,authDBClient:AuthDBClient) extends GraphicalModelLabService{
+class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient: GmlDBClient,gmlDBAPIClient: GmlDBAPIClient, gmlElasticSearchClient:GmlElasticSearchClient,authDBClient:AuthDBClient) extends GraphicalModelLabService{
   var listOfModel: mutable.ListBuffer[String] = mutable.ListBuffer[String]()
   var modelMap: mutable.Map[String,Model] = mutable.Map[String,Model]()
 
@@ -54,6 +54,7 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
   def init() {
     Logger.info("Setup Connection to DB and Elastic Search..")
     gmlDBClient.init(config.get[String]("gml.cassandra.keyspace"),List[String](config.get[String]("gml.cassandra.host")));
+    gmlDBAPIClient.init(config.get[String]("gml.cassandra.keyspace"),List[String](config.get[String]("gml.cassandra.host")));
     authDBClient.init(config.get[String]("auth.cassandra.keyspace"),List[String](config.get[String]("auth.cassandra.host")));
     gmlElasticSearchClient.init(config.get[String]("gml.elasticsearch.host"));
   }
@@ -74,7 +75,7 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
     for (w <- models) {
       println("Loading Model : "+w.getModelName+"..")
       modelList += w.getModelName
-      w.init()
+      w.init(gmlDBAPIClient)
       modelMap.put(getModelId(w.getModelName),w)
     }
     listOfModel = modelList
@@ -179,11 +180,9 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
           }else if(request.evaluationMethod == Model.EVALUATION_METHOD_CROSS_VALIDATION){
             val K = 10;
 
-            val accuracy = model.testByCrossValidation(request.graph,request.testsource, request.targetLabel,K)
-            val accuracySummary = gmlDBClient.saveTestHistory(request, accuracy)
+            val accuracy = model.testByCrossValidation(request,K)
 
-            print("Cross validated result:"+ accuracy)
-            return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracySummary.toString)
+            return testResponse(Status.INTERNAL_SERVER_ERROR, 1, "", accuracy._1)
 
           }else{
 

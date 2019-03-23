@@ -15,10 +15,34 @@
   */
 
 package org.graphicalmodellab.api
-
 import play.api.libs.json._
 
 package object graph_api {
+
+  // 2. test request
+  case class testRequest(code: Int, userid:String, companyid: String, graph: graph, evaluationMethod: String, testsource: String, targetLabel:String)
+  case class testResponse(code: Int, testSuccessCode: Int, modelid: String, accuracy: String)
+
+  implicit lazy val testRequestReads: Reads[testRequest] = Reads[testRequest] {
+    json => JsSuccess(testRequest(
+      (json \ "code").as[Int],
+      (json \ "userid").as[String],
+      (json \ "companyid").as[String],
+      (json \ "graph").as[graph],
+      (json \ "evaluationMethod").as[String],
+      (json \ "testsource").as[String],
+      (json \ "targetLabel").as[String]
+    ))
+  }
+
+  implicit lazy val testRequestWrites: Writes[testResponse] = Writes[testResponse] {
+    o => JsObject(Seq(
+      "code" -> Json.toJson(o.code),
+      "testSuccessCode" -> Json.toJson(o.testSuccessCode),
+      "modelid" -> Json.toJson(o.modelid),
+      "accuracy" -> Json.toJson(o.accuracy)
+    ).filter(_._2 != JsNull))
+  }
 
   // Graph Properties
   case class property(name: String, value: String)

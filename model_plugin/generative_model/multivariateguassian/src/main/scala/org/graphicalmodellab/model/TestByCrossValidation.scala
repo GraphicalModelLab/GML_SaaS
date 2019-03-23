@@ -30,9 +30,12 @@ import spark.jobserver._
 import spark.jobserver.api.{JobEnvironment, SingleProblem, ValidationProblem}
 import org.scalactic._
 import play.api.libs.json._
+
 import scala.collection.mutable
 import scala.util.Try
 import org.graphicalmodellab.model._
+
+import scala.collection.mutable.ListBuffer
 
 /*-
  * #%L
@@ -98,6 +101,9 @@ object TestByCrossValidation extends SparkSessionJob{
   var distributionMap: mutable.Map[String, String] = null;
   var categoricalPossibleValues : collection.mutable.Map[String, Set[String]] = null;
   var guassianHyperParam : mutable.Map[String, MultivariateGaussian] = null;
+  var categoricalVariableParam : mutable.Map[String, Long] = null;
+  var vocabularySizeCategoricalVariable : mutable.Map[String, Long] = null;
+  var totalRow = 0L;
 
   def getJointId(nodesLabel: List[String]): String=nodesLabel.sorted.mkString(".")
 
@@ -120,6 +126,8 @@ object TestByCrossValidation extends SparkSessionJob{
     //    collection.mutable.Map[String,collection.mutable.Set[String]]("category" -> collection.mutable.Set[String]("red","white"))
 
     guassianHyperParam = mutable.Map[String, MultivariateGaussian]()
+    categoricalVariableParam = mutable.Map[String, Long]()
+    vocabularySizeCategoricalVariable = mutable.Map[String, Long]()
   }
 
   def initCategoryMap(csvData: DataFrame): Unit ={
@@ -165,6 +173,7 @@ object TestByCrossValidation extends SparkSessionJob{
     val splittedDf = csvData.randomSplit(weight.toArray)
 
     var averagedAccuracy = 0.0
+
     (0 until numOfSplit).foreach{
       index=>
             val testDF = splittedDf(index);
@@ -195,30 +204,29 @@ object TestByCrossValidation extends SparkSessionJob{
 
             for(row <- testDF.collect().toList){
               val cols = row.toSeq.toList.asInstanceOf[List[String]]
-              var maxLabel = ""
-              var maxValue = - Double.MaxValue
 
+              var normalizeProbability = ListBuffer[(Double, String)]()
+              var totalProb = 0.0
               for (targetValue <- categoricalPossibleValues.get(target).get){
                 val prob = test(target,targetValue, cols)
-
-    //            println("  predict "+target+" = "+prob)
-                if(prob > maxValue){
-                  maxLabel = targetValue;
-                  maxValue = prob;
-                }
+                normalizeProbability += ((prob,targetValue))
+                totalProb += prob
               }
 
+              val maxTuple = normalizeProbability.map( x => (x._1/totalProb,x._2)).sortWith(_._1 > _._1).toList(0)
+
     //          println("  selected "+maxLabel+" , "+maxValue)
-              if(cols(targetIndex) == maxLabel){
+              if(cols(targetIndex) == maxTuple._2){
                 count += 1
               }
               total += 1
             }
 
-    //        println("acurracy("+index+")="+(count.toDouble/total.toDouble))
-
+            // 1. Get Simple Accuracy
             averagedAccuracy += (count.toDouble/total.toDouble)
-    }
+
+            println("acurracy("+index+")="+(count.toDouble/total.toDouble))
+        }
 
 
     (0 until numOfSplit).foreach {
@@ -247,10 +255,21 @@ object TestByCrossValidation extends SparkSessionJob{
   def training(csvData: DataFrame): Unit ={
     initCategoryMap(csvData)
 
+    // 1. Getting Vcaburary size
+    (0 until allNodes.length).foreach {
+      nodeIndex =>
+        if(!allNodes(nodeIndex).disable){
+          vocabularySizeCategoricalVariable.put(allNodes(nodeIndex).label,csvData.select(csvData.columns(nodeIndex)).distinct().count())
+        }
+    }
+
+    totalRow = csvData.count()
+
+    // 2. Training for each node
     println("training all nodes:"+allNodes.map(n => n.label).toList.mkString(","))
     (0 until allNodes.length).foreach {
       nodeIndex =>
-        print(allNodes(nodeIndex).label)
+//        print(allNodes(nodeIndex).label)
 
         if(!allNodes(nodeIndex).disable) {
           val categoryLabelList = collection.mutable.ListBuffer[String]();
@@ -270,8 +289,8 @@ object TestByCrossValidation extends SparkSessionJob{
               }
           }
 
-          println("categorical Label List : " + categoryLabelList.mkString(","))
-          println("real Label List : " + realLabelList.mkString(","))
+//          println("categorical Label List : " + categoryLabelList.mkString(","))
+//          println("real Label List : " + realLabelList.mkString(","))
 
           // 1. Calculation for Numerator, e.g. P(A,B,C)
           if (distributionMap.get(allNodes(nodeIndex).label).get == "categorical") {
@@ -286,10 +305,16 @@ object TestByCrossValidation extends SparkSessionJob{
     }
 
     println("Finished Learning ---- Dumping Parameters")
+    println("Guassian Param")
     for( parameter <- guassianHyperParam){
       println(" Parameter - "+parameter._1 +" , ")
       println("    Mean : "+parameter._2.mu.toArray.mkString(","))
       println("    Covariance : "+parameter._2.sigma.toArray.mkString(","))
+    }
+
+    println("Categorical Param")
+    for( parameter <- categoricalVariableParam){
+      println(" ( "+parameter._1 +" , "+parameter._2+")")
     }
   }
 
@@ -326,6 +351,8 @@ object TestByCrossValidation extends SparkSessionJob{
           val covariance: Matrix = mat.computeCovariance()
 
           guassianHyperParam.put(jointIdentity, new MultivariateGaussian(summary.mean, covariance))
+        }else{
+          categoricalVariableParam.put(jointIdentity,rdd_dense.count())
         }
       }
     }else {
@@ -340,7 +367,8 @@ object TestByCrossValidation extends SparkSessionJob{
   def test(targetLabel: String, targetValue: String, attr_values: List[String]): Double={
     var totalProb = 1.0
     (0 until allNodes.length).foreach {
-      nodeIndex => print(nodeIndex)
+      nodeIndex =>
+//        println(nodeIndex)
 
         if(!allNodes(nodeIndex).disable) {
 
@@ -375,21 +403,33 @@ object TestByCrossValidation extends SparkSessionJob{
           }
 
 
-          // 1. Calculation for Numerator, e.g. P(A,B,C)
           val nodeValue = if (allNodes(nodeIndex).label == targetLabel) targetValue else attr_values(nodeIndex)
 
-          var numerator = 0.0
-          if (distributionMap.get(allNodes(nodeIndex).label).get == "categorical") {
-            numerator = predict((dependentCategoryValues + (allNodes(nodeIndex).label -> nodeValue)).toMap, realLabelList.toList, attr_values)
-          } else {
-            numerator = predict(dependentCategoryValues.toMap, realLabelList.toList :+ allNodes(nodeIndex).label, attr_values)
+          if(distributionMap.get(allNodes(nodeIndex).label).get == "categorical" && dependentCategoryValues.size == 0) {
+            // If no dependent categorical variables, return 1 (which means uniform distribution)
+//            println("OnlyCategoricalProb("+allNodes(nodeIndex).label+")=1")
+            totalProb *= 1
+          }else{
+            if (distributionMap.get(allNodes(nodeIndex).label).get == "categorical") {
+              // 1. Calculation for Numerator, e.g. P(A,B,C)
+              val numerator = predict((dependentCategoryValues + (allNodes(nodeIndex).label -> nodeValue)).toMap, realLabelList.toList, attr_values)
+
+              // 2. Calculation for Denominator, e.g. P(B,C)
+              val denominator = predict(dependentCategoryValues.toMap, realLabelList.toList, attr_values)
+
+//              println("CategoricalProb("+allNodes(nodeIndex).label+")="+numerator+"/"+denominator+" : "+(numerator / denominator))
+              totalProb *= (numerator / denominator)
+            } else {
+              // 1. Calculation for Numerator, e.g. P(A,B,C)
+              val numerator = predict(dependentCategoryValues.toMap, realLabelList.toList :+ allNodes(nodeIndex).label, attr_values)
+
+              // 2. Calculation for Denominator, e.g. P(B,C)
+              val denominator = predict(dependentCategoryValues.toMap, realLabelList.toList, attr_values)
+
+//              println("RealProb("+allNodes(nodeIndex).label+")="+numerator+"/"+denominator+" : "+(numerator / denominator))
+              totalProb *= (numerator / denominator)
+            }
           }
-
-
-          // 2. Calculation for Denominator, e.g. P(B,C)
-          val denominator = predict(dependentCategoryValues.toMap, realLabelList.toList, attr_values)
-
-          totalProb *= (numerator / denominator)
         }
     }
 
@@ -413,13 +453,17 @@ object TestByCrossValidation extends SparkSessionJob{
 
       val prob = guassian.pdf(Vectors.dense(values.toArray))
 
-      println("Predict with Guassian : "+prob +" , P("+categoryValues+","+realLabelIndices+","+attr_values);
+//      println("Predict with Guassian : "+prob +" , P("+categoryValues+","+realLabelIndices+","+attr_values);
 
       return prob
     }else{
-
-      //      println("Predicted Parameter : "+jointIdentity)
-      return 1;
+      if(categoricalVariableParam.contains("jointIdentity")) {
+        return categoricalVariableParam.getOrElse[Long](jointIdentity, 1).toDouble
+      }else {
+        // This case, we simply have never see this category value. So, we just return 1 to make it fare
+        //      println("Predicted Parameter : "+jointIdentity)
+        return 1.0/totalRow;
+      }
     }
   }
 }

@@ -17,6 +17,7 @@
 package services
 
 import gml.{warmupResponse, _}
+import org.graphicalmodellab.api.graph_api.{testRequest, testResponse}
 
 trait GraphicalModelLabService {
   def init() : Unit

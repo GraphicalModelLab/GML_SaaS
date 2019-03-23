@@ -16,6 +16,7 @@
 
 package org.graphicalmodellab.api
 
+import org.codehaus.jettison.json.JSONObject
 import org.graphicalmodellab.api.graph_api._
 
 object Model{
@@ -24,6 +25,9 @@ object Model{
 
   val SHAPE_CIRCLE = "circle"
   val SHAPE_BOX = "box"
+
+  val MODEL_MODE_ASYNCHRONOUS = "asyncrhonous"
+  val MODEL_MODE_SYNCHRONOUS = "synchronous"
 }
 
 trait Model{
@@ -32,9 +36,9 @@ trait Model{
   def getSupportedEvaluationMethod: List[String]
   def getSupportedShape: List[String]
 
-  def init(): Unit
+  def init(gmlDBClient: GmlDBAPIClient): Unit
   def training(graph:graph, datasource: String): Unit
   def testSimple(graph: graph, testsource : String, targetLabel: String): Double
-  def testByCrossValidation(graph:graph, datasource: String, targetLabel: String, numOfSplit: Int): Double
+  def testByCrossValidation(request:testRequest, numOfSplit: Int): (String, Double)
   def exploreStructure(graph:graph, targetLabel: String, datasource: String): (graph, Double)
 }
