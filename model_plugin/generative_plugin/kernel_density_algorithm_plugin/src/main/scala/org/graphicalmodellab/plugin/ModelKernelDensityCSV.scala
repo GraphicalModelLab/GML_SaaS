@@ -61,10 +61,10 @@ class ModelKernelDensityCSV extends Model{
 
   var gmlDBClient: GmlDBAPIClient = null;
   // Three Parameters for spark-job-server
-  val contextName = "model_kernel_density_context"
+  val contextName = "generative_plugin_context"
   val appNameSparkJob = "model_kernel_density_app"
   val appJar = config.getString("app.jar")
-  val classPath = "org.graphicalmodellab.model.TestByCrossValidation"
+  val classPath = "org.graphicalmodellab.model.generative.kerneldensity.TestByCrossValidation"
   val sparkJobServerHost = config.getString("spark.job.server.host")
 
   override def getModelName: String = "KernelDensity"

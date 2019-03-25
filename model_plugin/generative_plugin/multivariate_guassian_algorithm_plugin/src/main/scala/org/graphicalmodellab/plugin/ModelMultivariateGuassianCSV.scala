@@ -64,10 +64,10 @@ class ModelMultivariateGuassianCSV extends Model{
   val config = ConfigFactory.load("model_multivariate_guassian.conf")
 
   // Three Parameters for spark-job-server
-  val contextName = "model_multivariate_guassian_context"
+  val contextName = "generative_plugin_context"
   val appNameSparkJob = "model_multivariate_guassian_app"
   val appJar = config.getString("app.jar")
-  val classPath = "org.graphicalmodellab.model.TestByCrossValidation"
+  val classPath = "org.graphicalmodellab.model.generative.multivariateguassian.TestByCrossValidation"
   val sparkJobServerHost = config.getString("spark.job.server.host")
 
   // Parameters for TestSimple & Training Methods

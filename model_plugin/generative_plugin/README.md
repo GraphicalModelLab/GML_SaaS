@@ -14,6 +14,24 @@ sbt
 
 "-Dspray.can.parsing.max-content-length=20m" option is for increasing the jar file size limit.
 
+## Other Configuration
+
+### max-jobs-per-context = 16
+Depending on the environment, your spark job server might be able to launch one application per one context at a time.
+
+So, if you want to run multiple application on the same context parallelly, then setup this configuration.
+
+### context-per-jvm = false
+It sounds that in dev mode, we cannot set this option to be true.
+
+## Note:
+This plugins have been tested only in dev mode. I have not tried them in production environment.
+
+Also, I have not been able to run multiple applications in different context concurrently.
+I think this is related to one option, context-per-jvm = false.
+
+It sounds that this option cannot be set true in dev mode.
+
 # How to Develop/Deploy Plugin for Graph Calculation Model
 GML uses ServiceLoader (Java library) to load your plugin into GML service.
 
