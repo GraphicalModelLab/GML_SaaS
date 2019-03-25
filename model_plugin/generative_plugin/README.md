@@ -17,9 +17,9 @@ sbt
 ## Other Configuration
 
 ### max-jobs-per-context = 16
-Depending on the environment, your spark job server might be able to launch one application per one context at a time.
+Depending on the environment, your spark job server might not be able to launch multiple applications per one context at a time.
 
-So, if you want to run multiple application on the same context parallelly, then setup this configuration.
+So, if you want to run multiple applications on the same context parallelly, then setup this configuration.
 
 ### context-per-jvm = false
 It sounds that in dev mode, we cannot set this option to be true.
