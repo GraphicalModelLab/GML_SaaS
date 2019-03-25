@@ -14,7 +14,7 @@
   * limitations under the License.
   */
 
-package org.graphicalmodellab.model
+package org.graphicalmodellab.model.generative.kerneldensity
 
 import com.typesafe.config.Config
 import org.apache.log4j.LogManager

@@ -14,7 +14,7 @@
   * limitations under the License.
   */
 
-package org.graphicalmodellab.model
+package org.graphicalmodellab.model.generative.multivariateguassian
 
 import org.apache.log4j.LogManager
 import org.apache.spark.mllib.linalg.{Matrix, Vectors}

@@ -14,12 +14,12 @@
   * limitations under the License.
   */
 
-package org.graphicalmodellab
+package org.graphicalmodellab.model.generative
 
 import org.graphicalmodellab.api.graph_api._
 import play.api.libs.json.{JsSuccess, Reads}
 
-package object model {
+package object kerneldensity {
   case class request(datasource: String, targetLabel: String, numOfSplit: Int, graph: graph)
   implicit lazy val requestReads: Reads[request] = Reads[request] {
     json => JsSuccess(request(
