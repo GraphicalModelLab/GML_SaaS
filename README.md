@@ -14,6 +14,13 @@ The goal of this OSS is to let users easily do the following tasks:
 
 https://graphicalmodeling.com/
 
+## How to Contribute
+If you are interested in contribution, please feel freet to send pull request.
+
+Also, please feel free to ask any question to me, e.g. struggled to setup development environment.
+
+Send some message via https://graphicalmodeling.com/contact/ as the first contact.
+
 ## Tutorial : Youtube
 
 https://www.youtube.com/watch?v=FOI7ektZ04E
@@ -94,14 +101,6 @@ This plugin appears in the content of GML's Data Exploration Menu.
 
 ### infra
 This directory contains Ansible + Terraform to deploy/configure GML service in Cloud.
-
-## How to Contribute
-If you are interested in contribution, please feel freet to send pull request.
-
-Also, please feel free to ask any question to me, e.g. struggled to setup development environment.
-
-Send message via https://graphicalmodeling.com/contact/
-
 
 ## Community in Japan
 https://graphicalmodellab.connpass.com
