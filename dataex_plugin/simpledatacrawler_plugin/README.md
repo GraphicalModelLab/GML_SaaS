@@ -1,7 +1,3 @@
-# Note
-This plugin has not been implemented. So, be careful.
-You can take a look at this plugin as an example about how you can develop plugin.
-
 # How to Develop/Deploy Plugin
 Basically, the way to develop plugin is the same as model_plugin.
 
