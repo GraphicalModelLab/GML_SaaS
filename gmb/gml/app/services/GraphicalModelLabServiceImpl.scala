@@ -368,7 +368,7 @@ class GraphicalModelLabServiceImpl @Inject() (config: Configuration,gmlDBClient:
 
           val extractor: DataExtractor = extractorMap.get(request.extractorId).get
 
-          extractor.process(companyId,request.userid, Map[String,Any](),Map[String,Any]())
+          extractor.process(companyId,request.userid, authDBClient.getGoogleAccount(companyId,request.userid),authDBClient.getFacebookAccount(companyId,request.userid))
 
           return executeExtractorResponse(Status.OK)
         }else{
