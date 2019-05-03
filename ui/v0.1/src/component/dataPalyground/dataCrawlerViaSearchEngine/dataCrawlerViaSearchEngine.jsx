@@ -380,7 +380,7 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
     var self = this;
 
     self.refs.loading.openModal();
-    self.refs.popupMessage.showMessage("now testing...");
+    self.refs.popupMessage.showMessage("now crawling...");
 
     var formData = new FormData();
     formData.append('file_1', acceptedFiles[0]);
@@ -444,11 +444,8 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
                       console.log(error);
                     },
         }).done((data, textStatus, jqXHR) => {
-                      self.refs.loading.closeModal();
-                      self.refs.popupMessage.closeMessage("finished testing !");
-
-                      console.log("done testing");
-                      console.log(data);
+            self.refs.loading.closeModal();
+            self.refs.popupMessage.closeMessage("finished crawling !");
         })
     })
   }
