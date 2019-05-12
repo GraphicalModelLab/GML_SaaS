@@ -22,7 +22,7 @@ import Dropzone from 'react-dropzone';
 import $ from 'jquery';
 import Loading from './../../loader/loading';
 import PopupMessage from './../../popupMessage/popupMessage';
-import HorizontalScroll from 'react-scroll-horizontal'
+//import HorizontalScroll from 'react-scroll-horizontal'
 
 export default class DataCrawlerViaSearchEngine extends React.Component<Props, {}> {
 
@@ -480,7 +480,6 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
 
            <img onClick={ this.addColumn } src="./../icon/mono_icons/plus32.png" className={ styles.icon }/>
            <div className={ styles.sgCrawlerTableScroller }>
-           <HorizontalScroll>
            <div className={ styles.sgCrawlerTableScrollerDiv }>
            <table className={ styles.sgCrawlerTable }>
            <tr>
@@ -538,7 +537,6 @@ export default class DataCrawlerViaSearchEngine extends React.Component<Props, {
             </tr>
            </table>
            </div>
-           </HorizontalScroll>
            </div>
         </div>
         <div className={ styles.dataCrawlerApplyRuleBox }>
