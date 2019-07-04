@@ -67,7 +67,7 @@ export default class HtmlConverter extends React.Component<Props, {}> {
   execute(){
     var self = this;
     self.refs.loading.openModal();
-    self.refs.popupMessage.showMessage("now testing...");
+    self.refs.popupMessage.showMessage("now converting...");
         var data = {
             companyid: auth.getCompanyid(),
             userid: auth.getUserid(),
@@ -98,7 +98,7 @@ export default class HtmlConverter extends React.Component<Props, {}> {
                     },
         }).done((data, textStatus, jqXHR) => {
                       self.refs.loading.closeModal();
-                      self.refs.popupMessage.closeMessage("finished testing !");
+                      self.refs.popupMessage.closeMessage("finished converting !");
 
                       console.log("done testing");
                       console.log(data);
