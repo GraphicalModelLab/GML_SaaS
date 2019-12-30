@@ -89,7 +89,6 @@ a:active {
 }
 
 .companyIcon{
-    paddinig-top:50px;
     margin-right:5px;
     zoom:60%;
 }
@@ -133,12 +132,10 @@ a:active {
 }
 
 .icon{
-    paddinig-top:50px;
     margin-right:5px;
     zoom:50%;
 }
 .searchIcon{
-    paddinig-top:50px;
     margin-right:5px;
     zoom:50%;
     background: white;
